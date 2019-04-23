@@ -1,7 +1,7 @@
 /* 
  *  =============================================================================================================================================
- *  Projet : Hackberry e-Nable France
- *  Auteur : Thomas Broussard
+ *  Project : Hackberry e-Nable France
+ *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
  *  Description :
@@ -26,6 +26,8 @@ Hackberry_servos::Hackberry_servos(Hackberry hackberry) {
 
 /**
  * Servomotor initialization
+ * 
+ * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
  */
 void Hackberry_servos::init(bool selectedHand) {
     // pins initialization
