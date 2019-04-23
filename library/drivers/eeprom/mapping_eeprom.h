@@ -10,8 +10,8 @@
  *
  *  Maximum storage possible:
  *      2048 characters
- *  or  1024 full
- *  or  512 floating
+ *  or  1024 integers
+ *  or  512  float
  *
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
@@ -47,7 +47,7 @@
 // speed of servomotors
 #define ADDR_SPEED_MIN        0x100  // int
 #define ADDR_SPEED_MAX        0x102  // int
-#define ADDR_SPEED_INVERSE    0x104  // int
+#define ADDR_SPEED_REVERSE    0x104  // int
 
 
 
