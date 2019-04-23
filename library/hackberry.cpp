@@ -4,34 +4,36 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description : Library for reading the Hackberry Hand Sensor
+ *  Description : Library to simplify the use of the Hackberry hand
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
  *  https://github.com/mission-arm/HACKberry
  * =============================================================================================================================================
  */
-
-#ifndef __HACKBERRY_SENSOR_H__
-#define __HACKBERRY_SENSOR_H__
-
-// dependencies
 #include "hackberry.h"
 
 
-// class
-class Hackberry_sensor{
+/**
+ * Constructor
+ */
+Hackberry::Hackberry()
+{
+    this->buttons   = Hackberry_buttons(this);
+    this->fingers   = Hackberry_servos(this);
+    this->sensor    = Hackberry_sensor(this);
+    this->debug     = Hackberry_debug(this);
+}
 
-    public: 
-    Hackberry_sensor(Hackberry _hackberry);
+/**
+ * Initialize the Hackberry Hand
+ * 
+ * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
+ */
+void Hackberry::begin(bool selectedHand)
+{
+    this->buttons.init(selectedHand);
+    this->fingers.init(selectedHand);
+    /** TODO : complete this function */
+}
 
-    private:
-
-    // Hackberry Hand
-    Hackberry _hackberry;
-
-    // Wiring pins
-};
-
-
-#endif

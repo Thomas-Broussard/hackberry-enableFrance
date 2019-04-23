@@ -4,7 +4,7 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description : Library for reading the Hackberry Hand Sensor
+ *  Description : Library to simplify the use of the Hackberry hand
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
@@ -12,26 +12,34 @@
  * =============================================================================================================================================
  */
 
-#ifndef __HACKBERRY_SENSOR_H__
-#define __HACKBERRY_SENSOR_H__
+#ifndef __HACKBERRY_H__
+#define __HACKBERRY_H__
 
 // dependencies
-#include "hackberry.h"
+#include <Arduino.h>
 
+// Hand Selection
+#define RIGHT_HAND true
+#define LEFT_HAND false
 
 // class
-class Hackberry_sensor{
+class Hackberry
+{
+    public:
+        Hackberry();
 
-    public: 
-    Hackberry_sensor(Hackberry _hackberry);
+        // initialisation
+        void begin(bool selectedHand);
 
-    private:
-
-    // Hackberry Hand
-    Hackberry _hackberry;
-
-    // Wiring pins
+        // Hackberry hand components
+        Hackberry_buttons buttons;
+        Hackberry_servos fingers;
+        Hackberry_sensor sensor;
+        Hackberry_eeprom eeprom;
+        Hackberry_debug debug;
+        // Hackberry_calibration calibration;
+        
+    private:      
 };
-
 
 #endif
