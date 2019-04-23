@@ -16,6 +16,11 @@
 #include "hackberry_buttons.h"
 
 
+/**
+ * Constructor
+ * 
+ * @param hackberry current Hackberry Hand object in use
+ */
 Hackberry_buttons::Hackberry_buttons(Hackberry hackberry)
 {
     this->_hackberry = hackberry;
