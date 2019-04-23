@@ -15,143 +15,134 @@
 
 #include "hackberry_servos.h"
 
-
-
-Hackberry_servos::Hackberry_servos(Hackberry hackberry)
-{
+/**
+ * Constructor of the Servomotor class
+ * @param hackberry current Hackberry Hand object in use
+ */
+Hackberry_servos::Hackberry_servos(Hackberry hackberry) {
     this->_hackberry = hackberry;
 }
 
 
 /**
- * initialise les servomoteurs
+ * Servomotor initialization
  */
-void Hackberry_servos::init(bool mainChoisie)
-{
-    // initialisation des pins
+void Hackberry_servos::init(bool selectedHand) {
+    // pins initialization
     pinMode(_pinServoIndex, OUTPUT);
-    pinMode(_pinServoTHUMB, OUTPUT);
-    pinMode(_pinServoFINGERS, OUTPUT);
+    pinMode(_pinServoThumb, OUTPUT);
+    pinMode(_pinServoFingers, OUTPUT);
 
-    // Association des pins aux servomoteurs
+    // Link pins with servomotors
     servoIndex.attach(_pinServoIndex);
-    servoTHUMB.attach(_pinServoTHUMB);
-    servoFINGERS.attach(_pinServoFINGERS);
+    servoTHUMB.attach(_pinServoThumb);
+    servoFINGERS.attach(_pinServoFingers);
 
-    // Positions limites des servomoteurs selon la main choisie
-    /** TODO : charger les paramètres depuis la mémoire EEPROM */
-    if (selectedHand == RIGHT_HAND)
-    {
-        THUMBOuvert     = THUMB_MAX;
-        IndexOuvert     = INDEX_MAX;
-        FINGERSOuvert    = FINGERS_MAX;
+    // Limit positions of servomotors according to the selected hand
+    /** TODO: load parameters from the EEPROM */
+    if (selectedHand == RIGHT_HAND) {
+        openThumb = THUMB_MAX;
+        openIndex = INDEX_MAX;
+        openFingers = FINGERS_MAX;
 
-        closedThumb      = THUMB_MIN;
-        closedIndex      = INDEX_MIN;
-        closedFingers     = FINGERS_MIN;
-    }
-    else if (selectedHand == LEFT_HAND)
-    {
-        THUMBOuvert     = THUMB_MIN;
-        IndexOuvert     = INDEX_MIN;
-        FINGERSOuvert    = FINGERS_MIN;
+        closedThumb = THUMB_MIN;
+        closedIndex = INDEX_MIN;
+        closedFingers = FINGERS_MIN;
+    } 
+    
+    else if (selectedHand == LEFT_HAND) {
+        openThumb = THUMB_MIN;
+        openIndex = INDEX_MIN;
+        openFingers = FINGERS_MIN;
 
-        THUMBFerme      = THUMB_MAX;
-        IndexFerme      = INDEX_MAX;
-        FINGERSFerme     = FINGERS_MAX;
+        closedThumb = THUMB_MAX;
+        closedIndex = INDEX_MAX;
+        closedFingers = FINGERS_MAX;
     }
 }
 
 /**
- * Allows to move one of the members of the hand
+ * Move one of the members of the hand
  * 
  * @param membre Member to move  (THUMB, INDEX or FINGERS)
  * @param position Desired position for the member
  */
-void Hackberry_servos::move(int member, int position)
-{
+void Hackberry_servos::move(int member, int position) {
     int finalPosition = 0;
-    switch (member)
-    {
-        case INDEX : 
-            finalPosition = limite(position,INDEX_MIN,INDEX_MAX);
-            this->moveServo(servoIndex,finalPosition);
-        break;
+    switch (member) {
+        case INDEX:
+            finalPosition = frameInteger(position, INDEX_MIN, INDEX_MAX);
+            this->moveServo(servoIndex, finalPosition);
+            break;
 
-        case THUMB : 
-            finalPosition = limite(position,THUMB_MIN,THUMB_MAX);
-            this->moveServo(servoTHUMB,finalPosition);
-        break;        
+        case THUMB:
+            finalPosition = frameInteger(position, THUMB_MIN, THUMB_MAX);
+            this->moveServo(servoThumb, finalPosition);
+            break;
 
-        case FINGERS : 
-            finalPosition = limite(position,FINGERS_MIN,FINGERS_MAX);
-            this->moveServo(servoFINGERS,finalPosition);
-        break;
+        case FINGERS:
+            finalPosition = frameInteger(position, FINGERS_MIN, FINGERS_MAX);
+            this->moveServo(servoFingers, finalPosition);
+            break;
     }
 }
 
 
 /**
- * Allows one of the hand members to be in the open position
+ * Put one of the hand members to be in the open position
  *
  * @param member Member to open (INCH, INDEX or FINGERS)
  */
-void Hackberry_servos::open(int member)
-{
-    switch (member)
-    {
-        case THUMB : 
-            this->move(THUMB,openThumb); 
-        break;
+void Hackberry_servos::open(int member) {
+    switch (member) {
+        case THUMB:
+            this->move(THUMB, openThumb);
+            break;
 
-        case INDEX : 
-            this->move(INDEX,openIndex); 
-        break;
+        case INDEX:
+            this->move(INDEX, openIndex);
+            break;
 
-        case FINGERS : 
-            this->move(FINGERS,openFingers); 
-        break;
+        case FINGERS:
+            this->move(FINGERS, openFingers);
+            break;
     }
 }
 
 /**
- * Allows one of the hand members to be in the closed position
+ * Put one of the hand members to be in the closed position
  *
  * @param member Member to close (INCH, INDEX or FINGERS)
  */
-void Hackberry_servos::close(int member)
-{
-    switch (member)
-    {
-        case THUMB : 
-            this->move(THUMB,closedThumb); 
-        break;
+void Hackberry_servos::close(int member) {
+    switch (member) {
+        case THUMB:
+            this->move(THUMB, closedThumb);
+            break;
 
-        case INDEX : 
-            this->move(INDEX,closedIndex); 
-        break;
+        case INDEX:
+            this->move(INDEX, closedIndex);
+            break;
 
-        case FINGERS : 
-            this->move(FINGERS,closedFingers); 
-        break;
+        case FINGERS:
+            this->move(FINGERS, closedFingers);
+            break;
     }
 }
 
 /**
- * Allows to put the whole hand in open position
+ * Put the whole hand in open position
  */
-void Hackberry_servos::openAll()
-{
+void Hackberry_servos::openAll() {
     this->open(THUMB);
     this->open(INDEX);
     this->open(FINGERS);
 }
- 
+
 /**
- * Allows to put the whole hand in closed position
+ * Put the whole hand in closed position
  */
-void Hackberry_servos::closeAll()
-{
+void Hackberry_servos::closeAll() {
     this->close(THUMB);
     this->close(INDEX);
     this->close(FINGERS);
@@ -163,23 +154,31 @@ void Hackberry_servos::closeAll()
  * @param servo Servomotor to move
  * @param wantedPosition Position that the servomotor must reach
  */
-void Hackberry_servos::moveServo(Servo servo, int wantedPosition)
-{
+void Hackberry_servos::moveServo(Servo servo, int wantedPosition) {
     int step = 1; // number of degrees that the servomotor will go through each loop
     int currentPosition = servo.read();
     int Angle = wantedPosition - currentPosition;
-    
-    if (Angle > 0){
-        for (int i = 0 ; i < Angle ; i+= step ))
-        {
-            servo.write(currentPosition + i);
-        }
-    }
 
-    else if (Angle < 0){
-        for (int i = 0 ; i > Angle ; i-= step ))
-        {
-            servo.write(currentPosition + i);
-        }
+    /** TODO : change the direction of rotation according to the selected hand */
+    if (Angle > 0) {
+        for (int i = 0; i < Angle; i += step)) {
+        servo.write(currentPosition + i);
+    } 
+    else if (Angle < 0) {
+        for (int i = 0; i > Angle; i -= step)) {
+        servo.write(currentPosition + i);
     }
+}
+
+
+/**
+ * Frames an integer between a min value and a max value
+ * 
+ * @param value Value to frame
+ * @param min Min value
+ * @param max Max value
+ * @return value framed between min and max
+ */
+int frameInteger(int value, int min, int max) {
+    return (value < min) ? min : ((value > max) ? max : value);
 }

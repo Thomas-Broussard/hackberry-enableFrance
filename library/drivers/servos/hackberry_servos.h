@@ -16,13 +16,23 @@
 #ifndef __HACKBERRY_SERVOS_H__
 #define __HACKBERRY_SERVOS_H__
 
-// dependencies
+// Dependencies
 #include "hackberry.h"
 
-// constants
+// Constants
 #define THUMB   1
 #define INDEX   2
 #define FINGERS  3
+
+// Default parameters
+#define THUMB_MAX           140  //right:open, left:close
+#define INDEX_MAX           130  //right:open, left:close
+#define FINGERS_MAX         145  //right:open, left:close
+
+#define THUMB_MIN           47   //right:close, left:open
+#define INDEX_MIN           27   //right:close, left:open
+#define FINGERS_MIN         105  //right:close, left:open
+
 
 // class
 class Hackberry_servos{
@@ -48,11 +58,11 @@ class Hackberry_servos{
     _pinServoFingers = 5;
     
     // Servomotors
-    Servo servoIndex;  //index 
-    Servo servoPouce;  //pouce
-    Servo servoDoigts; //les trois autres doigts  
+    Servo servoIndex;  
+    Servo servoThumb;  
+    Servo servoFingers; 
 
-    // déplacement des servomoteurs
+    // servomotor move
     moveServo(int member, int position);
 
 
@@ -61,4 +71,9 @@ class Hackberry_servos{
     int openIndex , closedIndex;
     int openFingers , closedFingers;
 };
+
+
+// Functions outside the class (utilities)
+void frameInteger(int value, int min, int max);
+
 #endif
