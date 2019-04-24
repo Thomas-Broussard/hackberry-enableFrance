@@ -5,6 +5,11 @@
 #define RIGHT_HAND true
 #define LEFT_HAND false
 
+
+// LIST OF EXISTING SENSORS
+#define STANDARD_IR_SENSOR 0
+
+
 // Constants for servomotor
 #define THUMB   1
 #define INDEX   2
