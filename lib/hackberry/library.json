@@ -1,0 +1,23 @@
+{
+  "keywords": [
+    "hackberry","e-nable","france","prosthesis","prostheses"
+  ],
+  "version": "1.0.0",
+  "name": "Hackberry",
+  "authors": 
+		[
+		  {
+			  "url": "https://e-nable.fr/",
+			  "maintainer": true,
+			  "name": "Thomas Broussard",
+			  "email": "thomas@e-nable.fr"
+		   }
+		],
+  "description": "Library for controlling the Hackberry Hand",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thomas-Broussard/Domokit.git"
+  },
+  "frameworks": [],
+  "platforms": []
+}

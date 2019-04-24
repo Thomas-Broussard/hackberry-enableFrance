@@ -18,6 +18,12 @@
 // dependencies
 #include <Arduino.h>
 
+// drivers
+//#include "drivers/buttons/hackberry_buttons.h"
+#include "drivers/servos/hackberry_servos.h"
+//#include "drivers/sensor/hackberry_sensor.h"
+//#include "drivers/debug/hackberry_debug.h"
+
 // Hand Selection
 #define RIGHT_HAND true
 #define LEFT_HAND false
@@ -32,11 +38,11 @@ class Hackberry
         void begin(bool selectedHand);
 
         // Hackberry hand components
-        Hackberry_buttons buttons;
-        Hackberry_servos fingers;
-        Hackberry_sensor sensor;
-        Hackberry_eeprom eeprom;
-        Hackberry_debug debug;
+        //Hackberry_buttons buttons;
+        Hackberry_servos  servos;
+        //Hackberry_sensor  sensor;
+        //Hackberry_eeprom  eeprom;
+        //Hackberry_debug   debug;
         // Hackberry_calibration calibration;
         
     private:      

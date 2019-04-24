@@ -19,10 +19,10 @@
  */
 Hackberry::Hackberry()
 {
-    this->buttons   = Hackberry_buttons(this);
-    this->fingers   = Hackberry_servos(this);
-    this->sensor    = Hackberry_sensor(this);
-    this->debug     = Hackberry_debug(this);
+    //this->buttons   = Hackberry_buttons(this);
+    this->servos   = Hackberry_servos();
+    //this->sensor    = Hackberry_sensor(this);
+    //this->debug     = Hackberry_debug(this);
 }
 
 /**
@@ -32,8 +32,9 @@ Hackberry::Hackberry()
  */
 void Hackberry::begin(bool selectedHand)
 {
-    this->buttons.init(selectedHand);
-    this->fingers.init(selectedHand);
+    this->servos.init(selectedHand);
+    //this->buttons.init(selectedHand);
+    //this->fingers.init(selectedHand);
     /** TODO : complete this function */
 }
 

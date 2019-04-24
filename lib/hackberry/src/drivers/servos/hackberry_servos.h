@@ -17,54 +17,44 @@
 #define __HACKBERRY_SERVOS_H__
 
 // Dependencies
-#include "hackberry.h"
+#include <Arduino.h>
+#include "hackberry_global.h"
+#include "dependencies/VarSpeedServo.h"
 
 // Constants
-#define THUMB   1
-#define INDEX   2
-#define FINGERS  3
-
-// Default parameters
-#define THUMB_MAX           140  //right:open, left:close
-#define INDEX_MAX           130  //right:open, left:close
-#define FINGERS_MAX         145  //right:open, left:close
-
-#define THUMB_MIN           47   //right:close, left:open
-#define INDEX_MIN           27   //right:close, left:open
-#define FINGERS_MIN         105  //right:close, left:open
-
+#define PIN_INDEX 6 
+#define PIN_THUMB 9
+#define PIN_FINGERS 5
 
 // class
 class Hackberry_servos{
 
     public: 
-    Hackberry_servos(Hackberry _hackberry);
-    init(bool selectedHand);
+    Hackberry_servos();
+    void init(bool selectedHand);
 
     // moving fingers
-    move(int member, int position);
-    open(int member);
-    close(int member);
-    openAll();
-    closeAll();
+    void move(int member, int position);
+    void open(int member);
+    void close(int member);
+    void openAll();
+    void closeAll();
+    int getPosition(int member);
     
     private:
-    // Hackberry hand
-    Hackberry _hackberry;
-
     // wiring pins
-    _pinServoIndex  = 3; 
-    _pinServoThumb  = 6;
-    _pinServoFingers = 5;
+    int _pinServoIndex  = PIN_INDEX;
+    int _pinServoThumb  = PIN_THUMB;
+    int _pinServoFingers = PIN_FINGERS;
     
     // Servomotors
-    Servo servoIndex;  
-    Servo servoThumb;  
-    Servo servoFingers; 
+    VarSpeedServo  servoIndex;  
+    VarSpeedServo  servoThumb;  
+    VarSpeedServo  servoFingers; 
 
     // servomotor move
-    moveServo(int member, int position);
-
+    void moveServo(int member, int wantedPosition);
+    
 
     // limit of movements
     int openThumb , closedThumb;
@@ -73,7 +63,7 @@ class Hackberry_servos{
 };
 
 
-// Functions outside the class (utilities)
-void frameInteger(int value, int min, int max);
+// Functions outside of the class (utilities)
+int frameInteger(int value, int min, int max);
 
 #endif

@@ -12,15 +12,15 @@
  *  https://github.com/mission-arm/HACKberry
  * =============================================================================================================================================
  */
-
 #include "hackberry_servos.h"
+
 
 /**
  * Constructor of the Servomotor class
  * @param hackberry current Hackberry Hand object in use
  */
-Hackberry_servos::Hackberry_servos(Hackberry hackberry) {
-    this->_hackberry = hackberry;
+Hackberry_servos::Hackberry_servos() {
+    
 }
 
 
@@ -30,15 +30,17 @@ Hackberry_servos::Hackberry_servos(Hackberry hackberry) {
  * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
  */
 void Hackberry_servos::init(bool selectedHand) {
+
     // pins initialization
     pinMode(_pinServoIndex, OUTPUT);
     pinMode(_pinServoThumb, OUTPUT);
     pinMode(_pinServoFingers, OUTPUT);
 
-    // Link pins with servomotors
+    // Link pins with servomotors    
     servoIndex.attach(_pinServoIndex);
-    servoTHUMB.attach(_pinServoThumb);
-    servoFINGERS.attach(_pinServoFingers);
+    servoThumb.attach(_pinServoThumb);
+    servoFingers.attach(_pinServoFingers);
+    
 
     // Limit positions of servomotors according to the selected hand
     /** TODO: load parameters from the EEPROM */
@@ -61,6 +63,11 @@ void Hackberry_servos::init(bool selectedHand) {
         closedIndex = INDEX_MAX;
         closedFingers = FINGERS_MAX;
     }
+
+    // Test 
+    this->closeAll();
+    delay(1000);
+    this->openAll();
 }
 
 /**
@@ -74,17 +81,17 @@ void Hackberry_servos::move(int member, int position) {
     switch (member) {
         case INDEX:
             finalPosition = frameInteger(position, INDEX_MIN, INDEX_MAX);
-            this->moveServo(servoIndex, finalPosition);
+            this->moveServo(INDEX, finalPosition);
             break;
 
         case THUMB:
             finalPosition = frameInteger(position, THUMB_MIN, THUMB_MAX);
-            this->moveServo(servoThumb, finalPosition);
+            this->moveServo(THUMB, finalPosition);
             break;
 
         case FINGERS:
             finalPosition = frameInteger(position, FINGERS_MIN, FINGERS_MAX);
-            this->moveServo(servoFingers, finalPosition);
+            this->moveServo(FINGERS, finalPosition);
             break;
     }
 }
@@ -93,7 +100,7 @@ void Hackberry_servos::move(int member, int position) {
 /**
  * Put one of the hand members to be in the open position
  *
- * @param member Member to open (INCH, INDEX or FINGERS)
+ * @param member Member to open (THUMB, INDEX or FINGERS)
  */
 void Hackberry_servos::open(int member) {
     switch (member) {
@@ -114,7 +121,7 @@ void Hackberry_servos::open(int member) {
 /**
  * Put one of the hand members to be in the closed position
  *
- * @param member Member to close (INCH, INDEX or FINGERS)
+ * @param member Member to close (THUMB, INDEX or FINGERS)
  */
 void Hackberry_servos::close(int member) {
     switch (member) {
@@ -153,22 +160,49 @@ void Hackberry_servos::closeAll() {
 /**
  * Moves the servomotor to the desired position
  *
- * @param servo Servomotor to move
+ * @param member Member to move (THUMB, INDEX or FINGERS)
  * @param wantedPosition Position that the servomotor must reach
  */
-void Hackberry_servos::moveServo(Servo servo, int wantedPosition) {
-    int step = 1; // number of degrees that the servomotor will go through each loop
-    int currentPosition = servo.read();
-    int Angle = wantedPosition - currentPosition;
+void Hackberry_servos::moveServo(int member, int wantedPosition) {
+    switch (member) 
+    {
+        case THUMB:
+            servoThumb.write(wantedPosition,DEFAULT_SPEED);
+            break;
 
-    /** TODO : change the direction of rotation according to the selected hand */
-    if (Angle > 0) {
-        for (int i = 0; i < Angle; i += step)) {
-        servo.write(currentPosition + i);
-    } 
-    else if (Angle < 0) {
-        for (int i = 0; i > Angle; i -= step)) {
-        servo.write(currentPosition + i);
+        case INDEX:
+            servoIndex.write(wantedPosition,DEFAULT_SPEED);
+            break;
+
+        case FINGERS:
+            servoFingers.write(wantedPosition,DEFAULT_SPEED);
+            break;
+    }
+}
+
+/**
+ * Get the last position of a servomotor
+ *
+ * @param member Member required (THUMB, INDEX or FINGERS)
+ * @return last position of the member
+ */
+int Hackberry_servos::getPosition(int member){
+    switch (member) {
+        case INDEX:
+            return servoIndex.read();
+            break;
+
+        case THUMB:
+            return servoThumb.read();
+            break;
+
+        case FINGERS:
+            return servoFingers.read();
+            break;
+
+        default: 
+            return -1; // error code 
+            break;
     }
 }
 
