@@ -33,8 +33,11 @@ class Hackberry_servos{
     Hackberry_servos();
     void init(bool selectedHand);
 
+    // set parameters
+    void setSpeed(int speed);
+
     // moving fingers
-    void move(int member, int position);
+    void move(int member, int position, bool waitEnabled);
     void open(int member);
     void close(int member);
     void openAll();
@@ -54,12 +57,16 @@ class Hackberry_servos{
 
     // servomotor move
     void moveServo(int member, int wantedPosition);
+    void moveServo(int member, int wantedPosition, bool waitEnabled);
     
 
     // limit of movements
     int openThumb , closedThumb;
     int openIndex , closedIndex;
     int openFingers , closedFingers;
+
+    // speed
+    int _speed;
 };
 
 

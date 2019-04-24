@@ -28,6 +28,6 @@
 
 
 // INITIAL SPEED OF SERVOMOTOR
-#define DEFAULT_SPEED 20
+#define DEFAULT_SPEED 50
 
 #endif

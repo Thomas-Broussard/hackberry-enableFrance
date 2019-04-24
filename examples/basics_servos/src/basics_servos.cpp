@@ -18,17 +18,25 @@
 Hackberry hackberry;
 
 // time betwen each move made
-unsigned int intervalBetweenMoves = 1000;
+unsigned int intervalBetweenMoves = 200;
+unsigned int speedMoves = 30;
 
 // put variable to "true" to enable the members you want to test 
 bool TestIndex = true;
-bool TestThumb = false;
-bool TestFingers = false;
+bool TestThumb = true;
+bool TestFingers = true;
 
 
 void setup() {
   Serial.begin(9600);
   hackberry.begin(RIGHT_HAND);
+
+  hackberry.servos.setSpeed(speedMoves);
+
+  // Test 
+  hackberry.servos.closeAll();
+  delay(1000);
+  hackberry.servos.openAll();
 }
 
 void loop() 
@@ -36,18 +44,24 @@ void loop()
   // Moving Thumb
   if (TestThumb)
   {
-    hackberry.servos.open(THUMB);
-    delay(intervalBetweenMoves);
+    Serial.println("Open THUMB");
     hackberry.servos.close(THUMB);
+    delay(intervalBetweenMoves);
+
+    Serial.println("Close THUMB");
+    hackberry.servos.open(THUMB);
     delay(intervalBetweenMoves);
   }
 
   // Moving Index
   if (TestIndex)
   {
-    hackberry.servos.open(INDEX);
-    delay(intervalBetweenMoves);
+    Serial.println("Open INDEX");
     hackberry.servos.close(INDEX);
+    delay(intervalBetweenMoves);
+
+    Serial.println("Close INDEX");
+    hackberry.servos.open(INDEX);
     delay(intervalBetweenMoves);
   }
   
@@ -55,9 +69,12 @@ void loop()
   // Moving Fingers
   if (TestFingers)
   {
-    hackberry.servos.open(FINGERS);
-    delay(intervalBetweenMoves);
+    Serial.println("Open FINGERS");
     hackberry.servos.close(FINGERS);
+    delay(intervalBetweenMoves);
+
+    Serial.println("Close FINGERS");
+    hackberry.servos.open(FINGERS);
     delay(intervalBetweenMoves);
   }
   

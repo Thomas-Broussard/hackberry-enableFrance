@@ -31,6 +31,9 @@ Hackberry_servos::Hackberry_servos() {
  */
 void Hackberry_servos::init(bool selectedHand) {
 
+    // default parameters
+    _speed = DEFAULT_SPEED;
+
     // pins initialization
     pinMode(_pinServoIndex, OUTPUT);
     pinMode(_pinServoThumb, OUTPUT);
@@ -64,10 +67,17 @@ void Hackberry_servos::init(bool selectedHand) {
         closedFingers = FINGERS_MAX;
     }
 
-    // Test 
-    this->closeAll();
-    delay(1000);
-    this->openAll();
+
+}
+
+
+/**
+ * Set the speed of the servomotors
+ * 
+ * @param speed speed required (from 1 to 255)
+ */ 
+void Hackberry_servos::setSpeed(int speed){
+    this->_speed = speed;
 }
 
 /**
@@ -75,23 +85,24 @@ void Hackberry_servos::init(bool selectedHand) {
  * 
  * @param membre Member to move  (THUMB, INDEX or FINGERS)
  * @param position Desired position for the member
+ * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::move(int member, int position) {
+void Hackberry_servos::move(int member, int position,bool waitEnabled) {
     int finalPosition = 0;
     switch (member) {
         case INDEX:
             finalPosition = frameInteger(position, INDEX_MIN, INDEX_MAX);
-            this->moveServo(INDEX, finalPosition);
+            this->moveServo(INDEX, finalPosition,waitEnabled);
             break;
 
         case THUMB:
             finalPosition = frameInteger(position, THUMB_MIN, THUMB_MAX);
-            this->moveServo(THUMB, finalPosition);
+            this->moveServo(THUMB, finalPosition,waitEnabled);
             break;
 
         case FINGERS:
             finalPosition = frameInteger(position, FINGERS_MIN, FINGERS_MAX);
-            this->moveServo(FINGERS, finalPosition);
+            this->moveServo(FINGERS, finalPosition,waitEnabled);
             break;
     }
 }
@@ -105,15 +116,15 @@ void Hackberry_servos::move(int member, int position) {
 void Hackberry_servos::open(int member) {
     switch (member) {
         case THUMB:
-            this->move(THUMB, openThumb);
+            this->move(THUMB, openThumb,true);
             break;
 
         case INDEX:
-            this->move(INDEX, openIndex);
+            this->move(INDEX, openIndex,true);
             break;
 
         case FINGERS:
-            this->move(FINGERS, openFingers);
+            this->move(FINGERS, openFingers,true);
             break;
     }
 }
@@ -126,15 +137,15 @@ void Hackberry_servos::open(int member) {
 void Hackberry_servos::close(int member) {
     switch (member) {
         case THUMB:
-            this->move(THUMB, closedThumb);
+            this->move(THUMB, closedThumb,true);
             break;
 
         case INDEX:
-            this->move(INDEX, closedIndex);
+            this->move(INDEX, closedIndex,true);
             break;
 
         case FINGERS:
-            this->move(FINGERS, closedFingers);
+            this->move(FINGERS, closedFingers,true);
             break;
     }
 }
@@ -157,6 +168,7 @@ void Hackberry_servos::closeAll() {
     this->close(FINGERS);
 }
 
+
 /**
  * Moves the servomotor to the desired position
  *
@@ -167,15 +179,43 @@ void Hackberry_servos::moveServo(int member, int wantedPosition) {
     switch (member) 
     {
         case THUMB:
-            servoThumb.write(wantedPosition,DEFAULT_SPEED);
+            servoThumb.write(wantedPosition,this->_speed);
             break;
 
         case INDEX:
-            servoIndex.write(wantedPosition,DEFAULT_SPEED);
+            servoIndex.write(wantedPosition,this->_speed);
             break;
 
         case FINGERS:
-            servoFingers.write(wantedPosition,DEFAULT_SPEED);
+            servoFingers.write(wantedPosition,this->_speed);
+            break;
+    }
+}
+
+
+/**
+ * Moves the servomotor to the desired position
+ *
+ * @param member Member to move (THUMB, INDEX or FINGERS)
+ * @param wantedPosition Position that the servomotor must reach
+ * @param waitEnabled true : wait the end of the move to do another action
+ */
+void Hackberry_servos::moveServo(int member, int wantedPosition, bool waitEnabled) {
+    switch (member) 
+    {
+        case THUMB:
+            servoThumb.write(wantedPosition,this->_speed);
+            if (waitEnabled) servoThumb.wait();
+            break;
+
+        case INDEX:
+            servoIndex.write(wantedPosition,this->_speed);
+            if (waitEnabled) servoIndex.wait();
+            break;
+
+        case FINGERS:
+            servoFingers.write(wantedPosition,this->_speed);
+            if (waitEnabled) servoFingers.wait();
             break;
     }
 }
