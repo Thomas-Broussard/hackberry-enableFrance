@@ -103,24 +103,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a703df0799daf653bbe9b8320ad626dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fbb0c1ac9521c597ed86b0ee45bb75a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry.html#a0fbb0c1ac9521c597ed86b0ee45bb75a">begin</a> (bool selectedHand)</td></tr>
 <tr class="separator:a0fbb0c1ac9521c597ed86b0ee45bb75a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82a191b235dbcff5d53915500960bbdf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry.html#a82a191b235dbcff5d53915500960bbdf">begin</a> (bool selectedHand, int sensorType)</td></tr>
+<tr class="separator:a82a191b235dbcff5d53915500960bbdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a3b4324b979971e121c89f262e378f6b6"><td class="memItemLeft" align="right" valign="top"><a id="a3b4324b979971e121c89f262e378f6b6"></a>
 <a class="el" href="class_hackberry__buttons.html">Hackberry_buttons</a>&#160;</td><td class="memItemRight" valign="bottom"><b>buttons</b></td></tr>
 <tr class="separator:a3b4324b979971e121c89f262e378f6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab297810d000dd9f2da401049d21bf22d"><td class="memItemLeft" align="right" valign="top"><a id="ab297810d000dd9f2da401049d21bf22d"></a>
-<a class="el" href="class_hackberry__servos.html">Hackberry_servos</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fingers</b></td></tr>
-<tr class="separator:ab297810d000dd9f2da401049d21bf22d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7499bcc72a4f35d94bfdced2f1c018a1"><td class="memItemLeft" align="right" valign="top"><a id="a7499bcc72a4f35d94bfdced2f1c018a1"></a>
+<a class="el" href="class_hackberry__servos.html">Hackberry_servos</a>&#160;</td><td class="memItemRight" valign="bottom"><b>servos</b></td></tr>
+<tr class="separator:a7499bcc72a4f35d94bfdced2f1c018a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a849824f0c4525dda04c035c5b96fbf64"><td class="memItemLeft" align="right" valign="top"><a id="a849824f0c4525dda04c035c5b96fbf64"></a>
 <a class="el" href="class_hackberry__sensor.html">Hackberry_sensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sensor</b></td></tr>
 <tr class="separator:a849824f0c4525dda04c035c5b96fbf64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a70e7347c29f73254b89b3a2191b052"><td class="memItemLeft" align="right" valign="top"><a id="a0a70e7347c29f73254b89b3a2191b052"></a>
-<a class="el" href="class_hackberry__eeprom.html">Hackberry_eeprom</a>&#160;</td><td class="memItemRight" valign="bottom"><b>eeprom</b></td></tr>
-<tr class="separator:a0a70e7347c29f73254b89b3a2191b052"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4844fd7ece4fcca33ab9aeb3d3a52675"><td class="memItemLeft" align="right" valign="top"><a id="a4844fd7ece4fcca33ab9aeb3d3a52675"></a>
-<a class="el" href="class_hackberry__debug.html">Hackberry_debug</a>&#160;</td><td class="memItemRight" valign="bottom"><b>debug</b></td></tr>
-<tr class="separator:a4844fd7ece4fcca33ab9aeb3d3a52675"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a703df0799daf653bbe9b8320ad626dc3"></a>
@@ -143,7 +139,7 @@ Public Attributes</h2></td></tr>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0fbb0c1ac9521c597ed86b0ee45bb75a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fbb0c1ac9521c597ed86b0ee45bb75a">&#9670;&nbsp;</a></span>begin()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fbb0c1ac9521c597ed86b0ee45bb75a">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,9 +164,46 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a82a191b235dbcff5d53915500960bbdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82a191b235dbcff5d53915500960bbdf">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hackberry::begin </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>selectedHand</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sensorType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initialize the <a class="el" href="class_hackberry.html">Hackberry</a> Hand</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">selectedHand</td><td>Direction of the hand (RIGHT_HAND or LEFT_HAND) </td></tr>
+    <tr><td class="paramname">sensorType</td><td>Type of sensor used to read the muscle activity </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>TODO : complete this function </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/library/<a class="el" href="hackberry_8h_source.html">hackberry.h</a></li>
-<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/library/hackberry.cpp</li>
+<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/lib/hackberry/src/<a class="el" href="hackberry_8h_source.html">hackberry.h</a></li>
+<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/lib/hackberry/src/hackberry.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

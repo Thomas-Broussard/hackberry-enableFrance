@@ -98,12 +98,112 @@ $(document).ready(function(){initNavTree('class_hackberry__sensor.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a11bfee5f871e0d6edabddaed9af19695"><td class="memItemLeft" align="right" valign="top"><a id="a11bfee5f871e0d6edabddaed9af19695"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Hackberry_sensor</b> (<a class="el" href="class_hackberry.html">Hackberry</a> _hackberry)</td></tr>
-<tr class="separator:a11bfee5f871e0d6edabddaed9af19695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3edeb93c9bc0fddd5a34c6d40661a8aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#a3edeb93c9bc0fddd5a34c6d40661a8aa">Hackberry_sensor</a> ()</td></tr>
+<tr class="separator:a3edeb93c9bc0fddd5a34c6d40661a8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae140ba53ddc0186e74150f3be718cf33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#ae140ba53ddc0186e74150f3be718cf33">init</a> (bool selectedHand, int sensorType)</td></tr>
+<tr class="separator:ae140ba53ddc0186e74150f3be718cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad797e2cc0c0e3a5315eb3fa14a914b67"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#ad797e2cc0c0e3a5315eb3fa14a914b67">read</a> ()</td></tr>
+<tr class="separator:ad797e2cc0c0e3a5315eb3fa14a914b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeca2c739d7acaae0ea17b5f19385e95d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#aeca2c739d7acaae0ea17b5f19385e95d">readAverage</a> ()</td></tr>
+<tr class="separator:aeca2c739d7acaae0ea17b5f19385e95d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/library/drivers/sensor/<a class="el" href="hackberry__sensor_8h_source.html">hackberry_sensor.h</a></li>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3edeb93c9bc0fddd5a34c6d40661a8aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3edeb93c9bc0fddd5a34c6d40661a8aa">&#9670;&nbsp;</a></span>Hackberry_sensor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Hackberry_sensor::Hackberry_sensor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae140ba53ddc0186e74150f3be718cf33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae140ba53ddc0186e74150f3be718cf33">&#9670;&nbsp;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hackberry_sensor::init </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>selectedHand</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sensorType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initialize sensor driver</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">selectedHand</td><td>Direction of the hand (RIGHT_HAND or LEFT_HAND) </td></tr>
+    <tr><td class="paramname">sensorType</td><td>Type of sensor used to read the muscle activity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad797e2cc0c0e3a5315eb3fa14a914b67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad797e2cc0c0e3a5315eb3fa14a914b67">&#9670;&nbsp;</a></span>read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Hackberry_sensor::read </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>read the value of the sensor</p>
+<dl class="section return"><dt>Returns</dt><dd>sensor value read </dd></dl>
+
+</div>
+</div>
+<a id="aeca2c739d7acaae0ea17b5f19385e95d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeca2c739d7acaae0ea17b5f19385e95d">&#9670;&nbsp;</a></span>readAverage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Hackberry_sensor::readAverage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Perform a sensor reading by averaging the result on 16 consecutive points</p>
+<dl class="section return"><dt>Returns</dt><dd>average value of the sensor on 16 consecutive acquisitions </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/lib/hackberry/src/drivers/sensor/<a class="el" href="hackberry__sensor_8h_source.html">hackberry_sensor.h</a></li>
+<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/lib/hackberry/src/drivers/sensor/hackberry_sensor.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

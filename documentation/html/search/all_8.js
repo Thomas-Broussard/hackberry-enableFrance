@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['writestring',['writeString',['../class_hackberry__eeprom.html#ad64678d8bb1930c05fbb037f11053b62',1,'Hackberry_eeprom']]]
+  ['servo_5ft',['servo_t',['../structservo__t.html',1,'']]],
+  ['servopin_5ft',['ServoPin_t',['../struct_servo_pin__t.html',1,'']]],
+  ['servosequencepoint',['servoSequencePoint',['../structservo_sequence_point.html',1,'']]],
+  ['setspeed',['setSpeed',['../class_hackberry__servos.html#aba43b48fa05a95cd4a56346c2beb18bd',1,'Hackberry_servos']]]
 ];
