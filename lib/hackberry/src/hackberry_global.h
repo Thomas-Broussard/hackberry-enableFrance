@@ -1,6 +1,8 @@
 #ifndef __HACKBERRY_GLOBAL_H__
 #define __HACKBERRY_GLOBAL_H__
 
+#define ERROR_CODE -1
+
 // Hand Selection
 #define RIGHT_HAND true
 #define LEFT_HAND false
