@@ -22,7 +22,9 @@
 #include <Arduino.h>
 #include "hackberry_global.h"
 
-// class
+/**
+ * TODO : A6 and A7 are analog inputs. Can't use DigitalRead function on them --> replace them by GPIO ?
+ */
 class Hackberry_buttons{
 
 

@@ -95,7 +95,7 @@ void Hackberry_buttons::buttonAction_Lock()
  */
 bool Hackberry_buttons::isCalibButtonPressed()
 {
-    return digitalRead(this->_pinCalib) == BUTTONPRESSED ? true:false ;
+    return analogRead(this->_pinCalib) < 100 ? true:false ;
 }
 
 /**
@@ -104,7 +104,7 @@ bool Hackberry_buttons::isCalibButtonPressed()
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isExtraButtonPressed(){
-    return digitalRead(this->_pinExtra) == BUTTONPRESSED ? true:false ;
+    return analogRead(this->_pinExtra) < 100? true:false ;
 }
 
 /**
