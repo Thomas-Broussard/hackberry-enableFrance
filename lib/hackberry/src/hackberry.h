@@ -23,6 +23,8 @@
 #include "drivers/servos/hackberry_servos.h"
 #include "drivers/sensor/hackberry_sensor.h"
 #include "drivers/debug/hackberry_debug.h"
+#include "drivers/bluetooth/hackberry_bluetooth.h"
+
 
 // class
 class Hackberry
@@ -40,6 +42,7 @@ class Hackberry
         Hackberry_servos  servos;
         Hackberry_sensor  sensor;
         Hackberry_debug debug;
+        Hackberry_bluetooth bluetooth;
 
         //Hackberry_eeprom  eeprom;
         //Hackberry_calibration calibration;

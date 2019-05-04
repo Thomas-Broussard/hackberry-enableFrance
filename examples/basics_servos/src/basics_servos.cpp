@@ -22,9 +22,9 @@ unsigned int intervalBetweenMoves = 200;
 unsigned int speedMoves = 30;
 
 // put variable to "true" to enable the members you want to test 
-bool TestIndex = true;
+bool TestIndex = false;
 bool TestThumb = true;
-bool TestFingers = true;
+bool TestFingers = false;
 
 
 void setup() {

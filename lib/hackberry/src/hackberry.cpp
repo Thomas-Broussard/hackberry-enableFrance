@@ -23,6 +23,7 @@ Hackberry::Hackberry()
     this->servos   = Hackberry_servos();
     this->sensor   = Hackberry_sensor();
     this->debug    = Hackberry_debug();
+    this->bluetooth= Hackberry_bluetooth();
 }
 
 /**
@@ -36,6 +37,7 @@ void Hackberry::begin(bool selectedHand)
     this->buttons.init(selectedHand);
     this->sensor.init(selectedHand,STANDARD_IR_SENSOR);
     this->debug.init(true , this->sensor,this->servos,this->buttons);
+    this->bluetooth.init(this->sensor,this->servos,this->buttons);
 }
 
 /**
@@ -50,6 +52,7 @@ void Hackberry::begin(bool selectedHand, bool enableDebug)
     this->buttons.init(selectedHand);
     this->sensor.init(selectedHand,STANDARD_IR_SENSOR);
     this->debug.init(enableDebug , this->sensor,this->servos,this->buttons);
+    this->bluetooth.init(this->sensor,this->servos,this->buttons);
 }
 
 /**
@@ -64,5 +67,6 @@ void Hackberry::begin(bool selectedHand, int sensorType)
     this->buttons.init(selectedHand);
     this->sensor.init(selectedHand,sensorType);
     this->debug.init(true , this->sensor,this->servos,this->buttons);
+    this->bluetooth.init(this->sensor,this->servos,this->buttons);
 }
 

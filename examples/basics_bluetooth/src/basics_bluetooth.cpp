@@ -4,7 +4,7 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description : Minimalist example of Hackberry_buttons library usage
+ *  Description : Minimalist example of Hackberry_bluetooth library usage
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
@@ -16,25 +16,16 @@
 #include "hackberry.h"
 
 Hackberry hackberry;
-
-int intervalBetweenPrint = 1000; // ms
-bool enableDebug = true;
-
+String message;
 void setup() {
-  hackberry.begin(RIGHT_HAND, enableDebug);
+  Serial.begin(9600);
+ 
+  hackberry.begin(RIGHT_HAND);
+  hackberry.bluetooth.start();
+  Serial.println("START");
 }
 
 void loop() 
 {  
-  // Print sensor infos
-  hackberry.debug.printSensor();
-  delay(intervalBetweenPrint);
-
-  // Print servo infos
-  hackberry.debug.printServos();
-  delay(intervalBetweenPrint);
-
-  // Print all infos
-  hackberry.debug.printAll();
-  delay(intervalBetweenPrint);
+   hackberry.bluetooth.execute();
 }
