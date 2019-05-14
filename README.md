@@ -1,6 +1,5 @@
 <!-- PROJECT SHIELDS -->
-[![Facebook][facebook-shield]][facebook-url] [![LinkedIn][linkedin-shield]][linkedin-url] 
-[![Twitter][twitter-shield]][twitter-url]  
+[![Facebook][facebook-shield]][facebook-url] [![LinkedIn][linkedin-shield]][linkedin-url]  [![Twitter][twitter-shield]][twitter-url]  
 
 [![License][license-shield]][license-url] [![Build Status][build-shield]]() [![Contributors][contributors-shield]]() 
 
@@ -17,7 +16,6 @@
   <h3 align="center">Hackberry Hand project</h3>
 
    <p align="center">
-    Giving the World a Helping Hand
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
@@ -201,7 +199,7 @@ See [Hackberry Original Project License](https://github.com/mission-arm/HACKberr
 [facebook-shield]: https://img.shields.io/badge/-Facebook-black.svg?style=flat-square&logo=facebook&colorB=555
 [facebook-url]: https://www.facebook.com/enableFrance/
 
-[twitter-shield]: https://img.shields.io/badge/-Twitter-black.svg?style=flat-square&logo=twitter&colorB=555
+[twitter-shield]: https://camo.githubusercontent.com/83d4084f7b71558e33b08844da5c773a8657e271/68747470733a2f2f696d672e736869656c64732e696f2f747769747465722f75726c2f687474702f736869656c64732e696f2e7376673f7374796c653d736f6369616c
 [twitter-url]: https://twitter.com/enablefrance
 
 [product-screenshot]: http://exiii-hackberry.com/wp-content/themes/bones/library/images/hackberry_images/HBrenderRGB.jpg
