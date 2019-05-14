@@ -1,5 +1,5 @@
 <!-- PROJECT SHIELDS -->
-[![Facebook][facebook-shield]][facebook-url]  [![LinkedIn][linkedin-shield]][linkedin-url]  [![Twitter][twitter-shield]][twitter-url]  
+[![Facebook][facebook-shield]][facebook-url] [![LinkedIn][linkedin-shield]][linkedin-url] [![Twitter][twitter-shield]][twitter-url]  
 
 [![License][license-shield]][license-url] [![Build Status][build-shield]]() [![Contributors][contributors-shield]]() 
 
@@ -180,7 +180,7 @@ See [Hackberry Original Project License](https://github.com/mission-arm/HACKberr
 
 
 <!-- ACKNOWLEDGEMENTS -->
-##Acknowledgements
+## Acknowledgements
 
 * [e-Nable France](https://e-nable.fr/)
 * [Genta Kondo (Author of Hackberry Project)](https://github.com/mission-arm/HACKberry)
@@ -190,6 +190,7 @@ See [Hackberry Original Project License](https://github.com/mission-arm/HACKberr
 <!-- MARKDOWN LINKS & IMAGES -->
 [build-shield]: https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat-square
 [contributors-shield]: https://img.shields.io/badge/contributors-1-orange.svg?style=flat-square
+
 [license-shield]: https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square
 [license-url]: http://www.gnu.org/licenses/quick-guide-gplv3.en.html
 
