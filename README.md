@@ -1,5 +1,5 @@
 <!-- PROJECT SHIELDS -->
-[![Facebook][facebook-shield]][facebook-url] [![LinkedIn][linkedin-shield]][linkedin-url] [![Twitter][twitter-shield]][twitter-url]  
+[![Facebook][facebook-shield]][facebook-url] [![LinkedIn][linkedin-shield]][linkedin-url] [![Twitter][facebook-shield]][twitter-url]  
 
 [![License][license-shield]][license-url] [![Build Status][build-shield]]() [![Contributors][contributors-shield]]() 
 
@@ -16,7 +16,7 @@
   <h3 align="center">Hackberry Hand project</h3>
 
    <p align="center">
-    An awesome README template to jumpstart your projects!
+    Giving the World a Helping Hand
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
