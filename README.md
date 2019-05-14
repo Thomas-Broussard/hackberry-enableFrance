@@ -1,7 +1,7 @@
 <!-- PROJECT SHIELDS -->
 [![Facebook][facebook-shield]][facebook-url] [![LinkedIn][linkedin-shield]][linkedin-url]  [![Twitter][twitter-shield]][twitter-url]  
 
-[![License][license-shield]][license-url] [![Build Status][build-shield]]() [![Contributors][contributors-shield]]() 
+[![License][license-shield]][license-url] <!--[![Build Status][build-shield]]() [![Contributors][contributors-shield]]()--> 
 
 
 
