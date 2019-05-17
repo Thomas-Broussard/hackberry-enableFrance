@@ -17,7 +17,7 @@
 
    <p align="center">
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="#"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://www.youtube.com/watch?v=6Jfwinhh8ZM">View Demo</a>
@@ -184,6 +184,7 @@ See [Hackberry Original Project License](https://github.com/mission-arm/HACKberr
 * [e-Nable France](https://e-nable.fr/)
 * [Genta Kondo (Author of Hackberry Project)](https://github.com/mission-arm/HACKberry)
 * [Exiii](https://exiii.jp/)
+* [Best README Template by othneildrew](https://github.com/othneildrew/Best-README-Template)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
