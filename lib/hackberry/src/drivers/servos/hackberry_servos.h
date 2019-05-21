@@ -33,11 +33,14 @@ class Hackberry_servos{
     Hackberry_servos();
     void init(bool selectedHand);
 
-    // set parameters
+    // speed
     void setSpeed(int speed);
+    int getSpeed();
 
     // moving fingers
     void move(int member, int position, bool waitEnabled);
+    void relativeMove(int member, int degree, bool waitEnabled);
+    
     void open(int member);
     void close(int member);
     void openAll();

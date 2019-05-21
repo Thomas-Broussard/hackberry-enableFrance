@@ -33,9 +33,12 @@ Hackberry::Hackberry()
  */
 void Hackberry::begin(bool selectedHand)
 {
+    // Drivers
     this->servos.init(selectedHand);
     this->buttons.init(selectedHand);
     this->sensor.init(selectedHand,STANDARD_IR_SENSOR);
+
+    // COM
     this->debug.init(true , this->sensor,this->servos,this->buttons);
     this->bluetooth.init(this->sensor,this->servos,this->buttons);
 }
@@ -48,9 +51,12 @@ void Hackberry::begin(bool selectedHand)
  */
 void Hackberry::begin(bool selectedHand, bool enableDebug)
 {
+    // Drivers
     this->servos.init(selectedHand);
     this->buttons.init(selectedHand);
     this->sensor.init(selectedHand,STANDARD_IR_SENSOR);
+
+    // COM
     this->debug.init(enableDebug , this->sensor,this->servos,this->buttons);
     this->bluetooth.init(this->sensor,this->servos,this->buttons);
 }
@@ -63,10 +69,15 @@ void Hackberry::begin(bool selectedHand, bool enableDebug)
  */
 void Hackberry::begin(bool selectedHand, int sensorType)
 {
+    // Drivers
     this->servos.init(selectedHand);
     this->buttons.init(selectedHand);
     this->sensor.init(selectedHand,sensorType);
+
+    // COM
     this->debug.init(true , this->sensor,this->servos,this->buttons);
     this->bluetooth.init(this->sensor,this->servos,this->buttons);
 }
+
+
 

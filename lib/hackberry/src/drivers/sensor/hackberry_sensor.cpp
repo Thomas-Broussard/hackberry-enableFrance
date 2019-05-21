@@ -22,28 +22,11 @@ Hackberry_sensor::Hackberry_sensor()
 {
 }
 
-
-/**
- * Initialize sensor driver
- * 
- * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
- * @param sensorType Type of sensor used to read the muscle activity
- */
 void Hackberry_sensor::init(bool selectedHand, int sensorType)
 {
-    this->_sensorType = sensorType;
-
-    switch(sensorType)
-    {
-        case STANDARD_IR_SENSOR:
-            this->_pinSensor = A1;  
-            pinMode(_pinSensor, INPUT);
-        break;
-
-        default:
-        break;
-    }
+    this->setSensorType(sensorType);
 }
+
 
 /**
  * read the value of the sensor
@@ -52,18 +35,8 @@ void Hackberry_sensor::init(bool selectedHand, int sensorType)
  */
 int Hackberry_sensor::read()
 {
-    switch(_sensorType)
-    {
-        case STANDARD_IR_SENSOR: 
-            return analogRead(_pinSensor);
-        break;
-        default:
-            return -1; // error code
-        break;
-    }
+    return this->_sensor->read();
 }
-
-
 
 /**
  * Perform a sensor reading by averaging the result on 16 consecutive points
@@ -72,11 +45,26 @@ int Hackberry_sensor::read()
  */
 int Hackberry_sensor::readAverage()
 {
-    int result = 0; 
-
-    for (int i = 0; i < 16; i++) 
-    {
-        result += this->read();
-    }
-    return (result >> 4);
+    return this->_sensor->readAverage();
 }
+
+void Hackberry_sensor::calibrate()
+{
+    this->_sensor->calibrate();
+}
+
+
+void Hackberry_sensor::setSensorType(int sensorType)
+{
+    this->_sensorType = sensorType;
+    switch(sensorType)
+    {
+        case STANDARD_IR_SENSOR:
+            this->_sensor = new IRSensor(A1);
+        break;
+
+        default:
+        break;
+    }
+}
+

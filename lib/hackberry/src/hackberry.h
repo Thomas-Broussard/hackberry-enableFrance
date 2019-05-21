@@ -24,7 +24,7 @@
 #include "drivers/sensor/hackberry_sensor.h"
 #include "drivers/debug/hackberry_debug.h"
 #include "drivers/bluetooth/hackberry_bluetooth.h"
-
+#include "drivers/eeprom/hackberry_eeprom.h"
 
 // class
 class Hackberry
@@ -38,13 +38,13 @@ class Hackberry
         void begin(bool selectedHand, int sensorType);
 
         // Hackberry hand components
-        Hackberry_buttons buttons;
-        Hackberry_servos  servos;
-        Hackberry_sensor  sensor;
-        Hackberry_debug debug;
+        Hackberry_buttons   buttons;
+        Hackberry_servos    servos;
+        Hackberry_sensor    sensor;
+        Hackberry_debug     debug;
         Hackberry_bluetooth bluetooth;
+        Hackberry_eeprom    eeprom;
 
-        //Hackberry_eeprom  eeprom;
         //Hackberry_calibration calibration;
         
     private:      

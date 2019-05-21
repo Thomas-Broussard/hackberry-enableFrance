@@ -14,7 +14,6 @@
  */
 #include "Hackberry_bluetooth.h"
 
-
 /**
  * Constructor of the Servomotor class
  */
@@ -37,49 +36,171 @@ void Hackberry_bluetooth::init(Hackberry_sensor sensor, Hackberry_servos servos,
 
     // bluetooth initialization
     this->_BTSerial = new SoftwareSerial(this->_pinTx,this->_pinRx);
-    this->_BTSerial->begin(DATA_BAUDRATE);
+    this->_BTSerial->begin(38400);
 
+    this->BT = new BluetoothData(this->_BTSerial);
+    this->AT = new HC06(this->BT);
+    
+    
     this->stop(); // module power disabled by default
 }
 
+
+/* 
+ * =============================================================================================================================================
+ *                                  GENERAL FUNCTIONS
+ * =============================================================================================================================================
+ */
 /**
  * enable Bluetooth module
  */
 void Hackberry_bluetooth::start() {
     digitalWrite(this->_pinPower,HIGH);
-    this->_enable = true;
+    this->BT->start();
 }
 
 /**
  * disable Bluetooth module
  */
 void Hackberry_bluetooth::stop() {
+    this->BT->stop();
     digitalWrite(this->_pinPower,LOW);
-    this->_enable = false;
 }
-
 
 
 /** Read instructions received by bluetooth */
-void Hackberry_bluetooth::execute() {
-    if (this->_enable != true) return;
-
-    String messageReceived = this->receiveString();
+void Hackberry_bluetooth::routine() 
+{
+    String messageReceived = this->BT->receive();
     if (messageReceived.length() <= 1) return;
 
-    int command = ParseString(message,';', 0).toInt();
-    this->decodeInstruction(command,message);
+    int command = ParseString(messageReceived,';', 0).toInt();
+    this->decodeInstruction(command,messageReceived);
 }
 
 
-
+/* 
+ * =============================================================================================================================================
+ *                                  DECODE INSTRUCTIONS
+ * =============================================================================================================================================
+ */
 void Hackberry_bluetooth::decodeInstruction(int command, String message)
+{
+    this->generalInstruction(command,message);
+    this->servoInstruction(command,message);
+    this->sensorInstruction(command,message);
+}
+
+void Hackberry_bluetooth::generalInstruction(int command, String message)
 {
     switch(command)
     {
+        // General (AT commands)
         case CMD_GEN_TEST:
-            this->send("OK");
+            this->BT->send("OK");
         break;
+
+        case  CMD_GEN_SET_PASS: 
+            this->AT->setPassword(message);
+        break;
+
+        case  CMD_GEN_SET_NAME:
+            this->AT->setName(message); 
+        break;
+
+        case  CMD_GEN_STOP: 
+            this->stop();
+        break;
+
+        case  CMD_GEN_RESET: 
+        break;
+
+        default:break;
+    }
+}
+
+void Hackberry_bluetooth::servoInstruction(int command, String message)
+{
+    int targetMember = 0;
+    int degree = 0;
+    int speed = 1;
+
+    switch(command)
+    {
+        case  CMD_SRV_MOVE_UP: 
+            if (paramExist(message,1) && paramExist(message,2))
+            {
+                targetMember = getParam(message,1).toInt();
+                degree += getParam(message,2).toInt();
+
+                this->servos->relativeMove(targetMember,degree, true);
+            }
+        break;
+
+        case  CMD_SRV_MOVE_DOWN: 
+        if (paramExist(message,1) && paramExist(message,2))
+            {
+                targetMember = getParam(message,1).toInt();
+                degree -= getParam(message,2).toInt();
+
+                this->servos->relativeMove(targetMember,degree, true);
+            }
+        break;
+
+        case  CMD_SRV_SAVE_MAX: 
+        break;
+
+        case  CMD_SRV_SAVE_MIN: 
+        break;
+
+        case  CMD_SRV_LOAD_MAX:
+         break;
+
+        case  CMD_SRV_LOAD_MIN:
+         break;
+
+        case  CMD_SRV_SET_HAND:
+         break;
+
+        case  CMD_SRV_GET_HAND:
+         break;
+
+        case  CMD_SRV_SET_SPEED:
+            if (paramExist(message,1))
+            {
+                speed = getParam(message,1).toInt();
+                this->servos->setSpeed(speed);
+            }
+         break;
+
+        case  CMD_SRV_GET_SPEED:
+            speed = this->servos->getSpeed();
+            this->BT->send(speed);
+         break;
+
+        case  CMD_SRV_TEST:
+         break;
+
+        default:break;
+    }
+}
+
+void Hackberry_bluetooth::sensorInstruction(int command, String message)
+{
+    switch(command)
+    {
+        case  CMD_SENS_GET_VALUE:
+         break;
+
+        case  CMD_SENS_SET_TYPE:
+         break;
+
+        case  CMD_SENS_GET_TYPE:
+         break;
+
+        case  CMD_SENS_CALIB:
+            this->sensor->calibrate();
+         break;
 
         default:break;
     }
@@ -88,57 +209,9 @@ void Hackberry_bluetooth::decodeInstruction(int command, String message)
 
 /* 
  * =============================================================================================================================================
- *                                  SEND FUNCTIONS
+ *                                  EXTERNAL FUNCTIONS
  * =============================================================================================================================================
  */
-void Hackberry_bluetooth::send(char c)
-{
-    if (!this->_enable) return;
-    this->_BTSerial->write(c);
-}
-
-void Hackberry_bluetooth::send(String message)
-{
-    if (!this->_enable) return;
-    for (unsigned int i = 0; i < message.length(); i++)
-    {
-        this->_BTSerial->write(message.charAt(i));
-    }
-}
-
-void Hackberry_bluetooth::sendATcommand(String command, String value)
-{
-    if (!this->_enable) return;
-    String message = "AT+" + command + "=" + value ;
-    //this->setMode(AT_MODE);
-    this->send(message);
-    //this->setMode(DATA_MODE);
-}
-
-/* 
- * =============================================================================================================================================
- *                                  RECEIVE FUNCTIONS
- * =============================================================================================================================================
- */
-
-String Hackberry_bluetooth::receiveString()
-{
-    if (!this->_enable) return "";
-    
-    String message = "";
-    while (this->_BTSerial->available() > 0) 
-    {
-        delay(10);
-        if (this->_BTSerial->available() > 0) {
-            char c = this->_BTSerial->read();  //gets one byte from serial buffer
-            message += c; //makes the string readString
-        }
-    }
-    return message;
-}
-
-
-
 /*===============================================================================
   Nom 			: 	ParseString
   
@@ -166,5 +239,15 @@ String ParseString(String data, char separator, int index)
   }
 
   return found>index ? data.substring(strIndex[0], strIndex[1]) : "";
+}
+
+String getParam(String message, int index)
+{
+    return ParseString(message,';', index);
+}
+
+bool paramExist(String message, int index)
+{
+    return (getParam(message,index) == "") ? false:true;  
 }
 

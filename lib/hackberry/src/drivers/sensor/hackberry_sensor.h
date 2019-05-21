@@ -18,6 +18,7 @@
 // dependencies
 #include <Arduino.h>
 #include "hackberry_global.h"
+#include "sensor_interface.h"
 
 // class
 class Hackberry_sensor{
@@ -29,13 +30,12 @@ class Hackberry_sensor{
         // reading sensor output
         int read();
         int readAverage();
+        void calibrate();
+
+        void setSensorType(int sensorType);
 
     private:
-
-        // Wiring pins
-        int _pinSensor;
-
-        // Type of sensor used
+        ISensor *_sensor;
         int _sensorType;
 };
 

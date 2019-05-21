@@ -81,8 +81,17 @@ void Hackberry_servos::setSpeed(int speed){
 }
 
 /**
- * Move one of the members of the hand
+ * Get the speed of the servomotors
  * 
+ * @return speed of servomotors (from 1 to 255)
+ */ 
+int Hackberry_servos::getSpeed(){
+    return this->_speed;
+}
+
+/**
+ * Move one of the members of the hand
+ * (Absolute move)
  * @param membre Member to move  (THUMB, INDEX or FINGERS)
  * @param position Desired position for the member
  * @param waitEnabled true : wait the end of the move to do another action
@@ -105,6 +114,19 @@ void Hackberry_servos::move(int member, int position,bool waitEnabled) {
             this->moveServo(FINGERS, finalPosition,waitEnabled);
             break;
     }
+}
+
+/**
+ * Move one of the members of the hand
+ * (Relative move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param degree number of rotation degree 
+ * @param waitEnabled true : wait the end of the move to do another action
+ */
+void Hackberry_servos::relativeMove(int member, int degree,bool waitEnabled) {
+    int finalPosition = 0;
+    int position = this->getPosition(member) + degree;
+    this->move(member,position,waitEnabled);
 }
 
 

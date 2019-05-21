@@ -22,6 +22,7 @@
 
 #include "hackberry_global.h"
 #include "bluetooth_instructions.h"
+#include "bluetooth_AT_interface.h"
 
 #include "../sensor/hackberry_sensor.h"
 #include "../servos/hackberry_servos.h"
@@ -35,9 +36,6 @@
 #define DATA_MODE true
 #define AT_MODE false
 
-#define AT_BAUDRATE 38400
-#define DATA_BAUDRATE 38400
-
 // class
 class Hackberry_bluetooth{
 
@@ -47,26 +45,19 @@ class Hackberry_bluetooth{
 
         void start();
         void stop();
-        void execute();
+        void routine();
 
         // Instructions functions
-        void decodeInstruction(String message);
-        void executeInstruction(int command, String message);
+        void decodeInstruction(int command, String message);
 
-        // Send functions
-        void send(char c);
-        void send(String message);
-        void sendATcommand(String command, String value);
-
-            // Receive function
-        String receiveString();
-
-
+    
     private:
-        // variables
-        bool _enable;
-        
 
+        // private functions
+        void generalInstruction(int command, String message);
+        void servoInstruction(int command, String message);
+        void sensorInstruction(int command, String message);
+        
         // wiring pins
         int _pinRx      = PIN_RX;
         int _pinTx      = PIN_TX; 
@@ -78,10 +69,13 @@ class Hackberry_bluetooth{
         Hackberry_servos *servos;
         Hackberry_buttons *buttons;
 
-        
+        IBluetoothAT  *AT;
+        BluetoothData *BT;
 };
 
 // external functions
 String ParseString(String data, char separator, int index);
+String getParam(String message, int index);
+bool paramExist(String message, int index);
 
 #endif
