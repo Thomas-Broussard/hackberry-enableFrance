@@ -81,13 +81,11 @@ Its goal is to federate a team around the construction of a lower limb prosthesi
 ### Built With
 
 * 3D printers for plastic parts
-<br/>
 * IDE for microcontrollers programming : 
-    * [Visual Studio Code](https://code.visualstudio.com/)
-    * [PlatformIO](https://platformio.org/)
-<br/>
+  * [Visual Studio Code](https://code.visualstudio.com/)
+  * [PlatformIO](https://platformio.org/)
 * Mobile app IDE (optional) : 
-    * [Android Studio](https://developer.android.com/studio)
+  * [Android Studio](https://developer.android.com/studio)
 
 
 <!-- GETTING STARTED -->
@@ -117,8 +115,6 @@ git clone https://github.com/Thomas-Broussard/hackberry-enableFrance.git
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-
 
 1. On Visual Studio code, click on <i>File > Open Folder...  (Ctrl+K Ctrl+O)</i>
 
