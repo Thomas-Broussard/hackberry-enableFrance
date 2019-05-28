@@ -39,7 +39,7 @@ void Hackberry::begin(bool selectedHand, int sensorType, bool enableDebug)
     this->sensor.init(TYPE_IR_SENSOR);
 
     // COM
-    this->debug.init(enableDebug , this->sensor,this->servos,this->buttons);
+    //this->debug.init(enableDebug , this->sensor,this->servos,this->buttons);
     this->bluetooth.init(this->sensor,this->servos,this->buttons);
 }
 
