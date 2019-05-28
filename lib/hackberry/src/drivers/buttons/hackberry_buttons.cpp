@@ -20,73 +20,25 @@
  * Constructor
  * 
  */
-Hackberry_buttons::Hackberry_buttons()
+Hackberry_buttons::Hackberry_buttons(int pinCalib, int pinExtra, int pinThumb, int pinLock)
 {
+    this->_pinCalib       = pinCalib;
+    this->_pinExtra       = pinExtra; 
+    this->_pinThumb       = pinThumb;
+    this->_pinLock        = pinLock;
 }
 
 /**
  * Initialize pins of buttons
- * 
- * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
  */
-void Hackberry_buttons::init(bool selectedHand)
+void Hackberry_buttons::init()
 {
-    // pins selection
-    if (selectedHand == RIGHT_HAND)
-    {
-        this->_pinCalib       = A6;
-        this->_pinExtra       = A7; 
-        this->_pinThumb       = A0;
-        this->_pinLock        = 10;
-    }
-    else if (selectedHand == LEFT_HAND)
-    {
-        this->_pinCalib       = A6;
-        this->_pinExtra       = A7; 
-        this->_pinThumb       = A0;
-        this->_pinLock        = 10;
-    }   
-
     // pins initialization
     pinMode(_pinCalib, INPUT_PULLUP);
     pinMode(_pinExtra, INPUT_PULLUP);
     pinMode(_pinThumb, INPUT_PULLUP);
     pinMode(_pinLock , INPUT_PULLUP);
 }
-
-
-/**
- * Function called when the Calibration button is pressed
- */
-void Hackberry_buttons::buttonAction_Calib()
-{
-    /** TODO : complete this function */
-}
-
-/**
- * Function called when the Extra button is pressed
- */
-void Hackberry_buttons::buttonAction_Extra()
-{
-    /** TODO : complete this function */
-}
-
-/**
- * Function called when the Thumb button is pressed
- */
-void Hackberry_buttons::buttonAction_Thumb()
-{
-    /** TODO : complete this function */
-}
-
-/**
- * Function called when the Lock button is pressed
- */
-void Hackberry_buttons::buttonAction_Lock()
-{
-    /** TODO : complete this function */
-}
-
 
 /**
  * get the current state of the Calib button
@@ -95,7 +47,7 @@ void Hackberry_buttons::buttonAction_Lock()
  */
 bool Hackberry_buttons::isCalibButtonPressed()
 {
-    return analogRead(this->_pinCalib) < 100 ? true:false ;
+    return digitalRead(this->_pinCalib) == BUTTONPRESSED ? true:false ;
 }
 
 /**
@@ -104,7 +56,7 @@ bool Hackberry_buttons::isCalibButtonPressed()
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isExtraButtonPressed(){
-    return analogRead(this->_pinExtra) < 100? true:false ;
+    return digitalRead(this->_pinExtra) == BUTTONPRESSED ? true:false ;
 }
 
 /**
@@ -113,7 +65,7 @@ bool Hackberry_buttons::isExtraButtonPressed(){
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isThumbButtonPressed(){
-    return digitalRead(this->_pinThumb)== BUTTONPRESSED ? true:false ;
+    return digitalRead(this->_pinThumb) == BUTTONPRESSED ? true:false ;
 }
 
 /**

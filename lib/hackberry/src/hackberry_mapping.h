@@ -4,32 +4,39 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description : Minimalist example of Hackberry_sensor library usage
+ *  Description : Mapping of IOs for Hackberry Hand
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
  *  https://github.com/mission-arm/HACKberry
  * =============================================================================================================================================
  */
-
-#include <Arduino.h>
-#include "hackberry.h"
-
-Hackberry hackberry;
-
-int intervalBetweenEachRead = 500; // ms
-int sensorVal;
+#ifndef __HACKBERRY_MAPPING_H__
+#define __HACKBERRY_MAPPING_H__
 
 
-void setup() {
-  Serial.begin(9600);
-  hackberry.begin(RIGHT_HAND,TYPE_IR_SENSOR, true);
-}
+// Servomotors
+#define PIN_THUMB           9
+#define PIN_INDEX           5
+#define PIN_FINGERS         6
 
-void loop() 
-{  
-  sensorVal = hackberry.sensor.readAverage();
-  Serial.print("Sensor Value = ");
-  Serial.println(sensorVal);
-  delay(intervalBetweenEachRead);  
-}
+// Sensor
+#define PIN_SENSOR_1        A7
+#define PIN_SENSOR_2        A2
+
+// Buttons
+#define PIN_BUTTON_CALIB    A0
+#define PIN_BUTTON_EXTRA    A1
+#define PIN_BUTTON_THUMB    2
+#define PIN_BUTTON_LOCK     10
+
+// Battery
+#define PIN_BATTERY         A6
+
+
+// Bluetooth / Communication
+#define PIN_RX              0
+#define PIN_TX              1
+#define PIN_POWER           A3
+
+#endif

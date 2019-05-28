@@ -18,11 +18,26 @@
  * Constructor
  * 
  */
-Hackberry_sensor::Hackberry_sensor()
+Hackberry_sensor::Hackberry_sensor(int pin)
 {
+    this->pin1 = pin;
 }
 
-void Hackberry_sensor::init(bool selectedHand, int sensorType)
+Hackberry_sensor::Hackberry_sensor(int pin1, int pin2)
+{
+    this->pin1 = pin1;
+    this->pin2 = pin2;
+}
+
+Hackberry_sensor::Hackberry_sensor(int pin1, int pin2, int pin3)
+{
+    this->pin1 = pin1;
+    this->pin2 = pin2;
+    this->pin3 = pin3;
+}
+
+
+void Hackberry_sensor::init(int sensorType)
 {
     this->setSensorType(sensorType);
 }
@@ -35,7 +50,16 @@ void Hackberry_sensor::init(bool selectedHand, int sensorType)
  */
 int Hackberry_sensor::read()
 {
-    return this->_sensor->read();
+    long result = this->_sensor->read();
+
+    if (this->_gain != 1){
+        result *= this->_gain;
+    }
+
+    if (this->_offset != 1){
+        result += this->_offset;
+    }
+    return result;
 }
 
 /**
@@ -45,12 +69,22 @@ int Hackberry_sensor::read()
  */
 int Hackberry_sensor::readAverage()
 {
-    return this->_sensor->readAverage();
+    long result = this->_sensor->readAverage();
+
+    if (this->_gain != 1){
+        result *= this->_gain;
+    }
+
+    if (this->_offset != 1){
+        result += this->_offset;
+    }
+    return result;
 }
 
-void Hackberry_sensor::calibrate()
+void Hackberry_sensor::calibrate(float gain, int offset)
 {
-    this->_sensor->calibrate();
+    this->_gain = gain;
+    this->_offset = offset;
 }
 
 
@@ -59,8 +93,12 @@ void Hackberry_sensor::setSensorType(int sensorType)
     this->_sensorType = sensorType;
     switch(sensorType)
     {
-        case STANDARD_IR_SENSOR:
-            this->_sensor = new IRSensor(A1);
+        case TYPE_IR_SENSOR:
+            this->_sensor = new IRSensor(pin1);
+        break;
+
+        case TYPE_EMG_SENSOR:
+            this->_sensor = new IRSensor(pin1);
         break;
 
         default:

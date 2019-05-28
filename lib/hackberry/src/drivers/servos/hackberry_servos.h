@@ -21,16 +21,11 @@
 #include "hackberry_global.h"
 #include "dependencies/VarSpeedServo.h"
 
-// Constants
-#define PIN_INDEX 6 
-#define PIN_THUMB 9
-#define PIN_FINGERS 5
-
 // class
 class Hackberry_servos{
 
     public: 
-    Hackberry_servos();
+    Hackberry_servos(int indexPin, int thumbPin, int fingersPin);
     void init(bool selectedHand);
 
     // speed
@@ -49,9 +44,9 @@ class Hackberry_servos{
     
     private:
     // wiring pins
-    int _pinServoIndex  = PIN_INDEX;
-    int _pinServoThumb  = PIN_THUMB;
-    int _pinServoFingers = PIN_FINGERS;
+    int _pinServoIndex;
+    int _pinServoThumb;
+    int _pinServoFingers;
     
     // Servomotors
     VarSpeedServo  servoIndex;  

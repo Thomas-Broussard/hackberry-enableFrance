@@ -20,23 +20,40 @@
 #include "hackberry_global.h"
 #include "sensor_interface.h"
 
+
+// ---------------------------------------------------
+// Constants for sensor
+// ---------------------------------------------------
+
+
+
 // class
 class Hackberry_sensor{
 
     public: 
-        Hackberry_sensor();
-        void init(bool selectedHand, int sensorType);
+        Hackberry_sensor(int pin);
+        Hackberry_sensor(int pin1, int pin2);
+        Hackberry_sensor(int pin1, int pin2, int pin3);
+
+        void init(int sensorType);
 
         // reading sensor output
         int read();
         int readAverage();
-        void calibrate();
+        void calibrate(float gain, int offset);
 
         void setSensorType(int sensorType);
 
     private:
         ISensor *_sensor;
         int _sensorType;
+
+        float _gain = 1;
+        int _offset = 0;
+
+        int pin1;
+        int pin2;
+        int pin3;
 };
 
 

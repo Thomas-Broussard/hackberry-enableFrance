@@ -29,15 +29,9 @@ class Hackberry_buttons{
 
 
     public: 
-    Hackberry_buttons();
+    Hackberry_buttons(int pinCalib, int pinExtra, int pinThumb, int pinLock);
 
-    void init(bool selectedHand);
-
-    // Functions called when a button is pressed
-    void buttonAction_Calib();
-    void buttonAction_Extra();
-    void buttonAction_Thumb();
-    void buttonAction_Lock();
+    void init();
 
      // Get button state
     bool isCalibButtonPressed();

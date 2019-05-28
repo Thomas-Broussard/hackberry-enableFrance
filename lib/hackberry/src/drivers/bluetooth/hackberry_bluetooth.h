@@ -28,11 +28,6 @@
 #include "../servos/hackberry_servos.h"
 #include "../buttons/hackberry_buttons.h"
 
-// Constants
-#define PIN_RX 3        // bluetooth pin
-#define PIN_TX 2        // bluetooth pin
-#define PIN_POWER 4
-
 #define DATA_MODE true
 #define AT_MODE false
 
@@ -40,7 +35,7 @@
 class Hackberry_bluetooth{
 
     public: 
-        Hackberry_bluetooth();
+        Hackberry_bluetooth(int pinRx, int pinTx, int pinPower);
         void init(Hackberry_sensor sensor, Hackberry_servos servos, Hackberry_buttons buttons);
 
         void start();
@@ -59,9 +54,9 @@ class Hackberry_bluetooth{
         void sensorInstruction(int command, String message);
         
         // wiring pins
-        int _pinRx      = PIN_RX;
-        int _pinTx      = PIN_TX; 
-        int _pinPower   = PIN_POWER; 
+        int _pinRx;
+        int _pinTx; 
+        int _pinPower; 
 
         // referenced objects
         SoftwareSerial *_BTSerial;

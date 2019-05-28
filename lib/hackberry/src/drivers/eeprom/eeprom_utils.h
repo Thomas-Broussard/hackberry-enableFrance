@@ -5,7 +5,7 @@
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
  *  Description :
- *  Common functions to send and receive data from bluetooth module
+ *  Common functions to read and write data in EEPROM
  *  
  *  see : http://www.nongnu.org/avr-libc/user-manual/group__avr__eeprom.html#ga44c64ebb425fcb34b8d4dc19c4079869
  * 

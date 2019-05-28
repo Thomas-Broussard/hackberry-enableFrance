@@ -25,6 +25,11 @@
 #include "drivers/debug/hackberry_debug.h"
 #include "drivers/bluetooth/hackberry_bluetooth.h"
 #include "drivers/eeprom/hackberry_eeprom.h"
+#include "drivers/battery/hackberry_battery.h"
+
+
+// Mapping of IOs
+#include "hackberry_mapping.h"
 
 // class
 class Hackberry
@@ -33,19 +38,16 @@ class Hackberry
         Hackberry();
 
         // initialization
-        void begin(bool selectedHand);
-        void begin(bool selectedHand,bool enableDebug);
-        void begin(bool selectedHand, int sensorType);
+        void begin(bool selectedHand, int sensorType, bool enableDebug);
 
         // Hackberry hand components
         Hackberry_buttons   buttons;
         Hackberry_servos    servos;
         Hackberry_sensor    sensor;
-        Hackberry_debug     debug;
+        Hackberry_battery   battery;
         Hackberry_bluetooth bluetooth;
+        //Hackberry_debug     debug;
         Hackberry_eeprom    eeprom;
-
-        //Hackberry_calibration calibration;
         
     private:      
 };

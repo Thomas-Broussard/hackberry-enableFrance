@@ -23,11 +23,10 @@ Hackberry_eeprom::Hackberry_eeprom()
     this->eeprom = new EEPROMUtils();
 
     // initialization of eeprom memory
-    if (this->eeprom->readFloat(ADDR(magicWord)) != MAGIC_WORD)
+    if (!this->IsMagicWordCorrect())
     {
         this->SetDefault();
     }
-
 }
 
 
@@ -171,26 +170,34 @@ void Hackberry_eeprom::printMemoryMap()
 *                                  PRIVATE FUNCTIONS
 * =============================================================================================================================================
 */
-void Hackberry_eeprom::SetDefault()
-{
-    this->SetHand(RIGHT_HAND);
 
-    this->SetMinServo(THUMB,0);this->SetMaxServo(THUMB,180);
-    this->SetMinServo(INDEX,0);this->SetMaxServo(INDEX,180);
-    this->SetMinServo(FINGERS,0);this->SetMaxServo(FINGERS,180);
-
-    this->SetSensorType(STANDARD_IR_SENSOR);
-    this->SetSensorGain(1.00);
-    this->SetSensorOffset(0);
-
-    this->SetMagicWord();
-}
 
 void Hackberry_eeprom::SetMagicWord()
 {
     this->eeprom->writeFloat(ADDR(magicWord),MAGIC_WORD);
 }
 
+bool Hackberry_eeprom::IsMagicWordCorrect()
+{
+    return (this->eeprom->readFloat(ADDR(magicWord)) == MAGIC_WORD);
+}
 
+void Hackberry_eeprom::SetDefault()
+{
+    this->SetHand(RIGHT_HAND);
 
+    this->SetMinServo(THUMB,THUMB_MIN);  
+    this->SetMaxServo(THUMB,THUMB_MAX);
 
+    this->SetMinServo(INDEX,INDEX_MIN);  
+    this->SetMaxServo(INDEX,INDEX_MAX);
+
+    this->SetMinServo(FINGERS,FINGERS_MIN);
+    this->SetMaxServo(FINGERS,FINGERS_MAX);
+
+    this->SetSensorType(TYPE_IR_SENSOR);
+    this->SetSensorGain(1.00);
+    this->SetSensorOffset(0);
+
+    this->SetMagicWord();
+}

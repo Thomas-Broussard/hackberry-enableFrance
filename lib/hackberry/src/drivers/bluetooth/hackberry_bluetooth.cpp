@@ -17,8 +17,10 @@
 /**
  * Constructor of the Servomotor class
  */
-Hackberry_bluetooth::Hackberry_bluetooth(){
-    
+Hackberry_bluetooth::Hackberry_bluetooth(int pinRx, int pinTx, int pinPower){
+    this->_pinRx = pinRx;
+    this->_pinTx = pinTx;
+    this->_pinPower = pinPower;
 }
 
 
@@ -51,6 +53,7 @@ void Hackberry_bluetooth::init(Hackberry_sensor sensor, Hackberry_servos servos,
  *                                  GENERAL FUNCTIONS
  * =============================================================================================================================================
  */
+
 /**
  * enable Bluetooth module
  */
@@ -199,7 +202,7 @@ void Hackberry_bluetooth::sensorInstruction(int command, String message)
          break;
 
         case  CMD_SENS_CALIB:
-            this->sensor->calibrate();
+            //this->sensor->calibrate();
          break;
 
         default:break;

@@ -7,14 +7,9 @@
 #define RIGHT_HAND true
 #define LEFT_HAND false
 
-
-// ---------------------------------------------------
-// Constants for sensor
-// ---------------------------------------------------
-
 // LIST OF EXISTING SENSORS
-#define STANDARD_IR_SENSOR 0
-
+#define TYPE_IR_SENSOR 0
+#define TYPE_EMG_SENSOR 1
 
 // ---------------------------------------------------
 // Constants for servomotor

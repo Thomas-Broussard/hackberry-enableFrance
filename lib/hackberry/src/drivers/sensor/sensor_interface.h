@@ -24,7 +24,7 @@
 
 /* 
  * =============================================================================================================================================
- *                                                      BLUETOOTH AT COMMANDS INTERFACE
+ *                                                      SENSOR INTERFACE
  * =============================================================================================================================================
  */
 class ISensor
@@ -44,8 +44,11 @@ class ISensor
         }
 
         // Interface methods
+        /*virtual void init(int pin1);
+        virtual void init(int pin1,int pin2);
+        virtual void init(int pin1,int pin2, int pin3);*/
+
         virtual int  read();
-        virtual void calibrate();
 };
 
 
@@ -66,11 +69,6 @@ class IRSensor : public ISensor
         int read()
         {
             return analogRead(_pinSensor);
-        }
-
-        void calibrate()
-        {
-            // calibration code here
         }
 
     private:
@@ -97,11 +95,6 @@ class SensorName : public ISensor
         int read()
         {
             // do stuff here
-        }
-
-        void calibrate()
-        {
-            // calibration code here
         }
 
     private:

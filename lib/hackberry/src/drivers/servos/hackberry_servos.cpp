@@ -19,8 +19,10 @@
  * Constructor of the Servomotor class
  * @param hackberry current Hackberry Hand object in use
  */
-Hackberry_servos::Hackberry_servos() {
-    
+Hackberry_servos::Hackberry_servos(int indexPin, int thumbPin, int fingersPin) {
+    _pinServoIndex  = indexPin;
+    _pinServoThumb  = thumbPin;
+    _pinServoFingers = fingersPin;
 }
 
 
@@ -44,7 +46,6 @@ void Hackberry_servos::init(bool selectedHand) {
     servoThumb.attach(_pinServoThumb);
     servoFingers.attach(_pinServoFingers);
     
-
     // Limit positions of servomotors according to the selected hand
     /** TODO: load parameters from the EEPROM */
     if (selectedHand == RIGHT_HAND) {
@@ -123,8 +124,8 @@ void Hackberry_servos::move(int member, int position,bool waitEnabled) {
  * @param degree number of rotation degree 
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::relativeMove(int member, int degree,bool waitEnabled) {
-    int finalPosition = 0;
+void Hackberry_servos::relativeMove(int member, int degree,bool waitEnabled) 
+{
     int position = this->getPosition(member) + degree;
     this->move(member,position,waitEnabled);
 }

@@ -23,7 +23,6 @@
 #include "eeprom_utils.h"
 #include "eeprom_map.h"
 #include "hackberry_global.h"
-
  
 
 // class
@@ -57,12 +56,13 @@ class Hackberry_eeprom{
       // Other
       void printMemoryMap();
       
-    private:
-
-      void SetMagicWord();
-      void SetDefault();
       
+    private:
       EEPROMUtils *eeprom;
+
+      void SetDefault();
+      void SetMagicWord();
+      bool IsMagicWordCorrect();
 
 
 };

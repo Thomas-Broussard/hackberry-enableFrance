@@ -15,69 +15,34 @@
 
 
 /**
- * Constructor
+ * Constructor : map all the IOs to drivers
  */
-Hackberry::Hackberry()
-{
-    this->buttons  = Hackberry_buttons();
-    this->servos   = Hackberry_servos();
-    this->sensor   = Hackberry_sensor();
-    this->debug    = Hackberry_debug();
-    this->bluetooth= Hackberry_bluetooth();
-}
+Hackberry::Hackberry() : 
+    buttons(PIN_BUTTON_CALIB , PIN_BUTTON_EXTRA , PIN_BUTTON_THUMB , PIN_BUTTON_LOCK),
+    servos(PIN_INDEX , PIN_THUMB , PIN_FINGERS),
+    sensor(PIN_SENSOR_1 , PIN_SENSOR_2),
+    battery(PIN_BATTERY),
+    bluetooth(PIN_RX , PIN_TX , PIN_POWER),
+    eeprom()
+{}
 
 /**
  * Initialize the Hackberry Hand
  * 
  * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
  */
-void Hackberry::begin(bool selectedHand)
+void Hackberry::begin(bool selectedHand, int sensorType, bool enableDebug)
 {
     // Drivers
     this->servos.init(selectedHand);
-    this->buttons.init(selectedHand);
-    this->sensor.init(selectedHand,STANDARD_IR_SENSOR);
-
-    // COM
-    this->debug.init(true , this->sensor,this->servos,this->buttons);
-    this->bluetooth.init(this->sensor,this->servos,this->buttons);
-}
-
-/**
- * Initialize the Hackberry Hand
- * 
- * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
- * @param enableDebug set to true to enable debug printing on serial monitor
- */
-void Hackberry::begin(bool selectedHand, bool enableDebug)
-{
-    // Drivers
-    this->servos.init(selectedHand);
-    this->buttons.init(selectedHand);
-    this->sensor.init(selectedHand,STANDARD_IR_SENSOR);
+    this->buttons.init();
+    this->sensor.init(TYPE_IR_SENSOR);
 
     // COM
     this->debug.init(enableDebug , this->sensor,this->servos,this->buttons);
     this->bluetooth.init(this->sensor,this->servos,this->buttons);
 }
 
-/**
- * Initialize the Hackberry Hand
- * 
- * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
- * @param sensorType Type of sensor used to read the muscle activity
- */
-void Hackberry::begin(bool selectedHand, int sensorType)
-{
-    // Drivers
-    this->servos.init(selectedHand);
-    this->buttons.init(selectedHand);
-    this->sensor.init(selectedHand,sensorType);
-
-    // COM
-    this->debug.init(true , this->sensor,this->servos,this->buttons);
-    this->bluetooth.init(this->sensor,this->servos,this->buttons);
-}
 
 
 
