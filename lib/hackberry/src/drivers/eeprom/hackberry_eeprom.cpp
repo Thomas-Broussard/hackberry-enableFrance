@@ -170,8 +170,6 @@ void Hackberry_eeprom::printMemoryMap()
 *                                  PRIVATE FUNCTIONS
 * =============================================================================================================================================
 */
-
-
 void Hackberry_eeprom::SetMagicWord()
 {
     this->eeprom->writeFloat(ADDR(magicWord),MAGIC_WORD);

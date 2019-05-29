@@ -33,44 +33,40 @@ Hackberry_servos::Hackberry_servos(int indexPin, int thumbPin, int fingersPin) {
  */
 void Hackberry_servos::init(bool selectedHand) {
 
+    this->_selectedHand = selectedHand;
+
     // default parameters
-    _speed = DEFAULT_SPEED;
+    this->_speed = DEFAULT_SPEED;
 
     // pins initialization
-    pinMode(_pinServoIndex, OUTPUT);
-    pinMode(_pinServoThumb, OUTPUT);
-    pinMode(_pinServoFingers, OUTPUT);
+    pinMode(this->_pinServoIndex, OUTPUT);
+    pinMode(this->_pinServoThumb, OUTPUT);
+    pinMode(this->_pinServoFingers, OUTPUT);
 
     // Link pins with servomotors    
-    servoIndex.attach(_pinServoIndex);
-    servoThumb.attach(_pinServoThumb);
-    servoFingers.attach(_pinServoFingers);
+    this->servoIndex.attach(_pinServoIndex);
+    this->servoThumb.attach(_pinServoThumb);
+    this->servoFingers.attach(_pinServoFingers);
     
     // Limit positions of servomotors according to the selected hand
     /** TODO: load parameters from the EEPROM */
-    if (selectedHand == RIGHT_HAND) {
-        openThumb = THUMB_MAX;
-        openIndex = INDEX_MAX;
-        openFingers = FINGERS_MAX;
-
-        closedThumb = THUMB_MIN;
-        closedIndex = INDEX_MIN;
-        closedFingers = FINGERS_MIN;
-    } 
-    
-    else if (selectedHand == LEFT_HAND) {
-        openThumb = THUMB_MIN;
-        openIndex = INDEX_MIN;
-        openFingers = FINGERS_MIN;
-
-        closedThumb = THUMB_MAX;
-        closedIndex = INDEX_MAX;
-        closedFingers = FINGERS_MAX;
-    }
-
-
+    this->setLimitPositions(THUMB,THUMB_MIN,THUMB_MAX);
+    this->setLimitPositions(INDEX,INDEX_MIN,INDEX_MAX);
+    this->setLimitPositions(FINGERS,FINGERS_MIN,FINGERS_MAX);
 }
 
+/**
+ * Set the hand used
+ * 
+ * @param selectedHand true (RIGHT_HAND) or false (LEFT_HAND)
+ */ 
+void Hackberry_servos::setHand(bool selectedHand)
+{
+    this->_selectedHand = selectedHand;
+    this->setLimitPositions(THUMB,this->_openThumb,this->_closedThumb);
+    this->setLimitPositions(INDEX,this->_openIndex,this->_closedIndex);
+    this->setLimitPositions(FINGERS,this->_openFingers,this->_closedFingers);
+}
 
 /**
  * Set the speed of the servomotors
@@ -99,20 +95,24 @@ int Hackberry_servos::getSpeed(){
  */
 void Hackberry_servos::move(int member, int position,bool waitEnabled) {
     int finalPosition = 0;
-    switch (member) {
+    switch (member) 
+    {
         case INDEX:
-            finalPosition = frameInteger(position, INDEX_MIN, INDEX_MAX);
+            finalPosition = this->frameInteger(position, this->_openIndex, this->_closedIndex);
             this->moveServo(INDEX, finalPosition,waitEnabled);
             break;
 
         case THUMB:
-            finalPosition = frameInteger(position, THUMB_MIN, THUMB_MAX);
+            finalPosition =this->frameInteger(position, this->_openThumb, this->_closedThumb);
             this->moveServo(THUMB, finalPosition,waitEnabled);
             break;
 
         case FINGERS:
-            finalPosition = frameInteger(position, FINGERS_MIN, FINGERS_MAX);
+            finalPosition = this->frameInteger(position, this->_openFingers, this->_closedFingers);
             this->moveServo(FINGERS, finalPosition,waitEnabled);
+            break;
+
+        default:
             break;
     }
 }
@@ -139,15 +139,15 @@ void Hackberry_servos::relativeMove(int member, int degree,bool waitEnabled)
 void Hackberry_servos::open(int member) {
     switch (member) {
         case THUMB:
-            this->move(THUMB, openThumb,true);
+            this->move(THUMB, this->_openThumb,true);
             break;
 
         case INDEX:
-            this->move(INDEX, openIndex,true);
+            this->move(INDEX, this->_openIndex,true);
             break;
 
         case FINGERS:
-            this->move(FINGERS, openFingers,true);
+            this->move(FINGERS, this->_openFingers,true);
             break;
     }
 }
@@ -160,15 +160,15 @@ void Hackberry_servos::open(int member) {
 void Hackberry_servos::close(int member) {
     switch (member) {
         case THUMB:
-            this->move(THUMB, closedThumb,true);
+            this->move(THUMB, this->_closedThumb,true);
             break;
 
         case INDEX:
-            this->move(INDEX, closedIndex,true);
+            this->move(INDEX, this->_closedIndex,true);
             break;
 
         case FINGERS:
-            this->move(FINGERS, closedFingers,true);
+            this->move(FINGERS, this->_closedFingers,true);
             break;
     }
 }
@@ -243,6 +243,8 @@ void Hackberry_servos::moveServo(int member, int wantedPosition, bool waitEnable
     }
 }
 
+
+
 /**
  * Get the last position of a servomotor
  *
@@ -250,7 +252,8 @@ void Hackberry_servos::moveServo(int member, int wantedPosition, bool waitEnable
  * @return last position of the member
  */
 int Hackberry_servos::getPosition(int member){
-    switch (member) {
+    switch (member) 
+    {
         case INDEX:
             return servoIndex.read();
             break;
@@ -269,15 +272,113 @@ int Hackberry_servos::getPosition(int member){
     }
 }
 
+/**
+ * Get the open position of a servomotor
+ *
+ * @param member Member required (THUMB, INDEX or FINGERS)
+ * @return open position of the member
+ */
+int Hackberry_servos::getOpenPosition(int member){
+    switch (member) 
+    {
+        case INDEX:
+            return this->_openIndex;
+            break;
+
+        case THUMB:
+            return this->_openThumb;
+            break;
+
+        case FINGERS:
+            return this->_openFingers;
+            break;
+
+        default: 
+            return -1; // error code 
+            break;
+    }
+}
+
+/**
+ * Get the close position of a servomotor
+ *
+ * @param member Member required (THUMB, INDEX or FINGERS)
+ * @return close position of the member
+ */
+int Hackberry_servos::getClosePosition(int member){
+    switch (member) 
+    {
+        case INDEX:
+            return this->_closedIndex;
+            break;
+
+        case THUMB:
+            return this->_closedThumb;
+            break;  
+
+        case FINGERS:
+            return this->_closedFingers;
+            break;
+
+        default: 
+            return -1; // error code 
+            break;
+    }
+}
+
+
+/**
+ * Set the two limit positions of a servomotor as open and close position
+ * (depending on selected hand)
+ *
+ * @param member Member required (THUMB, INDEX or FINGERS)
+ * @return close position of the member
+ */
+void Hackberry_servos::setLimitPositions(int member, int limit1, int limit2)
+{
+    // 1 - define the min and max limit
+    int frame1 = this->frameInteger(limit1,0,180);
+    int frame2 = this->frameInteger(limit2,0,180);
+    int min = (frame1 < frame2) ? frame1:frame2;
+    int max = (frame1 > frame2) ? frame1:frame2;
+
+    // 2 - set min and max as open and close position (depending on selected hand)
+    int open =  (this->_selectedHand == RIGHT_HAND) ? max:min;
+    int close = (this->_selectedHand == RIGHT_HAND) ? min:max;
+
+    // 3 - set open and close position to the member
+    switch (member) 
+    {
+        case INDEX:
+                this->_openIndex = open;
+                this->_closedIndex = close;
+            break;
+
+        case THUMB:
+                this->_openThumb = open;
+                this->_closedThumb = close;
+            break;
+
+        case FINGERS:
+                this->_openFingers = open;
+                this->_closedFingers = close;
+            break;
+
+        default: 
+            break;
+    }
+}
 
 /**
  * Frames an integer between a min value and a max value
  * 
  * @param value Value to frame
- * @param min Min value
- * @param max Max value
+ * @param lim1 first limit value
+ * @param lim2 second limit value
  * @return value framed between min and max
  */
-int frameInteger(int value, int min, int max) {
+int Hackberry_servos::frameInteger(int value, int lim1, int lim2) {
+    int min = (lim1 < lim2) ? lim1 : lim2;
+    int max = (lim1 > lim2) ? lim1 : lim2;
     return (value < min) ? min : ((value > max) ? max : value);
 }
