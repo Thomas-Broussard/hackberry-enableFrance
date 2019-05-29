@@ -11,30 +11,35 @@
  *  https://github.com/mission-arm/HACKberry
  * =============================================================================================================================================
  */
-
-#ifndef __HACKBERRY_H__
-#define __HACKBERRY_H__
-
-// dependencies
-#include <Arduino.h>
-
-// drivers
-#include "drivers/hackberry_hand.h"
-#include "routines/routineHandler.h"
+#include "hackberry_hand.h"
 
 
-// class
-class Hackberry
+/**
+ * Constructor : map all the IOs to drivers
+ */
+Hackberry_hand::Hackberry_hand() : 
+    buttons(PIN_BUTTON_CALIB , PIN_BUTTON_EXTRA , PIN_BUTTON_THUMB , PIN_BUTTON_LOCK),
+    servos(PIN_INDEX , PIN_THUMB , PIN_FINGERS),
+    sensor(PIN_SENSOR_1 , PIN_SENSOR_2),
+    battery(PIN_BATTERY),
+    bluetooth(PIN_RX , PIN_TX , PIN_POWER),
+    eeprom()
+{}
+
+/**
+ * Initialize the Hackberry Hand
+ * 
+ * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
+ */
+void Hackberry_hand::init(bool selectedHand, int sensorType)
 {
-    public:
-        Hackberry();
+    // Drivers
+    this->servos.init(selectedHand);
+    this->buttons.init();
+    this->sensor.init(sensorType);
+    this->bluetooth.init();
+}
 
-        void init(bool selectedHand, int sensorType);
 
-        Hackberry_hand hand;
-        RoutineHandler routine;
-        
-    private:      
-};
 
-#endif
+

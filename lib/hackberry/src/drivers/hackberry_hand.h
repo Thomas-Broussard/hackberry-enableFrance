@@ -12,27 +12,40 @@
  * =============================================================================================================================================
  */
 
-#ifndef __HACKBERRY_H__
-#define __HACKBERRY_H__
+#ifndef __HACKBERRY_HAND_H__
+#define __HACKBERRY_HAND_H__
 
 // dependencies
 #include <Arduino.h>
 
 // drivers
-#include "drivers/hackberry_hand.h"
-#include "routines/routineHandler.h"
+#include "buttons/hackberry_buttons.h"
+#include "servos/hackberry_servos.h"
+#include "sensor/hackberry_sensor.h"
+#include "bluetooth/hackberry_bluetooth.h"
+#include "eeprom/hackberry_eeprom.h"
+#include "battery/hackberry_battery.h"
 
+
+// Mapping of IOs
+#include "hackberry_mapping.h"
 
 // class
-class Hackberry
+class Hackberry_hand
 {
     public:
-        Hackberry();
+        Hackberry_hand();
 
+        // initialization
         void init(bool selectedHand, int sensorType);
 
-        Hackberry_hand hand;
-        RoutineHandler routine;
+        // Hackberry hand components
+        Hackberry_buttons   buttons;
+        Hackberry_servos    servos;
+        Hackberry_sensor    sensor;
+        Hackberry_battery   battery;
+        Hackberry_bluetooth bluetooth;
+        Hackberry_eeprom    eeprom;
         
     private:      
 };

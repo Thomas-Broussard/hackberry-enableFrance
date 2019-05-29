@@ -17,7 +17,8 @@
 /**
  * Constructor of the Servomotor class
  */
-Hackberry_bluetooth::Hackberry_bluetooth(int pinRx, int pinTx, int pinPower){
+Hackberry_bluetooth::Hackberry_bluetooth(int pinRx, int pinTx, int pinPower)
+{
     this->_pinRx = pinRx;
     this->_pinTx = pinTx;
     this->_pinPower = pinPower;
@@ -27,12 +28,8 @@ Hackberry_bluetooth::Hackberry_bluetooth(int pinRx, int pinTx, int pinPower){
 /**
  * Bluetooth initialization
  */
-void Hackberry_bluetooth::init(Hackberry_sensor sensor, Hackberry_servos servos, Hackberry_buttons buttons) {
-    // reference objects from Hackberry hand
-    this->sensor = &sensor;
-    this->servos = &servos;
-    this->buttons= &buttons;
-
+void Hackberry_bluetooth::init() 
+{
     // pins initialization
     pinMode(this->_pinPower, OUTPUT);
 
@@ -42,7 +39,6 @@ void Hackberry_bluetooth::init(Hackberry_sensor sensor, Hackberry_servos servos,
 
     this->BT = new BluetoothData(this->_BTSerial);
     this->AT = new HC06(this->BT);
-    
     
     this->stop(); // module power disabled by default
 }
@@ -71,186 +67,87 @@ void Hackberry_bluetooth::stop() {
 }
 
 
-/** Read instructions received by bluetooth */
-void Hackberry_bluetooth::routine() 
+/* 
+ * =============================================================================================================================================
+ *                                  BLUETOOTH DATA
+ * =============================================================================================================================================
+ */
+
+/**
+ *  send character through bluetooth emitter
+ *  
+ * @param c character to send
+ */
+void Hackberry_bluetooth::send(char c) 
+{
+    this->BT->send(c);
+}
+
+
+/**
+ * send Integer through bluetooth emitter
+ *  
+ * @param message Integer to send
+ */
+void Hackberry_bluetooth::send(int message) 
+{
+    this->BT->send(message);
+}
+
+/**
+ * send String through bluetooth emitter
+ *  
+ * @param message String to send
+ */
+void Hackberry_bluetooth::send(String message) 
+{
+    this->BT->send(message);
+}
+
+
+/**
+ * check if data are available in buffer of bluetooth receiver
+ *  
+ * @return data received as String
+ */
+String Hackberry_bluetooth::receive() 
 {
     String messageReceived = this->BT->receive();
-    if (messageReceived.length() <= 1) return;
-
-    int command = ParseString(messageReceived,';', 0).toInt();
-    this->decodeInstruction(command,messageReceived);
+    return (messageReceived.length() <= 1) ? "" : messageReceived;
 }
 
 
 /* 
  * =============================================================================================================================================
- *                                  DECODE INSTRUCTIONS
+ *                                  BLUETOOTH AT COMMANDS
  * =============================================================================================================================================
  */
-void Hackberry_bluetooth::decodeInstruction(int command, String message)
-{
-    this->generalInstruction(command,message);
-    this->servoInstruction(command,message);
-    this->sensorInstruction(command,message);
-}
 
-void Hackberry_bluetooth::generalInstruction(int command, String message)
-{
-    switch(command)
-    {
-        // General (AT commands)
-        case CMD_GEN_TEST:
-            this->BT->send("OK");
-        break;
-
-        case  CMD_GEN_SET_PASS: 
-            this->AT->setPassword(message);
-        break;
-
-        case  CMD_GEN_SET_NAME:
-            this->AT->setName(message); 
-        break;
-
-        case  CMD_GEN_STOP: 
-            this->stop();
-        break;
-
-        case  CMD_GEN_RESET: 
-        break;
-
-        default:break;
-    }
-}
-
-void Hackberry_bluetooth::servoInstruction(int command, String message)
-{
-    int targetMember = 0;
-    int degree = 0;
-    int speed = 1;
-
-    switch(command)
-    {
-        case  CMD_SRV_MOVE_UP: 
-            if (paramExist(message,1) && paramExist(message,2))
-            {
-                targetMember = getParam(message,1).toInt();
-                degree += getParam(message,2).toInt();
-
-                this->servos->relativeMove(targetMember,degree, true);
-            }
-        break;
-
-        case  CMD_SRV_MOVE_DOWN: 
-        if (paramExist(message,1) && paramExist(message,2))
-            {
-                targetMember = getParam(message,1).toInt();
-                degree -= getParam(message,2).toInt();
-
-                this->servos->relativeMove(targetMember,degree, true);
-            }
-        break;
-
-        case  CMD_SRV_SAVE_MAX: 
-        break;
-
-        case  CMD_SRV_SAVE_MIN: 
-        break;
-
-        case  CMD_SRV_LOAD_MAX:
-         break;
-
-        case  CMD_SRV_LOAD_MIN:
-         break;
-
-        case  CMD_SRV_SET_HAND:
-         break;
-
-        case  CMD_SRV_GET_HAND:
-         break;
-
-        case  CMD_SRV_SET_SPEED:
-            if (paramExist(message,1))
-            {
-                speed = getParam(message,1).toInt();
-                this->servos->setSpeed(speed);
-            }
-         break;
-
-        case  CMD_SRV_GET_SPEED:
-            speed = this->servos->getSpeed();
-            this->BT->send(speed);
-         break;
-
-        case  CMD_SRV_TEST:
-         break;
-
-        default:break;
-    }
-}
-
-void Hackberry_bluetooth::sensorInstruction(int command, String message)
-{
-    switch(command)
-    {
-        case  CMD_SENS_GET_VALUE:
-         break;
-
-        case  CMD_SENS_SET_TYPE:
-         break;
-
-        case  CMD_SENS_GET_TYPE:
-         break;
-
-        case  CMD_SENS_CALIB:
-            //this->sensor->calibrate();
-         break;
-
-        default:break;
-    }
-}
-
-
-/* 
- * =============================================================================================================================================
- *                                  EXTERNAL FUNCTIONS
- * =============================================================================================================================================
+/**
+ * Set the bluetooth module name
+ * @param name Name to apply
  */
-/*===============================================================================
-  Nom 			: 	ParseString
-  
-  Description	: 	Permet de récupérer une partie d'une chaîne de caractère String
-                  selon un caractère de parse fourni
-					
-  Paramètre(s) 	: data : chaine à découper
-                  separator : caractère de parse
-                  index : n° de la chaîne découpée à récupérer. ex : part0;part1;part2;...
-  
-  Retour		: 	Chaîne découpée souhaitée
-===============================================================================*/
-String ParseString(String data, char separator, int index)
+void Hackberry_bluetooth::setName(String name)
 {
-  int found = 0;
-  int strIndex[] = {0, -1};
-  int maxIndex = data.length()-1;
-
-  for(int i=0; i<=maxIndex && found<=index; i++){
-    if(data.charAt(i)==separator || i==maxIndex){
-        found++;
-        strIndex[0] = strIndex[1]+1;
-        strIndex[1] = (i == maxIndex) ? i+1 : i;
-    }
-  }
-
-  return found>index ? data.substring(strIndex[0], strIndex[1]) : "";
+    this->AT->setName(name);
 }
 
-String getParam(String message, int index)
+/**
+ * Set the password of the bluetooth module
+ * @param password to apply
+ * @return true if password is correctly set, false otherwise
+ */
+bool Hackberry_bluetooth::setPassword(String password)
 {
-    return ParseString(message,';', index);
+    return this->AT->setPassword(password);
 }
 
-bool paramExist(String message, int index)
+/**
+ * Set the bluetooth speed communication
+ * 
+ * @param baudrate speed to apply
+ */
+void Hackberry_bluetooth::setBaud(unsigned long baudrate)
 {
-    return (getParam(message,index) == "") ? false:true;  
+    this->AT->setBaud(baudrate);
 }
-

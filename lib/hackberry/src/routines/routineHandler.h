@@ -4,7 +4,7 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description : Library to simplify the use of the Hackberry hand
+ *  Description : Library for monitoring the Hackberry Hand Battery
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
@@ -12,29 +12,22 @@
  * =============================================================================================================================================
  */
 
-#ifndef __HACKBERRY_H__
-#define __HACKBERRY_H__
+#ifndef __ROUTINE_H__
+#define __ROUTINE_H__
 
 // dependencies
 #include <Arduino.h>
-
-// drivers
-#include "drivers/hackberry_hand.h"
-#include "routines/routineHandler.h"
+#include "bluetooth/routine_bluetooth.h"
 
 
 // class
-class Hackberry
-{
-    public:
-        Hackberry();
+class RoutineHandler{
 
-        void init(bool selectedHand, int sensorType);
+    public: 
+        RoutineHandler();
+        void init(Hackberry_hand hand);
 
-        Hackberry_hand hand;
-        RoutineHandler routine;
-        
-    private:      
+        Routine_bluetooth bluetooth;
 };
 
 #endif

@@ -1,3 +1,17 @@
+/* 
+ *  =============================================================================================================================================
+ *  Project : Hackberry e-Nable France
+ *  Author  : Thomas Broussard
+ * 
+ *  ---------------------------------------------------------------------------------------------------------------------------------------------
+ *  Description : Global variables shared and used in the hackberry project
+ * 
+ *  Credits : 
+ *  Program inspired by the HACKberry project, created by exiii Inc.
+ *  https://github.com/mission-arm/HACKberry
+ * =============================================================================================================================================
+ */
+
 #ifndef __HACKBERRY_GLOBAL_H__
 #define __HACKBERRY_GLOBAL_H__
 

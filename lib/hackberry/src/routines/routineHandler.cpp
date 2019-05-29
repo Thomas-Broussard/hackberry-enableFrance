@@ -4,37 +4,26 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description : Library to simplify the use of the Hackberry hand
+ *  Description :
+ *  Routine for Hackberry bluetooth communication
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
  *  https://github.com/mission-arm/HACKberry
  * =============================================================================================================================================
  */
-
-#ifndef __HACKBERRY_H__
-#define __HACKBERRY_H__
-
-// dependencies
-#include <Arduino.h>
-
-// drivers
-#include "drivers/hackberry_hand.h"
-#include "routines/routineHandler.h"
+#include "routineHandler.h"
 
 
-// class
-class Hackberry
+/**
+ * Constructor : map all the IOs to drivers
+ */
+RoutineHandler::RoutineHandler() : 
+    bluetooth()
+{}
+
+
+void RoutineHandler::init(Hackberry_hand hand)
 {
-    public:
-        Hackberry();
-
-        void init(bool selectedHand, int sensorType);
-
-        Hackberry_hand hand;
-        RoutineHandler routine;
-        
-    private:      
-};
-
-#endif
+    this->bluetooth.init(hand);
+}

@@ -40,14 +40,25 @@ class BluetoothData
         * =============================================================================================================================================
         */
 
+       /**
+        * enable the bluetooth module
+        */
         void start() {
             this->_enable = true;
         }
 
+        /**
+        * disable the bluetooth module
+        */
         void stop() {
             this->_enable = false;
         }
 
+        /**
+        * check if bluetooth module is enabled
+        * 
+        * @return true if enabled, false otherwise
+        */
         bool isEnabled() {
             return this->_enable ;
         }
@@ -58,12 +69,22 @@ class BluetoothData
         * =============================================================================================================================================
         */
 
+        /**
+        *  send character through bluetooth emitter
+        *  
+        * @param c character to send
+        */
         void send(char c)
         {
             if (!this->_enable) return;
             this->_BTSerial->write(c);
         }
 
+        /**
+        * send String through bluetooth emitter
+        *  
+        * @param message String to send
+        */
         void send(String message)
         {
             if (!this->_enable) return;
@@ -73,6 +94,11 @@ class BluetoothData
             }
         }
 
+        /**
+        * send Integer through bluetooth emitter
+        *  
+        * @param message Integer to send
+        */
         void send(int message)
         {
             if (!this->_enable) return;
@@ -84,6 +110,12 @@ class BluetoothData
         * =============================================================================================================================================
         *                                  RECEIVE FUNCTIONS
         * =============================================================================================================================================
+        */
+
+       /**
+        * check if data are available in buffer of bluetooth receiver
+        *  
+        * @return data received as String
         */
         String receive()
         {

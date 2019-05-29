@@ -35,10 +35,26 @@ class IBluetoothAT
         {
             this->BT = BT;
         }
-
         // Interface methods
+
+        /**
+         * Set the bluetooth module name
+         * @param name Name to apply
+         */
         virtual void setName(String name);
+
+        /**
+         * Set the password of the bluetooth module
+         * @param password to apply
+         * @return true if password is correctly set, false otherwise
+         */
         virtual bool setPassword(String password);
+
+        /**
+         * Set the bluetooth speed communication
+         * 
+         * @param baudrate speed to apply
+         */
         virtual void setBaud(unsigned long baudrate);
 
     protected: 

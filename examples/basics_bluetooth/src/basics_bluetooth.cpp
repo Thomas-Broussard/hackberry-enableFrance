@@ -16,16 +16,19 @@
 #include "hackberry.h"
 
 Hackberry hackberry;
-String message;
+
 void setup() {
   Serial.begin(9600);
  
-  hackberry.begin(RIGHT_HAND);
-  hackberry.bluetooth.start();
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
+  
   Serial.println("START");
+
+  // Enable the bluetooth routine
+  hackberry.routine.bluetooth.start();
 }
 
 void loop() 
 {  
-   hackberry.bluetooth.execute();
+  hackberry.routine.bluetooth.execute();
 }
