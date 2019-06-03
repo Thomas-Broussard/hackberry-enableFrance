@@ -24,7 +24,7 @@
 Hackberry hackberry;
 void setup() 
 {
-  hackberry.begin(RIGHT_HAND,TYPE_IR_SENSOR,false);
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR,false);
   Serial.begin(9600);
 }
 
@@ -39,48 +39,48 @@ void TestLimitPositions(int member, int lim1, int lim2)
   int min = (lim1 < lim2)? lim1:lim2;
   int max = (lim1 > lim2)? lim1:lim2;
 
-  hackberry.servos.setLimitPositions(member,lim1,lim2);
+  hackberry.hand.servos.setLimitPositions(member,lim1,lim2);
 
   // RIGHT HAND
-  hackberry.servos.setHand(RIGHT_HAND);
-  assertEqual(max, hackberry.servos.getOpenPosition(member));
-  assertEqual(min, hackberry.servos.getClosePosition(member));
+  hackberry.hand.servos.setHand(RIGHT_HAND);
+  assertEqual(max, hackberry.hand.servos.getOpenPosition(member));
+  assertEqual(min, hackberry.hand.servos.getClosePosition(member));
 
   // LEFT HAND
-  hackberry.servos.setHand(LEFT_HAND);
-  assertEqual(min, hackberry.servos.getOpenPosition(member));
-  assertEqual(max, hackberry.servos.getClosePosition(member));
+  hackberry.hand.servos.setHand(LEFT_HAND);
+  assertEqual(min, hackberry.hand.servos.getOpenPosition(member));
+  assertEqual(max, hackberry.hand.servos.getClosePosition(member));
 }
 
 void TestOpenClose(int member, bool selectedHand)
 {
   
-  hackberry.servos.setHand(selectedHand);
+  hackberry.hand.servos.setHand(selectedHand);
 
   // OPEN
-  hackberry.servos.open(member);
-  assertEqual(hackberry.servos.getOpenPosition(member), hackberry.servos.getPosition(member));
+  hackberry.hand.servos.open(member);
+  assertEqual(hackberry.hand.servos.getOpenPosition(member), hackberry.hand.servos.getPosition(member));
 
   // CLOSE
-  hackberry.servos.close(member);
-  assertEqual(hackberry.servos.getClosePosition(member), hackberry.servos.getPosition(member));
+  hackberry.hand.servos.close(member);
+  assertEqual(hackberry.hand.servos.getClosePosition(member), hackberry.hand.servos.getPosition(member));
 }
 
 void TestOpenCloseAll(bool selectedHand)
 {
-  hackberry.servos.setHand(selectedHand);
+  hackberry.hand.servos.setHand(selectedHand);
 
   // OPEN
-  hackberry.servos.openAll();
-  assertEqual(hackberry.servos.getOpenPosition(THUMB), hackberry.servos.getPosition(THUMB));
-  assertEqual(hackberry.servos.getOpenPosition(INDEX), hackberry.servos.getPosition(INDEX));
-  assertEqual(hackberry.servos.getOpenPosition(FINGERS), hackberry.servos.getPosition(FINGERS));
+  hackberry.hand.servos.openAll();
+  assertEqual(hackberry.hand.servos.getOpenPosition(THUMB), hackberry.hand.servos.getPosition(THUMB));
+  assertEqual(hackberry.hand.servos.getOpenPosition(INDEX), hackberry.hand.servos.getPosition(INDEX));
+  assertEqual(hackberry.hand.servos.getOpenPosition(FINGERS), hackberry.hand.servos.getPosition(FINGERS));
 
   // CLOSE
-  hackberry.servos.closeAll();
-  assertEqual(hackberry.servos.getClosePosition(THUMB), hackberry.servos.getPosition(THUMB));
-  assertEqual(hackberry.servos.getClosePosition(INDEX), hackberry.servos.getPosition(INDEX));
-  assertEqual(hackberry.servos.getClosePosition(FINGERS), hackberry.servos.getPosition(FINGERS));
+  hackberry.hand.servos.closeAll();
+  assertEqual(hackberry.hand.servos.getClosePosition(THUMB), hackberry.hand.servos.getPosition(THUMB));
+  assertEqual(hackberry.hand.servos.getClosePosition(INDEX), hackberry.hand.servos.getPosition(INDEX));
+  assertEqual(hackberry.hand.servos.getClosePosition(FINGERS), hackberry.hand.servos.getPosition(FINGERS));
 }
 
 /* 

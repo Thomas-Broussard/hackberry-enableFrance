@@ -19,30 +19,30 @@ Hackberry hackberry;
 
 void setup() {
   Serial.begin(9600);
-  hackberry.begin(RIGHT_HAND);
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
 }
 
 void loop() 
 {  
-  if (hackberry.buttons.isCalibButtonPressed())
+  if (hackberry.hand.buttons.isCalibButtonPressed())
   {
     Serial.println("Calibration Button pressed !");
     delay(1000);
   }
 
-  if (hackberry.buttons.isThumbButtonPressed())
+  if (hackberry.hand.buttons.isThumbButtonPressed())
   {
     Serial.println("Thumb Button pressed !");
     delay(1000);
   }
   
-  if (hackberry.buttons.isExtraButtonPressed())
+  if (hackberry.hand.buttons.isExtraButtonPressed())
   {
     Serial.println("Extra Button pressed !");
     delay(1000);
   }
 
-  if (hackberry.buttons.isLockButtonPressed())
+  if (hackberry.hand.buttons.isLockButtonPressed())
   {
     Serial.println("Lock Button pressed !");
     delay(1000);

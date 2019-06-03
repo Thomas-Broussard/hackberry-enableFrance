@@ -58,6 +58,7 @@ void Routine_bluetooth::decodeInstruction(int command, String message)
 
 void Routine_bluetooth::generalInstruction(int command, String message)
 {
+    bool isPasswordSet = false;
     switch(command)
     {
         // General (AT commands)
@@ -92,7 +93,7 @@ void Routine_bluetooth::generalInstruction(int command, String message)
         * ----------------------------------------------------------------
         */
         case  CMD_GEN_SET_PASS: 
-            bool isPasswordSet = this->hand->bluetooth.setPassword(message);
+            isPasswordSet =  this->hand->bluetooth.setPassword(message);
             this->hand->bluetooth.send(isPasswordSet ? '1':'0');
         break;
 

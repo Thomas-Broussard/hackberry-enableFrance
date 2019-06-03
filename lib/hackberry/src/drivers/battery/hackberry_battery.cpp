@@ -77,7 +77,11 @@ int Hackberry_battery::readRawAverage()
     return (result >> 4);
 }
 
-
+/**
+ * Frame an input value between a min and a max value
+ * 
+ * @return input value framed between min and max
+ */
 int Hackberry_battery::limit(int input, int min, int max)
 {
     return (input >max) ? max : ((input < min)? min : input);

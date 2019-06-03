@@ -29,14 +29,14 @@ bool TestFingers = false;
 
 void setup() {
   Serial.begin(9600);
-  hackberry.begin(RIGHT_HAND);
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
 
-  hackberry.servos.setSpeed(speedMoves);
+  hackberry.hand.servos.setSpeed(speedMoves);
 
   // Test 
-  hackberry.servos.closeAll();
+  hackberry.hand.servos.closeAll();
   delay(1000);
-  hackberry.servos.openAll();
+  hackberry.hand.servos.openAll();
 }
 
 void loop() 
@@ -45,11 +45,11 @@ void loop()
   if (TestThumb)
   {
     Serial.println("Open THUMB");
-    hackberry.servos.close(THUMB);
+    hackberry.hand.servos.close(THUMB);
     delay(intervalBetweenMoves);
 
     Serial.println("Close THUMB");
-    hackberry.servos.open(THUMB);
+    hackberry.hand.servos.open(THUMB);
     delay(intervalBetweenMoves);
   }
 
@@ -57,11 +57,11 @@ void loop()
   if (TestIndex)
   {
     Serial.println("Open INDEX");
-    hackberry.servos.close(INDEX);
+    hackberry.hand.servos.close(INDEX);
     delay(intervalBetweenMoves);
 
     Serial.println("Close INDEX");
-    hackberry.servos.open(INDEX);
+    hackberry.hand.servos.open(INDEX);
     delay(intervalBetweenMoves);
   }
   
@@ -70,11 +70,11 @@ void loop()
   if (TestFingers)
   {
     Serial.println("Open FINGERS");
-    hackberry.servos.close(FINGERS);
+    hackberry.hand.servos.close(FINGERS);
     delay(intervalBetweenMoves);
 
     Serial.println("Close FINGERS");
-    hackberry.servos.open(FINGERS);
+    hackberry.hand.servos.open(FINGERS);
     delay(intervalBetweenMoves);
   }
   

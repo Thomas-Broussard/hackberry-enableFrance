@@ -23,12 +23,12 @@ bool readMode = true;
 
 void setup() {
   Serial.begin(9600);
-  hackberry.begin(RIGHT_HAND,STANDARD_IR_SENSOR);
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
 
   
   if(checkMemoryMap)
   {
-      hackberry.eeprom.printMemoryMap();
+      hackberry.hand.eeprom.printMemoryMap();
   }
 
 
@@ -38,21 +38,21 @@ void setup() {
       Serial.println("       READ MODE");
       Serial.println("=========================");
 
-      bool Hand = hackberry.eeprom.GetHand();
+      bool Hand = hackberry.hand.eeprom.GetHand();
       Serial.print("Hand = "); Serial.println( Hand == RIGHT_HAND ? "Right":"Left");
 
-      Serial.print("MinThumb = ");      Serial.println( hackberry.eeprom.GetMinServo(THUMB) );
-      Serial.print("MinIndex = ");      Serial.println( hackberry.eeprom.GetMinServo(INDEX) );
-      Serial.print("MinFingers = ");    Serial.println( hackberry.eeprom.GetMinServo(FINGERS) );
+      Serial.print("MinThumb = ");      Serial.println( hackberry.hand.eeprom.GetMinServo(THUMB) );
+      Serial.print("MinIndex = ");      Serial.println( hackberry.hand.eeprom.GetMinServo(INDEX) );
+      Serial.print("MinFingers = ");    Serial.println( hackberry.hand.eeprom.GetMinServo(FINGERS) );
 
-      Serial.print("MaxThumb = ");      Serial.println( hackberry.eeprom.GetMaxServo(THUMB) );
-      Serial.print("MaxIndex = ");      Serial.println( hackberry.eeprom.GetMaxServo(INDEX) );
-      Serial.print("MaxFingers = ");    Serial.println( hackberry.eeprom.GetMaxServo(FINGERS) );
+      Serial.print("MaxThumb = ");      Serial.println( hackberry.hand.eeprom.GetMaxServo(THUMB) );
+      Serial.print("MaxIndex = ");      Serial.println( hackberry.hand.eeprom.GetMaxServo(INDEX) );
+      Serial.print("MaxFingers = ");    Serial.println( hackberry.hand.eeprom.GetMaxServo(FINGERS) );
 
 
-      Serial.print("SensorType = ");    Serial.println( hackberry.eeprom.GetSensorType() );
-      Serial.print("SensorGain = ");    Serial.println( hackberry.eeprom.GetSensorGain() );
-      Serial.print("SensorOffset = ");  Serial.println( hackberry.eeprom.GetSensorOffset() );
+      Serial.print("SensorType = ");    Serial.println( hackberry.hand.eeprom.GetSensorType() );
+      Serial.print("SensorGain = ");    Serial.println( hackberry.hand.eeprom.GetSensorGain() );
+      Serial.print("SensorOffset = ");  Serial.println( hackberry.hand.eeprom.GetSensorOffset() );
   }
   // write mode
   else
@@ -60,19 +60,19 @@ void setup() {
     Serial.println("=========================");
     Serial.println("       WRITE MODE");
     Serial.println("=========================");
-    hackberry.eeprom.SetHand(RIGHT_HAND);
+    hackberry.hand.eeprom.SetHand(RIGHT_HAND);
 
-    hackberry.eeprom.SetMinServo(THUMB,5);
-    hackberry.eeprom.SetMinServo(INDEX,18);
-    hackberry.eeprom.SetMinServo(FINGERS,23);
+    hackberry.hand.eeprom.SetMinServo(THUMB,5);
+    hackberry.hand.eeprom.SetMinServo(INDEX,18);
+    hackberry.hand.eeprom.SetMinServo(FINGERS,23);
 
-    hackberry.eeprom.SetMaxServo(THUMB,166);
-    hackberry.eeprom.SetMaxServo(INDEX,46);
-    hackberry.eeprom.SetMaxServo(FINGERS,38);
+    hackberry.hand.eeprom.SetMaxServo(THUMB,166);
+    hackberry.hand.eeprom.SetMaxServo(INDEX,46);
+    hackberry.hand.eeprom.SetMaxServo(FINGERS,38);
 
-    hackberry.eeprom.SetSensorType(8);
-    hackberry.eeprom.SetSensorGain(1.66);
-    hackberry.eeprom.SetSensorOffset(99);
+    hackberry.hand.eeprom.SetSensorType(8);
+    hackberry.hand.eeprom.SetSensorGain(1.66);
+    hackberry.hand.eeprom.SetSensorOffset(99);
 
     Serial.println("\n Write finished. Put variable readMode to \"true\" to see the eeprom content");
   }

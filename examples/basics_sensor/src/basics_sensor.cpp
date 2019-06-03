@@ -23,12 +23,12 @@ int sensorVal;
 
 void setup() {
   Serial.begin(9600);
-  hackberry.begin(RIGHT_HAND,TYPE_IR_SENSOR, true);
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
 }
 
 void loop() 
 {  
-  sensorVal = hackberry.sensor.readAverage();
+  sensorVal = hackberry.hand.sensor.readAverage();
   Serial.print("Sensor Value = ");
   Serial.println(sensorVal);
   delay(intervalBetweenEachRead);  

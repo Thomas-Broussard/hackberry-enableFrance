@@ -29,7 +29,7 @@
 Hackberry hackberry;
 void setup() 
 {
-  hackberry.begin(RIGHT_HAND,TYPE_IR_SENSOR,false);
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
   Serial.begin(9600);
 }
 
