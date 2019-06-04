@@ -37,6 +37,9 @@ void Hackberry_servos::init(bool selectedHand) {
 
     // default parameters
     this->_speed = DEFAULT_SPEED;
+    this->_lockThumb = false;
+    this->_lockIndex = false;
+    this->_lockFingers = false;
 
     // pins initialization
     pinMode(this->_pinServoIndex, OUTPUT);
@@ -98,16 +101,19 @@ void Hackberry_servos::move(int member, int position,bool waitEnabled) {
     switch (member) 
     {
         case INDEX:
+            if (this->_lockIndex) return;
             finalPosition = this->frameInteger(position, this->_openIndex, this->_closedIndex);
             this->moveServo(INDEX, finalPosition,waitEnabled);
             break;
 
         case THUMB:
+            if (this->_lockThumb) return;
             finalPosition =this->frameInteger(position, this->_openThumb, this->_closedThumb);
             this->moveServo(THUMB, finalPosition,waitEnabled);
             break;
 
         case FINGERS:
+            if (this->_lockFingers) return;
             finalPosition = this->frameInteger(position, this->_openFingers, this->_closedFingers);
             this->moveServo(FINGERS, finalPosition,waitEnabled);
             break;
@@ -368,6 +374,59 @@ void Hackberry_servos::setLimitPositions(int member, int limit1, int limit2)
             break;
     }
 }
+
+/**
+ * Lock a member (the member can't move anymore)
+ *
+ * @param member Member required (THUMB, INDEX or FINGERS)
+ */
+void Hackberry_servos::lockMember(int member)
+{
+    switch (member) 
+    {
+        case INDEX:
+                this->_lockIndex = true;
+            break;
+
+        case THUMB:
+                this->_lockThumb = true;
+            break;
+
+        case FINGERS:
+                this->_lockFingers = true;
+            break;
+
+        default: 
+            break;
+    }
+}
+
+/**
+ * Unlock a member (the member can move)
+ *
+ * @param member Member required (THUMB, INDEX or FINGERS)
+ */
+void Hackberry_servos::unlockMember(int member)
+{
+    switch (member) 
+    {
+        case INDEX:
+                this->_lockIndex = false;
+            break;
+
+        case THUMB:
+                this->_lockThumb = false;
+            break;
+
+        case FINGERS:
+                this->_lockFingers = false;
+            break;
+
+        default: 
+            break;
+    }
+}
+
 
 /**
  * Frames an integer between a min value and a max value

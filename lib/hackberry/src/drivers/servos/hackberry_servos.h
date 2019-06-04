@@ -73,6 +73,9 @@ class Hackberry_servos{
     int getPosition(int member);
     int getOpenPosition(int member);
     int getClosePosition(int member);
+
+    void lockMember(int member);
+    void unlockMember(int member);
     
     private:
     // wiring pins
@@ -92,6 +95,8 @@ class Hackberry_servos{
     int _openThumb , _closedThumb;
     int _openIndex , _closedIndex;
     int _openFingers , _closedFingers;
+
+    bool _lockThumb, _lockIndex, _lockFingers;
 
     // speed
     int _speed;
