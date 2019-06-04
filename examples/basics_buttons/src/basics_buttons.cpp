@@ -24,8 +24,8 @@ void setup() {
 
 void loop() 
 {  
-  hackberry.routine.execute();
-
+  hackberry.routine.buttons.execute();
+/*
   if (hackberry.hand.buttons.isCalibButtonPressed())
   {
     Serial.println("Calibration Button pressed !");
@@ -49,4 +49,5 @@ void loop()
     Serial.println("Lock Button pressed !");
     delay(1000);
   }
+*/
 }
