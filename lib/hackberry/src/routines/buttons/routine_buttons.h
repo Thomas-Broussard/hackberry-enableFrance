@@ -20,9 +20,7 @@
 #include "hackberry_global.h"
 #include "drivers/hackberry_hand.h"
 
-#include "bluetooth_instructions.h"
-
-#define PARSECHAR  ';'
+#define DEBOUNCE_DELAY 100 // delay (ms) between two action on the same button, to avoid mechanical and physical button issues during transition
 
 // class
 class Routine_buttons
@@ -38,10 +36,17 @@ class Routine_buttons
         bool isThumbOpen = false;
         bool isLockEnabled = false;
 
+        unsigned long lastCalibDebounce = 0;
+        unsigned long lastExtraDebounce = 0;
+        unsigned long lastThumbDebounce = 0;
+        unsigned long lastLockDebounce  = 0;
+        
         void actionCalib();
         void actionExtra();
         void actionThumb();
         void actionLock();
+
+        bool isDebounced(unsigned long *lastDebounceTime, unsigned long debounceDelay);
 };
 
 #endif

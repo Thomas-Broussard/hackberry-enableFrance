@@ -16,11 +16,7 @@
 
 
 Routine_buttons::Routine_buttons()
-{
-
-}
-
-
+{}
 
 void Routine_buttons::init(Hackberry_hand hand)
 {
@@ -32,19 +28,36 @@ void Routine_buttons::execute()
 {
     if (this->hand->buttons.isCalibButtonPressed())
     {
-        this->actionCalib();
+        if (this->isDebounced(&this->lastCalibDebounce, DEBOUNCE_DELAY))
+        {
+            this->actionCalib();
+        }
     }
+
+
     if (this->hand->buttons.isExtraButtonPressed())
     {
-        this->actionExtra();
+        if (this->isDebounced(&this->lastExtraDebounce, DEBOUNCE_DELAY))
+        {
+            this->actionExtra();
+        }
     }
+
     if (this->hand->buttons.isThumbButtonPressed())
     {
-        this->actionThumb();
+        if (this->isDebounced(&this->lastThumbDebounce, DEBOUNCE_DELAY))
+        {
+            this->actionThumb();
+        }
     }
+
+
     if (this->hand->buttons.isLockButtonPressed())
     {
-        this->actionLock();
+        if (this->isDebounced(&this->lastLockDebounce, DEBOUNCE_DELAY))
+        {
+            this->actionLock();
+        }
     }
 }
 
@@ -54,7 +67,6 @@ void Routine_buttons::execute()
  * Trigger the calibration sequence for the sensor
  */
 void Routine_buttons::actionCalib()
-{
 {
     // TODO : add code here
 }
@@ -104,4 +116,21 @@ void Routine_buttons::actionLock()
         this->hand->servos.lockMember(FINGERS);
         this->isLockEnabled = true;
     }
+}
+
+/**
+ * Check if a button is debounced or not
+ * 
+ * @param lastDebounceTime pointer to last debounce time of the button (to update it)
+ * @param debounceDelay minimum delay between toggles to debounce the circuit
+ *  
+ * @return true if debounce is finished ; false otherwise
+ */
+bool Routine_buttons::isDebounced(unsigned long *lastDebounceTime, unsigned long debounceDelay)
+{
+    bool result = false;
+    
+    result =  (millis() - *lastDebounceTime) > debounceDelay;
+    *lastDebounceTime = millis();
+    return result;
 }

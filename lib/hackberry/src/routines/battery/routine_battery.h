@@ -12,21 +12,22 @@
  * =============================================================================================================================================
  */
 
-#ifndef __ROUTINE_MOVES_H__
-#define __ROUTINE_MOVES_H__
+#ifndef __ROUTINE_BATTERY_H__
+#define __ROUTINE_BATTERY_H__
 
 // dependencies
 #include <Arduino.h>
 #include "hackberry_global.h"
 #include "drivers/hackberry_hand.h"
 
-#define PARSECHAR  ';'
+
+#define LOW_BATTERY_LEVEL 15 // (%) 
 
 // class
-class Routine_moves
+class Routine_battery
 {
     public: 
-        Routine_moves();
+        Routine_battery();
         void init(Hackberry_hand hand);
         void execute();
 

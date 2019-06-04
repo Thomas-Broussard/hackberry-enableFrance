@@ -18,7 +18,9 @@
 // dependencies
 #include <Arduino.h>
 #include "bluetooth/routine_bluetooth.h"
-
+#include "buttons/routine_buttons.h"
+#include "moves/routine_moves.h"
+#include "battery/routine_battery.h"
 
 // class
 class RoutineHandler{
@@ -28,6 +30,11 @@ class RoutineHandler{
         void init(Hackberry_hand hand);
 
         Routine_bluetooth bluetooth;
-};
+        Routine_buttons buttons;
+        Routine_moves moves;
+        Routine_battery batteryMonitoring;
 
+    private:
+};
+ 
 #endif

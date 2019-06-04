@@ -12,26 +12,26 @@
  * =============================================================================================================================================
  */
 
-#ifndef __ROUTINE_MOVES_H__
-#define __ROUTINE_MOVES_H__
+#include "routine_battery.h"
 
-// dependencies
-#include <Arduino.h>
-#include "hackberry_global.h"
-#include "drivers/hackberry_hand.h"
-
-#define PARSECHAR  ';'
-
-// class
-class Routine_moves
+Routine_battery::Routine_battery()
 {
-    public: 
-        Routine_moves();
-        void init(Hackberry_hand hand);
-        void execute();
 
-    private:
-        Hackberry_hand *hand;
-};
+}
 
-#endif
+void Routine_battery::init(Hackberry_hand hand)
+{
+    this->hand = &hand;
+}
+
+void Routine_battery::execute()
+{
+    int batteryLevel = this->hand->battery.readAverage();
+
+    if (batteryLevel < LOW_BATTERY_LEVEL)
+    {
+        this->hand->bluetooth.send("LOW_BATTERY");
+    }
+}
+
+
