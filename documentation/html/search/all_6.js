@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['open',['open',['../class_hackberry__servos.html#a27235385fbe5b2ba0bd0ccc92d2f383e',1,'Hackberry_servos']]],
-  ['openall',['openAll',['../class_hackberry__servos.html#a09904d5ddcce7d46f2bb5c23cb02bccd',1,'Hackberry_servos']]]
+  ['lockmember',['lockMember',['../class_hackberry__servos.html#ad858c48f1f2d19ebafc26542b1c7091a',1,'Hackberry_servos']]]
 ];

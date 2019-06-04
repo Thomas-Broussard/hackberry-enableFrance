@@ -98,18 +98,31 @@ $(document).ready(function(){initNavTree('class_hackberry__sensor.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3edeb93c9bc0fddd5a34c6d40661a8aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#a3edeb93c9bc0fddd5a34c6d40661a8aa">Hackberry_sensor</a> ()</td></tr>
-<tr class="separator:a3edeb93c9bc0fddd5a34c6d40661a8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae140ba53ddc0186e74150f3be718cf33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#ae140ba53ddc0186e74150f3be718cf33">init</a> (bool selectedHand, int sensorType)</td></tr>
-<tr class="separator:ae140ba53ddc0186e74150f3be718cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cf647c27b5a6e8754635cb6d5554f10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#a7cf647c27b5a6e8754635cb6d5554f10">Hackberry_sensor</a> (int pin)</td></tr>
+<tr class="separator:a7cf647c27b5a6e8754635cb6d5554f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9112a3f6646689785099b495d296b00e"><td class="memItemLeft" align="right" valign="top"><a id="a9112a3f6646689785099b495d296b00e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Hackberry_sensor</b> (int pin1, int pin2)</td></tr>
+<tr class="separator:a9112a3f6646689785099b495d296b00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0018ae543db6cc7b136df1663f75c936"><td class="memItemLeft" align="right" valign="top"><a id="a0018ae543db6cc7b136df1663f75c936"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Hackberry_sensor</b> (int pin1, int pin2, int pin3)</td></tr>
+<tr class="separator:a0018ae543db6cc7b136df1663f75c936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbb6ee16ba59129953c54fbe00dab478"><td class="memItemLeft" align="right" valign="top"><a id="afbb6ee16ba59129953c54fbe00dab478"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (int sensorType)</td></tr>
+<tr class="separator:afbb6ee16ba59129953c54fbe00dab478"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad797e2cc0c0e3a5315eb3fa14a914b67"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#ad797e2cc0c0e3a5315eb3fa14a914b67">read</a> ()</td></tr>
 <tr class="separator:ad797e2cc0c0e3a5315eb3fa14a914b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeca2c739d7acaae0ea17b5f19385e95d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry__sensor.html#aeca2c739d7acaae0ea17b5f19385e95d">readAverage</a> ()</td></tr>
 <tr class="separator:aeca2c739d7acaae0ea17b5f19385e95d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84c5e77faab86c47fd9dd8d9ba207653"><td class="memItemLeft" align="right" valign="top"><a id="a84c5e77faab86c47fd9dd8d9ba207653"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>calibrate</b> (float gain, int offset)</td></tr>
+<tr class="separator:a84c5e77faab86c47fd9dd8d9ba207653"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affb2dd063e47cbaedf5b93e030cc0263"><td class="memItemLeft" align="right" valign="top"><a id="affb2dd063e47cbaedf5b93e030cc0263"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSensorType</b> (int sensorType)</td></tr>
+<tr class="separator:affb2dd063e47cbaedf5b93e030cc0263"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3edeb93c9bc0fddd5a34c6d40661a8aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3edeb93c9bc0fddd5a34c6d40661a8aa">&#9670;&nbsp;</a></span>Hackberry_sensor()</h2>
+<a id="a7cf647c27b5a6e8754635cb6d5554f10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cf647c27b5a6e8754635cb6d5554f10">&#9670;&nbsp;</a></span>Hackberry_sensor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -117,7 +130,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">Hackberry_sensor::Hackberry_sensor </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pin</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -127,42 +141,6 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae140ba53ddc0186e74150f3be718cf33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae140ba53ddc0186e74150f3be718cf33">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Hackberry_sensor::init </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>selectedHand</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>sensorType</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Initialize sensor driver</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">selectedHand</td><td>Direction of the hand (RIGHT_HAND or LEFT_HAND) </td></tr>
-    <tr><td class="paramname">sensorType</td><td>Type of sensor used to read the muscle activity </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ad797e2cc0c0e3a5315eb3fa14a914b67"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad797e2cc0c0e3a5315eb3fa14a914b67">&#9670;&nbsp;</a></span>read()</h2>
 
@@ -202,8 +180,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/lib/hackberry/src/drivers/sensor/<a class="el" href="hackberry__sensor_8h_source.html">hackberry_sensor.h</a></li>
-<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/lib/hackberry/src/drivers/sensor/hackberry_sensor.cpp</li>
+<li>src/drivers/sensor/<a class="el" href="hackberry__sensor_8h_source.html">hackberry_sensor.h</a></li>
+<li>src/drivers/sensor/hackberry_sensor.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,9 +1,7 @@
 var class_hackberry =
 [
     [ "Hackberry", "class_hackberry.html#a703df0799daf653bbe9b8320ad626dc3", null ],
-    [ "begin", "class_hackberry.html#a0fbb0c1ac9521c597ed86b0ee45bb75a", null ],
-    [ "begin", "class_hackberry.html#a82a191b235dbcff5d53915500960bbdf", null ],
-    [ "buttons", "class_hackberry.html#a3b4324b979971e121c89f262e378f6b6", null ],
-    [ "sensor", "class_hackberry.html#a849824f0c4525dda04c035c5b96fbf64", null ],
-    [ "servos", "class_hackberry.html#a7499bcc72a4f35d94bfdced2f1c018a1", null ]
+    [ "init", "class_hackberry.html#a87a101b51c5b290391f008cf8a6bd5ac", null ],
+    [ "hand", "class_hackberry.html#a7d51e0552ec9fab783d237489fa3c8f3", null ],
+    [ "routine", "class_hackberry.html#ad0aceeb63c5c4e041b53fc324df74e8a", null ]
 ];

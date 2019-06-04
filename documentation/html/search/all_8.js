@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['servo_5ft',['servo_t',['../structservo__t.html',1,'']]],
-  ['servopin_5ft',['ServoPin_t',['../struct_servo_pin__t.html',1,'']]],
-  ['servosequencepoint',['servoSequencePoint',['../structservo_sequence_point.html',1,'']]],
-  ['setspeed',['setSpeed',['../class_hackberry__servos.html#aba43b48fa05a95cd4a56346c2beb18bd',1,'Hackberry_servos']]]
+  ['open',['open',['../class_hackberry__servos.html#a27235385fbe5b2ba0bd0ccc92d2f383e',1,'Hackberry_servos']]],
+  ['openall',['openAll',['../class_hackberry__servos.html#a09904d5ddcce7d46f2bb5c23cb02bccd',1,'Hackberry_servos']]]
 ];

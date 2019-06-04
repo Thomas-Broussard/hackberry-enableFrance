@@ -101,22 +101,18 @@ $(document).ready(function(){initNavTree('class_hackberry.html','');});
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a703df0799daf653bbe9b8320ad626dc3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry.html#a703df0799daf653bbe9b8320ad626dc3">Hackberry</a> ()</td></tr>
 <tr class="separator:a703df0799daf653bbe9b8320ad626dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fbb0c1ac9521c597ed86b0ee45bb75a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry.html#a0fbb0c1ac9521c597ed86b0ee45bb75a">begin</a> (bool selectedHand)</td></tr>
-<tr class="separator:a0fbb0c1ac9521c597ed86b0ee45bb75a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82a191b235dbcff5d53915500960bbdf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hackberry.html#a82a191b235dbcff5d53915500960bbdf">begin</a> (bool selectedHand, int sensorType)</td></tr>
-<tr class="separator:a82a191b235dbcff5d53915500960bbdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a101b51c5b290391f008cf8a6bd5ac"><td class="memItemLeft" align="right" valign="top"><a id="a87a101b51c5b290391f008cf8a6bd5ac"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (bool selectedHand, int sensorType)</td></tr>
+<tr class="separator:a87a101b51c5b290391f008cf8a6bd5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a3b4324b979971e121c89f262e378f6b6"><td class="memItemLeft" align="right" valign="top"><a id="a3b4324b979971e121c89f262e378f6b6"></a>
-<a class="el" href="class_hackberry__buttons.html">Hackberry_buttons</a>&#160;</td><td class="memItemRight" valign="bottom"><b>buttons</b></td></tr>
-<tr class="separator:a3b4324b979971e121c89f262e378f6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7499bcc72a4f35d94bfdced2f1c018a1"><td class="memItemLeft" align="right" valign="top"><a id="a7499bcc72a4f35d94bfdced2f1c018a1"></a>
-<a class="el" href="class_hackberry__servos.html">Hackberry_servos</a>&#160;</td><td class="memItemRight" valign="bottom"><b>servos</b></td></tr>
-<tr class="separator:a7499bcc72a4f35d94bfdced2f1c018a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a849824f0c4525dda04c035c5b96fbf64"><td class="memItemLeft" align="right" valign="top"><a id="a849824f0c4525dda04c035c5b96fbf64"></a>
-<a class="el" href="class_hackberry__sensor.html">Hackberry_sensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sensor</b></td></tr>
-<tr class="separator:a849824f0c4525dda04c035c5b96fbf64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d51e0552ec9fab783d237489fa3c8f3"><td class="memItemLeft" align="right" valign="top"><a id="a7d51e0552ec9fab783d237489fa3c8f3"></a>
+<a class="el" href="class_hackberry__hand.html">Hackberry_hand</a>&#160;</td><td class="memItemRight" valign="bottom"><b>hand</b></td></tr>
+<tr class="separator:a7d51e0552ec9fab783d237489fa3c8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0aceeb63c5c4e041b53fc324df74e8a"><td class="memItemLeft" align="right" valign="top"><a id="ad0aceeb63c5c4e041b53fc324df74e8a"></a>
+<a class="el" href="class_routine_handler.html">RoutineHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><b>routine</b></td></tr>
+<tr class="separator:ad0aceeb63c5c4e041b53fc324df74e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a703df0799daf653bbe9b8320ad626dc3"></a>
@@ -133,77 +129,13 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Constructor </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0fbb0c1ac9521c597ed86b0ee45bb75a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fbb0c1ac9521c597ed86b0ee45bb75a">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Hackberry::begin </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>selectedHand</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Initialize the <a class="el" href="class_hackberry.html">Hackberry</a> Hand</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">selectedHand</td><td>Direction of the hand (RIGHT_HAND or LEFT_HAND) </td></tr>
-  </table>
-  </dd>
-</dl>
-<p>TODO : complete this function </p>
-
-</div>
-</div>
-<a id="a82a191b235dbcff5d53915500960bbdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82a191b235dbcff5d53915500960bbdf">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Hackberry::begin </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>selectedHand</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>sensorType</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Initialize the <a class="el" href="class_hackberry.html">Hackberry</a> Hand</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">selectedHand</td><td>Direction of the hand (RIGHT_HAND or LEFT_HAND) </td></tr>
-    <tr><td class="paramname">sensorType</td><td>Type of sensor used to read the muscle activity </td></tr>
-  </table>
-  </dd>
-</dl>
-<p>TODO : complete this function </p>
+<p>Constructor : map all the IOs to drivers </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/lib/hackberry/src/<a class="el" href="hackberry_8h_source.html">hackberry.h</a></li>
-<li>C:/Users/Thomas Broussard/Desktop/HackBerry/hackberry-enableFrance/lib/hackberry/src/hackberry.cpp</li>
+<li>src/<a class="el" href="hackberry_8h_source.html">hackberry.h</a></li>
+<li>src/hackberry.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
