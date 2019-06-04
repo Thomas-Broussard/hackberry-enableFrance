@@ -42,6 +42,7 @@
 * [Usage](#usage)
 * [Contributing](#contributing)
 * [Additional Resources](#additional-resources)
+* [PCB](#pcb)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -154,6 +155,14 @@ Contributions are what make the open source community such an amazing place to b
 * [Details on eNable France robotics Projects](https://e-nable.fr/projet-robotique/)
 * [3D Printing Files for Hackberry Hand](https://github.com/mission-arm/HACKberry/tree/master/HACKberry_3Dmodel/STL)
 * [Instruction files for Hackberry Hand (FR)](https://drive.google.com/drive/folders/1PkoY7QRCFFofEhJ_Oy8mezCnoT-idXC4)
+
+
+<!-- PCB -->
+## PCB
+
+* [Original Mk2 Handboard](https://easyeda.com/thomas.broussard91/hackberry)
+* [Mk3 : Evolution of the Mk2 Handboard](https://easyeda.com/thomas.broussard91/exphackberry)
+* [Extension board for Mk3 Handboard](https://easyeda.com/thomas.broussard91/extension_hackberry)
 
 
 <!-- LICENSE -->
