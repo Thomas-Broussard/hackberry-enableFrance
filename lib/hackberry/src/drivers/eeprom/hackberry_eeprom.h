@@ -58,7 +58,7 @@ class Hackberry_eeprom{
       
       
     private:
-      EEPROMUtils *eeprom;
+      EEPROMUtils *eepromUtils;
 
       void SetDefault();
       void SetMagicWord();

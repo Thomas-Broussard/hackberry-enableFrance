@@ -55,14 +55,12 @@ void Routine_bluetooth::decodeInstruction(int command, String message)
     this->sensorInstruction(command,message);
 }
 
-
+// General (AT commands)
 void Routine_bluetooth::generalInstruction(int command, String message)
 {
     bool isPasswordSet = false;
     switch(command)
-    {
-        // General (AT commands)
-
+    {     
         /*
         * ----------------------------------------------------------------
         * command       : TEST
@@ -132,7 +130,7 @@ void Routine_bluetooth::servoInstruction(int command, String message)
         break;
 
         case  CMD_SRV_MOVE_DOWN: 
-        if (paramExist(message,1) && paramExist(message,2))
+            if (paramExist(message,1) && paramExist(message,2))
             {
                 targetMember = getParam(message,1).toInt();
                 degree -= getParam(message,2).toInt();
@@ -142,21 +140,66 @@ void Routine_bluetooth::servoInstruction(int command, String message)
         break;
 
         case  CMD_SRV_SAVE_MAX: 
+        {
+            if (paramExist(message,1) && paramExist(message,2))
+            {
+                targetMember = getParam(message,1).toInt();
+                int value = getParam(message,2).toInt();
+
+                this->hand->eeprom.SetMaxServo(targetMember,value);
+            }
+        }
         break;
 
         case  CMD_SRV_SAVE_MIN: 
+        {
+            if (paramExist(message,1) && paramExist(message,2))
+            {
+                targetMember = getParam(message,1).toInt();
+                int value = getParam(message,2).toInt();
+
+                this->hand->eeprom.SetMinServo(targetMember,value);
+            }
+        }
         break;
 
         case  CMD_SRV_LOAD_MAX:
+        {
+            if (paramExist(message,1))
+            {
+                targetMember = getParam(message,1).toInt();
+                int value = this->hand->eeprom.GetMaxServo(targetMember);
+                this->hand->bluetooth.send(value);
+            }
+        }
          break;
 
         case  CMD_SRV_LOAD_MIN:
+        {
+            if (paramExist(message,1))
+            {
+                targetMember = getParam(message,1).toInt();
+                int value = this->hand->eeprom.GetMinServo(targetMember);
+                this->hand->bluetooth.send(value);
+            }
+        }
          break;
 
         case  CMD_SRV_SET_HAND:
+        {
+            if (paramExist(message,1))
+            {
+                int hand = getParam(message,1).toInt();
+                int value = this->hand->eeprom.SetHand(hand == RIGHT_HAND ? RIGHT_HAND:LEFT_HAND);
+            }
+        }
          break;
 
         case  CMD_SRV_GET_HAND:
+        {
+            int value = (this->hand->eeprom.GetHand() == RIGHT_HAND) ? 1:0;
+            this->hand->bluetooth.send(value);
+        }
          break;
 
         case  CMD_SRV_SET_SPEED:
@@ -168,8 +211,8 @@ void Routine_bluetooth::servoInstruction(int command, String message)
          break;
 
         case  CMD_SRV_GET_SPEED:
-            speed = this->hand->servos.getSpeed();
-            this->hand->bluetooth.send(speed);
+                speed = this->hand->servos.getSpeed();
+                this->hand->bluetooth.send(speed);
          break;
 
         case  CMD_SRV_TEST:
@@ -184,16 +227,30 @@ void Routine_bluetooth::sensorInstruction(int command, String message)
     switch(command)
     {
         case  CMD_SENS_GET_VALUE:
+        {
+            int value = this->hand->sensor.readAverage();
+            this->hand->bluetooth.send(value);
+        } 
          break;
 
         case  CMD_SENS_SET_TYPE:
+            if (paramExist(message,1))
+            {
+                int type = getParam(message,1).toInt();
+                this->hand->eeprom.SetSensorType(type);
+            }
          break;
 
         case  CMD_SENS_GET_TYPE:
+        {
+            int value = this->hand->eeprom.GetSensorType();
+            this->hand->bluetooth.send(value);
+        }
          break;
 
         case  CMD_SENS_CALIB:
             //this->sensor->calibrate();
+            //this->hand->sensor.calibrate();
          break;
 
         default:break;

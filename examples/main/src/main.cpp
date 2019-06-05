@@ -19,25 +19,26 @@
 #include "TaskScheduler.h"
 #include "hackberry.h"
 
+#define _TASK_SLEEP_ON_IDLE_RUN // Enable sleep mode when tasks aren't running, to save power
+
 Hackberry hackberry;
 
 // Scheduler
 Scheduler runner;
 
 // Tasks callbacks
-void Task_50ms();
-void Task_100ms();
-void Task_200ms();
-void Task_500ms();
-void Task_10s();
+void Task1();
+void Task2();
+void Task3();
+void Task4();
+void Task5();
 
 // Tasks
-Task T_50ms(50 * TASK_MILLISECOND, TASK_FOREVER, &Task_50ms, &runner, true);
-Task T_100ms(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_100ms, &runner, true);
-Task T_200ms(200 * TASK_MILLISECOND, TASK_FOREVER, &Task_200ms, &runner, true);
-Task T_500ms(500 * TASK_MILLISECOND, TASK_FOREVER, &Task_500ms, &runner, true);
-Task T_10s(10 * TASK_SECOND, TASK_FOREVER, &Task_10s, &runner, true);
-
+Task T1(50  * TASK_MILLISECOND, TASK_FOREVER, &Task1, &runner, true); // executed every 50ms
+Task T2(100 * TASK_MILLISECOND, TASK_FOREVER, &Task2, &runner, true); // executed every 100ms
+Task T3(200 * TASK_MILLISECOND, TASK_FOREVER, &Task3, &runner, true); // executed every 200ms
+Task T4(500 * TASK_MILLISECOND, TASK_FOREVER, &Task4, &runner, true); // executed every 500ms
+Task T5(10  * TASK_SECOND     , TASK_FOREVER, &Task5, &runner, true); // executed every 10s
 
 
 void setup() 
@@ -51,34 +52,32 @@ void loop()
   runner.execute();
 }
 
-
-
 /* 
  * =============================================================================================
  *                                        TASKS EXECUTION
  * =============================================================================================
  */
-void Task_50ms()
+void Task1()
 {
   hackberry.routine.buttons.execute();
 }
 
-void Task_100ms()
+void Task2()
 {
   hackberry.routine.bluetooth.execute();
 }
 
-void Task_200ms()
+void Task3()
 {
   hackberry.routine.moves.execute();
 }
 
-void Task_500ms()
+void Task4()
 {
   
 }
 
-void Task_10s()
+void Task5()
 {
   hackberry.routine.batteryMonitoring.execute();
 }
