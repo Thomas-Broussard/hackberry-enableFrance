@@ -190,7 +190,7 @@ void Routine_bluetooth::servoInstruction(int command, String message)
             if (paramExist(message,1))
             {
                 int hand = getParam(message,1).toInt();
-                int value = this->hand->eeprom.SetHand(hand == RIGHT_HAND ? RIGHT_HAND:LEFT_HAND);
+                this->hand->eeprom.SetHand((hand == RIGHT_HAND) ? RIGHT_HAND:LEFT_HAND);
             }
         }
          break;
