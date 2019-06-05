@@ -24,7 +24,7 @@
 Hackberry hackberry;
 void setup() 
 {
-  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR,false);
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
   Serial.begin(9600);
 }
 
@@ -95,7 +95,7 @@ test(thumb_limit_positions)
   int lim2 = random(0,180);
 
   TestLimitPositions(THUMB,lim1,lim2);
-  TestLimitPositions(THUMB,-10,190);
+  TestLimitPositions(THUMB,0,180);
 }
 
 test(index_limit_positions)
@@ -104,7 +104,7 @@ test(index_limit_positions)
   int lim2 = random(0,180);
 
   TestLimitPositions(INDEX,lim1,lim2);
-  TestLimitPositions(INDEX,-10,190);
+  TestLimitPositions(INDEX,0,180);
 }
 
 test(fingers_limit_positions)
@@ -113,7 +113,7 @@ test(fingers_limit_positions)
   int lim2 = random(0,180);
 
   TestLimitPositions(FINGERS,lim1,lim2);
-  TestLimitPositions(FINGERS,-10,190);
+  TestLimitPositions(FINGERS,0,180);
 }
 
 test(thumb_open_close)
