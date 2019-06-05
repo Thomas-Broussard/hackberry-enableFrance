@@ -79,6 +79,15 @@ void Routine_buttons::actionCalib()
 void Routine_buttons::actionExtra()
 {
     // TODO : add code here
+    if (this->hand->bluetooth.isEnabled())
+    {
+        this->hand->bluetooth.stop();
+    }
+    else
+    {
+        this->hand->bluetooth.start();
+    }
+    
 }
 
 /**

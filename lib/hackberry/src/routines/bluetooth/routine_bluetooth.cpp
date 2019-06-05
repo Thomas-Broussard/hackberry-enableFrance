@@ -40,13 +40,29 @@ void Routine_bluetooth::stop()
 
 void Routine_bluetooth::execute()
 {
-    String messageReceived = this->hand->bluetooth.receive();
-    if (messageReceived.length() <= 1) return;
+    if( this->hand->bluetooth.isEnabled())
+    {
+        String messageReceived = this->hand->bluetooth.receive();
+        this->checkActivity(ACTIVITY_TIME);
+        if (messageReceived.length() <= 1) return;
     
-    int command = ParseString(messageReceived,PARSECHAR, 0).toInt();
-    this->decodeInstruction(command,messageReceived);
+        int command = ParseString(messageReceived,PARSECHAR, 0).toInt();
+        this->decodeInstruction(command,messageReceived);
+    }
 }
 
+/**
+ * Stop the bluetooth if it's inactive since the delay programmed
+ * 
+ * @param delayBeforeStop delay(in seconds) of activity time authorized
+ */
+void Routine_bluetooth::checkActivity(unsigned long delayBeforeStop)
+{
+    if ((millis() - this->hand->bluetooth.getLastActivityTime() ) >= delayBeforeStop * 1000)
+    {
+        this->stop();
+    }
+}
 
 void Routine_bluetooth::decodeInstruction(int command, String message)
 {

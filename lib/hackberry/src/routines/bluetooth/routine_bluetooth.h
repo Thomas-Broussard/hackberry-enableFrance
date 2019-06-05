@@ -23,6 +23,7 @@
 #include "bluetooth_instructions.h"
 
 #define PARSECHAR  ';'
+#define ACTIVITY_TIME 600 // seconds
 
 // class
 class Routine_bluetooth{
@@ -37,6 +38,7 @@ class Routine_bluetooth{
     private:
         Hackberry_hand *hand;
 
+        void checkActivity(unsigned long delayBeforeStop);
         void decodeInstruction(int command, String message);
         void generalInstruction(int command, String message);
         void servoInstruction(int command, String message);

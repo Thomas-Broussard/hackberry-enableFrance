@@ -36,6 +36,8 @@ class Hackberry_bluetooth{
 
         void start();
         void stop();
+        bool isEnabled();
+        unsigned long getLastActivityTime();
 
         // Data functions
         void send(char c);
@@ -59,6 +61,8 @@ class Hackberry_bluetooth{
         SoftwareSerial *_BTSerial;
         IBluetoothAT  *AT;
         BluetoothData *BT;
+        
+        unsigned long _lastActivity = 0;
 };
 
 #endif
