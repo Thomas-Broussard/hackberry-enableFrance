@@ -33,16 +33,16 @@ Hackberry_eeprom::Hackberry_eeprom()
 void Hackberry_eeprom::SetHand(bool hand)
 {
     if (hand == RIGHT_HAND){
-        this->eepromUtils->writeChar(ADDR(selectedHand),1);
+        this->eepromUtils->writeChar(ADDR(selectedHand),'1');
     }
     else if (hand == LEFT_HAND){
-        this->eepromUtils->writeChar(ADDR(selectedHand),0);
+        this->eepromUtils->writeChar(ADDR(selectedHand),'0');
     }
 }
 
 bool Hackberry_eeprom::GetHand()
 {
-    return (this->eepromUtils->readInt(ADDR(selectedHand) == 1) ? RIGHT_HAND : LEFT_HAND);
+    return (this->eepromUtils->readChar(ADDR(selectedHand)) == '1') ? RIGHT_HAND : LEFT_HAND;
 }
 
 
@@ -127,12 +127,12 @@ float Hackberry_eeprom::GetSensorGain()
 
 void Hackberry_eeprom::SetSensorOffset(int offset)
 {
-    this->eepromUtils->writeChar(ADDR(sensorOffset),(char)offset);
+    this->eepromUtils->writeInt(ADDR(sensorOffset),offset);
 }
 
 int Hackberry_eeprom::GetSensorOffset()
 {
-    return this->eepromUtils->readChar(ADDR(sensorOffset));
+    return this->eepromUtils->readInt(ADDR(sensorOffset));
 }
 
 

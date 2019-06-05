@@ -74,6 +74,7 @@ test(eeprom_hand_type)
   hackberry.hand.eeprom.SetHand(RIGHT_HAND);
   assertEqual(RIGHT_HAND, hackberry.hand.eeprom.GetHand());
 
+  delay(1000);
   hackberry.hand.eeprom.SetHand(LEFT_HAND);
   assertEqual(LEFT_HAND, hackberry.hand.eeprom.GetHand());
 
@@ -105,7 +106,7 @@ test(eeprom_servo_fingers)
 test(eeprom_sensor_type)
 {
   int previousval = hackberry.hand.eeprom.GetSensorType();
-  int testvalue = random(0,10);
+  int testvalue = (int)random(0,10);
 
   hackberry.hand.eeprom.SetSensorType(testvalue);
   assertEqual(testvalue, hackberry.hand.eeprom.GetSensorType());
