@@ -14,31 +14,64 @@
 #ifndef __HACKBERRY_MAPPING_H__
 #define __HACKBERRY_MAPPING_H__
 
-
-// Servomotors
-#define PIN_THUMB           9
-#define PIN_INDEX           5
-#define PIN_FINGERS         6
-
-// Sensor
-#define PIN_SENSOR_1        A7
-#define PIN_SENSOR_2        A2
-
-// Buttons
-#define PIN_BUTTON_CALIB    A0
-#define PIN_BUTTON_EXTRA    A1
-#define PIN_BUTTON_THUMB    2
-#define PIN_BUTTON_LOCK     10
-
-// Battery
-#define PIN_BATTERY         A6
+#define UNDEFINED -1
 
 
-// Bluetooth / Communication
-#define PIN_RX              0
-#define PIN_TX              1
-#define PIN_POWER           A3
+// Select the mapping that you want to use
+#define MAPPING_MK2
+//#define MAPPING_MK3
 
+#ifdef MAPPING_MK2
+    // Servomotors
+    #define PIN_THUMB           9
+    #define PIN_INDEX           5
+    #define PIN_FINGERS         6
+
+    // Sensor
+    #define PIN_SENSOR_1        A1
+    #define PIN_SENSOR_2        UNDEFINED
+
+    // Buttons
+    #define PIN_BUTTON_CALIB    A6
+    #define PIN_BUTTON_EXTRA    A7
+    #define PIN_BUTTON_THUMB    A0
+    #define PIN_BUTTON_LOCK     10
+
+    // Battery
+    #define PIN_BATTERY         UNDEFINED
+
+
+    // Bluetooth / Communication
+    #define PIN_RX              UNDEFINED
+    #define PIN_TX              UNDEFINED
+    #define PIN_POWER           UNDEFINED
+#endif
+
+#ifdef MAPPING_MK3
+    // Servomotors
+    #define PIN_THUMB           9
+    #define PIN_INDEX           5
+    #define PIN_FINGERS         6
+
+    // Sensor
+    #define PIN_SENSOR_1        A7
+    #define PIN_SENSOR_2        A2
+
+    // Buttons
+    #define PIN_BUTTON_CALIB    A0
+    #define PIN_BUTTON_EXTRA    A1
+    #define PIN_BUTTON_THUMB    2
+    #define PIN_BUTTON_LOCK     10
+
+    // Battery
+    #define PIN_BATTERY         A6
+
+
+    // Bluetooth / Communication
+    #define PIN_RX              0
+    #define PIN_TX              1
+    #define PIN_POWER           A3
+#endif
 
 
 #endif

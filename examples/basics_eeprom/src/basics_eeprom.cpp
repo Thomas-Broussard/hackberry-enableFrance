@@ -76,8 +76,6 @@ void setup() {
 
     Serial.println("\n Write finished. Put variable readMode to \"true\" to see the eeprom content");
   }
-
-  
 }
 
 void loop() 
