@@ -60,7 +60,6 @@ class Hackberry_battery{
 
         int readRawValue();
         int readRawAverage();
-        int limit(int input, int min, int max);
 };
 
 

@@ -115,27 +115,28 @@ test(eeprom_sensor_type)
   assertEqual(previousval, hackberry.hand.eeprom.GetSensorType());
 }
 
-test(eeprom_sensor_offset)
+test(eeprom_sensor_min)
 {
-  int previousval = hackberry.hand.eeprom.GetSensorOffset();
-  int testvalue = random(-2000,2000);
-  hackberry.hand.eeprom.SetSensorOffset(testvalue);
-  assertEqual(testvalue, hackberry.hand.eeprom.GetSensorOffset());
+  int previousval = hackberry.hand.eeprom.GetSensorMin();
+  int testvalue = random(-2000,512);
+  
+  hackberry.hand.eeprom.SetSensorMin(testvalue);
+  assertEqual(testvalue, hackberry.hand.eeprom.GetSensorMin());
 
-  hackberry.hand.eeprom.SetSensorOffset(previousval);
-  assertEqual(previousval, hackberry.hand.eeprom.GetSensorOffset());
+  hackberry.hand.eeprom.SetSensorMin(previousval);
+  assertEqual(previousval, hackberry.hand.eeprom.GetSensorMin());
 }
 
-test(eeprom_sensor_gain)
+test(eeprom_sensor_max)
 {
-  float previousval = hackberry.hand.eeprom.GetSensorGain();
-  float testvalue = random(0,2000)/100.0;
+  int previousval = hackberry.hand.eeprom.GetSensorMax();
+  int testvalue = random(512,2000);
 
-  hackberry.hand.eeprom.SetSensorGain(testvalue);
-  assertEqual(testvalue, hackberry.hand.eeprom.GetSensorGain());
+  hackberry.hand.eeprom.SetSensorMax(testvalue);
+  assertEqual(testvalue, hackberry.hand.eeprom.GetSensorMax());
 
-  hackberry.hand.eeprom.SetSensorGain(previousval);
-  assertEqual(previousval, hackberry.hand.eeprom.GetSensorGain());
+  hackberry.hand.eeprom.SetSensorMax(previousval);
+  assertEqual(previousval, hackberry.hand.eeprom.GetSensorMax());
 }
 
 /* 

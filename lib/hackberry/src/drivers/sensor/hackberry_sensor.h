@@ -40,7 +40,7 @@ class Hackberry_sensor{
         // reading sensor output
         int read();
         int readAverage();
-        void calibrate(float gain, int offset);
+        void calibrate(int sensorMin, int sensorMax);
 
         void setSensorType(int sensorType);
 
@@ -48,8 +48,8 @@ class Hackberry_sensor{
         ISensor *_sensor;
         int _sensorType;
 
-        float _gain = 1;
-        int _offset = 0;
+        int _sensorMin = 0;
+        int _sensorMax = 1024;
 
         int pin1;
         int pin2;

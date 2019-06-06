@@ -439,5 +439,5 @@ void Hackberry_servos::unlockMember(int member)
 int Hackberry_servos::frameInteger(int value, int lim1, int lim2) {
     int min = (lim1 < lim2) ? lim1 : lim2;
     int max = (lim1 > lim2) ? lim1 : lim2;
-    return (value < min) ? min : ((value > max) ? max : value);
+    return constrain(value,min,max);
 }

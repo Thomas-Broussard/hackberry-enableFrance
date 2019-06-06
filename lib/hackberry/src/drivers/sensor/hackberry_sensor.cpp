@@ -50,16 +50,8 @@ void Hackberry_sensor::init(int sensorType)
  */
 int Hackberry_sensor::read()
 {
-    long result = this->_sensor->read();
-
-    if (this->_gain != 1){
-        result *= this->_gain;
-    }
-
-    if (this->_offset != 1){
-        result += this->_offset;
-    }
-    return result;
+    int rawValue = this->_sensor->read();
+    return map(rawValue, this->_sensorMin, this->_sensorMax, 0 , 1024);
 }
 
 /**
@@ -69,22 +61,14 @@ int Hackberry_sensor::read()
  */
 int Hackberry_sensor::readAverage()
 {
-    long result = this->_sensor->readAverage();
-
-    if (this->_gain != 1){
-        result *= this->_gain;
-    }
-
-    if (this->_offset != 1){
-        result += this->_offset;
-    }
-    return result;
+    int rawValue = this->_sensor->readAverage();
+    return map(rawValue, this->_sensorMin, this->_sensorMax, 0 , 1024);
 }
 
-void Hackberry_sensor::calibrate(float gain, int offset)
+void Hackberry_sensor::calibrate(int sensorMin, int sensorMax)
 {
-    this->_gain = gain;
-    this->_offset = offset;
+    this->_sensorMin = sensorMin;
+    this->_sensorMax = sensorMax;
 }
 
 
@@ -98,7 +82,7 @@ void Hackberry_sensor::setSensorType(int sensorType)
         break;
 
         case TYPE_EMG_SENSOR:
-            this->_sensor = new IRSensor(pin1);
+            //this->_sensor = new IRSensor(pin1);
         break;
 
         default:

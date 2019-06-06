@@ -47,11 +47,11 @@ class Hackberry_eeprom{
       void SetSensorType(int type);
       int  GetSensorType();
 
-      void  SetSensorGain(float gain);
-      float GetSensorGain();
+      void  SetSensorMax(int value);
+      int   GetSensorMax();
 
-      void SetSensorOffset(int offset);
-      int  GetSensorOffset();
+      void  SetSensorMin(int value);
+      int   GetSensorMin();
 
       // Debug usage only
       void printMemoryMap();

@@ -37,7 +37,7 @@ void Hackberry_battery::init()
 int Hackberry_battery::read()
 {
     int rawValue = this->readRawValue() * GAIN + OFFSET;
-    return this->limit(rawValue * LEVEL_FACTOR , 0, 100);
+    return constrain(rawValue * LEVEL_FACTOR , 0, 100);
 }
 
 /**
@@ -48,7 +48,7 @@ int Hackberry_battery::read()
 int Hackberry_battery::readAverage()
 {
     int rawValue =  this->readRawAverage() * GAIN + OFFSET;
-    return this->limit(rawValue * LEVEL_FACTOR , 0, 100); 
+    return constrain(rawValue * LEVEL_FACTOR , 0, 100); 
 }
 
 
@@ -76,14 +76,4 @@ int Hackberry_battery::readRawAverage()
         result += this->readRawValue();
     }
     return (result >> 4);
-}
-
-/**
- * Frame an input value between a min and a max value
- * 
- * @return input value framed between min and max
- */
-int Hackberry_battery::limit(int input, int min, int max)
-{
-    return (input >max) ? max : ((input < min)? min : input);
 }

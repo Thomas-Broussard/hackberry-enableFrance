@@ -18,14 +18,13 @@
 Hackberry hackberry;
 
 bool checkMemoryMap = true;
-bool readMode = true;
+bool readMode = false;
 
 
 void setup() {
   Serial.begin(9600);
   hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
 
-  
   if(checkMemoryMap)
   {
       hackberry.hand.eeprom.printMemoryMap();
@@ -35,24 +34,10 @@ void setup() {
   if(readMode)
   {
       Serial.println("=========================");
-      Serial.println("       READ MODE");
+      Serial.println("     READ ONLY MODE");
       Serial.println("=========================");
 
-      bool Hand = hackberry.hand.eeprom.GetHand();
-      Serial.print("Hand = "); Serial.println( Hand == RIGHT_HAND ? "Right":"Left");
-
-      Serial.print("MinThumb = ");      Serial.println( hackberry.hand.eeprom.GetMinServo(THUMB) );
-      Serial.print("MinIndex = ");      Serial.println( hackberry.hand.eeprom.GetMinServo(INDEX) );
-      Serial.print("MinFingers = ");    Serial.println( hackberry.hand.eeprom.GetMinServo(FINGERS) );
-
-      Serial.print("MaxThumb = ");      Serial.println( hackberry.hand.eeprom.GetMaxServo(THUMB) );
-      Serial.print("MaxIndex = ");      Serial.println( hackberry.hand.eeprom.GetMaxServo(INDEX) );
-      Serial.print("MaxFingers = ");    Serial.println( hackberry.hand.eeprom.GetMaxServo(FINGERS) );
-
-
-      Serial.print("SensorType = ");    Serial.println( hackberry.hand.eeprom.GetSensorType() );
-      Serial.print("SensorGain = ");    Serial.println( hackberry.hand.eeprom.GetSensorGain() );
-      Serial.print("SensorOffset = ");  Serial.println( hackberry.hand.eeprom.GetSensorOffset() );
+      hackberry.hand.eeprom.printMemoryContent();
   }
   // write mode
   else
@@ -71,10 +56,12 @@ void setup() {
     hackberry.hand.eeprom.SetMaxServo(FINGERS,38);
 
     hackberry.hand.eeprom.SetSensorType(8);
-    hackberry.hand.eeprom.SetSensorGain(1.66);
-    hackberry.hand.eeprom.SetSensorOffset(99);
+    hackberry.hand.eeprom.SetSensorMin(100);
+    hackberry.hand.eeprom.SetSensorMax(900);
 
-    Serial.println("\n Write finished. Put variable readMode to \"true\" to see the eeprom content");
+    Serial.println("\nWrite finished\n");
+
+    hackberry.hand.eeprom.printMemoryContent();
   }
 }
 

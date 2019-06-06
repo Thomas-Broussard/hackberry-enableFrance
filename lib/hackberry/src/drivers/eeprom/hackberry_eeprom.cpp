@@ -151,38 +151,38 @@ int Hackberry_eeprom::GetSensorType()
 
 /**
  * Save the sensor gain in the eeprom 
- * @param gain sensor gain value (1.00 by default)
+ * @param gain sensor gain value (1024 by default)
  */
-void Hackberry_eeprom::SetSensorGain(float gain)
+void Hackberry_eeprom::SetSensorMin(int value)
 {
-    this->eepromUtils->writeFloat(ADDR(sensorGain),gain);
+    this->eepromUtils->writeInt(ADDR(sensorMin),value);
 }
 
 /**
  * Get the sensor gain saved in the eeprom 
- * @return sensor gain value (1.00 by default)
+ * @return sensor gain value (1024 by default)
  */
-float Hackberry_eeprom::GetSensorGain()
+int Hackberry_eeprom::GetSensorMin()
 {
-    return this->eepromUtils->readFloat(ADDR(sensorGain));
+    return this->eepromUtils->readInt(ADDR(sensorMin));
 }
 
 /**
  * Save the sensor offset in the eeprom 
  * @param offset sensor offset value (0 by default)
  */
-void Hackberry_eeprom::SetSensorOffset(int offset)
+void Hackberry_eeprom::SetSensorMax(int value)
 {
-    this->eepromUtils->writeInt(ADDR(sensorOffset),offset);
+    this->eepromUtils->writeInt(ADDR(sensorMax),value);
 }
 
 /**
  * Get the sensor offset saved in the eeprom 
  * @return sensor offset value (0 by default)
  */
-int Hackberry_eeprom::GetSensorOffset()
+int Hackberry_eeprom::GetSensorMax()
 {
-    return this->eepromUtils->readInt(ADDR(sensorOffset));
+    return this->eepromUtils->readInt(ADDR(sensorMax));
 }
 
 /**
@@ -207,8 +207,8 @@ void Hackberry_eeprom::printMemoryMap()
     Serial.print("MaxFingers   |   ");    Serial.println( ADDR(fingersMax));
 
     Serial.print("SensorType   |   ");    Serial.println( ADDR(sensorType));
-    Serial.print("SensorGain   |   ");    Serial.println( ADDR(sensorGain));
-    Serial.print("SensorOffset |   ");    Serial.println( ADDR(sensorOffset));
+    Serial.print("SensorMin    |   ");    Serial.println( ADDR(sensorMin));
+    Serial.print("SensorMax    |   ");    Serial.println( ADDR(sensorMax));
     
     Serial.println("=========================");
     Serial.println("=========================");
@@ -236,8 +236,8 @@ void Hackberry_eeprom::printMemoryContent()
 
 
     Serial.print("SensorType    = "); Serial.println( this->GetSensorType() );
-    Serial.print("SensorGain    = "); Serial.println( this->GetSensorGain() );
-    Serial.print("SensorOffset  = "); Serial.println( this->GetSensorOffset() );
+    Serial.print("Sensormin     = "); Serial.println( this->GetSensorMin() );
+    Serial.print("SensorMax     = "); Serial.println( this->GetSensorMax() );
     
     Serial.println("=========================");
     Serial.println("=========================");
@@ -293,8 +293,8 @@ void Hackberry_eeprom::SetDefault()
     this->SetMaxServo(FINGERS,FINGERS_MAX);
 
     this->SetSensorType(TYPE_IR_SENSOR);
-    this->SetSensorGain(1.00);
-    this->SetSensorOffset(0);
+    this->SetSensorMin(0);
+    this->SetSensorMax(1024);
 
     this->SetMagicWord();
 }

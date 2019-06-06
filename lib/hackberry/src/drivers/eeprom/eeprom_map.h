@@ -32,8 +32,8 @@ typedef struct {
     char        fingersMax;    // between 0 and 180°
 
     char        sensorType;    
-    float       sensorGain;
-    int         sensorOffset;
+    int         sensorMin;     // between 0 and 1024
+    int         sensorMax;     // between 0 and 1024
 } Mapping_Struct;
 
 // Macro to get position of member in the Mapping_Struct structure
