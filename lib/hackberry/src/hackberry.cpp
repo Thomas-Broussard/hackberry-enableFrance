@@ -23,10 +23,29 @@ Hackberry::Hackberry() :
 {}
 
 
-void Hackberry::init(bool selectedHand, int sensorType)
+void Hackberry::init()
 {
-    this->hand.init(selectedHand,sensorType);
+    this->hand.init();
     this->routine.init(this->hand);
+}
+
+void Hackberry::init(bool selectedHand,int sensorType)
+{
+    this->init();
+    this->setHand(selectedHand);
+    this->setSensorType(sensorType);
+}
+
+void Hackberry::setHand(bool selectedHand)
+{
+    this->hand.servos.setHand(selectedHand);
+    this->hand.eeprom.SetHand(selectedHand);
+}
+
+void Hackberry::setSensorType(int sensorType)
+{
+    this->hand.sensor.setSensorType(sensorType);
+    this->hand.eeprom.SetSensorType(sensorType);
 }
 
 

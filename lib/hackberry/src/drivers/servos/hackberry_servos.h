@@ -49,7 +49,7 @@ class Hackberry_servos{
 
     public: 
     Hackberry_servos(int indexPin, int thumbPin, int fingersPin);
-    void init(bool selectedHand);
+    void init();
 
     // Hand type
     void setHand(bool selectedHand);
@@ -83,23 +83,24 @@ class Hackberry_servos{
     int _pinServoThumb;
     int _pinServoFingers;
 
-    // Selected hand (right or left)
-    bool _selectedHand;
-    
-    // Servomotors
+        // Servomotors
     VarSpeedServo  servoIndex;  
     VarSpeedServo  servoThumb;  
     VarSpeedServo  servoFingers; 
+
+    // Selected hand (right or left)
+    bool _selectedHand = RIGHT_HAND;
+    
+    bool _lockThumb = false;
+    bool _lockIndex = false;
+    bool _lockFingers = false;
+
+    int _speed = DEFAULT_SPEED;
 
     // limit of movements
     int _openThumb , _closedThumb;
     int _openIndex , _closedIndex;
     int _openFingers , _closedFingers;
-
-    bool _lockThumb, _lockIndex, _lockFingers;
-
-    // speed
-    int _speed;
 
     // servomotor move
     void moveServo(int member, int wantedPosition);

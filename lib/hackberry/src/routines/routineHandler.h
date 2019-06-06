@@ -21,6 +21,7 @@
 #include "buttons/routine_buttons.h"
 #include "moves/routine_moves.h"
 #include "battery/routine_battery.h"
+#include "eeprom_init/routine_eeprom_init.h"
 
 // class
 class RoutineHandler{
@@ -33,6 +34,7 @@ class RoutineHandler{
         Routine_buttons buttons;
         Routine_moves moves;
         Routine_battery batteryMonitoring;
+        Routine_eeprom_init eeprom_init;
 
     private:
 };

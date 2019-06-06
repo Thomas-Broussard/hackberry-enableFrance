@@ -21,12 +21,6 @@
 Hackberry_eeprom::Hackberry_eeprom()
 {
     this->eepromUtils = new EEPROMUtils();
-
-    // initialization of eeprom memory
-    if (!this->IsMagicWordCorrect())
-    {
-        this->SetDefault();
-    }
 }
 
 /**
@@ -272,29 +266,4 @@ void Hackberry_eeprom::SetMagicWord()
 bool Hackberry_eeprom::IsMagicWordCorrect()
 {
     return (this->eepromUtils->readFloat(ADDR(magicWord)) == MAGIC_WORD);
-}
-
-
-/**
- * Save the default parameters in the eeprom 
- * Remark : This function is mainly called when the magic word is incorrect, to reformat the eeprom memory.
- */
-void Hackberry_eeprom::SetDefault()
-{
-    this->SetHand(RIGHT_HAND);
-
-    this->SetMinServo(THUMB,THUMB_MIN);  
-    this->SetMaxServo(THUMB,THUMB_MAX);
-
-    this->SetMinServo(INDEX,INDEX_MIN);  
-    this->SetMaxServo(INDEX,INDEX_MAX);
-
-    this->SetMinServo(FINGERS,FINGERS_MIN);
-    this->SetMaxServo(FINGERS,FINGERS_MAX);
-
-    this->SetSensorType(TYPE_IR_SENSOR);
-    this->SetSensorMin(0);
-    this->SetSensorMax(1024);
-
-    this->SetMagicWord();
 }

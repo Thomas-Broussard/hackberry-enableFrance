@@ -58,7 +58,7 @@ Task T5(500 * TASK_MILLISECOND, TASK_FOREVER, &Task_Template          , &runner,
 void setup() 
 {
   Serial.begin(9600);
-  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
+  hackberry.init();
   setPriorities();
 }
 

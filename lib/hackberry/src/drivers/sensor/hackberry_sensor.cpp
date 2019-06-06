@@ -37,9 +37,9 @@ Hackberry_sensor::Hackberry_sensor(int pin1, int pin2, int pin3)
 }
 
 
-void Hackberry_sensor::init(int sensorType)
+void Hackberry_sensor::init()
 {
-    this->setSensorType(sensorType);
+    this->setSensorType(DEFAULT_SENSOR);
 }
 
 

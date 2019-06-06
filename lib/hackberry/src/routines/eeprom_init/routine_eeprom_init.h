@@ -4,35 +4,41 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description :
- *  Handle all the routines of the hackberry hand
+ *  Description : Manages the movements of the servomotors according to the muscular activity detected by the sensor
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
  *  https://github.com/mission-arm/HACKberry
- * 
  * =============================================================================================================================================
  */
-#include "routineHandler.h"
+
+#ifndef __ROUTINE_EEPROM_INIT_H__
+#define __ROUTINE_EEPROM_INIT_H__
+
+// dependencies
+#include <Arduino.h>
+#include "hackberry_global.h"
+#include "drivers/hackberry_hand.h"
 
 
-/**
- * Constructor : instantiate all routines
- */
-RoutineHandler::RoutineHandler() : 
-    bluetooth(),
-    buttons(),
-    moves(),
-    batteryMonitoring(),
-    eeprom_init()
-{}
+#define LOW_BATTERY_LEVEL 15 // (%) 
 
-
-void RoutineHandler::init(Hackberry_hand hand)
+// class
+class Routine_eeprom_init
 {
-    this->bluetooth.init(hand);
-    this->buttons.init(hand);
-    this->moves.init(hand);
-    this->batteryMonitoring.init(hand);
-    this->eeprom_init.init(hand);
-}
+    public: 
+        Routine_eeprom_init();
+        void init(Hackberry_hand hand);
+
+    private:
+        Hackberry_hand *hand;
+
+        void initSensor();
+        void initHand();
+        void initServos(int member);
+
+        void loadDefaultParameters();
+   
+};
+
+#endif

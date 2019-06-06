@@ -24,7 +24,7 @@
 // ---------------------------------------------------
 // Constants for sensor
 // ---------------------------------------------------
-
+#define DEFAULT_SENSOR TYPE_IR_SENSOR
 
 
 // class
@@ -35,7 +35,7 @@ class Hackberry_sensor{
         Hackberry_sensor(int pin1, int pin2);
         Hackberry_sensor(int pin1, int pin2, int pin3);
 
-        void init(int sensorType);
+        void init();
 
         // reading sensor output
         int read();

@@ -31,12 +31,12 @@ Hackberry_hand::Hackberry_hand() :
  * 
  * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
  */
-void Hackberry_hand::init(bool selectedHand, int sensorType)
+void Hackberry_hand::init()
 {
     // Drivers
-    this->servos.init(selectedHand);
+    this->servos.init();
     this->buttons.init();
-    this->sensor.init(sensorType);
+    this->sensor.init();
     this->bluetooth.init();
 }
 

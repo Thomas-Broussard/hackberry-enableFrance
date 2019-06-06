@@ -31,16 +31,7 @@ Hackberry_servos::Hackberry_servos(int indexPin, int thumbPin, int fingersPin) {
  * 
  * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
  */
-void Hackberry_servos::init(bool selectedHand) {
-
-    this->_selectedHand = selectedHand;
-
-    // default parameters
-    this->_speed = DEFAULT_SPEED;
-    this->_lockThumb = false;
-    this->_lockIndex = false;
-    this->_lockFingers = false;
-
+void Hackberry_servos::init() {
     // pins initialization
     pinMode(this->_pinServoIndex, OUTPUT);
     pinMode(this->_pinServoThumb, OUTPUT);

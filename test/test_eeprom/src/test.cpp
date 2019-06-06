@@ -29,7 +29,7 @@
 Hackberry hackberry;
 void setup() {
 
-  hackberry.hand.init(RIGHT_HAND,TYPE_IR_SENSOR);
+  hackberry.hand.init();
   Serial.begin(9600);
 }
 
@@ -119,7 +119,7 @@ test(eeprom_sensor_min)
 {
   int previousval = hackberry.hand.eeprom.GetSensorMin();
   int testvalue = random(-2000,512);
-  
+
   hackberry.hand.eeprom.SetSensorMin(testvalue);
   assertEqual(testvalue, hackberry.hand.eeprom.GetSensorMin());
 

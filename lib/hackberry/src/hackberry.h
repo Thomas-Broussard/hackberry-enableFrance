@@ -29,7 +29,10 @@ class Hackberry
     public:
         Hackberry();
 
+        void init();
         void init(bool selectedHand, int sensorType);
+        void setHand(bool selectedHand);
+        void setSensorType(int sensorType);
 
         Hackberry_hand hand;
         RoutineHandler routine;

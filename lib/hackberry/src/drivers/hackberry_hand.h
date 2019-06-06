@@ -37,7 +37,7 @@ class Hackberry_hand
         Hackberry_hand();
 
         // initialization
-        void init(bool selectedHand, int sensorType);
+        void init();
 
         // Hackberry hand components
         Hackberry_buttons   buttons;

@@ -56,16 +56,12 @@ class Hackberry_eeprom{
       // Debug usage only
       void printMemoryMap();
       void printMemoryContent();
-      
-      
-    private:
-      EEPROMUtils *eepromUtils;
 
       void SetMagicWord();
       bool IsMagicWordCorrect();
-      void SetDefault();
-
-
+      
+    private:
+      EEPROMUtils *eepromUtils;
 };
 
 
