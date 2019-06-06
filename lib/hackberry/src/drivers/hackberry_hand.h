@@ -39,6 +39,11 @@ class Hackberry_hand
         // initialization
         void init();
 
+        bool isCalibrationEnabled();
+        unsigned long getCalibrationTime();
+        void startCalibration();
+        void stopCalibration();
+
         // Hackberry hand components
         Hackberry_buttons   buttons;
         Hackberry_servos    servos;
@@ -48,6 +53,8 @@ class Hackberry_hand
         Hackberry_eeprom    eeprom;
         
     private:      
+
+        unsigned long CalibrationTime = 0; 
 };
 
 #endif

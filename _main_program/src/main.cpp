@@ -52,7 +52,7 @@ Task T3(200 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves             , &runner,
 Task T4(10  * TASK_SECOND     , TASK_FOREVER, &Task_BatteryMonitoring , &highPriority, true); // executed every 10s
 
 // Task template
-Task T5(500 * TASK_MILLISECOND, TASK_FOREVER, &Task_Template          , &runner, true); // executed every 500ms
+//Task T_template(500 * TASK_MILLISECOND, TASK_FOREVER, &Task_Template          , &runner, true); // executed every 500ms
 
 
 void setup() 
@@ -88,6 +88,7 @@ void setPriorities()
 void Task_Buttonhandler()
 {
   hackberry.routine.buttons.execute();
+  hackberry.routine.calibration.execute();
 }
 
 void Task_BluetoothHandler()

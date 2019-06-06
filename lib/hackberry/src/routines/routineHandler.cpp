@@ -24,7 +24,8 @@ RoutineHandler::RoutineHandler() :
     buttons(),
     moves(),
     batteryMonitoring(),
-    eeprom_init()
+    eeprom_init(),
+    calibration()
 {}
 
 
@@ -35,4 +36,5 @@ void RoutineHandler::init(Hackberry_hand hand)
     this->moves.init(hand);
     this->batteryMonitoring.init(hand);
     this->eeprom_init.init(hand);
+    this->calibration.init(hand);
 }

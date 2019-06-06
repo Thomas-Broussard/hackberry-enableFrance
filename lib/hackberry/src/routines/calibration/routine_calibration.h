@@ -4,7 +4,7 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description : Handle the behavior of buttons
+ *  Description : Library for monitoring the Hackberry Hand Battery
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
@@ -12,43 +12,33 @@
  * =============================================================================================================================================
  */
 
-#ifndef __ROUTINE_BUTTONS_H__
-#define __ROUTINE_BUTTONS_H__
+#ifndef __ROUTINE_CALIBRATION_H__
+#define __ROUTINE_CALIBRATION_H__
 
 // dependencies
 #include <Arduino.h>
 #include "hackberry_global.h"
 #include "drivers/hackberry_hand.h"
 
-#define DEBOUNCE_DELAY 100 // delay (ms) between two action on the same button, to avoid mechanical and physical button issues during transition
+#define CALIBRATION_TIME 10 // seconds
 
 // class
-class Routine_buttons
-{
+class Routine_calibration {
+
     public: 
-        Routine_buttons();
+        Routine_calibration();
         void init(Hackberry_hand hand);
         void execute();
 
     private:
         Hackberry_hand *hand;
 
-        bool isThumbOpen = false;
-        bool isLockEnabled = false;
+        bool calibrationFinished = false;
+        int _sensorMin = 1023;
+        int _sensorMax = 0;
 
-        unsigned long lastCalibDebounce = 0;
-        unsigned long lastExtraDebounce = 0;
-        unsigned long lastThumbDebounce = 0;
-        unsigned long lastLockDebounce  = 0;
-
-        bool isCalibEnabled = false;
-        
-        void actionCalib();
-        void actionExtra();
-        void actionThumb();
-        void actionLock();
-
-        bool isDebounced(unsigned long *lastDebounceTime, unsigned long debounceDelay);
+        void launchCalibration();
+        void checkActivity(unsigned long delayBeforeStop);
 };
 
 #endif

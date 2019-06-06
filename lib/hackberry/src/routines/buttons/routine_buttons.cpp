@@ -59,6 +59,7 @@ void Routine_buttons::execute()
             this->actionLock();
         }
     }
+
 }
 
 /**
@@ -68,7 +69,10 @@ void Routine_buttons::execute()
  */
 void Routine_buttons::actionCalib()
 {
-    // TODO : add code here
+    if (!this->hand->isCalibrationEnabled())
+    {
+        this->hand->startCalibration();
+    }
 }
 
 /**

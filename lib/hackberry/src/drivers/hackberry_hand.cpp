@@ -42,4 +42,26 @@ void Hackberry_hand::init()
 
 
 
+// Mode Calibration (for sensors)
+bool Hackberry_hand::isCalibrationEnabled()
+{
+    return (this->CalibrationTime != 0);
+}
+
+unsigned long Hackberry_hand::getCalibrationTime()
+{
+    return this->CalibrationTime;
+}
+
+void Hackberry_hand::startCalibration()
+{
+    this->CalibrationTime = millis();
+}
+
+void Hackberry_hand::stopCalibration()
+{
+    this->CalibrationTime = 0;
+}
+
+
 
