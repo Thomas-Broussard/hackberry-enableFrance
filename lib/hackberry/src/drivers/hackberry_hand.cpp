@@ -40,12 +40,10 @@ void Hackberry_hand::init()
     this->bluetooth.init();
 }
 
-
-
 // Mode Calibration (for sensors)
 bool Hackberry_hand::isCalibrationEnabled()
 {
-    return (this->CalibrationTime != 0);
+    return this->isCalib;
 }
 
 unsigned long Hackberry_hand::getCalibrationTime()
@@ -55,12 +53,16 @@ unsigned long Hackberry_hand::getCalibrationTime()
 
 void Hackberry_hand::startCalibration()
 {
+    Serial.println("Start Calibration");
     this->CalibrationTime = millis();
+    this->isCalib = true;
 }
 
 void Hackberry_hand::stopCalibration()
 {
+    Serial.println("Stop Calibration");
     this->CalibrationTime = 0;
+    this->isCalib = false;
 }
 
 

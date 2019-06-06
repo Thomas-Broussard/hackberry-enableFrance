@@ -20,9 +20,9 @@ Routine_eeprom_init::Routine_eeprom_init()
 
 }
 
-void Routine_eeprom_init::init(Hackberry_hand hand)
+void Routine_eeprom_init::init(Hackberry_hand *hand)
 {
-    this->hand = &hand;
+    this->hand = hand;
 
     // Initialization of eeprom memory
 

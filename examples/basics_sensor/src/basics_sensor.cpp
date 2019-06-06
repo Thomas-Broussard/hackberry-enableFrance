@@ -14,22 +14,47 @@
 
 #include <Arduino.h>
 #include "hackberry.h"
+#include "TaskScheduler.h"
 
 Hackberry hackberry;
 
-int intervalBetweenEachRead = 500; // ms
+
+// Scheduler
+Scheduler runner;
+
+
+int intervalBetweenEachRead = 1000; // ms
 int sensorVal;
 
+// Tasks Callbacks
+void Task_Buttonhandler();
+void Task_Sensorhandler();
+
+Task T1(200  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler  , &runner, true); 
+Task T2(intervalBetweenEachRead * TASK_MILLISECOND, TASK_FOREVER, &Task_Sensorhandler  , &runner, false);
 
 void setup() {
   Serial.begin(9600);
   hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
+
+  hackberry.hand.eeprom.printMemoryContent();
 }
 
 void loop() 
 {  
+  runner.execute(); 
+}
+
+
+void Task_Buttonhandler()
+{
+  hackberry.routine.buttons.execute();
+  hackberry.routine.calibration.execute();
+}
+
+void Task_Sensorhandler()
+{
   sensorVal = hackberry.hand.sensor.readAverage();
-  Serial.print("Sensor Value = ");
-  Serial.println(sensorVal);
-  delay(intervalBetweenEachRead);  
+  //Serial.print("Sensor Value = ");
+  //Serial.println(sensorVal);
 }

@@ -19,9 +19,9 @@ Routine_battery::Routine_battery()
 
 }
 
-void Routine_battery::init(Hackberry_hand hand)
+void Routine_battery::init(Hackberry_hand *hand)
 {
-    this->hand = &hand;
+    this->hand = hand;
 }
 
 void Routine_battery::execute()

@@ -26,9 +26,9 @@ Routine_bluetooth::Routine_bluetooth()
  * 
  * @param hand Hackberry_hand object that contains all the hackberry drivers to use
  */
-void Routine_bluetooth::init(Hackberry_hand hand)
+void Routine_bluetooth::init(Hackberry_hand *hand)
 {
-    this->hand = &hand;
+    this->hand = hand;
 }
 
 

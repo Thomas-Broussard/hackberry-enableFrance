@@ -16,10 +16,14 @@
 
 #define UNDEFINED -1
 
-
-// Select the mapping that you want to use
-#define MAPPING_MK2
+// Select the mapping that you want to use (in your main program)
+//#define MAPPING_MK2
 //#define MAPPING_MK3
+
+// default mapping
+#if !defined(MAPPING_MK2) && !defined(MAPPING_MK3)
+    #define MAPPING_MK2 
+#endif
 
 #ifdef MAPPING_MK2
     // Servomotors

@@ -30,7 +30,7 @@ class Routine_bluetooth{
 
     public: 
         Routine_bluetooth();
-        void init(Hackberry_hand hand);
+        void init(Hackberry_hand *hand);
         void start();
         void stop();
         void execute();

@@ -26,7 +26,7 @@ Hackberry::Hackberry() :
 void Hackberry::init()
 {
     this->hand.init();
-    this->routine.init(this->hand);
+    this->routine.init(&this->hand);
 }
 
 void Hackberry::init(bool selectedHand,int sensorType)

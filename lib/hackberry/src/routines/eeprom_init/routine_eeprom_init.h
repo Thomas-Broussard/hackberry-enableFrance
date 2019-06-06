@@ -28,7 +28,7 @@ class Routine_eeprom_init
 {
     public: 
         Routine_eeprom_init();
-        void init(Hackberry_hand hand);
+        void init(Hackberry_hand *hand);
 
     private:
         Hackberry_hand *hand;

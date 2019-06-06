@@ -20,14 +20,14 @@
 #include "hackberry_global.h"
 #include "drivers/hackberry_hand.h"
 
-#define DEBOUNCE_DELAY 100 // delay (ms) between two action on the same button, to avoid mechanical and physical button issues during transition
+#define DEBOUNCE_DELAY 1000 // delay (ms) between two action on the same button, to avoid mechanical and physical button issues during transition
 
 // class
 class Routine_buttons
 {
     public: 
         Routine_buttons();
-        void init(Hackberry_hand hand);
+        void init(Hackberry_hand *hand);
         void execute();
 
     private:

@@ -26,9 +26,9 @@ Routine_calibration::Routine_calibration()
  * 
  * @param hand Hackberry_hand object that contains all the hackberry drivers to use
  */
-void Routine_calibration::init(Hackberry_hand hand)
+void Routine_calibration::init(Hackberry_hand *hand)
 {
-    this->hand = &hand;
+    this->hand = hand;
 }
 
 /**
@@ -37,12 +37,12 @@ void Routine_calibration::init(Hackberry_hand hand)
 void Routine_calibration::execute()
 {
     // code executed when calibration is enabled
-    if( this->hand->isCalibrationEnabled())
+    if(this->hand->isCalibrationEnabled())
     {
+        Serial.println("Calibration launched");
         this->checkActivity(CALIBRATION_TIME);
         this->launchCalibration();
     }
-
     // code executed when calibration is finished
     if (this->calibrationFinished)
     {
@@ -51,6 +51,12 @@ void Routine_calibration::execute()
 
         this->hand->eeprom.SetSensorMin(this->_sensorMin);
         this->hand->eeprom.SetSensorMax(this->_sensorMax);
+
+        Serial.print("Max = ");
+        Serial.println(this->hand->eeprom.GetSensorMax());
+
+        Serial.print("Min = ");
+        Serial.println(this->hand->eeprom.GetSensorMin());
 
         // reset the calibration parameters
         this->_sensorMax = 0;
@@ -64,6 +70,7 @@ void Routine_calibration::execute()
  */
 void Routine_calibration::checkActivity(unsigned long delayBeforeStop)
 {
+    
     if ((millis() - this->hand->getCalibrationTime()) >= delayBeforeStop * 1000)
     {
         this->hand->stopCalibration();

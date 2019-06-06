@@ -28,7 +28,7 @@ class Routine_battery
 {
     public: 
         Routine_battery();
-        void init(Hackberry_hand hand);
+        void init(Hackberry_hand *hand);
         void execute();
 
     private:

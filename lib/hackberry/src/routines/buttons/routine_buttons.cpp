@@ -18,9 +18,9 @@
 Routine_buttons::Routine_buttons()
 {}
 
-void Routine_buttons::init(Hackberry_hand hand)
+void Routine_buttons::init(Hackberry_hand *hand)
 {
-    this->hand = &hand;
+    this->hand = hand;
 }
 
 
@@ -35,7 +35,7 @@ void Routine_buttons::execute()
     }
 
 
-    if (this->hand->buttons.isExtraButtonPressed())
+    else if (this->hand->buttons.isExtraButtonPressed())
     {
         if (this->isDebounced(&this->lastExtraDebounce, DEBOUNCE_DELAY))
         {
@@ -43,7 +43,7 @@ void Routine_buttons::execute()
         }
     }
 
-    if (this->hand->buttons.isThumbButtonPressed())
+    else if (this->hand->buttons.isThumbButtonPressed())
     {
         if (this->isDebounced(&this->lastThumbDebounce, DEBOUNCE_DELAY))
         {
@@ -52,7 +52,7 @@ void Routine_buttons::execute()
     }
 
 
-    if (this->hand->buttons.isLockButtonPressed())
+    else if (this->hand->buttons.isLockButtonPressed())
     {
         if (this->isDebounced(&this->lastLockDebounce, DEBOUNCE_DELAY))
         {
@@ -69,6 +69,7 @@ void Routine_buttons::execute()
  */
 void Routine_buttons::actionCalib()
 {
+    Serial.println("actionCalib");
     if (!this->hand->isCalibrationEnabled())
     {
         this->hand->startCalibration();
@@ -82,6 +83,7 @@ void Routine_buttons::actionCalib()
  */
 void Routine_buttons::actionExtra()
 {
+    Serial.println("actionExtra");
     // TODO : add code here
     if (this->hand->bluetooth.isEnabled())
     {
@@ -101,6 +103,7 @@ void Routine_buttons::actionExtra()
  */
 void Routine_buttons::actionThumb()
 {
+    Serial.println("actionThumb");
     if (isThumbOpen)
     {
         this->hand->servos.close(THUMB);
@@ -119,6 +122,7 @@ void Routine_buttons::actionThumb()
  */
 void Routine_buttons::actionLock()
 {
+    Serial.println("actionLock");
     if (isLockEnabled)
     {
         this->hand->servos.unlockMember(FINGERS);
@@ -143,7 +147,7 @@ bool Routine_buttons::isDebounced(unsigned long *lastDebounceTime, unsigned long
 {
     bool result = false;
     
-    result =  (millis() - *lastDebounceTime) > debounceDelay;
+    result = (millis() - *lastDebounceTime) > debounceDelay;
     *lastDebounceTime = millis();
     return result;
 }

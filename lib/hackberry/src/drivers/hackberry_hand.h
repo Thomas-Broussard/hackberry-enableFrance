@@ -54,7 +54,8 @@ class Hackberry_hand
         
     private:      
 
-        unsigned long CalibrationTime = 0; 
+        bool isCalib;
+        unsigned long CalibrationTime; 
 };
 
 #endif

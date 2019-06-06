@@ -27,7 +27,7 @@ class Routine_calibration {
 
     public: 
         Routine_calibration();
-        void init(Hackberry_hand hand);
+        void init(Hackberry_hand *hand);
         void execute();
 
     private:

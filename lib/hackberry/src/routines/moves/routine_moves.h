@@ -27,7 +27,7 @@ class Routine_moves
 {
     public: 
         Routine_moves();
-        void init(Hackberry_hand hand);
+        void init(Hackberry_hand *hand);
         void execute();
 
     private:

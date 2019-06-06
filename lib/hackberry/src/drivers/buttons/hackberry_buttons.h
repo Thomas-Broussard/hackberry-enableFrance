@@ -17,7 +17,8 @@
 #define __HACKBERRY_BUTTONS_H__
 
 #define DIGITALBUTTON_PRESSED LOW
-#define ANALOGBUTTON_PRESSED  100
+#define ANALOGBUTTON_PRESSED  512
+
 // dependencies
 #include <Arduino.h>
 

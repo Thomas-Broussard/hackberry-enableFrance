@@ -29,7 +29,7 @@ class RoutineHandler{
 
     public: 
         RoutineHandler();
-        void init(Hackberry_hand hand);
+        void init(Hackberry_hand *hand);
 
         Routine_bluetooth bluetooth;
         Routine_buttons buttons;

@@ -19,9 +19,9 @@ Routine_moves::Routine_moves()
 
 }
 
-void Routine_moves::init(Hackberry_hand hand)
+void Routine_moves::init(Hackberry_hand *hand)
 {
-    this->hand = &hand;
+    this->hand = hand;
 }
 
 void Routine_moves::execute()

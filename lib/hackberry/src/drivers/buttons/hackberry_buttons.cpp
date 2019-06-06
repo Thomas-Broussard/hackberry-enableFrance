@@ -90,7 +90,7 @@ bool Hackberry_buttons::isButtonPressed(int pin){
     // analog pin
     if (pin == A6 || pin == A7)
     {
-        return analogRead(pin) > ANALOGBUTTON_PRESSED ? true : false;
+        return analogRead(pin) < ANALOGBUTTON_PRESSED ? true : false;
     }
     // digital pin
     else
