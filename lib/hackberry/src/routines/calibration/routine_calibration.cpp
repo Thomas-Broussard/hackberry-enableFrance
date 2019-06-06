@@ -39,7 +39,6 @@ void Routine_calibration::execute()
     // code executed when calibration is enabled
     if(this->hand->isCalibrationEnabled())
     {
-        Serial.println("Calibration launched");
         this->checkActivity(CALIBRATION_TIME);
         this->launchCalibration();
     }
@@ -52,11 +51,18 @@ void Routine_calibration::execute()
         this->hand->eeprom.SetSensorMin(this->_sensorMin);
         this->hand->eeprom.SetSensorMax(this->_sensorMax);
 
-        Serial.print("Max = ");
-        Serial.println(this->hand->eeprom.GetSensorMax());
-
-        Serial.print("Min = ");
-        Serial.println(this->hand->eeprom.GetSensorMin());
+        #ifdef DEBUG_ROUTINE_ENABLED
+            Serial.println("-------------------------");
+            Serial.println("Calibration Stopped");
+            Serial.println("-------------------------");
+            Serial.println("Results : ");
+            Serial.print("SensorMin = ");
+            Serial.println(this->hand->eeprom.GetSensorMin());
+            Serial.print("SensorMax = ");
+            Serial.println(this->hand->eeprom.GetSensorMax());
+            Serial.println("-------------------------\n");
+        #endif
+        
 
         // reset the calibration parameters
         this->_sensorMax = 0;
@@ -80,7 +86,7 @@ void Routine_calibration::checkActivity(unsigned long delayBeforeStop)
 
 void Routine_calibration::launchCalibration()
 {
-    int sensorValue = this->hand->sensor.readAverage();
+    int sensorValue = this->hand->sensor.readRawAverage();
 
     // record the maximum sensor value
     if (sensorValue > this->_sensorMax) {

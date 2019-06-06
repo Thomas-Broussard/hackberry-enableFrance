@@ -15,6 +15,10 @@
 #ifndef __HACKBERRY_GLOBAL_H__
 #define __HACKBERRY_GLOBAL_H__
 
+// DEBUG MODE
+#define DEBUG_ROUTINE_ENABLED
+
+
 // Hand Selection
 #define RIGHT_HAND true
 #define LEFT_HAND false

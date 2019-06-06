@@ -51,7 +51,13 @@ void Hackberry_sensor::init()
 int Hackberry_sensor::read()
 {
     int rawValue = this->_sensor->read();
-    return map(rawValue, this->_sensorMin, this->_sensorMax, 0 , 1024);
+    int value = map(rawValue, this->_sensorMin, this->_sensorMax, 0 , 1024);
+    return constrain(value,0,1024);
+}
+
+int Hackberry_sensor::readRaw()
+{
+    return this->_sensor->read();
 }
 
 /**
@@ -62,7 +68,13 @@ int Hackberry_sensor::read()
 int Hackberry_sensor::readAverage()
 {
     int rawValue = this->_sensor->readAverage();
-    return map(rawValue, this->_sensorMin, this->_sensorMax, 0 , 1024);
+    int value = map(rawValue, this->_sensorMin, this->_sensorMax, 0 , 1024);
+    return constrain(value,0,1024);
+}
+
+int Hackberry_sensor::readRawAverage()
+{
+    return this->_sensor->readAverage();
 }
 
 void Hackberry_sensor::calibrate(int sensorMin, int sensorMax)

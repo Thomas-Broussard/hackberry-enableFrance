@@ -31,13 +31,11 @@ void Task_Buttonhandler();
 void Task_Sensorhandler();
 
 Task T1(200  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler  , &runner, true); 
-Task T2(intervalBetweenEachRead * TASK_MILLISECOND, TASK_FOREVER, &Task_Sensorhandler  , &runner, false);
+Task T2(intervalBetweenEachRead * TASK_MILLISECOND, TASK_FOREVER, &Task_Sensorhandler  , &runner, true );
 
 void setup() {
   Serial.begin(9600);
   hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
-
-  hackberry.hand.eeprom.printMemoryContent();
 }
 
 void loop() 
@@ -55,6 +53,6 @@ void Task_Buttonhandler()
 void Task_Sensorhandler()
 {
   sensorVal = hackberry.hand.sensor.readAverage();
-  //Serial.print("Sensor Value = ");
-  //Serial.println(sensorVal);
+  Serial.print("Sensor Value = ");
+  Serial.println(sensorVal);
 }

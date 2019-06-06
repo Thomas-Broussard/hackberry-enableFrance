@@ -40,6 +40,10 @@ class Hackberry_sensor{
         // reading sensor output
         int read();
         int readAverage();
+
+        int readRaw();
+        int readRawAverage();
+
         void calibrate(int sensorMin, int sensorMax);
 
         void setSensorType(int sensorType);

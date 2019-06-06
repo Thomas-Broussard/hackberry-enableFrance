@@ -69,9 +69,15 @@ void Routine_buttons::execute()
  */
 void Routine_buttons::actionCalib()
 {
-    Serial.println("actionCalib");
+    #ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Calib Button Pressed");
+    #endif
+    
     if (!this->hand->isCalibrationEnabled())
     {
+        #ifdef DEBUG_ROUTINE_ENABLED
+            Serial.println("Calibration Started");
+        #endif
         this->hand->startCalibration();
     }
 }
@@ -83,7 +89,10 @@ void Routine_buttons::actionCalib()
  */
 void Routine_buttons::actionExtra()
 {
-    Serial.println("actionExtra");
+    #ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Extra Button Pressed");
+    #endif
+
     // TODO : add code here
     if (this->hand->bluetooth.isEnabled())
     {
@@ -103,7 +112,9 @@ void Routine_buttons::actionExtra()
  */
 void Routine_buttons::actionThumb()
 {
-    Serial.println("actionThumb");
+    #ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Thumb Button Pressed");
+    #endif
     if (isThumbOpen)
     {
         this->hand->servos.close(THUMB);
@@ -122,7 +133,9 @@ void Routine_buttons::actionThumb()
  */
 void Routine_buttons::actionLock()
 {
-    Serial.println("actionLock");
+    #ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Lock Button Pressed");
+    #endif
     if (isLockEnabled)
     {
         this->hand->servos.unlockMember(FINGERS);
