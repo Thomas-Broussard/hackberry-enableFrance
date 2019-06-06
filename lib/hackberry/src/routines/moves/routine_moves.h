@@ -20,7 +20,12 @@
 #include "hackberry_global.h"
 #include "drivers/hackberry_hand.h"
 
-#define PARSECHAR  ';'
+#define STEP_MOVE_DEGREE 5 // number of degrees traveled each time the routine is executed
+
+#define OPEN_THRESHOLD  341 // threshold value of the sensor below which the hand opens
+#define CLOSE_THRESHOLD 682 // threshold value of the sensor above which the hand closes
+// remark : if the value of the sensor is between these two thresholds, the hand does not move
+
 
 // class
 class Routine_moves

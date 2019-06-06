@@ -60,7 +60,10 @@ class Hackberry_servos{
 
     // moving fingers
     void move(int member, int position, bool waitEnabled);
+    
     void relativeMove(int member, int degree, bool waitEnabled);
+    void relativeOpen(int member, int degree, bool waitEnabled);
+    void relativeClose(int member, int degree, bool waitEnabled);
     
     void open(int member);
     void close(int member);

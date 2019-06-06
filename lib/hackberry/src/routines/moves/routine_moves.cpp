@@ -26,19 +26,23 @@ void Routine_moves::init(Hackberry_hand *hand)
 
 void Routine_moves::execute()
 {
-    int step = 5;
     int sensorValue = this->hand->sensor.readAverage();
 
-    if (sensorValue > 512)
+
+    // Open hand
+    if (sensorValue < OPEN_THRESHOLD)
     {
-        this->hand->servos.relativeMove(FINGERS,step,true);
-        this->hand->servos.relativeMove(INDEX,step,true);
+        this->hand->servos.relativeOpen(FINGERS,STEP_MOVE_DEGREE,true);
+        this->hand->servos.relativeOpen(INDEX,STEP_MOVE_DEGREE,true);
     }
-    else
+    // Close Hand
+    else if (sensorValue > CLOSE_THRESHOLD)
     {
-        this->hand->servos.relativeMove(FINGERS,-step,true);
-        this->hand->servos.relativeMove(INDEX,-step,true);
+        this->hand->servos.relativeClose(FINGERS,STEP_MOVE_DEGREE,true);
+        this->hand->servos.relativeClose(INDEX,STEP_MOVE_DEGREE,true);
     }
+
+    
 }
 
 

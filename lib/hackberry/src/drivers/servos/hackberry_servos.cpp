@@ -118,13 +118,39 @@ void Hackberry_servos::move(int member, int position,bool waitEnabled) {
  * Move one of the members of the hand
  * (Relative move)
  * @param membre Member to move  (THUMB, INDEX or FINGERS)
- * @param degree number of rotation degree 
+ * @param degree number of rotation degree (between -180 and 180°)
  * @param waitEnabled true : wait the end of the move to do another action
  */
 void Hackberry_servos::relativeMove(int member, int degree,bool waitEnabled) 
 {
     int position = this->getPosition(member) + degree;
     this->move(member,position,waitEnabled);
+}
+
+/**
+ * Open one of the members of the hand
+ * (Relative move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param degree number of rotation degree  (between 0 and 180°)
+ * @param waitEnabled true : wait the end of the move to do another action
+ */
+void Hackberry_servos::relativeOpen(int member, int degree,bool waitEnabled) 
+{
+    int openDegree =  (this->_selectedHand == RIGHT_HAND) ? degree:-degree;
+    this->relativeMove(member,openDegree,waitEnabled);
+}
+
+/**
+ * Close one of the members of the hand
+ * (Relative move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param degree number of rotation degree (between 0 and 180°)
+ * @param waitEnabled true : wait the end of the move to do another action
+ */
+void Hackberry_servos::relativeClose(int member, int degree,bool waitEnabled) 
+{
+    int closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
+    this->relativeMove(member,closeDegree,waitEnabled);
 }
 
 
