@@ -21,23 +21,38 @@ Routine_bluetooth::Routine_bluetooth()
 }
 
 
-
+/**
+ * Initialize the bluetooth routine
+ * 
+ * @param hand Hackberry_hand object that contains all the hackberry drivers to use
+ */
 void Routine_bluetooth::init(Hackberry_hand hand)
 {
     this->hand = &hand;
 }
 
 
+/**
+ * Start the bluetooth module
+ */
 void Routine_bluetooth::start()
 {
     this->hand->bluetooth.start();
 }
 
+
+/**
+ * Stop the bluetooth module
+ */
 void Routine_bluetooth::stop()
 {
     this->hand->bluetooth.stop();
 }
 
+
+/**
+ * Execute the Bluetooth Routine main code
+ */
 void Routine_bluetooth::execute()
 {
     if( this->hand->bluetooth.isEnabled())
@@ -64,6 +79,17 @@ void Routine_bluetooth::checkActivity(unsigned long delayBeforeStop)
     }
 }
 
+/**
+ * Check if the bluetooth instruction received is a valid hackberry bluetooth instruction.
+ * If it is, it executes the corresponding code
+ * 
+ * @param command command to check and execute (if possible)
+ * @param message whole message received, which can contain the command parameters
+ *
+ * @see Routine_bluetooth#generalInstruction
+ * @see Routine_bluetooth#servoInstruction
+ * @see Routine_bluetooth#sensorInstruction
+ */
 void Routine_bluetooth::decodeInstruction(int command, String message)
 {
     this->generalInstruction(command,message);
@@ -71,7 +97,14 @@ void Routine_bluetooth::decodeInstruction(int command, String message)
     this->sensorInstruction(command,message);
 }
 
-// General (AT commands)
+
+/**
+ * Check if the bluetooth instruction received is for the general (AT) commands. 
+ * If it is, it executes the corresponding code
+ * 
+ * @param command command to check and execute (if possible)
+ * @param message whole message received, which can contain the command parameters
+ */
 void Routine_bluetooth::generalInstruction(int command, String message)
 {
     bool isPasswordSet = false;
@@ -128,6 +161,13 @@ void Routine_bluetooth::generalInstruction(int command, String message)
     }
 }
 
+/**
+ * Check if the bluetooth instruction received is for the servomotors. 
+ * If it is, it executes the corresponding code
+ * 
+ * @param command command to check and execute (if possible)
+ * @param message whole message received, which can contain the command parameters
+ */
 void Routine_bluetooth::servoInstruction(int command, String message)
 {
     int targetMember = 0;
@@ -238,6 +278,14 @@ void Routine_bluetooth::servoInstruction(int command, String message)
     }
 }
 
+
+/**
+ * Check if the bluetooth instruction received is for the sensor. 
+ * If it is, it executes the corresponding code
+ * 
+ * @param command command to check and execute (if possible)
+ * @param message whole message received, which can contain the command parameters
+ */
 void Routine_bluetooth::sensorInstruction(int command, String message)
 {
     switch(command)

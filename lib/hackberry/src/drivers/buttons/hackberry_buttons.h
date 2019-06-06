@@ -16,8 +16,8 @@
 #ifndef __HACKBERRY_BUTTONS_H__
 #define __HACKBERRY_BUTTONS_H__
 
-#define BUTTONPRESSED LOW
-
+#define DIGITALBUTTON_PRESSED LOW
+#define ANALOGBUTTON_PRESSED  100
 // dependencies
 #include <Arduino.h>
 
@@ -44,7 +44,9 @@ class Hackberry_buttons{
     int _pinCalib;       // Start hand calibration
     int _pinExtra;       // Reverse the direction of rotation of the fingers
     int _pinThumb;       // Thumb opening / closing
-    int _pinLock;        // lock / unlock the fingers 
+    int _pinLock;        // lock / unlock the fingers
+    
+    bool isButtonPressed(int pin); 
 };
 
 

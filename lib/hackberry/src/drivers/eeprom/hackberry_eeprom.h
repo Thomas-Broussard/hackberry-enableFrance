@@ -53,16 +53,17 @@ class Hackberry_eeprom{
       void SetSensorOffset(int offset);
       int  GetSensorOffset();
 
-      // Other
+      // Debug usage only
       void printMemoryMap();
+      void printMemoryContent();
       
       
     private:
       EEPROMUtils *eepromUtils;
 
-      void SetDefault();
       void SetMagicWord();
       bool IsMagicWordCorrect();
+      void SetDefault();
 
 
 };

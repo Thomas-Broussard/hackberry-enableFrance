@@ -17,8 +17,12 @@
 
 
 /**
- * Constructor
+ * Constructor of the Buttons driver
  * 
+ * @param pinCalib digital input - pin of the Calibration button (located at the top left of the hand)
+ * @param pinExtra digital input - pin of the Extra button (located at the center left of the hand)
+ * @param pinThumb digital input - pin of the Thumb button (located at the bottom left of the hand)
+ * @param pinLock digital input - pin of the Lock button (located at the right of the hand)
  */
 Hackberry_buttons::Hackberry_buttons(int pinCalib, int pinExtra, int pinThumb, int pinLock)
 {
@@ -29,11 +33,10 @@ Hackberry_buttons::Hackberry_buttons(int pinCalib, int pinExtra, int pinThumb, i
 }
 
 /**
- * Initialize pins of buttons
+ * Initialize the pins of buttons
  */
 void Hackberry_buttons::init()
 {
-    // pins initialization
     pinMode(_pinCalib, INPUT_PULLUP);
     pinMode(_pinExtra, INPUT_PULLUP);
     pinMode(_pinThumb, INPUT_PULLUP);
@@ -41,38 +44,57 @@ void Hackberry_buttons::init()
 }
 
 /**
- * get the current state of the Calib button
+ * Get the current state of the Calib button
  * 
  * @return true : button pressed / false : button released 
  */
-bool Hackberry_buttons::isCalibButtonPressed()
-{
-    return digitalRead(this->_pinCalib) == BUTTONPRESSED ? true:false ;
+bool Hackberry_buttons::isCalibButtonPressed(){
+    return  this->isButtonPressed(this->_pinCalib);
 }
 
 /**
- * get the current state of the Extra button
+ * Get the current state of the Extra button
  * 
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isExtraButtonPressed(){
-    return digitalRead(this->_pinExtra) == BUTTONPRESSED ? true:false ;
+    return  this->isButtonPressed(this->_pinExtra);
 }
 
 /**
- * get the current state of the Thumb button
+ * Get the current state of the Thumb button
  * 
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isThumbButtonPressed(){
-    return digitalRead(this->_pinThumb) == BUTTONPRESSED ? true:false ;
+    return this->isButtonPressed(this->_pinThumb);
 }
 
 /**
- * get the current state of the Lock button
+ * Get the current state of the Lock button
  * 
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isLockButtonPressed(){
-    return digitalRead(this->_pinLock) == BUTTONPRESSED ? true:false ;
+    return this->isButtonPressed(this->_pinLock);
+}
+
+
+/**
+ * Get the current state of button (even if it's wired on an analog pin, but it's not recommended)
+ * 
+ * @param pin pin of the button to check
+ * @return true if button pressed. false if button released 
+ */
+bool Hackberry_buttons::isButtonPressed(int pin){
+    // analog pin
+    if (pin == A6 || pin == A7)
+    {
+        return analogRead(pin) > ANALOGBUTTON_PRESSED ? true : false;
+    }
+    // digital pin
+    else
+    {
+        return digitalRead(pin) == DIGITALBUTTON_PRESSED ? true:false ;
+    }
 }

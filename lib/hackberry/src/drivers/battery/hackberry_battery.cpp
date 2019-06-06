@@ -15,8 +15,9 @@
 #include "hackberry_battery.h"
 
 /**
- * Constructor
+ * Constructor of the Battery driver
  * 
+ * @param pinBattery analog input - pin of the battery monitoring system
  */
 Hackberry_battery::Hackberry_battery(int pinBattery)
 {
@@ -29,7 +30,7 @@ void Hackberry_battery::init()
 }
 
 /**
- * read the value of the sensor
+ * read the level of the battery monitor
  * 
  * @return lvl of battery (between 0 and 100%)
  */
@@ -40,9 +41,9 @@ int Hackberry_battery::read()
 }
 
 /**
- * Perform a sensor reading by averaging the result on 16 consecutive points
+ * Perform a battery monitor reading by averaging the result on 16 consecutive points
  * 
- * @return average value of the sensor on 16 consecutive acquisitions
+ * @return average level of the battery (between 0 and 100%) on 16 consecutive acquisitions
  */
 int Hackberry_battery::readAverage()
 {
@@ -53,7 +54,7 @@ int Hackberry_battery::readAverage()
 
 
 /**
- * read the value of the sensor
+ * read the raw value of the battery monitor
  * 
  * @return raw value read (between 0 and 1024)
  */
@@ -63,9 +64,9 @@ int Hackberry_battery::readRawValue()
 }
 
 /**
- * Perform a sensor reading by averaging the result on 16 consecutive points
+ * Perform a raw battery monitor reading by averaging the result on 16 consecutive points
  * 
- * @return average value of the sensor on 16 consecutive acquisitions
+ * @return average raw value of the battery monitor on 16 consecutive acquisitions
  */
 int Hackberry_battery::readRawAverage()
 {

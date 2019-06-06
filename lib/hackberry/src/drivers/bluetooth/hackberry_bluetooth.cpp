@@ -15,7 +15,11 @@
 #include "Hackberry_bluetooth.h"
 
 /**
- * Constructor of the Servomotor class
+ * Constructor of the Bluetooth module driver
+ * 
+ * @param pinRX digital input - hackberry RX pin (= bluetooth TX pin)
+ * @param pinRX digital output - hackberry TX pin (= bluetooth RX pin)
+ * @param pinPower digital output - used to power ON/OFF the bluetooth module
  */
 Hackberry_bluetooth::Hackberry_bluetooth(int pinRx, int pinTx, int pinPower)
 {
@@ -68,10 +72,22 @@ void Hackberry_bluetooth::stop() {
     this->_lastActivity = 0;
 }
 
+/**
+ * check if bluetooth module is enabled or not
+ * 
+ * @return true if enabled. false otherwise
+ */
 bool Hackberry_bluetooth::isEnabled() {
     return (this->_lastActivity != 0);
 }
 
+/**
+ * Get the last activity time of the bluetooth module
+ * Remark : the activity time is updated when bluetooth module is started, when it send something, or when it receive something.
+ * This function is mainly use to do an automatic shutdown of the module when it is unused (since 10 minutes for example)
+ * 
+ * @return last activity time (in ms)
+ */
 unsigned long Hackberry_bluetooth::getLastActivityTime() {
     return this->_lastActivity;
 }
@@ -146,6 +162,7 @@ String Hackberry_bluetooth::receive()
 
 /**
  * Set the bluetooth module name
+ * 
  * @param name Name to apply
  */
 void Hackberry_bluetooth::setName(String name)
@@ -156,6 +173,7 @@ void Hackberry_bluetooth::setName(String name)
 
 /**
  * Set the password of the bluetooth module
+ * 
  * @param password to apply
  * @return true if password is correctly set, false otherwise
  */
@@ -168,7 +186,7 @@ bool Hackberry_bluetooth::setPassword(String password)
 /**
  * Set the bluetooth speed communication
  * 
- * @param baudrate speed to apply
+ * @param baudrate speed to apply (in baud per seconds)
  */
 void Hackberry_bluetooth::setBaud(unsigned long baudrate)
 {
