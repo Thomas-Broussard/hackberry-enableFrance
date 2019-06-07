@@ -31,8 +31,8 @@
 // Maximum voltage tolerated by the ADC (for arduino : 5V)
 #define V_RANGE   5 // volts
 
-// Maximum ADC range (for arduino : 1024)
-#define ADC_RANGE 1024
+// Maximum ADC range (for arduino : 1023)
+#define ADC_RANGE (MAX_ADC - MIN_ADC + 1)
 #define ADC_CONVERSION (ADC_RANGE / V_RANGE)
 
 // calculated parameters
@@ -44,7 +44,7 @@
 #define GAIN    (ADC_RANGE / (ADC_MAX - ADC_MIN))
 #define OFFSET  (- ADC_MIN * GAIN)
 
-#define LEVEL_FACTOR (100 / ADC_RANGE) // 0.0976 = (100/1024)   
+#define LEVEL_FACTOR (100 / ADC_RANGE) // 0.0976 = (100/1023)   
 
 // class
 class Hackberry_battery{

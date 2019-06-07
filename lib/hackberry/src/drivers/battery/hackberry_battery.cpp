@@ -56,7 +56,7 @@ int Hackberry_battery::readAverage()
 /**
  * read the raw value of the battery monitor
  * 
- * @return raw value read (between 0 and 1024)
+ * @return raw value read (between 0 and 1023)
  */
 int Hackberry_battery::readRawValue()
 {

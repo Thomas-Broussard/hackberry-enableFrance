@@ -27,6 +27,10 @@
 #define TYPE_IR_SENSOR 0
 #define TYPE_EMG_SENSOR 1
 
+// Range of the microcontroller's ADC 
+#define MIN_ADC 0
+#define MAX_ADC 1023
+
 // ---------------------------------------------------
 // Constants for servomotor
 // ---------------------------------------------------
@@ -53,11 +57,6 @@
 
 // INITIAL SPEED OF SERVOMOTOR
 #define DEFAULT_SPEED 50
-
-
-// ---------------------------------------------------
-// Constants for bluetooth
-// ---------------------------------------------------
 
 
 

@@ -17,9 +17,7 @@
 
 // Task Scheduler configuration (must be define before include)
 #define _TASK_SLEEP_ON_IDLE_RUN // Enable sleep mode when tasks aren't running, to save power
-#define _TASK_PRIORITY
-#define _TASK_WDT_IDS
-#define _TASK_TIMECRITICAL
+#define _TASK_PRIORITY          // Enable the task priority system
 
 // libraries dependencies
 #include <Arduino.h>
@@ -43,6 +41,7 @@ void Task_Buttonhandler();
 void Task_BluetoothHandler();
 void Task_Moves();
 void Task_BatteryMonitoring();
+void Task_Calibration();
 void Task_Template();
 
 // Tasks
@@ -50,6 +49,7 @@ Task T1(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler     , &runner,
 Task T2(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_BluetoothHandler  , &criticalPriority, true); // executed every 100ms
 Task T3(200 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves             , &runner, true); // executed every 200ms
 Task T4(10  * TASK_SECOND     , TASK_FOREVER, &Task_BatteryMonitoring , &highPriority, true); // executed every 10s
+Task T5(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration     , &criticalPriority, true); // executed every 50ms
 
 // Task template
 //Task T_template(500 * TASK_MILLISECOND, TASK_FOREVER, &Task_Template          , &runner, true); // executed every 500ms
@@ -88,7 +88,6 @@ void setPriorities()
 void Task_Buttonhandler()
 {
   hackberry.routine.buttons.execute();
-  hackberry.routine.calibration.execute();
 }
 
 void Task_BluetoothHandler()
@@ -106,6 +105,10 @@ void Task_BatteryMonitoring()
   hackberry.routine.batteryMonitoring.execute();
 }
 
+void Task_Calibration()
+{
+  hackberry.routine.calibration.execute();  
+}
 void Task_Template()
 {
   // create your own task here

@@ -145,7 +145,7 @@ int Hackberry_eeprom::GetSensorType()
 
 /**
  * Save the sensor gain in the eeprom 
- * @param gain sensor gain value (1024 by default)
+ * @param gain sensor gain value (1023 by default)
  */
 void Hackberry_eeprom::SetSensorMin(int value)
 {
@@ -154,7 +154,7 @@ void Hackberry_eeprom::SetSensorMin(int value)
 
 /**
  * Get the sensor gain saved in the eeprom 
- * @return sensor gain value (1024 by default)
+ * @return sensor gain value (1023 by default)
  */
 int Hackberry_eeprom::GetSensorMin()
 {

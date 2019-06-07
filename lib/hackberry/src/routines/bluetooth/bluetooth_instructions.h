@@ -44,7 +44,7 @@
 
 
 // Sensors
-#define CMD_SENS_GET_VALUE  30 // get current sensor value (0 - 1024)
+#define CMD_SENS_GET_VALUE  30 // get current sensor value (0 - 1023)
 
 #define CMD_SENS_SET_TYPE   31 // set type of sensor used (IR, EMG, etc..)
 #define CMD_SENS_GET_TYPE   32 // get type of sensor used (IR, EMG, etc..)

@@ -52,8 +52,8 @@ class Hackberry_sensor{
         ISensor *_sensor;
         int _sensorType;
 
-        int _sensorMin = 0;
-        int _sensorMax = 1024;
+        int _sensorMin = MIN_ADC;
+        int _sensorMax = MAX_ADC;
 
         int pin1;
         int pin2;

@@ -84,8 +84,8 @@ void Routine_eeprom_init::loadDefaultParameters()
     this->hand->eeprom.SetMaxServo(FINGERS,FINGERS_MAX);
 
     this->hand->eeprom.SetSensorType(TYPE_IR_SENSOR);
-    this->hand->eeprom.SetSensorMin(0);
-    this->hand->eeprom.SetSensorMax(1024);
+    this->hand->eeprom.SetSensorMin(MIN_ADC);
+    this->hand->eeprom.SetSensorMax(MAX_ADC);
 
     this->hand->eeprom.SetMagicWord();
 }
