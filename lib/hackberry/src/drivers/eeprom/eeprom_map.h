@@ -16,6 +16,12 @@
 // in case of evolution, please modify the MAGIC_WORD value
 #define MAGIC_WORD 0xABCD // this word is present at the beginning of the memory
 
+/**
+ * Structure representing the EEPROM memory of the Hackberry board. 
+ * The order of the variables is important here: it determines their place in the EEPROM memory. 
+ * 
+ * Example: magicWord is located first in the structure, so it will be set to the very first address of the EEPROM (0x0000)
+ */
 typedef struct {
     unsigned long magicWord;
 
@@ -32,8 +38,8 @@ typedef struct {
     char        fingersMax;    // between 0 and 180°
 
     char        sensorType;    
-    int         sensorMin;     // between 0 and 1023
-    int         sensorMax;     // between 0 and 1023
+    int         sensorMin;     // between MIN_ADC and MAX_ADC
+    int         sensorMax;     // between MIN_ADC and MAX_ADC
 } Mapping_Struct;
 
 // Macro to get position of member in the Mapping_Struct structure

@@ -42,6 +42,9 @@ void Routine_eeprom_init::init(Hackberry_hand *hand)
     this->initSensor();
 }
 
+/**
+ * Initialize the sensor parameters with the eeprom content
+ */
 void Routine_eeprom_init::initSensor()
 {
     int sensorType = this->hand->eeprom.GetSensorType();
@@ -52,12 +55,18 @@ void Routine_eeprom_init::initSensor()
     this->hand->sensor.calibrate(sensorMin,sensorMax);
 }
 
+/**
+ * Initialize the hand parameters with the eeprom content
+ */
 void Routine_eeprom_init::initHand()
 {
     bool hand = this->hand->eeprom.GetHand();
     this->hand->servos.setHand(hand);
 }
 
+/**
+ * Initialize the servomotors parameters with the eeprom content
+ */
 void Routine_eeprom_init::initServos(int member)
 {
     int servoMin = this->hand->eeprom.GetMinServo(member);

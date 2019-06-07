@@ -36,8 +36,9 @@ void Hackberry_battery::init()
  */
 int Hackberry_battery::read()
 {
-    int rawValue = this->readRawValue() * GAIN + OFFSET;
-    return constrain(rawValue * LEVEL_FACTOR , 0, 100);
+    int rawValue = this->readRawValue();
+    int value = map(rawValue, ADC_BAT_MIN, ADC_BAT_MAX, 0 , 100);
+    return constrain(value, 0, 100);
 }
 
 /**
@@ -47,8 +48,9 @@ int Hackberry_battery::read()
  */
 int Hackberry_battery::readAverage()
 {
-    int rawValue =  this->readRawAverage() * GAIN + OFFSET;
-    return constrain(rawValue * LEVEL_FACTOR , 0, 100); 
+    int rawValue = this->readRawAverage();
+    int value = map(rawValue, ADC_BAT_MIN, ADC_BAT_MAX, 0 , 100);
+    return constrain(value , 0, 100); 
 }
 
 

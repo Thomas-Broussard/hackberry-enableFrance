@@ -34,11 +34,11 @@ class Routine_calibration {
         Hackberry_hand *hand;
 
         bool calibrationFinished = false;
-        int _sensorMin = 1023;
-        int _sensorMax = 0;
+        int _sensorMin = MAX_ADC;
+        int _sensorMax = MIN_ADC;
 
         void launchCalibration();
-        void checkActivity(unsigned long delayBeforeStop);
+        void checkCalibrationEnd(unsigned long delayBeforeStop);
 };
 
 #endif

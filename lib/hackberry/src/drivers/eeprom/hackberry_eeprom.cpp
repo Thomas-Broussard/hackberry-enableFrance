@@ -99,7 +99,7 @@ int Hackberry_eeprom::GetMinServo(int member)
         break;
         case FINGERS: return (unsigned char)this->eepromUtils->readChar(ADDR(fingersMin));
         break;
-        default: return -2;
+        default: return -1;
         break;
     }
 }
@@ -119,7 +119,7 @@ int Hackberry_eeprom::GetMaxServo(int member)
         break;
         case FINGERS: return (unsigned char)this->eepromUtils->readChar(ADDR(fingersMax));
         break;
-        default: return -2;
+        default: return -1;
         break;
     }
 }
@@ -144,8 +144,8 @@ int Hackberry_eeprom::GetSensorType()
 }
 
 /**
- * Save the sensor gain in the eeprom 
- * @param gain sensor gain value (1023 by default)
+ * Save the sensor maximum value in the eeprom 
+ * @param value max sensor value (MIN_ADC by default)
  */
 void Hackberry_eeprom::SetSensorMin(int value)
 {
@@ -153,8 +153,8 @@ void Hackberry_eeprom::SetSensorMin(int value)
 }
 
 /**
- * Get the sensor gain saved in the eeprom 
- * @return sensor gain value (1023 by default)
+ * Get the sensor minimum value saved in the eeprom 
+ * @return sensor min value (MAX_ADC by default)
  */
 int Hackberry_eeprom::GetSensorMin()
 {
@@ -162,8 +162,8 @@ int Hackberry_eeprom::GetSensorMin()
 }
 
 /**
- * Save the sensor offset in the eeprom 
- * @param offset sensor offset value (0 by default)
+ * Get the max sensor value saved in the eeprom 
+ * @return sensor max sensor value (MAX_ADC by default)
  */
 void Hackberry_eeprom::SetSensorMax(int value)
 {
@@ -171,8 +171,8 @@ void Hackberry_eeprom::SetSensorMax(int value)
 }
 
 /**
- * Get the sensor offset saved in the eeprom 
- * @return sensor offset value (0 by default)
+ * Get the min sensor value saved in the eeprom 
+ * @return sensor min sensor value (MIN_ADC by default)
  */
 int Hackberry_eeprom::GetSensorMax()
 {

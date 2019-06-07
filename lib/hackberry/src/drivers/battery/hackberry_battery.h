@@ -20,7 +20,7 @@
 #include "hackberry_global.h"
 
 
-// resistors of the voltage divider
+// resistors of the voltage divider (see hardware schematics : https://easyeda.com/editor#id=e390bae9b279417c9c5e9cd86d05d3c4)
 #define R12 162 // kohms
 #define R13 100 // kohms
 
@@ -31,20 +31,15 @@
 // Maximum voltage tolerated by the ADC (for arduino : 5V)
 #define V_RANGE   5 // volts
 
-// Maximum ADC range (for arduino : 1023)
+// Maximum ADC range
 #define ADC_RANGE (MAX_ADC - MIN_ADC + 1)
 #define ADC_CONVERSION (ADC_RANGE / V_RANGE)
 
 // calculated parameters
 #define R_FACTOR (R13 / (R12+R13)) // gain of the voltage divider
 
-#define ADC_MIN ((VBAT_MIN * R_FACTOR) * ADC_CONVERSION)
-#define ADC_MAX ((VBAT_MAX * R_FACTOR) * ADC_CONVERSION)       
-
-#define GAIN    (ADC_RANGE / (ADC_MAX - ADC_MIN))
-#define OFFSET  (- ADC_MIN * GAIN)
-
-#define LEVEL_FACTOR (100 / ADC_RANGE) // 0.0976 = (100/1023)   
+#define ADC_BAT_MIN ((VBAT_MIN * R_FACTOR) * ADC_CONVERSION)
+#define ADC_BAT_MAX ((VBAT_MAX * R_FACTOR) * ADC_CONVERSION)       
 
 // class
 class Hackberry_battery{

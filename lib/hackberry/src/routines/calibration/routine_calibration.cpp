@@ -39,7 +39,7 @@ void Routine_calibration::execute()
     // code executed when calibration is enabled
     if(this->hand->isCalibrationEnabled())
     {
-        this->checkActivity(CALIBRATION_TIME);
+        this->checkCalibrationEnd(CALIBRATION_TIME);
         this->launchCalibration();
     }
     // code executed when calibration is finished
@@ -65,8 +65,8 @@ void Routine_calibration::execute()
         
 
         // reset the calibration parameters
-        this->_sensorMax = 0;
-        this->_sensorMin = 1023;
+        this->_sensorMax = MIN_ADC;
+        this->_sensorMin = MAX_ADC;
     }
 }
 
@@ -74,7 +74,7 @@ void Routine_calibration::execute()
  * Stop the calibration after the delay programmed 
  * @param delayBeforeStop delay(in seconds) of activity time authorized
  */
-void Routine_calibration::checkActivity(unsigned long delayBeforeStop)
+void Routine_calibration::checkCalibrationEnd(unsigned long delayBeforeStop)
 {
     
     if ((millis() - this->hand->getCalibrationTime()) >= delayBeforeStop * 1000)
