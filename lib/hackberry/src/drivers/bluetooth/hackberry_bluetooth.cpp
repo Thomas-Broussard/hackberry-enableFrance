@@ -59,8 +59,10 @@ void Hackberry_bluetooth::init()
  */
 void Hackberry_bluetooth::start() {
     digitalWrite(this->_pinPower,HIGH);
-    this->BT->start();
     this->_lastActivity = millis();
+    this->BT->start();
+    this->_enabled = true;
+    this->AT->setBaud(38400);
 }
 
 /**
@@ -68,8 +70,9 @@ void Hackberry_bluetooth::start() {
  */
 void Hackberry_bluetooth::stop() {
     this->BT->stop();
-    digitalWrite(this->_pinPower,LOW);
     this->_lastActivity = 0;
+    digitalWrite(this->_pinPower,LOW);
+    this->_enabled = false;
 }
 
 /**
@@ -78,7 +81,7 @@ void Hackberry_bluetooth::stop() {
  * @return true if enabled. false otherwise
  */
 bool Hackberry_bluetooth::isEnabled() {
-    return (this->_lastActivity != 0);
+    return this->_enabled;
 }
 
 /**

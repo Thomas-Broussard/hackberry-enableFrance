@@ -63,6 +63,7 @@ class Hackberry_bluetooth{
         BluetoothData *BT;
         
         unsigned long _lastActivity = 0;
+        bool _enabled = false;
 };
 
 #endif

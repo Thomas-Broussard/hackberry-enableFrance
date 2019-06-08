@@ -18,7 +18,6 @@
 // DEBUG MODE
 #define DEBUG_ROUTINE_ENABLED
 
-
 // Hand Selection
 #define RIGHT_HAND true
 #define LEFT_HAND false

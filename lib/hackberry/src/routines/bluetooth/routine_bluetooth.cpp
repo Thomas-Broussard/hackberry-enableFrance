@@ -37,6 +37,9 @@ void Routine_bluetooth::init(Hackberry_hand *hand)
  */
 void Routine_bluetooth::start()
 {
+    #ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Bluetooth started");
+    #endif
     this->hand->bluetooth.start();
 }
 
@@ -46,6 +49,9 @@ void Routine_bluetooth::start()
  */
 void Routine_bluetooth::stop()
 {
+    #ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Bluetooth stopped");
+    #endif
     this->hand->bluetooth.stop();
 }
 
@@ -55,11 +61,16 @@ void Routine_bluetooth::stop()
  */
 void Routine_bluetooth::execute()
 {
-    if( this->hand->bluetooth.isEnabled())
+    if(this->hand->bluetooth.isEnabled())
     {
         String messageReceived = this->hand->bluetooth.receive();
         this->checkActivity(ACTIVITY_TIME);
         if (messageReceived.length() <= 1) return;
+
+        #ifdef DEBUG_ROUTINE_ENABLED
+            Serial.print("[BT] Receive : ");
+            Serial.println(messageReceived);
+        #endif
     
         int command = ParseString(messageReceived,PARSECHAR, 0).toInt();
         this->decodeInstruction(command,messageReceived);

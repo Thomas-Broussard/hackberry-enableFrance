@@ -27,19 +27,26 @@ void Routine_moves::init(Hackberry_hand *hand)
 void Routine_moves::execute()
 {
     int sensorValue = this->hand->sensor.readAverage();
-
+    /*#ifdef DEBUG_ROUTINE_ENABLED
+    Serial.print("Sensor Value = ");
+    Serial.println(sensorValue);
+    #endif*/
 
     // Open hand
     if (sensorValue < OPEN_THRESHOLD)
     {
-        this->hand->servos.relativeOpen(FINGERS,STEP_MOVE_DEGREE,true);
-        this->hand->servos.relativeOpen(INDEX,STEP_MOVE_DEGREE,true);
+        /*#ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Open hand...");
+        #endif*/
+        this->hand->servos.relativeOpen(FINGERS,STEP_MOVE_DEGREE,false);
+        this->hand->servos.relativeOpen(INDEX,STEP_MOVE_DEGREE,false);
     }
     // Close Hand
     else if (sensorValue > CLOSE_THRESHOLD)
     {
-        this->hand->servos.relativeClose(FINGERS,STEP_MOVE_DEGREE,true);
-        this->hand->servos.relativeClose(INDEX,STEP_MOVE_DEGREE,true);
+
+        this->hand->servos.relativeClose(FINGERS,STEP_MOVE_DEGREE,false);
+        this->hand->servos.relativeClose(INDEX,STEP_MOVE_DEGREE,false);
     }
 
     

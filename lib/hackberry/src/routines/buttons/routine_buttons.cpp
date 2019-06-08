@@ -96,10 +96,16 @@ void Routine_buttons::actionExtra()
     // TODO : add code here
     if (this->hand->bluetooth.isEnabled())
     {
+        #ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Bluetooth stopped");
+        #endif
         this->hand->bluetooth.stop();
     }
     else
     {
+        #ifdef DEBUG_ROUTINE_ENABLED
+        Serial.println("Bluetooth started");
+        #endif
         this->hand->bluetooth.start();
     }
     

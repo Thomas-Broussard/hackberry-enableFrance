@@ -18,6 +18,10 @@
 // dependencies
 #include <Arduino.h>
 
+// Mapping of IOs
+#include "hackberry_mapping.h"
+
+
 // drivers
 #include "buttons/hackberry_buttons.h"
 #include "servos/hackberry_servos.h"
@@ -27,8 +31,6 @@
 #include "battery/hackberry_battery.h"
 
 
-// Mapping of IOs
-#include "hackberry_mapping.h"
 
 // class
 class Hackberry_hand

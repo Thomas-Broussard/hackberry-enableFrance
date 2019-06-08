@@ -13,7 +13,6 @@
  */
 #include "hackberry_hand.h"
 
-
 /**
  * Constructor : map all the IOs to drivers
  */

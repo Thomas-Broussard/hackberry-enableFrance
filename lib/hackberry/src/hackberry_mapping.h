@@ -16,15 +16,15 @@
 
 #define UNDEFINED -1
 
-// Select the mapping that you want to use (in your main program)
-//#define MAPPING_MK2
+// Select the mapping that you want to use (default : Mk2)
+#define MAPPING_MK2
 //#define MAPPING_MK3
 
-// default mapping
-#if !defined(MAPPING_MK2) && !defined(MAPPING_MK3)
-    #define MAPPING_MK2 
-#endif
-
+/* 
+* ====================================================================================
+*                                  MAPPINGS
+* ====================================================================================
+*/
 #ifdef MAPPING_MK2
     // Servomotors
     #define PIN_THUMB           9
@@ -72,10 +72,21 @@
 
 
     // Bluetooth / Communication
-    #define PIN_RX              0
-    #define PIN_TX              1
+    #define PIN_RX              3
+    #define PIN_TX              4
     #define PIN_POWER           A3
 #endif
 
+
+
+
+/* 
+* ====================================================================================
+*                                  ERROR HANDLER
+* ====================================================================================
+*/
+#if !defined (MAPPING_MK2) && !defined (MAPPING_MK3)
+    #error "Please, select a mapping in hackberry_mapping.h"
+#endif
 
 #endif
