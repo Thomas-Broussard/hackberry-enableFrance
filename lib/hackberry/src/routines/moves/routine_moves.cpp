@@ -26,6 +26,8 @@ void Routine_moves::init(Hackberry_hand *hand)
 
 void Routine_moves::execute()
 {
+    if(this->hand->getMode() != Standard) return;
+    
     int sensorValue = this->hand->sensor.readAverage();
     /*#ifdef DEBUG_ROUTINE_ENABLED
     Serial.print("Sensor Value = ");

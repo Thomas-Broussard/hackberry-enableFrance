@@ -83,7 +83,6 @@ void Hackberry_eeprom::SetMaxServo(int member, int value)
         break;
     }
 }
-
 /**
  * Get the minimum position of a servomotor saved in the eeprom 
  * @param member THUMB, INDEX or FINGERS 

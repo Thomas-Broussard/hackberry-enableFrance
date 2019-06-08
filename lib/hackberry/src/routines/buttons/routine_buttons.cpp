@@ -26,7 +26,6 @@ void Routine_buttons::init(Hackberry_hand *hand)
 
 void Routine_buttons::execute()
 {
-    // change button gesture here
     if (this->hand->buttons.isCalibButtonPressed())
     {
         if (this->isDebounced(&this->lastCalibDebounce, DEBOUNCE_DELAY))
@@ -34,7 +33,6 @@ void Routine_buttons::execute()
             this->actionCalib();
         }
     }
-
 
     else if (this->hand->buttons.isExtraButtonPressed())
     {
@@ -73,22 +71,17 @@ void Routine_buttons::actionCalib()
     #ifdef DEBUG_ROUTINE_ENABLED
         Serial.println("Calib Button Pressed");
     #endif
-    
-    // Sensor Calibration Mode
-    if (this->hand->isSensorCalibrationEnabled())
-    {}
 
-    // Servos Calibration Mode
-    else if(this->hand->isServosCalibrationEnabled())
-    {}
-
-    // Standard Mode
-    else
+    switch (this->hand->getMode())
     {
-        #ifdef DEBUG_ROUTINE_ENABLED
-            Serial.println("Sensor Calibration Started");
-        #endif
-        this->hand->startSensorCalibration();
+        case Standard :
+            #ifdef DEBUG_ROUTINE_ENABLED
+                Serial.println("Sensor Calibration Started");
+            #endif
+            this->hand->startSensorCalibration();
+        break;
+
+        default:break;
     }
 }
 
@@ -103,43 +96,40 @@ void Routine_buttons::actionExtra()
         Serial.println("Extra Button Pressed");
     #endif
 
-    // Sensor Calibration Mode
-    if (this->hand->isSensorCalibrationEnabled())
-    {}
-
-    // Servos Calibration Mode
-    else if(this->hand->isServosCalibrationEnabled())
-    {}
-
-    // Standard Mode
-    else
+    switch (this->hand->getMode())
     {
+        case ServosCalibration : 
+            this->hand->nextServosCalibration();
+        break;
 
-        #ifdef MAPPING_MK2
-            #ifdef DEBUG_ROUTINE_ENABLED
-                Serial.println("Servomotors Calibration Started");
+        case Standard :
+            #ifdef MAPPING_MK2
+                this->hand->startServosCalibration();
+                #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Servomotors Calibration Started");
+                #endif
             #endif
-            this->hand->startServosCalibration();
-        #endif
 
-        #ifdef MAPPING_MK3
-            if (this->hand->bluetooth.isEnabled())
-            {
-                #ifdef DEBUG_ROUTINE_ENABLED
-                Serial.println("Bluetooth stopped");
-                #endif
-                this->hand->bluetooth.stop();
-            }
-            else
-            {
-                #ifdef DEBUG_ROUTINE_ENABLED
-                Serial.println("Bluetooth started");
-                #endif
-                this->hand->bluetooth.start();
-            }
-        #endif
+            #ifdef MAPPING_MK3
+                if (this->hand->bluetooth.isEnabled())
+                {
+                    #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Bluetooth stopped");
+                    #endif
+                    this->hand->bluetooth.stop();
+                }
+                else
+                {
+                    #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Bluetooth started");
+                    #endif
+                    this->hand->bluetooth.start();
+                }
+            #endif
+        break;
+
+        default:break;
     }
-    
 }
 
 /**
@@ -153,27 +143,23 @@ void Routine_buttons::actionThumb()
         Serial.println("Thumb Button Pressed");
     #endif
 
-    // Sensor Calibration Mode
-    if (this->hand->isSensorCalibrationEnabled())
-    {}
-
-    // Servos Calibration Mode
-    else if(this->hand->isServosCalibrationEnabled())
-    {}
-    else
+    switch (this->hand->getMode())
     {
-        if (isThumbOpen)
-        {
-            this->hand->servos.close(THUMB);
-            this->isThumbOpen = false;
-        }
-        else
-        {
-            this->hand->servos.open(THUMB);
-            this->isThumbOpen = true;
-        }
+        case Standard :
+            if (isThumbOpen)
+            {
+                this->hand->servos.close(THUMB);
+                this->isThumbOpen = false;
+            }
+            else
+            {
+                this->hand->servos.open(THUMB);
+                this->isThumbOpen = true;
+            }
+        break;
+
+        default:break;
     }
-    
 }
 
 /**
@@ -186,27 +172,21 @@ void Routine_buttons::actionLock()
         Serial.println("Lock Button Pressed");
     #endif
     
-    // Sensor Calibration Mode
-    if (this->hand->isSensorCalibrationEnabled())
-    {}
-
-    // Servos Calibration Mode
-    else if(this->hand->isServosCalibrationEnabled())
-    {}
-    
-    // Standard mode
-    else
+    switch (this->hand->getMode())
     {
-        if (isLockEnabled)
-        {
-            this->hand->servos.unlockMember(FINGERS);
-            this->isLockEnabled = false;
-        }
-        else
-        {
-            this->hand->servos.lockMember(FINGERS);
-            this->isLockEnabled = true;
-        }
+        case Standard :
+            if (isLockEnabled)
+            {
+                this->hand->servos.unlockMember(FINGERS);
+                this->isLockEnabled = false;
+            }
+            else
+            {
+                this->hand->servos.lockMember(FINGERS);
+                this->isLockEnabled = true;
+            }
+        break;
+        default:break;
     }
 }
 

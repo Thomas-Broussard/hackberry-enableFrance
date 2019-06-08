@@ -4,40 +4,61 @@
  *  Author  : Thomas Broussard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
- *  Description :
- *  Routine for Hackberry sensor calibration
+ *  Description : 
+ *  Routine for Hackberry servomotors calibration
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
  *  https://github.com/mission-arm/HACKberry
  * =============================================================================================================================================
  */
-#ifndef __ROUTINE_CALIBRATION_SENSOR_H__
-#define __ROUTINE_CALIBRATION_SENSOR_H__
+
+#ifndef __ROUTINE_CALIBRATION_SERVOS_H__
+#define __ROUTINE_CALIBRATION_SERVOS_H__
 
 // dependencies
 #include <Arduino.h>
 #include "hackberry_global.h"
 #include "drivers/hackberry_hand.h"
 
-#define CALIBRATION_TIME 10 // seconds
+#define STEP 5
+
+enum servosCalibSteps{
+    IDLE,
+    THUMB_OPEN,
+    THUMB_CLOSE,
+    INDEX_OPEN,
+    INDEX_CLOSE,
+    FINGERS_OPEN,
+    FINGERS_CLOSE,
+    END
+};
 
 // class
-class Routine_calibration_sensor {
+class Routine_calibration_servos {
 
     public: 
-        Routine_calibration_sensor();
+        Routine_calibration_servos();
         void init(Hackberry_hand *hand);
         void execute();
 
+        void start();
+        void end();
+        void calibration();
+
     private:
         Hackberry_hand *hand;
-        int _sensorMin = MAX_ADC;
-        int _sensorMax = MIN_ADC;
+        bool calibrationFinished = false;
+        int _currentStep = IDLE;
 
-        void launchCalibration();
-        void endCalibration();
-        void checkCalibrationEnd(unsigned long delayBeforeStop);
+        int limThumb[2];
+        int limIndex[2];
+        int limFingers[2];
+
+        void SaveParamBeforeNextStep();
+        void SaveServoParam(int member, int lim1, int lim2);
+        void EndCalibServos();
+
 };
 
 #endif

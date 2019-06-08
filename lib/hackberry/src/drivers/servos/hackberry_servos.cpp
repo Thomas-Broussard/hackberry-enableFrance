@@ -461,3 +461,55 @@ int Hackberry_servos::frameInteger(int value, int lim1, int lim2) {
     int max = (lim1 > lim2) ? lim1 : lim2;
     return constrain(value,min,max);
 }
+
+
+/**
+ *  move one of the members of the hand
+ * (Absolute move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param position Desired position for the member
+ * @param waitEnabled true : wait the end of the move to do another action
+ */
+void Hackberry_servos::forceMove(int member, int position) {
+    int finalPosition = constrain(position, 0, 180);
+    this->moveServo(member, finalPosition,false);
+}
+
+/**
+ * Force Move one of the members of the hand
+ * (Relative move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param degree number of rotation degree (between -180 and 180°)
+ * @param waitEnabled true : wait the end of the move to do another action
+ */
+void Hackberry_servos::forceRelativeMove(int member, int degree) 
+{
+    int position = this->getPosition(member) + degree;
+    this->forceMove(member,position);
+}
+
+/**
+ * Force Open one of the members of the hand
+ * (Relative move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param degree number of rotation degree  (between 0 and 180°)
+ * @param waitEnabled true : wait the end of the move to do another action
+ */
+void Hackberry_servos::forceRelativeOpen(int member, int degree) 
+{
+    int openDegree =  (this->_selectedHand == RIGHT_HAND) ? degree:-degree;
+    this->forceRelativeMove(member,openDegree);
+}
+
+/**
+ * Force Close one of the members of the hand
+ * (Relative move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param degree number of rotation degree (between 0 and 180°)
+ * @param waitEnabled true : wait the end of the move to do another action
+ */
+void Hackberry_servos::forceRelativeClose(int member, int degree) 
+{
+    int closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
+    this->forceRelativeMove(member,closeDegree);
+}

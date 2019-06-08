@@ -70,6 +70,12 @@ class Hackberry_servos{
     void openAll();
     void closeAll();
 
+    // moving fingers (forced)
+    void forceMove(int member, int position);
+    void forceRelativeMove(int member, int position);
+    void forceRelativeOpen(int member, int degree);
+    void forceRelativeClose(int member, int degree);
+
     // Positions of fingers
     void setLimitPositions(int member, int limit1, int limit2);
 

@@ -5,7 +5,7 @@
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
  *  Description :
- *  Routine for Hackberry bluetooth communication
+ *  Routine for Hackberry sensor calibration
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
@@ -22,7 +22,7 @@ Routine_calibration_sensor::Routine_calibration_sensor()
 
 
 /**
- * Initialize the bluetooth routine
+ * Initialize the sensor calibration routine
  * 
  * @param hand Hackberry_hand object that contains all the hackberry drivers to use
  */
@@ -32,20 +32,15 @@ void Routine_calibration_sensor::init(Hackberry_hand *hand)
 }
 
 /**
- * Execute the Bluetooth Routine main code
+ * Execute the sensor calibration routine main code
  */
 void Routine_calibration_sensor::execute()
 {
     // code executed when calibration is enabled
-    if(this->hand->isSensorCalibrationEnabled())
+    if(this->hand->getMode() == SensorCalibration)
     {
         this->checkCalibrationEnd(CALIBRATION_TIME);
         this->launchCalibration();
-    }
-    // code executed when calibration is finished
-    if (this->calibrationFinished)
-    {
-        this->endCalibration();
     }
 }
 
@@ -59,7 +54,7 @@ void Routine_calibration_sensor::checkCalibrationEnd(unsigned long delayBeforeSt
     if ((millis() - this->hand->getSensorCalibrationTime()) >= delayBeforeStop * 1000)
     {
         this->hand->stopSensorCalibration();
-        this->calibrationFinished = true;
+        this->endCalibration();
     }
 }
 
@@ -80,7 +75,6 @@ void Routine_calibration_sensor::launchCalibration()
 
 void Routine_calibration_sensor::endCalibration()
 {
-    this->calibrationFinished = false;
     this->hand->sensor.calibrate(this->_sensorMin,this->_sensorMax);
 
     this->hand->eeprom.SetSensorMin(this->_sensorMin);
@@ -88,7 +82,7 @@ void Routine_calibration_sensor::endCalibration()
 
     #ifdef DEBUG_ROUTINE_ENABLED
         Serial.println("-------------------------");
-        Serial.println("Sensor Calibration Stopped");
+        Serial.println("Sensor Calibration Finished");
         Serial.println("-------------------------");
         Serial.println("Results : ");
         Serial.print("SensorMin = ");

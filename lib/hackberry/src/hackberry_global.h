@@ -57,6 +57,16 @@
 // INITIAL SPEED OF SERVOMOTOR
 #define DEFAULT_SPEED 50
 
+/**
+ * List of operating modes for the hackberry hand
+ */
+enum Hackberry_Mode
+{
+    Standard,
+    SensorCalibration, 
+    ServosCalibration
+};
+
 
 
 

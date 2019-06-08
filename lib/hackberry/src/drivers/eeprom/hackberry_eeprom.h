@@ -52,6 +52,7 @@ class Hackberry_eeprom{
 
       void  SetSensorMin(int value);
       int   GetSensorMin();
+      
 
       // Debug usage only
       void printMemoryMap();

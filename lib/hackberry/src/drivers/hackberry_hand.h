@@ -50,21 +50,31 @@ class Hackberry_hand
         Hackberry_eeprom    eeprom;
 
 
-        // Sensor Calibration mode
+        // Modes
+        Hackberry_Mode getMode();
+        void setMode(Hackberry_Mode mode);
+
         bool isSensorCalibrationEnabled();
-        unsigned long getSensorCalibrationTime();
+        
+
+        // Sensor Calibration mode only
         void startSensorCalibration();
         void stopSensorCalibration();
+        unsigned long getSensorCalibrationTime();
 
-        // Servos Calibration Mode
-        bool isServosCalibrationEnabled();
+        // Servos Calibration mode only
+        unsigned int getServosCalibrationStep();
         void startServosCalibration();
+        void nextServosCalibration();
         void stopServosCalibration();
 
+
     private:      
-        bool CalibSensorMode;
-        bool CalibServosMode;
-        unsigned long CalibrationSensorTime; 
+        Hackberry_Mode _mode;
+
+        // Specifics variables
+        unsigned long CalibrationSensor_Time; 
+        unsigned int CalibrationServos_Step = 0;
 };
 
 #endif

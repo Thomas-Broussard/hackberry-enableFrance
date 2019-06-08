@@ -39,42 +39,64 @@ void Hackberry_hand::init()
     this->bluetooth.init();
 }
 
-// Mode Calibration (for sensors)
-bool Hackberry_hand::isSensorCalibrationEnabled()
+// Get Mode
+Hackberry_Mode Hackberry_hand::getMode()
 {
-    return this->CalibSensorMode;
+    return this->_mode;
 }
 
+void Hackberry_hand::setMode(Hackberry_Mode mode)
+{
+    this->_mode = mode;
+}
+
+
+/* 
+* =============================================================================================================================================
+*                                  Sensor Calibration mode only
+* =============================================================================================================================================
+*/
 unsigned long Hackberry_hand::getSensorCalibrationTime()
 {
-    return this->CalibrationSensorTime;
+    return this->CalibrationSensor_Time;
 }
 
 void Hackberry_hand::startSensorCalibration()
 {
-    this->CalibrationSensorTime = millis();
-    this->CalibSensorMode = true;
+    this->CalibrationSensor_Time = millis();
+    this->setMode(SensorCalibration);
 }
 
 void Hackberry_hand::stopSensorCalibration()
 {
-    this->CalibrationSensorTime = 0;
-    this->CalibSensorMode = false;
+    this->CalibrationSensor_Time = 0;
+    this->setMode(Standard);
 }
 
-// Mode Calibration (for servos)
-bool Hackberry_hand::isServosCalibrationEnabled()
+
+/* 
+* =============================================================================================================================================
+*                                  Servos Calibration mode only
+* =============================================================================================================================================
+*/
+unsigned int Hackberry_hand::getServosCalibrationStep()
 {
-    return this->CalibServosMode;
+    return this->CalibrationServos_Step;
 }
 
 void Hackberry_hand::startServosCalibration()
 {
-    this->CalibServosMode = true;
+    this->CalibrationServos_Step = 1;
+    this->setMode(ServosCalibration);
+}
+
+void Hackberry_hand::nextServosCalibration()
+{
+    this->CalibrationServos_Step++;
 }
 
 void Hackberry_hand::stopServosCalibration()
 {
-    this->CalibServosMode = false;
+    this->CalibrationServos_Step = 0;
+    this->setMode(Standard);
 }
-

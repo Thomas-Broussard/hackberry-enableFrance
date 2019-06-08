@@ -63,6 +63,7 @@ Task T3(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration     , &criticalP
 void setup() 
 {
   Serial.begin(9600);
+  Serial.println("Start");
   hackberry.init();
   setPriorities();
 }
@@ -112,10 +113,21 @@ void Task_BatteryMonitoring()
 
 void Task_Calibration()
 {
-  hackberry.routine.calibration_sensor.execute();  
+  switch(hackberry.hand.getMode())
+  {
+    case SensorCalibration :
+      hackberry.routine.calibration_sensor.execute();  
+    break;
+
+    case ServosCalibration :
+      hackberry.routine.calibration_servos.execute(); 
+    break;
+
+    default:break;
+  }
 }
 
 void Task_Template()
 {
   // create your own task here
-}
+}  
