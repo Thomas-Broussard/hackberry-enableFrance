@@ -25,7 +25,7 @@
 #include "moves/routine_moves.h"
 #include "battery/routine_battery.h"
 #include "eeprom_init/routine_eeprom_init.h"
-#include "calibration/routine_calibration.h"
+#include "calibration_sensor/routine_calibration_sensor.h"
 
 // class
 class RoutineHandler{
@@ -39,7 +39,7 @@ class RoutineHandler{
         Routine_moves moves;
         Routine_battery batteryMonitoring;
         Routine_eeprom_init eeprom_init;
-        Routine_calibration calibration;
+        Routine_calibration_sensor calibration_sensor;
 
     private:
 };

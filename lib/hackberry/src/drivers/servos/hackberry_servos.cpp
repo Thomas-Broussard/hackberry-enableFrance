@@ -37,6 +37,9 @@ void Hackberry_servos::init() {
     pinMode(this->_pinServoThumb, OUTPUT);
     pinMode(this->_pinServoFingers, OUTPUT);
 
+    // set default parameters
+    this->setSpeed(DEFAULT_SPEED);
+
     // Link pins with servomotors    
     this->servoIndex.attach(_pinServoIndex);
     this->servoThumb.attach(_pinServoThumb);
@@ -68,7 +71,7 @@ void Hackberry_servos::setHand(bool selectedHand)
  * @param speed speed required (from 1 to 255)
  */ 
 void Hackberry_servos::setSpeed(int speed){
-    this->_speed = speed;
+    this->_speed = constrain(speed,0,100);
 }
 
 /**

@@ -25,13 +25,13 @@ RoutineHandler::RoutineHandler() :
     moves(),
     batteryMonitoring(),
     eeprom_init(),
-    calibration()
+    calibration_sensor()
 {}
 
 
 void RoutineHandler::init(Hackberry_hand *hand)
 {
-    this->calibration.init(hand);
+    this->calibration_sensor.init(hand);
     this->bluetooth.init(hand);
     this->buttons.init(hand);
     this->moves.init(hand);

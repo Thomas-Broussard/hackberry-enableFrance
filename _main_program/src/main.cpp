@@ -46,14 +46,14 @@ void Task_Calibration();
 void Task_Template();
 
 // Tasks
-Task T1(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler     , &runner, true); // executed every 50ms
-Task T2(30 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves             , &runner, true); // executed every 200ms
-Task T3(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration     , &criticalPriority, true); // executed every 50ms
+Task T1(200  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler     , &runner, true); 
+Task T2(10 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves             , &runner, true); 
+Task T3(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration     , &criticalPriority, true); 
 
 // Task enabled on Mk3 board only
 #ifdef MAPPING_MK3
-  Task T4(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_BluetoothHandler  , &criticalPriority, true); // executed every 100ms
-  Task T5(10  * TASK_SECOND     , TASK_FOREVER, &Task_BatteryMonitoring , &highPriority, true); // executed every 10s
+  Task T4(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_BluetoothHandler  , &criticalPriority, true); 
+  Task T5(10  * TASK_SECOND     , TASK_FOREVER, &Task_BatteryMonitoring , &highPriority, true); 
 #endif
 
 // Task template
@@ -112,8 +112,9 @@ void Task_BatteryMonitoring()
 
 void Task_Calibration()
 {
-  hackberry.routine.calibration.execute();  
+  hackberry.routine.calibration_sensor.execute();  
 }
+
 void Task_Template()
 {
   // create your own task here

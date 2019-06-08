@@ -23,10 +23,10 @@
 #define CALIBRATION_TIME 10 // seconds
 
 // class
-class Routine_calibration {
+class Routine_calibration_sensor {
 
     public: 
-        Routine_calibration();
+        Routine_calibration_sensor();
         void init(Hackberry_hand *hand);
         void execute();
 
@@ -38,6 +38,7 @@ class Routine_calibration {
         int _sensorMax = MIN_ADC;
 
         void launchCalibration();
+        void endCalibration();
         void checkCalibrationEnd(unsigned long delayBeforeStop);
 };
 

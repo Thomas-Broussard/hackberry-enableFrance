@@ -41,11 +41,6 @@ class Hackberry_hand
         // initialization
         void init();
 
-        bool isCalibrationEnabled();
-        unsigned long getCalibrationTime();
-        void startCalibration();
-        void stopCalibration();
-
         // Hackberry hand components
         Hackberry_buttons   buttons;
         Hackberry_servos    servos;
@@ -53,11 +48,23 @@ class Hackberry_hand
         Hackberry_battery   battery;
         Hackberry_bluetooth bluetooth;
         Hackberry_eeprom    eeprom;
-        
-    private:      
 
-        bool isCalib;
-        unsigned long CalibrationTime; 
+
+        // Sensor Calibration mode
+        bool isSensorCalibrationEnabled();
+        unsigned long getSensorCalibrationTime();
+        void startSensorCalibration();
+        void stopSensorCalibration();
+
+        // Servos Calibration Mode
+        bool isServosCalibrationEnabled();
+        void startServosCalibration();
+        void stopServosCalibration();
+
+    private:      
+        bool CalibSensorMode;
+        bool CalibServosMode;
+        unsigned long CalibrationSensorTime; 
 };
 
 #endif

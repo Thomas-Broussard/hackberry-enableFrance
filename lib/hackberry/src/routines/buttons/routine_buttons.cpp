@@ -26,6 +26,7 @@ void Routine_buttons::init(Hackberry_hand *hand)
 
 void Routine_buttons::execute()
 {
+    // change button gesture here
     if (this->hand->buttons.isCalibButtonPressed())
     {
         if (this->isDebounced(&this->lastCalibDebounce, DEBOUNCE_DELAY))
@@ -73,12 +74,21 @@ void Routine_buttons::actionCalib()
         Serial.println("Calib Button Pressed");
     #endif
     
-    if (!this->hand->isCalibrationEnabled())
+    // Sensor Calibration Mode
+    if (this->hand->isSensorCalibrationEnabled())
+    {}
+
+    // Servos Calibration Mode
+    else if(this->hand->isServosCalibrationEnabled())
+    {}
+
+    // Standard Mode
+    else
     {
         #ifdef DEBUG_ROUTINE_ENABLED
-            Serial.println("Calibration Started");
+            Serial.println("Sensor Calibration Started");
         #endif
-        this->hand->startCalibration();
+        this->hand->startSensorCalibration();
     }
 }
 
@@ -93,20 +103,41 @@ void Routine_buttons::actionExtra()
         Serial.println("Extra Button Pressed");
     #endif
 
-    // TODO : add code here
-    if (this->hand->bluetooth.isEnabled())
-    {
-        #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Bluetooth stopped");
-        #endif
-        this->hand->bluetooth.stop();
-    }
+    // Sensor Calibration Mode
+    if (this->hand->isSensorCalibrationEnabled())
+    {}
+
+    // Servos Calibration Mode
+    else if(this->hand->isServosCalibrationEnabled())
+    {}
+
+    // Standard Mode
     else
     {
-        #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Bluetooth started");
+
+        #ifdef MAPPING_MK2
+            #ifdef DEBUG_ROUTINE_ENABLED
+                Serial.println("Servomotors Calibration Started");
+            #endif
+            this->hand->startServosCalibration();
         #endif
-        this->hand->bluetooth.start();
+
+        #ifdef MAPPING_MK3
+            if (this->hand->bluetooth.isEnabled())
+            {
+                #ifdef DEBUG_ROUTINE_ENABLED
+                Serial.println("Bluetooth stopped");
+                #endif
+                this->hand->bluetooth.stop();
+            }
+            else
+            {
+                #ifdef DEBUG_ROUTINE_ENABLED
+                Serial.println("Bluetooth started");
+                #endif
+                this->hand->bluetooth.start();
+            }
+        #endif
     }
     
 }
@@ -121,16 +152,28 @@ void Routine_buttons::actionThumb()
     #ifdef DEBUG_ROUTINE_ENABLED
         Serial.println("Thumb Button Pressed");
     #endif
-    if (isThumbOpen)
-    {
-        this->hand->servos.close(THUMB);
-        this->isThumbOpen = false;
-    }
+
+    // Sensor Calibration Mode
+    if (this->hand->isSensorCalibrationEnabled())
+    {}
+
+    // Servos Calibration Mode
+    else if(this->hand->isServosCalibrationEnabled())
+    {}
     else
     {
-        this->hand->servos.open(THUMB);
-        this->isThumbOpen = true;
+        if (isThumbOpen)
+        {
+            this->hand->servos.close(THUMB);
+            this->isThumbOpen = false;
+        }
+        else
+        {
+            this->hand->servos.open(THUMB);
+            this->isThumbOpen = true;
+        }
     }
+    
 }
 
 /**
@@ -142,15 +185,28 @@ void Routine_buttons::actionLock()
     #ifdef DEBUG_ROUTINE_ENABLED
         Serial.println("Lock Button Pressed");
     #endif
-    if (isLockEnabled)
-    {
-        this->hand->servos.unlockMember(FINGERS);
-        this->isLockEnabled = false;
-    }
+    
+    // Sensor Calibration Mode
+    if (this->hand->isSensorCalibrationEnabled())
+    {}
+
+    // Servos Calibration Mode
+    else if(this->hand->isServosCalibrationEnabled())
+    {}
+    
+    // Standard mode
     else
     {
-        this->hand->servos.lockMember(FINGERS);
-        this->isLockEnabled = true;
+        if (isLockEnabled)
+        {
+            this->hand->servos.unlockMember(FINGERS);
+            this->isLockEnabled = false;
+        }
+        else
+        {
+            this->hand->servos.lockMember(FINGERS);
+            this->isLockEnabled = true;
+        }
     }
 }
 

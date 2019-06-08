@@ -40,27 +40,41 @@ void Hackberry_hand::init()
 }
 
 // Mode Calibration (for sensors)
-bool Hackberry_hand::isCalibrationEnabled()
+bool Hackberry_hand::isSensorCalibrationEnabled()
 {
-    return this->isCalib;
+    return this->CalibSensorMode;
 }
 
-unsigned long Hackberry_hand::getCalibrationTime()
+unsigned long Hackberry_hand::getSensorCalibrationTime()
 {
-    return this->CalibrationTime;
+    return this->CalibrationSensorTime;
 }
 
-void Hackberry_hand::startCalibration()
+void Hackberry_hand::startSensorCalibration()
 {
-    this->CalibrationTime = millis();
-    this->isCalib = true;
+    this->CalibrationSensorTime = millis();
+    this->CalibSensorMode = true;
 }
 
-void Hackberry_hand::stopCalibration()
+void Hackberry_hand::stopSensorCalibration()
 {
-    this->CalibrationTime = 0;
-    this->isCalib = false;
+    this->CalibrationSensorTime = 0;
+    this->CalibSensorMode = false;
 }
 
+// Mode Calibration (for servos)
+bool Hackberry_hand::isServosCalibrationEnabled()
+{
+    return this->CalibServosMode;
+}
 
+void Hackberry_hand::startServosCalibration()
+{
+    this->CalibServosMode = true;
+}
+
+void Hackberry_hand::stopServosCalibration()
+{
+    this->CalibServosMode = false;
+}
 
