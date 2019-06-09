@@ -21,6 +21,8 @@
 #include "drivers/hackberry_hand.h"
 
 #define DEBOUNCE_DELAY 1000 // delay (ms) between two action on the same button, to avoid mechanical and physical button issues during transition
+#define LONG_DEBOUNCE_DELAY 5000
+#define LONG_BUTTON_PRESS 5000 // time (ms) required to take into account the long press of a button 
 
 // class
 class Routine_buttons
@@ -41,12 +43,20 @@ class Routine_buttons
         unsigned long lastThumbDebounce = 0;
         unsigned long lastLockDebounce  = 0;
 
-        bool isCalibEnabled = false;
+        unsigned long lastLongCalibDebounce = 0;
+        unsigned long lastLongExtraDebounce = 0;
+        unsigned long lastLongThumbDebounce = 0;
+        unsigned long lastLongLockDebounce  = 0;
         
         void actionCalib();
         void actionExtra();
         void actionThumb();
         void actionLock();
+
+        void longActionCalib();
+        void longActionExtra();
+        void longActionThumb();
+        void longActionLock();
 
         bool isDebounced(unsigned long *lastDebounceTime, unsigned long debounceDelay);
 };

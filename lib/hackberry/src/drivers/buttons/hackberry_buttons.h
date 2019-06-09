@@ -39,6 +39,11 @@ class Hackberry_buttons{
     bool isThumbButtonPressed();
     bool isLockButtonPressed();
 
+    bool isCalibButtonPressedFor(unsigned long delay_ms);
+    bool isExtraButtonPressedFor(unsigned long delay_ms);
+    bool isThumbButtonPressedFor(unsigned long delay_ms);
+    bool isLockButtonPressedFor(unsigned long delay_ms);
+
     private:
 
     // Wiring pins
@@ -46,6 +51,16 @@ class Hackberry_buttons{
     int _pinExtra;       // Reverse the direction of rotation of the fingers
     int _pinThumb;       // Thumb opening / closing
     int _pinLock;        // lock / unlock the fingers
+
+    bool _isCalibPressed = false;
+    bool _isExtraPressed = false;
+    bool _isThumbPressed = false;
+    bool _isLockPressed = false;
+
+    unsigned long _CalibPressedTime = 0;
+    unsigned long _ExtraPressedTime = 0;
+    unsigned long _ThumbPressedTime = 0;
+    unsigned long _LockPressedTime = 0;
 
     bool isButtonPressed(int pin); 
 };

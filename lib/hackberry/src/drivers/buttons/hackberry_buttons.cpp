@@ -49,7 +49,14 @@ void Hackberry_buttons::init()
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isCalibButtonPressed(){
-    return  this->isButtonPressed(this->_pinCalib);
+    bool result = this->isButtonPressed(this->_pinCalib);
+
+    if (this->_isCalibPressed != result)
+    {
+        this->_CalibPressedTime = millis();
+        this->_isCalibPressed = result;
+    }
+    return result;  
 }
 
 /**
@@ -58,7 +65,14 @@ bool Hackberry_buttons::isCalibButtonPressed(){
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isExtraButtonPressed(){
-    return  this->isButtonPressed(this->_pinExtra);
+    bool result = this->isButtonPressed(this->_pinExtra);
+
+    if (this->_isExtraPressed != result)
+    {
+        this->_ExtraPressedTime = millis();
+        this->_isExtraPressed = result;
+    }
+    return result; 
 }
 
 /**
@@ -67,7 +81,14 @@ bool Hackberry_buttons::isExtraButtonPressed(){
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isThumbButtonPressed(){
-    return this->isButtonPressed(this->_pinThumb);
+    bool result = this->isButtonPressed(this->_pinExtra);
+
+    if (this->_isThumbPressed != result)
+    {
+        this->_ThumbPressedTime = millis();
+        this->_isThumbPressed = result;
+    }
+    return result; 
 }
 
 /**
@@ -76,7 +97,99 @@ bool Hackberry_buttons::isThumbButtonPressed(){
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isLockButtonPressed(){
-    return this->isButtonPressed(this->_pinLock);
+    bool result = this->isButtonPressed(this->_pinLock);
+
+    if (this->_isLockPressed != result)
+    {
+        this->_ExtraPressedTime = millis();
+        this->_isLockPressed = result;
+    }
+    return result; 
+}
+
+
+/**
+ * Check if the Calib button is pressed since the programmed delay
+ * 
+ * @param delay_ms programmed delay (in milliseconds)
+ * 
+ * @return true : button pressed / false : button released 
+ */
+bool Hackberry_buttons::isCalibButtonPressedFor(unsigned long delay_ms)
+{
+    // Check if button is pressed or not 
+    if (!this->_isCalibPressed)
+    {
+        this->_CalibPressedTime = millis();
+        return false;
+    }
+    else
+    {
+        return ((millis() - this->_CalibPressedTime ) >= delay_ms);
+    }  
+}
+
+/**
+ * Check if the Extra button is pressed since the programmed delay
+ * 
+ * @param delay_ms programmed delay (in milliseconds)
+ * 
+ * @return true : button pressed / false : button released 
+ */
+bool Hackberry_buttons::isExtraButtonPressedFor(unsigned long delay_ms)
+{
+    // Check if button is pressed or not 
+    if (!this->_isExtraPressed)
+    {
+        this->_ExtraPressedTime = millis();
+        return false;
+    }
+    else
+    {
+        return ((millis() - this->_ExtraPressedTime ) >= delay_ms);
+    }  
+}
+
+/**
+ * Check if the Thumb button is pressed since the programmed delay
+ * 
+ * @param delay_ms programmed delay (in milliseconds)
+ * 
+ * @return true : button pressed / false : button released 
+ */
+bool Hackberry_buttons::isThumbButtonPressedFor(unsigned long delay_ms)
+{
+    // Check if button is pressed or not 
+    if (!this->_isThumbPressed)
+    {
+        this->_ThumbPressedTime = millis();
+        return false;
+    }
+    else
+    {
+        return ((millis() - this->_ThumbPressedTime ) >= delay_ms);
+    }  
+}
+
+/**
+ * Check if the Lock button is pressed since the programmed delay
+ * 
+ * @param delay_ms programmed delay (in milliseconds)
+ * 
+ * @return true : button pressed / false : button released 
+ */
+bool Hackberry_buttons::isLockButtonPressedFor(unsigned long delay_ms)
+{
+    // Check if button is pressed or not 
+    if (!this->_isLockPressed)
+    {
+        this->_LockPressedTime = millis();
+        return false;
+    }
+    else
+    {
+        return ((millis() - this->_LockPressedTime ) >= delay_ms);
+    }  
 }
 
 
