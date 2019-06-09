@@ -81,7 +81,7 @@ bool Hackberry_buttons::isExtraButtonPressed(){
  * @return true : button pressed / false : button released 
  */
 bool Hackberry_buttons::isThumbButtonPressed(){
-    bool result = this->isButtonPressed(this->_pinExtra);
+    bool result = this->isButtonPressed(this->_pinThumb);
 
     if (this->_isThumbPressed != result)
     {
@@ -101,7 +101,7 @@ bool Hackberry_buttons::isLockButtonPressed(){
 
     if (this->_isLockPressed != result)
     {
-        this->_ExtraPressedTime = millis();
+        this->_LockPressedTime = millis();
         this->_isLockPressed = result;
     }
     return result; 
