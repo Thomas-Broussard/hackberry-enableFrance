@@ -23,7 +23,6 @@ void Routine_buttons::init(Hackberry_hand *hand)
     this->hand = hand;
 }
 
-
 void Routine_buttons::execute()
 {
     if (this->hand->buttons.isCalibButtonPressed())
@@ -71,7 +70,6 @@ void Routine_buttons::execute()
         }
     }
 
-
     else if (this->hand->buttons.isLockButtonPressed())
     {
         if (this->isDebounced(&this->lastLockDebounce, DEBOUNCE_DELAY))
@@ -109,7 +107,7 @@ void Routine_buttons::actionCalib()
 /**
  * Action executed when Calib button is pressed for a long time
  * 
- * Trigger the calibration sequence for the sensor
+ * Start the Sensor Calibration sequence
  */
 void Routine_buttons::longActionCalib()
 {
@@ -123,6 +121,8 @@ void Routine_buttons::longActionCalib()
             #ifdef DEBUG_ROUTINE_ENABLED
                 Serial.println("Sensor Calibration Started");
             #endif
+            this->hand->servos.move(INDEX,0,true);
+            this->hand->servos.move(INDEX,180,true);
             this->hand->startSensorCalibration();
         break;
 
@@ -134,7 +134,7 @@ void Routine_buttons::longActionCalib()
 /**
  * Action executed when Extra button is pressed
  * 
- * idea : enable/disable bluetooth here ? 
+ * validate servos calibration step (ServosCalibration mode only)
  */
 void Routine_buttons::actionExtra()
 {
@@ -154,7 +154,7 @@ void Routine_buttons::actionExtra()
 /**
  * Action executed when Extra button is pressed for a long time
  * 
- * idea : enable/disable bluetooth here ? 
+ * launch servomotors calibration
  */
 void Routine_buttons::longActionExtra()
 {
@@ -166,27 +166,12 @@ void Routine_buttons::longActionExtra()
     {
         case Standard :
             #ifdef MAPPING_MK2
-                this->hand->startServosCalibration();
                 #ifdef DEBUG_ROUTINE_ENABLED
                     Serial.println("Servomotors Calibration Started");
                 #endif
-            #endif
-
-            #ifdef MAPPING_MK3
-                if (this->hand->bluetooth.isEnabled())
-                {
-                    #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Bluetooth stopped");
-                    #endif
-                    this->hand->bluetooth.stop();
-                }
-                else
-                {
-                    #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Bluetooth started");
-                    #endif
-                    this->hand->bluetooth.start();
-                }
+                this->hand->servos.move(FINGERS,0,true);
+                this->hand->servos.move(FINGERS,180,true);
+                this->hand->startServosCalibration();
             #endif
         break;
 
@@ -211,11 +196,17 @@ void Routine_buttons::actionThumb()
         case Standard :
             if (isThumbOpen)
             {
+                #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Close Thumb");
+                #endif
                 this->hand->servos.close(THUMB);
                 this->isThumbOpen = false;
             }
             else
             {
+                #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Open Thumb");
+                #endif
                 this->hand->servos.open(THUMB);
                 this->isThumbOpen = true;
             }
@@ -229,7 +220,7 @@ void Routine_buttons::actionThumb()
 /**
  * Action executed when Thumb button is pressed for a long time
  * 
- * put Thumb in open or close position
+ * enable/disable bluetooth
  */
 void Routine_buttons::longActionThumb()
 {
@@ -239,6 +230,23 @@ void Routine_buttons::longActionThumb()
 
     switch (this->hand->getMode())
     {
+        case Standard:
+            #ifdef MAPPING_MK3
+                if (this->hand->bluetooth.isEnabled())
+                {
+                    #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Bluetooth stopped");
+                    #endif
+                    this->hand->bluetooth.stop();
+                }
+                else
+                {
+                    #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Bluetooth started");
+                    #endif
+                    this->hand->bluetooth.start();
+                }
+            #endif
         default:break;
     }
 }
@@ -259,11 +267,17 @@ void Routine_buttons::actionLock()
         case Standard :
             if (isLockEnabled)
             {
+                #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Fingers Unlocked");
+                #endif
                 this->hand->servos.unlockMember(FINGERS);
                 this->isLockEnabled = false;
             }
             else
             {
+                #ifdef DEBUG_ROUTINE_ENABLED
+                    Serial.println("Fingers Locked");
+                #endif
                 this->hand->servos.lockMember(FINGERS);
                 this->isLockEnabled = true;
             }

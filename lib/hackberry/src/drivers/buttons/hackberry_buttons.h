@@ -63,6 +63,7 @@ class Hackberry_buttons{
     unsigned long _LockPressedTime = 0;
 
     bool isButtonPressed(int pin); 
+    bool isButtonPressedFor(int pin, unsigned long *pressTime, unsigned long delay_ms);
 };
 
 

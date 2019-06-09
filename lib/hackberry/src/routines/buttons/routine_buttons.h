@@ -21,7 +21,8 @@
 #include "drivers/hackberry_hand.h"
 
 #define DEBOUNCE_DELAY 1000 // delay (ms) between two action on the same button, to avoid mechanical and physical button issues during transition
-#define LONG_DEBOUNCE_DELAY 5000
+
+#define LONG_DEBOUNCE_DELAY 5000  // delay (ms) between two long action on the same button
 #define LONG_BUTTON_PRESS 5000 // time (ms) required to take into account the long press of a button 
 
 // class

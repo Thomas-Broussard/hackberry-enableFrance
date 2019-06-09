@@ -46,7 +46,7 @@ void Task_Calibration();
 void Task_Template();
 
 // Tasks
-Task T1(200  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler     , &runner, true); 
+Task T1(100  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler     , &runner, true); 
 Task T2(10 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves             , &runner, true); 
 Task T3(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration     , &criticalPriority, true); 
 
