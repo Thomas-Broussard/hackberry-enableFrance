@@ -31,9 +31,9 @@
 class Hackberry_sensor{
 
     public: 
-        Hackberry_sensor(int pin);
-        Hackberry_sensor(int pin1, int pin2);
-        Hackberry_sensor(int pin1, int pin2, int pin3);
+        Hackberry_sensor(unsigned char pin);
+        Hackberry_sensor(unsigned char pin1, unsigned char pin2);
+        Hackberry_sensor(unsigned char pin1, unsigned char pin2, unsigned char pin3);
 
         void init();
 
@@ -46,18 +46,18 @@ class Hackberry_sensor{
 
         void calibrate(int sensorMin, int sensorMax);
 
-        void setSensorType(int sensorType);
+        void setSensorType(unsigned char sensorType);
 
     private:
         ISensor *_sensor;
-        int _sensorType;
+        unsigned char _sensorType;
 
         int _sensorMin = MIN_ADC;
         int _sensorMax = MAX_ADC;
 
-        int pin1;
-        int pin2;
-        int pin3;
+        unsigned char pin1;
+        unsigned char pin2;
+        unsigned char pin3;
 };
 
 

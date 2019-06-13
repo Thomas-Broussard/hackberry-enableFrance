@@ -18,18 +18,18 @@
  * Constructor
  * 
  */
-Hackberry_sensor::Hackberry_sensor(int pin)
+Hackberry_sensor::Hackberry_sensor(unsigned char pin)
 {
     this->pin1 = pin;
 }
 
-Hackberry_sensor::Hackberry_sensor(int pin1, int pin2)
+Hackberry_sensor::Hackberry_sensor(unsigned char pin1, unsigned char pin2)
 {
     this->pin1 = pin1;
     this->pin2 = pin2;
 }
 
-Hackberry_sensor::Hackberry_sensor(int pin1, int pin2, int pin3)
+Hackberry_sensor::Hackberry_sensor(unsigned char pin1, unsigned char pin2, unsigned char pin3)
 {
     this->pin1 = pin1;
     this->pin2 = pin2;
@@ -84,7 +84,7 @@ void Hackberry_sensor::calibrate(int sensorMin, int sensorMax)
 }
 
 
-void Hackberry_sensor::setSensorType(int sensorType)
+void Hackberry_sensor::setSensorType(unsigned char sensorType)
 {
     this->_sensorType = sensorType;
     switch(sensorType)

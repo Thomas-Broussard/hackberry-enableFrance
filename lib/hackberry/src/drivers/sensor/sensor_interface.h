@@ -43,7 +43,7 @@ class ISensor
             return (result >> 4);
         }
 
-        virtual int  read();
+        virtual int read();
 };
 
 
@@ -55,7 +55,7 @@ class ISensor
 class IRSensor : public ISensor
 {
     public:
-        IRSensor(int pin)
+        IRSensor(unsigned char pin)
         {
             this->_pinSensor = pin;  
             pinMode(_pinSensor, INPUT);
@@ -67,7 +67,7 @@ class IRSensor : public ISensor
         }
 
     private:
-        int _pinSensor;  
+        unsigned char _pinSensor;  
 };
 
 
