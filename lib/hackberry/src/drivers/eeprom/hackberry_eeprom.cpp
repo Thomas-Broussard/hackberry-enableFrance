@@ -53,15 +53,15 @@ bool Hackberry_eeprom::GetHand()
  * @param member THUMB, INDEX or FINGERS 
  * @param value minimum position (between 0 and 180 degrees)
  */
-void Hackberry_eeprom::SetMinServo(int member, int value)
+void Hackberry_eeprom::SetMinServo(unsigned char member, unsigned char value)
 {
     switch(member)
     {
-        case THUMB : this->eepromUtils->writeChar(ADDR(thumbMin),(char)value);
+        case THUMB : this->eepromUtils->writeChar(ADDR(thumbMin),value);
         break;
-        case INDEX : this->eepromUtils->writeChar(ADDR(indexMin),(char)value);
+        case INDEX : this->eepromUtils->writeChar(ADDR(indexMin),value);
         break;
-        case FINGERS: this->eepromUtils->writeChar(ADDR(fingersMin),(char)value);
+        case FINGERS: this->eepromUtils->writeChar(ADDR(fingersMin),value);
         break;
     }
 }
@@ -71,15 +71,15 @@ void Hackberry_eeprom::SetMinServo(int member, int value)
  * @param member THUMB, INDEX or FINGERS 
  * @param value maxmimum position (between 0 and 180 degrees)
  */
-void Hackberry_eeprom::SetMaxServo(int member, int value)
+void Hackberry_eeprom::SetMaxServo(unsigned char member, unsigned char value)
 {
     switch(member)
     {
-        case THUMB : this->eepromUtils->writeChar(ADDR(thumbMax),(char)value);
+        case THUMB : this->eepromUtils->writeChar(ADDR(thumbMax),value);
         break;
-        case INDEX : this->eepromUtils->writeChar(ADDR(indexMax),(char)value);
+        case INDEX : this->eepromUtils->writeChar(ADDR(indexMax),value);
         break;
-        case FINGERS: this->eepromUtils->writeChar(ADDR(fingersMax),(char)value);
+        case FINGERS: this->eepromUtils->writeChar(ADDR(fingersMax),value);
         break;
     }
 }
@@ -88,7 +88,7 @@ void Hackberry_eeprom::SetMaxServo(int member, int value)
  * @param member THUMB, INDEX or FINGERS 
  * @return minimum position (between 0 and 180 degrees)
  */
-int Hackberry_eeprom::GetMinServo(int member)
+unsigned char Hackberry_eeprom::GetMinServo(unsigned char member)
 {
     switch(member)
     {
@@ -98,7 +98,7 @@ int Hackberry_eeprom::GetMinServo(int member)
         break;
         case FINGERS: return (unsigned char)this->eepromUtils->readChar(ADDR(fingersMin));
         break;
-        default: return -1;
+        default: return 255;
         break;
     }
 }
@@ -108,7 +108,7 @@ int Hackberry_eeprom::GetMinServo(int member)
  * @param member THUMB, INDEX or FINGERS 
  * @return maximum position (between 0 and 180 degrees)
  */
-int Hackberry_eeprom::GetMaxServo(int member)
+unsigned char Hackberry_eeprom::GetMaxServo(unsigned char member)
 {
     switch(member)
     {
@@ -118,7 +118,7 @@ int Hackberry_eeprom::GetMaxServo(int member)
         break;
         case FINGERS: return (unsigned char)this->eepromUtils->readChar(ADDR(fingersMax));
         break;
-        default: return -1;
+        default: return 255;
         break;
     }
 }
@@ -128,18 +128,18 @@ int Hackberry_eeprom::GetMaxServo(int member)
  * Save the sensor type in the eeprom 
  * @param type type of the sensor (TYPE_IR_SENSOR , TYPE_EMG_SENSOR, etc..)
  */
-void Hackberry_eeprom::SetSensorType(int type)
+void Hackberry_eeprom::SetSensorType(unsigned char type)
 {
-    this->eepromUtils->writeChar(ADDR(sensorType),(char)type);
+    this->eepromUtils->writeChar(ADDR(sensorType),type);
 }
 
 /**
  * Get the sensor type saved in the eeprom 
  * @return type of the sensor (TYPE_IR_SENSOR , TYPE_EMG_SENSOR, etc..)
  */
-int Hackberry_eeprom::GetSensorType()
+unsigned char Hackberry_eeprom::GetSensorType()
 {
-    return this->eepromUtils->readChar(ADDR(sensorType));
+    return (unsigned char)this->eepromUtils->readChar(ADDR(sensorType));
 }
 
 /**

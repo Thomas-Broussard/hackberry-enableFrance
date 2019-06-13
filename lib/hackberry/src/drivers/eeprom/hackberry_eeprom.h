@@ -36,16 +36,16 @@ class Hackberry_eeprom{
       bool GetHand();
 
       // SERVOMOTORS
-      void SetMinServo(int member, int value);
-      void SetMaxServo(int member, int value);
+      void SetMinServo(unsigned char member, unsigned char value);
+      void SetMaxServo(unsigned char member, unsigned char value);
 
-      int GetMinServo(int member);
-      int GetMaxServo(int member);
+      unsigned char GetMinServo(unsigned char member);
+      unsigned char GetMaxServo(unsigned char member);
 
 
       // SENSOR
-      void SetSensorType(int type);
-      int  GetSensorType();
+      void SetSensorType(unsigned char type);
+      unsigned char GetSensorType();
 
       void  SetSensorMax(int value);
       int   GetSensorMax();

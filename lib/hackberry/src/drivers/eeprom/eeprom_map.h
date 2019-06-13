@@ -37,7 +37,7 @@ typedef struct {
     unsigned char fingersMin;    // between 0 and 180°
     unsigned char fingersMax;    // between 0 and 180°
 
-    char        sensorType;    
+    unsigned char sensorType;    
     int         sensorMin;     // between MIN_ADC and MAX_ADC
     int         sensorMax;     // between MIN_ADC and MAX_ADC
 } Mapping_Struct;
