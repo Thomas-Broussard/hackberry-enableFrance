@@ -31,7 +31,7 @@
 class Hackberry_bluetooth{
 
     public: 
-        Hackberry_bluetooth(int pinRx, int pinTx, int pinPower);
+        Hackberry_bluetooth(unsigned char pinRx, unsigned char pinTx, unsigned char pinPower);
         void init();
 
         void start();
@@ -53,9 +53,9 @@ class Hackberry_bluetooth{
     
     private:        
         // wiring pins
-        int _pinRx;
-        int _pinTx; 
-        int _pinPower; 
+        unsigned char _pinRx;
+        unsigned char _pinTx; 
+        unsigned char _pinPower; 
 
         // bluetooth objects
         SoftwareSerial *_BTSerial;

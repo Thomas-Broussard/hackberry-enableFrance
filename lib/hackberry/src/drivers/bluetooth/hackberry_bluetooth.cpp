@@ -21,7 +21,7 @@
  * @param pinRX digital output - hackberry TX pin (= bluetooth RX pin)
  * @param pinPower digital output - used to power ON/OFF the bluetooth module
  */
-Hackberry_bluetooth::Hackberry_bluetooth(int pinRx, int pinTx, int pinPower)
+Hackberry_bluetooth::Hackberry_bluetooth(unsigned char pinRx, unsigned char pinTx, unsigned char pinPower)
 {
     this->_pinRx = pinRx;
     this->_pinTx = pinTx;
