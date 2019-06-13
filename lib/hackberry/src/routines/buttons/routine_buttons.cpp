@@ -302,6 +302,11 @@ void Routine_buttons::longActionLock()
         case Standard:
             this->hand->servos.changeHand();
             this->hand->eeprom.SetHand(this->hand->servos.getHand());
+
+            #ifdef DEBUG_ROUTINE_ENABLED
+                Serial.print(F("new Hand type = "));
+                Serial.println(this->hand->servos.getHand() == RIGHT_HAND ? "Right":"Left");
+            #endif
         default:break;
     }
 }

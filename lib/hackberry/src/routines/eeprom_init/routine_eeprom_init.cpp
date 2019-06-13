@@ -47,7 +47,7 @@ void Routine_eeprom_init::init(Hackberry_hand *hand)
  */
 void Routine_eeprom_init::initSensor()
 {
-    int sensorType = this->hand->eeprom.GetSensorType();
+    unsigned char sensorType = this->hand->eeprom.GetSensorType();
     int sensorMin = this->hand->eeprom.GetSensorMin();
     int sensorMax = this->hand->eeprom.GetSensorMax();
 
@@ -67,10 +67,10 @@ void Routine_eeprom_init::initHand()
 /**
  * Initialize the servomotors parameters with the eeprom content
  */
-void Routine_eeprom_init::initServos(int member)
+void Routine_eeprom_init::initServos(unsigned char member)
 {
-    int servoMin = this->hand->eeprom.GetMinServo(member);
-    int servoMax = this->hand->eeprom.GetMaxServo(member);
+    unsigned char servoMin = this->hand->eeprom.GetMinServo(member);
+    unsigned char servoMax = this->hand->eeprom.GetMaxServo(member);
     this->hand->servos.setLimitPositions(member,servoMin,servoMax);
 }
 
