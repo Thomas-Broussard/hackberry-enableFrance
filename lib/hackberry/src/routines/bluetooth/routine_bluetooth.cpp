@@ -38,7 +38,7 @@ void Routine_bluetooth::init(Hackberry_hand *hand)
 void Routine_bluetooth::start()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Bluetooth started");
+        Serial.println(F("Bluetooth started"));
     #endif
     this->hand->bluetooth.start();
 }
@@ -50,7 +50,7 @@ void Routine_bluetooth::start()
 void Routine_bluetooth::stop()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Bluetooth stopped");
+        Serial.println(F("Bluetooth stopped"));
     #endif
     this->hand->bluetooth.stop();
 }
@@ -68,7 +68,7 @@ void Routine_bluetooth::execute()
         if (messageReceived.length() <= 1) return;
 
         #ifdef DEBUG_ROUTINE_ENABLED
-            Serial.print("[BT] Receive : ");
+            Serial.print(F("[BT] Receive : "));
             Serial.println(messageReceived);
         #endif
     

@@ -48,49 +48,49 @@
 class Hackberry_servos{
 
     public: 
-    Hackberry_servos(int indexPin, int thumbPin, int fingersPin);
+    Hackberry_servos(unsigned char indexPin, unsigned char thumbPin, unsigned char fingersPin);
     void init();
 
     // Hand type
     void setHand(bool selectedHand);
 
     // speed
-    void setSpeed(int speed);
-    int getSpeed();
+    void setSpeed(unsigned char  speed);
+    unsigned char  getSpeed();
 
     // moving fingers
-    void move(int member, int position, bool waitEnabled);
+    void move(unsigned char member, unsigned char position, bool waitEnabled);
     
-    void relativeMove(int member, int degree, bool waitEnabled);
-    void relativeOpen(int member, int degree, bool waitEnabled);
-    void relativeClose(int member, int degree, bool waitEnabled);
+    void relativeMove(unsigned char member, unsigned char degree, bool waitEnabled);
+    void relativeOpen(unsigned char member, unsigned char degree, bool waitEnabled);
+    void relativeClose(unsigned char member, unsigned char degree, bool waitEnabled);
     
-    void open(int member);
-    void close(int member);
+    void open(unsigned char member);
+    void close(unsigned char member);
     void openAll();
     void closeAll();
 
     // moving fingers (forced)
-    void forceMove(int member, int position);
-    void forceRelativeMove(int member, int position);
-    void forceRelativeOpen(int member, int degree);
-    void forceRelativeClose(int member, int degree);
+    void forceMove(unsigned char member,  unsigned char position);
+    void forceRelativeMove(unsigned char member, unsigned char position);
+    void forceRelativeOpen(unsigned char member, unsigned char degree);
+    void forceRelativeClose(unsigned char member, unsigned char degree);
 
     // Positions of fingers
-    void setLimitPositions(int member, int limit1, int limit2);
+    void setLimitPositions(unsigned char  member, int limit1, int limit2);
 
-    int getPosition(int member);
-    int getOpenPosition(int member);
-    int getClosePosition(int member);
+    unsigned char  getPosition(unsigned char member);
+    unsigned char  getOpenPosition(unsigned char  member);
+    unsigned char  getClosePosition(unsigned char  member);
 
-    void lockMember(int member);
-    void unlockMember(int member);
+    void lockMember(unsigned char  member);
+    void unlockMember(unsigned char member);
     
     private:
     // wiring pins
-    int _pinServoIndex;
-    int _pinServoThumb;
-    int _pinServoFingers;
+    unsigned char _pinServoIndex;
+    unsigned char _pinServoThumb;
+    unsigned char _pinServoFingers;
 
         // Servomotors
     VarSpeedServo  servoIndex;  
@@ -104,16 +104,16 @@ class Hackberry_servos{
     bool _lockIndex = false;
     bool _lockFingers = false;
 
-    int _speed = DEFAULT_SPEED;
+    unsigned char _speed = DEFAULT_SPEED;
 
     // limit of movements
-    int _openThumb , _closedThumb;
-    int _openIndex , _closedIndex;
-    int _openFingers , _closedFingers;
+    unsigned char _openThumb , _closedThumb;
+    unsigned char _openIndex , _closedIndex;
+    unsigned char _openFingers , _closedFingers;
 
     // servomotor move
-    void moveServo(int member, int wantedPosition);
-    void moveServo(int member, int wantedPosition, bool waitEnabled);
+    void moveServo(unsigned char member, unsigned char wantedPosition);
+    void moveServo(unsigned char member, unsigned char wantedPosition, bool waitEnabled);
     
     // utils
     int frameInteger(int value, int lim1, int lim2);
