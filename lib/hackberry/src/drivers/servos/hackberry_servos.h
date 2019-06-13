@@ -53,10 +53,12 @@ class Hackberry_servos{
 
     // Hand type
     void setHand(bool selectedHand);
+    bool getHand();
+    void changeHand();
 
     // speed
     void setSpeed(unsigned char  speed);
-    unsigned char  getSpeed();
+    unsigned char getSpeed();
 
     // moving fingers
     void move(unsigned char member, unsigned char position, bool waitEnabled);
@@ -92,7 +94,7 @@ class Hackberry_servos{
     unsigned char _pinServoThumb;
     unsigned char _pinServoFingers;
 
-        // Servomotors
+    // Servomotors
     VarSpeedServo  servoIndex;  
     VarSpeedServo  servoThumb;  
     VarSpeedServo  servoFingers; 

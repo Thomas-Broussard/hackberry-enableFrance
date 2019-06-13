@@ -299,6 +299,9 @@ void Routine_buttons::longActionLock()
     
     switch (this->hand->getMode())
     {
+        case Standard:
+            this->hand->servos.changeHand();
+            this->hand->eeprom.SetHand(this->hand->servos.getHand());
         default:break;
     }
 }

@@ -65,6 +65,21 @@ void Hackberry_servos::setHand(bool selectedHand)
     this->setLimitPositions(FINGERS,this->_openFingers,this->_closedFingers);
 }
 
+
+bool Hackberry_servos::getHand()
+{
+    return this->_selectedHand;
+}
+/**
+ * Change the hand used (useful to change the servomotors direction)
+ */ 
+void Hackberry_servos::changeHand()
+{
+    this->_selectedHand = !this->_selectedHand; 
+}
+
+
+
 /**
  * Set the speed of the servomotors
  * 
