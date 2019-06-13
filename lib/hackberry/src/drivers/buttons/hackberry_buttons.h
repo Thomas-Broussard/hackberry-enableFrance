@@ -29,7 +29,7 @@ class Hackberry_buttons{
 
 
     public: 
-    Hackberry_buttons(int pinCalib, int pinExtra, int pinThumb, int pinLock);
+    Hackberry_buttons(unsigned char pinCalib, unsigned char pinExtra,unsigned char pinThumb,unsigned char pinLock);
 
     void init();
 
@@ -47,10 +47,10 @@ class Hackberry_buttons{
     private:
 
     // Wiring pins
-    int _pinCalib;       // Start hand calibration
-    int _pinExtra;       // Reverse the direction of rotation of the fingers
-    int _pinThumb;       // Thumb opening / closing
-    int _pinLock;        // lock / unlock the fingers
+    unsigned char _pinCalib;       // Start hand calibration
+    unsigned char _pinExtra;       // Reverse the direction of rotation of the fingers
+    unsigned char _pinThumb;       // Thumb opening / closing
+    unsigned char _pinLock;        // lock / unlock the fingers
 
     bool _isCalibPressed = false;
     bool _isExtraPressed = false;
@@ -62,8 +62,8 @@ class Hackberry_buttons{
     unsigned long _ThumbPressedTime = 0;
     unsigned long _LockPressedTime = 0;
 
-    bool isButtonPressed(int pin); 
-    bool isButtonPressedFor(int pin, unsigned long *pressTime, unsigned long delay_ms);
+    bool isButtonPressed(unsigned char pin); 
+    bool isButtonPressedFor(unsigned char pin, unsigned long *pressTime, unsigned long delay_ms);
 };
 
 

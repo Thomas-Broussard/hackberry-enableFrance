@@ -24,7 +24,7 @@
  * @param pinThumb digital input - pin of the Thumb button (located at the bottom left of the hand)
  * @param pinLock digital input - pin of the Lock button (located at the right of the hand)
  */
-Hackberry_buttons::Hackberry_buttons(int pinCalib, int pinExtra, int pinThumb, int pinLock)
+Hackberry_buttons::Hackberry_buttons(unsigned char pinCalib, unsigned char pinExtra, unsigned char pinThumb, unsigned char pinLock)
 {
     this->_pinCalib       = pinCalib;
     this->_pinExtra       = pinExtra; 
@@ -161,7 +161,7 @@ bool Hackberry_buttons::isLockButtonPressedFor(unsigned long delay_ms)
  * @param pin pin of the button to check
  * @return true if button pressed. false if button released 
  */
-bool Hackberry_buttons::isButtonPressed(int pin){
+bool Hackberry_buttons::isButtonPressed(unsigned char pin){
     // analog pin
     if (pin == A6 || pin == A7)
     {
@@ -174,7 +174,7 @@ bool Hackberry_buttons::isButtonPressed(int pin){
     }
 }
 
-bool Hackberry_buttons::isButtonPressedFor(int pin, unsigned long *pressedTime, unsigned long delay_ms)
+bool Hackberry_buttons::isButtonPressedFor(unsigned char pin, unsigned long *pressedTime, unsigned long delay_ms)
 {
     bool isPressed = this->isButtonPressed(pin);
     // Check if button is pressed or not 
