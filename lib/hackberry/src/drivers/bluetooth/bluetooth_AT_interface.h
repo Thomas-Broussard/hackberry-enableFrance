@@ -80,13 +80,15 @@ class HC06 : public IBluetoothAT
         bool setPassword(String password)
         {
             // check if password is well-formed or not
+            String correctPassword = "";
             for (int i = 0; i < 4; i++)
             {
                 if (password.charAt(i) < '1' || password.charAt(i) > '9') return false;
+                correctPassword += password.charAt(i);
             }
 
             // set new password
-            this->BT->send("AT+PIN" + password);
+            this->BT->send("AT+PIN" + correctPassword);
             
             return true;
         }
