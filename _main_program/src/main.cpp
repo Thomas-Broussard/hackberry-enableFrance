@@ -63,8 +63,8 @@ Task T3(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration     , &criticalP
 void setup() 
 {
   Serial.begin(9600);
-  Serial.println("Start");
-  hackberry.init();
+  Serial.println(F("Start"));
+  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
   setPriorities();
 }
 

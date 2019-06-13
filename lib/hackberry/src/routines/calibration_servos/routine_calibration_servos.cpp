@@ -90,19 +90,19 @@ void Routine_calibration_servos::end()
     this->EndCalibServos();
 
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println(F("\nServos Calib Finished"));
+        Serial.println(F("Servos Calib Finished"));
         
         Serial.print(F("MinIndex = ")); 
         Serial.println( this->hand->eeprom.GetMinServo(INDEX) );
         Serial.print(F("MaxIndex = ")); 
         Serial.println( this->hand->eeprom.GetMaxServo(INDEX) );
 
-        Serial.print(F("\nMinFingers = ")); 
+        Serial.print(F("MinFingers = ")); 
         Serial.println( this->hand->eeprom.GetMinServo(FINGERS) );
         Serial.print(F("MaxFingers = ")); 
         Serial.println( this->hand->eeprom.GetMaxServo(FINGERS) );
 
-        Serial.print(F("\nMinThumb = ")); 
+        Serial.print(F("MinThumb = ")); 
         Serial.println( this->hand->eeprom.GetMinServo(THUMB) );
         Serial.print(F("MaxThumb = ")); 
         Serial.println( this->hand->eeprom.GetMaxServo(THUMB) );
