@@ -144,6 +144,7 @@ Contributions are what make the open source community such an amazing place to b
 
 1. Fork the Project  
 <img src="https://help.github.com/assets/images/help/repository/fork_button.jpg" alt="Fork" width="449" height="70">
+
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
