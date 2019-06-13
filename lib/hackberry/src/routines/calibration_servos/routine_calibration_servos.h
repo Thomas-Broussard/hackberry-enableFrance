@@ -51,12 +51,12 @@ class Routine_calibration_servos {
         bool calibrationFinished = false;
         int _currentStep = IDLE;
 
-        int limThumb[2];
-        int limIndex[2];
-        int limFingers[2];
+        unsigned char limThumb[2];
+        unsigned char limIndex[2];
+        unsigned char limFingers[2];
 
         void SaveParamBeforeNextStep();
-        void SaveServoParam(int member, int lim1, int lim2);
+        void SaveServoParam(int member, unsigned char lim1, unsigned char lim2);
         void EndCalibServos();
 
 };

@@ -79,7 +79,7 @@ class Hackberry_servos{
     void forceRelativeClose(unsigned char member, unsigned char degree);
 
     // Positions of fingers
-    void setLimitPositions(unsigned char  member, int limit1, int limit2);
+    void setLimitPositions(unsigned char  member, unsigned char limit1, unsigned char limit2);
 
     unsigned char  getPosition(unsigned char member);
     unsigned char  getOpenPosition(unsigned char  member);
@@ -118,7 +118,7 @@ class Hackberry_servos{
     void moveServo(unsigned char member, unsigned char wantedPosition, bool waitEnabled);
     
     // utils
-    int frameInteger(int value, int lim1, int lim2);
+    unsigned char framePosition(unsigned char value, unsigned char lim1, unsigned char lim2);
     
 };
 

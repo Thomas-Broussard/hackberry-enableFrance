@@ -193,10 +193,10 @@ void Routine_calibration_servos::SaveParamBeforeNextStep()
     }
 }
 
-void Routine_calibration_servos::SaveServoParam(int member, int lim1, int lim2)
+void Routine_calibration_servos::SaveServoParam(int member, unsigned char lim1, unsigned char lim2)
 {
-    int min = (lim1 < lim2) ? lim1:lim2;
-    int max = (lim1 < lim2) ? lim2:lim1;
+    unsigned char min = (lim1 < lim2) ? lim1:lim2;
+    unsigned char max = (lim1 < lim2) ? lim2:lim1;
 
     this->hand->eeprom.SetMinServo(member,min);
     this->hand->eeprom.SetMaxServo(member,max);

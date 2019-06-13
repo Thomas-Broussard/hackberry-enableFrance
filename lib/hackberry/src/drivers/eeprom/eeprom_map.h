@@ -26,16 +26,16 @@ typedef struct {
     unsigned long magicWord;
 
     char        selectedHand;  // Selected hand (RIGHT or LEFT)
-    char        servoSpeed;    // Speed of servomotor (between 0 and 255)
+    unsigned char servoSpeed;    // Speed of servomotor (between 0 and 255)
 
-    char        thumbMin;      // between 0 and 180°
-    char        thumbMax;      // between 0 and 180°
+    unsigned char thumbMin;      // between 0 and 180°
+    unsigned char thumbMax;      // between 0 and 180°
 
-    char        indexMin;      // between 0 and 180°
-    char        indexMax;      // between 0 and 180°
+    unsigned char indexMin;      // between 0 and 180°
+    unsigned char indexMax;      // between 0 and 180°
 
-    char        fingersMin;    // between 0 and 180°
-    char        fingersMax;    // between 0 and 180°
+    unsigned char fingersMin;    // between 0 and 180°
+    unsigned char fingersMax;    // between 0 and 180°
 
     char        sensorType;    
     int         sensorMin;     // between MIN_ADC and MAX_ADC
