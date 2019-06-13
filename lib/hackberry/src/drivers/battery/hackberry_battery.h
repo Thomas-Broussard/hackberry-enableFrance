@@ -45,13 +45,13 @@
 class Hackberry_battery{
 
     public: 
-        Hackberry_battery(int pinBattery);
+        Hackberry_battery(unsigned char pinBattery);
         void init();
-        int read();
-        int readAverage();
+        unsigned char read();
+        unsigned char readAverage();
 
     private:
-        int _pinBattery;
+        unsigned char _pinBattery;
 
         int readRawValue();
         int readRawAverage();

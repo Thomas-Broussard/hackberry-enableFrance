@@ -19,7 +19,7 @@
  * 
  * @param pinBattery analog input - pin of the battery monitoring system
  */
-Hackberry_battery::Hackberry_battery(int pinBattery)
+Hackberry_battery::Hackberry_battery(unsigned char pinBattery)
 {
     this->_pinBattery = pinBattery;
 }
@@ -34,10 +34,10 @@ void Hackberry_battery::init()
  * 
  * @return lvl of battery (between 0 and 100%)
  */
-int Hackberry_battery::read()
+unsigned char Hackberry_battery::read()
 {
-    int rawValue = this->readRawValue();
-    int value = map(rawValue, ADC_BAT_MIN, ADC_BAT_MAX, 0 , 100);
+    unsigned int rawValue = this->readRawValue();
+    unsigned char value = map(rawValue, ADC_BAT_MIN, ADC_BAT_MAX, 0 , 100);
     return constrain(value, 0, 100);
 }
 
@@ -46,10 +46,10 @@ int Hackberry_battery::read()
  * 
  * @return average level of the battery (between 0 and 100%) on 16 consecutive acquisitions
  */
-int Hackberry_battery::readAverage()
+unsigned char Hackberry_battery::readAverage()
 {
-    int rawValue = this->readRawAverage();
-    int value = map(rawValue, ADC_BAT_MIN, ADC_BAT_MAX, 0 , 100);
+    unsigned int rawValue = this->readRawAverage();
+    unsigned char value = map(rawValue, ADC_BAT_MIN, ADC_BAT_MAX, 0 , 100);
     return constrain(value , 0, 100); 
 }
 
