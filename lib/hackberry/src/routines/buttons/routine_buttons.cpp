@@ -95,7 +95,7 @@ void Routine_buttons::execute()
 void Routine_buttons::actionCalib()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Calib Button Pressed");
+        Serial.println(F("Calib Pressed"));
     #endif
 
     switch (this->hand->getMode())
@@ -112,14 +112,14 @@ void Routine_buttons::actionCalib()
 void Routine_buttons::longActionCalib()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Calib Button Pressed Long");
+        Serial.println(F("Calib Pressed Long"));
     #endif
 
     switch (this->hand->getMode())
     {
         case Standard :
             #ifdef DEBUG_ROUTINE_ENABLED
-                Serial.println("Sensor Calibration Started");
+                Serial.println(F("Start Sensor Calib"));
             #endif
             this->hand->servos.move(INDEX,0,true);
             this->hand->servos.move(INDEX,180,true);
@@ -139,7 +139,7 @@ void Routine_buttons::longActionCalib()
 void Routine_buttons::actionExtra()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Extra Button Pressed");
+        Serial.println(F("Extra Pressed"));
     #endif
 
     switch (this->hand->getMode())
@@ -159,7 +159,7 @@ void Routine_buttons::actionExtra()
 void Routine_buttons::longActionExtra()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Extra Button Pressed Long");
+        Serial.println(F("Extra Pressed Long"));
     #endif
 
     switch (this->hand->getMode())
@@ -167,7 +167,7 @@ void Routine_buttons::longActionExtra()
         case Standard :
             #ifdef MAPPING_MK2
                 #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Servomotors Calibration Started");
+                    Serial.println(F("Start Servos Calib"));
                 #endif
                 this->hand->servos.move(FINGERS,0,true);
                 this->hand->servos.move(FINGERS,180,true);
@@ -188,7 +188,7 @@ void Routine_buttons::longActionExtra()
 void Routine_buttons::actionThumb()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Thumb Button Pressed");
+        Serial.println(F("Thumb Pressed"));
     #endif
 
     switch (this->hand->getMode())
@@ -197,7 +197,7 @@ void Routine_buttons::actionThumb()
             if (isThumbOpen)
             {
                 #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Close Thumb");
+                    Serial.println(F("Close Thumb"));
                 #endif
                 this->hand->servos.close(THUMB);
                 this->isThumbOpen = false;
@@ -205,7 +205,7 @@ void Routine_buttons::actionThumb()
             else
             {
                 #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Open Thumb");
+                    Serial.println(F("Open Thumb"));
                 #endif
                 this->hand->servos.open(THUMB);
                 this->isThumbOpen = true;
@@ -225,7 +225,7 @@ void Routine_buttons::actionThumb()
 void Routine_buttons::longActionThumb()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Thumb Button Pressed Long");
+        Serial.println(F("Thumb Pressed Long"));
     #endif
 
     switch (this->hand->getMode())
@@ -235,14 +235,14 @@ void Routine_buttons::longActionThumb()
                 if (this->hand->bluetooth.isEnabled())
                 {
                     #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Bluetooth stopped");
+                    Serial.println(F("stop BT"));
                     #endif
                     this->hand->bluetooth.stop();
                 }
                 else
                 {
                     #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Bluetooth started");
+                    Serial.println(F("start BT"));
                     #endif
                     this->hand->bluetooth.start();
                 }
@@ -259,7 +259,7 @@ void Routine_buttons::longActionThumb()
 void Routine_buttons::actionLock()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Lock Button Pressed");
+        Serial.println(F("Lock Pressed"));
     #endif
     
     switch (this->hand->getMode())
@@ -268,7 +268,7 @@ void Routine_buttons::actionLock()
             if (isLockEnabled)
             {
                 #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Fingers Unlocked");
+                    Serial.println(F("Unlock Fingers"));
                 #endif
                 this->hand->servos.unlockMember(FINGERS);
                 this->isLockEnabled = false;
@@ -276,7 +276,7 @@ void Routine_buttons::actionLock()
             else
             {
                 #ifdef DEBUG_ROUTINE_ENABLED
-                    Serial.println("Fingers Locked");
+                    Serial.println(F("Lock Fingers"));
                 #endif
                 this->hand->servos.lockMember(FINGERS);
                 this->isLockEnabled = true;
@@ -294,7 +294,7 @@ void Routine_buttons::actionLock()
 void Routine_buttons::longActionLock()
 {
     #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("Lock Button Pressed Long");
+        Serial.println(F("Lock Pressed Long"));
     #endif
     
     switch (this->hand->getMode())

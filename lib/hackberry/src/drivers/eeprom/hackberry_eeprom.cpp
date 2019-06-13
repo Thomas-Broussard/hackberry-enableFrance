@@ -183,11 +183,7 @@ int Hackberry_eeprom::GetSensorMax()
  */
 void Hackberry_eeprom::printMemoryMap()
 {
-    Serial.println(F("========================="));
-    Serial.println(F("      EEPROM MAPPING"));
-    Serial.println(F("========================="));
-    Serial.println(F("Variable     | Address(dec)"));
-    Serial.println(F("-----------------------"));
+    Serial.println(F("\nEEPROM MAPPING"));
     
     Serial.print(F("Hand         |   "));    Serial.println( ADDR(selectedHand));
 
@@ -202,9 +198,6 @@ void Hackberry_eeprom::printMemoryMap()
     Serial.print(F("SensorType   |   "));    Serial.println( ADDR(sensorType));
     Serial.print(F("SensorMin    |   "));    Serial.println( ADDR(sensorMin));
     Serial.print(F("SensorMax    |   "));    Serial.println( ADDR(sensorMax));
-    
-    Serial.println(F("========================="));
-    Serial.println(F("========================="));
 }
 
 
@@ -213,27 +206,22 @@ void Hackberry_eeprom::printMemoryMap()
  */
 void Hackberry_eeprom::printMemoryContent()
 {
-    Serial.println(F("========================="));
-    Serial.println(F("      EEPROM CONTENT"));
-    Serial.println(F("========================="));
+    Serial.println(F("\nEEPROM CONTENT"));
 
-    Serial.print(F("Hand          = ")); Serial.println( this->GetHand() == RIGHT_HAND ? "RIGHT_HAND":"LEFT_HAND");
+    Serial.print(F("Hand = ")); Serial.println( this->GetHand() == RIGHT_HAND ? "RIGHT_HAND":"LEFT_HAND");
 
-    Serial.print(F("MinThumb      = ")); Serial.println( this->GetMinServo(THUMB) );
-    Serial.print(F("MinIndex      = ")); Serial.println( this->GetMinServo(INDEX) );
-    Serial.print(F("MinFingers    = ")); Serial.println( this->GetMinServo(FINGERS) );
+    Serial.print(F("MinThumb = ")); Serial.println( this->GetMinServo(THUMB) );
+    Serial.print(F("MinIndex = ")); Serial.println( this->GetMinServo(INDEX) );
+    Serial.print(F("MinFingers = ")); Serial.println( this->GetMinServo(FINGERS) );
 
-    Serial.print(F("MaxThumb      = ")); Serial.println( this->GetMaxServo(THUMB) );
-    Serial.print(F("MaxIndex      = ")); Serial.println( this->GetMaxServo(INDEX) );
-    Serial.print(F("MaxFingers    = ")); Serial.println( this->GetMaxServo(FINGERS) );
+    Serial.print(F("MaxThumb = ")); Serial.println( this->GetMaxServo(THUMB) );
+    Serial.print(F("MaxIndex = ")); Serial.println( this->GetMaxServo(INDEX) );
+    Serial.print(F("MaxFingers = ")); Serial.println( this->GetMaxServo(FINGERS) );
 
 
-    Serial.print(F("SensorType    = ")); Serial.println( this->GetSensorType() );
-    Serial.print(F("Sensormin     = ")); Serial.println( this->GetSensorMin() );
-    Serial.print(F("SensorMax     = ")); Serial.println( this->GetSensorMax() );
-    
-    Serial.println(F("========================="));
-    Serial.println(F("========================="));
+    Serial.print(F("SensorType = ")); Serial.println( this->GetSensorType() );
+    Serial.print(F("Sensormin = ")); Serial.println( this->GetSensorMin() );
+    Serial.print(F("SensorMax = ")); Serial.println( this->GetSensorMax() );
 }
 
 
