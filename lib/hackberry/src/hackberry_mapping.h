@@ -20,6 +20,12 @@
 #define MAPPING_MK2
 //#define MAPPING_MK3
 
+
+// Select the extension card that you want to use (default : none)
+//#define EXTENSION_BLUETOOTH
+//#define EXTENSION_LEDS
+//#define EXTENSION_FORCE_CONTROL
+
 /* 
 * ====================================================================================
 *                                  MAPPINGS
