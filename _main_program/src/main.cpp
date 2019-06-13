@@ -64,7 +64,7 @@ void setup()
 {
   Serial.begin(9600);
   Serial.println(F("Start"));
-  hackberry.init(RIGHT_HAND,TYPE_IR_SENSOR);
+  hackberry.init(LEFT_HAND,TYPE_IR_SENSOR);
   setPriorities();
 }
 
