@@ -61,7 +61,7 @@ void Routine_bluetooth::stop()
  */
 void Routine_bluetooth::execute()
 {
-    if(this->hand->bluetooth.isEnabled())
+    if(this->hand->bluetooth.isStarted())
     {
         String messageReceived = this->hand->bluetooth.receive();
         this->checkActivity(ACTIVITY_TIME);

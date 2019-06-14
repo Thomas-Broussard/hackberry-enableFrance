@@ -232,7 +232,7 @@ void Routine_buttons::longActionThumb()
     {
         case Standard:
             #ifdef MAPPING_MK3
-                if (this->hand->bluetooth.isEnabled())
+                if (this->hand->bluetooth.isStarted())
                 {
                     #ifdef DEBUG_ROUTINE_ENABLED
                     Serial.println(F("stop BT"));

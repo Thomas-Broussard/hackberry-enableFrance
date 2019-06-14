@@ -34,10 +34,11 @@ class Hackberry_bluetooth{
         Hackberry_bluetooth();
 
         void init(unsigned char pinRx = UNDEFINED, unsigned char pinTx = UNDEFINED, unsigned char pinPower = UNDEFINED);
+        bool isEnabled();
 
         void start();
         void stop();
-        bool isEnabled();
+        bool isStarted();
         unsigned long getLastActivityTime();
 
         // Data functions
@@ -53,6 +54,7 @@ class Hackberry_bluetooth{
         void setBaud(unsigned long baudrate);
     
     private:        
+        bool _enabled = false; // can't use the drive if _enabled is false
         // wiring pins
         unsigned char _pinRx;
         unsigned char _pinTx; 
@@ -64,7 +66,7 @@ class Hackberry_bluetooth{
         BluetoothData *BT;
         
         unsigned long _lastActivity = 0;
-        bool _enabled = false;
+        bool _started = false;
 };
 
 #endif
