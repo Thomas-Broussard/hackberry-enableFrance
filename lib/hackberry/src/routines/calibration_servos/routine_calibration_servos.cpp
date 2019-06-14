@@ -49,11 +49,10 @@ void Routine_calibration_servos::execute()
         // next step enabled
         if (this->_currentStep != nextStep)
         {
+            this->SaveParamBeforeNextStep();
+
             this->_currentStep = nextStep;
             DebugPrintln(F("Next Calib Step"));
-
-            this->SaveParamBeforeNextStep();
-            
         }
 
         // calibration sequence
@@ -117,12 +116,10 @@ void Routine_calibration_servos::calibration()
             if (this->hand->buttons.isCalibButtonPressed())
             {
                 this->hand->servos.forceRelativeClose(THUMB,STEP);
-                DebugPrintln(this->hand->servos.getPosition(THUMB));
             }
             else if (this->hand->buttons.isThumbButtonPressed())
             {
                 this->hand->servos.forceRelativeOpen(THUMB,STEP);
-                DebugPrintln(this->hand->servos.getPosition(THUMB));
             }
         break;
 
@@ -165,26 +162,38 @@ void Routine_calibration_servos::SaveParamBeforeNextStep()
     {
         case INDEX_CLOSE :
             this->limIndex[0] = this->hand->servos.getPosition(INDEX);
+            DebugPrint(F("Save Index : "));
+            DebugPrintln(this->limIndex[0]);
         break;
 
         case INDEX_OPEN :
             this->limIndex[1] = this->hand->servos.getPosition(INDEX);
+            DebugPrint(F("Save Index : "));
+            DebugPrintln(this->limIndex[1]);
         break;
 
         case FINGERS_CLOSE :
             this->limFingers[0] = this->hand->servos.getPosition(FINGERS);
+            DebugPrint(F("Save Fingers : "));
+            DebugPrintln(this->limFingers[0]);
         break;
 
         case FINGERS_OPEN :
             this->limFingers[1] = this->hand->servos.getPosition(FINGERS);
+            DebugPrint(F("Save Fingers : "));
+            DebugPrintln(this->limFingers[1]);
         break;
 
         case THUMB_CLOSE :
             this->limThumb[0] = this->hand->servos.getPosition(THUMB);
+            DebugPrint(F("Save Thumb : "));
+            DebugPrintln(this->limThumb[0]);
         break;
 
         case THUMB_OPEN :
             this->limThumb[1] = this->hand->servos.getPosition(THUMB);
+            DebugPrint(F("Save Thumb : "));
+            DebugPrintln(this->limThumb[1]);
         break;
 
         default:break;
