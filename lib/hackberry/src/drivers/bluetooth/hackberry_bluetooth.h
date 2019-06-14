@@ -34,7 +34,6 @@ class Hackberry_bluetooth{
         Hackberry_bluetooth();
 
         void init(unsigned char pinRx = UNDEFINED, unsigned char pinTx = UNDEFINED, unsigned char pinPower = UNDEFINED);
-        bool isEnabled();
 
         void start();
         void stop();
@@ -54,7 +53,6 @@ class Hackberry_bluetooth{
         void setBaud(unsigned long baudrate);
     
     private:        
-        bool _enabled = false; // can't use the drive if _enabled is false
         // wiring pins
         unsigned char _pinRx;
         unsigned char _pinTx; 

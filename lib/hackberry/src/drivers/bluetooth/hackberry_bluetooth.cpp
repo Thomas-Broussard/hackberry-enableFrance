@@ -32,10 +32,6 @@ Hackberry_bluetooth::Hackberry_bluetooth()
 
 void Hackberry_bluetooth::init(unsigned char pinRx, unsigned char pinTx, unsigned char pinPower)
 {
-    // Check parameters
-    this->_enabled = !(pinRx == UNDEFINED || pinTx == UNDEFINED);
-    if (!this->_enabled) return;
-
     // pins initialization
     this->_pinRx = pinRx;
     this->_pinTx = pinTx;
@@ -53,16 +49,6 @@ void Hackberry_bluetooth::init(unsigned char pinRx, unsigned char pinTx, unsigne
 }
 
 
-/**
- * check if the driver is enabled or not
- * 
- * @return true if enabled. false otherwise
- */
-bool Hackberry_bluetooth::isEnabled() {
-    return this->_enabled;
-}
-
-
 /* 
  * =============================================================================================================================================
  *                                  GENERAL FUNCTIONS
@@ -73,7 +59,7 @@ bool Hackberry_bluetooth::isEnabled() {
  * start Bluetooth module
  */
 void Hackberry_bluetooth::start() {
-    if (!this->_enabled) return;
+ 
     digitalWrite(this->_pinPower,HIGH);
     this->_lastActivity = millis();
     this->BT->start();
@@ -85,7 +71,7 @@ void Hackberry_bluetooth::start() {
  * stop Bluetooth module
  */
 void Hackberry_bluetooth::stop() {
-    if (!this->_enabled) return;
+ 
     this->BT->stop();
     this->_lastActivity = 0;
     digitalWrite(this->_pinPower,LOW);
@@ -124,7 +110,7 @@ unsigned long Hackberry_bluetooth::getLastActivityTime() {
  */
 void Hackberry_bluetooth::send(char c) 
 {
-    if (!this->_enabled) return;
+ 
     this->BT->send(c);
     this->_lastActivity = millis();
 }
@@ -137,7 +123,7 @@ void Hackberry_bluetooth::send(char c)
  */
 void Hackberry_bluetooth::send(int message) 
 {
-    if (!this->_enabled) return;
+ 
     this->BT->send(message);
     this->_lastActivity = millis();
 }
@@ -149,7 +135,7 @@ void Hackberry_bluetooth::send(int message)
  */
 void Hackberry_bluetooth::send(String message) 
 {
-    if (!this->_enabled) return;
+ 
     this->BT->send(message);
     this->_lastActivity = millis();
 }
@@ -162,7 +148,6 @@ void Hackberry_bluetooth::send(String message)
  */
 String Hackberry_bluetooth::receive() 
 {
-    if (!this->_enabled) return "";
     String messageReceived = this->BT->receive();
 
     if (messageReceived.length() <= 1)
@@ -191,7 +176,6 @@ String Hackberry_bluetooth::receive()
  */
 void Hackberry_bluetooth::setName(String name)
 {
-    if (!this->_enabled) return;
     this->_lastActivity = millis();
     this->AT->setName(name);
 }
@@ -204,7 +188,6 @@ void Hackberry_bluetooth::setName(String name)
  */
 bool Hackberry_bluetooth::setPassword(String password)
 {
-    if (!this->_enabled) return false;
     this->_lastActivity = millis();
     return this->AT->setPassword(password);
 }
@@ -216,7 +199,6 @@ bool Hackberry_bluetooth::setPassword(String password)
  */
 void Hackberry_bluetooth::setBaud(unsigned long baudrate)
 {
-    if (!this->_enabled) return;
     this->_lastActivity = millis();
     this->AT->setBaud(baudrate);
 }
