@@ -193,6 +193,7 @@ See [Hackberry Original Project License](https://github.com/mission-arm/HACKberr
 * [Genta Kondo (Author of Hackberry Project)](https://github.com/mission-arm/HACKberry)
 * [Exiii](https://exiii.jp/)
 * [Best README Template by othneildrew](https://github.com/othneildrew/Best-README-Template)
+* [XLoader by Geir Lunde](http://xloader.russemotto.com/)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
