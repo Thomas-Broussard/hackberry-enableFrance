@@ -45,24 +45,18 @@ void Task_BatteryMonitoring();
 void Task_Calibration();
 void Task_Template();
 
-// Tasks
-Task T1(100  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler     , &runner, true); 
-Task T2(10 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves             , &runner, true); 
-Task T3(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration     , &criticalPriority, true); 
+// Tasks with main drivers
+Task T1(100  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler, &runner, true); 
+Task T2(10 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves, &runner, true); 
+Task T3(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration, &criticalPriority, true); 
 
-// Task enabled on Mk3 board only
-#ifdef MAPPING_MK3
-  Task T5(10  * TASK_SECOND     , TASK_FOREVER, &Task_BatteryMonitoring , &highPriority, true);   
+// Task enabled only with specific drivers
+#ifdef BATTERY_MONITORING_ENABLED
+  Task T5(10  * TASK_SECOND     , TASK_FOREVER, &Task_BatteryMonitoring, &highPriority, true);  
 #endif
 
-
-// Task enabled depending on extension board plugged
-#ifdef EXTENSION_GPIO
-    // Add custom task here
-#endif
-
-#ifdef EXTENSION_BLUETOOTH
-    Task T4(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_BluetoothHandler  , &criticalPriority, true); 
+#ifdef BLUETOOTH_ENABLED
+  Task T4(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_BluetoothHandler, &criticalPriority, true); 
 #endif
 
 // Task template

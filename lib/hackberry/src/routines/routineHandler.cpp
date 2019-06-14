@@ -32,12 +32,19 @@ RoutineHandler::RoutineHandler() :
 
 void RoutineHandler::init(Hackberry_hand *hand)
 {
-    this->bluetooth.init(hand);
+    // main routines
+    this->eeprom_init.init(hand);
     this->buttons.init(hand);
     this->moves.init(hand);
-    this->batteryMonitoring.init(hand);
-    this->eeprom_init.init(hand);
     this->calibration_sensor.init(hand);
     this->calibration_servos.init(hand);
-    
+
+    // routine with specific drivers only
+    #ifdef BATTERY_MONITORING_ENABLED
+        this->batteryMonitoring.init(hand);
+    #endif
+
+    #ifdef BLUETOOTH_ENABLED
+        this->bluetooth.init(hand);
+    #endif
 }

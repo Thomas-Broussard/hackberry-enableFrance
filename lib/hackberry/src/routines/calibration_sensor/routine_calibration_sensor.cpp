@@ -80,17 +80,15 @@ void Routine_calibration_sensor::endCalibration()
     this->hand->eeprom.SetSensorMin(this->_sensorMin);
     this->hand->eeprom.SetSensorMax(this->_sensorMax);
 
-    #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println("-------------------------");
-        Serial.println("Sensor Calibration Finished");
-        Serial.println("-------------------------");
-        Serial.println("Results : ");
-        Serial.print("SensorMin = ");
-        Serial.println(this->hand->eeprom.GetSensorMin());
-        Serial.print("SensorMax = ");
-        Serial.println(this->hand->eeprom.GetSensorMax());
-        Serial.println("-------------------------\n");
-    #endif
+        DebugPrintln("-------------------------");
+        DebugPrintln("Sensor Calibration Finished");
+        DebugPrintln("-------------------------");
+        DebugPrintln("Results : ");
+        DebugPrint("SensorMin = ");
+        DebugPrintln(this->hand->eeprom.GetSensorMin());
+        DebugPrint("SensorMax = ");
+        DebugPrintln(this->hand->eeprom.GetSensorMax());
+        DebugPrintln("-------------------------\n");
         
 
     // reset the calibration parameters

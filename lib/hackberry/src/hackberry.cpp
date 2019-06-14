@@ -22,15 +22,22 @@ Hackberry::Hackberry() :
     routine()
 {}
 
-
+/**
+ * Constructor : initialize the hand and all the drivers
+ */
 void Hackberry::init()
 {
     this->hand.init();
     this->initSpecificDrivers();
     this->routine.init(&this->hand);
-    this->initExtension();
 }
 
+/**
+ * Constructor : initialize the hand and all the drivers
+ * 
+ * @param selectedHand hand type (RIGHT_HAND or LEFT_HAND)
+ * @param sensorType type of the sensor used
+ */
 void Hackberry::init(bool selectedHand,int sensorType)
 {
     this->init();
@@ -38,48 +45,41 @@ void Hackberry::init(bool selectedHand,int sensorType)
     this->setSensorType(sensorType);
 }
 
+/**
+ * Set the hand type
+ * 
+ * @param selectedHand hand type (RIGHT_HAND or LEFT_HAND)
+ */
 void Hackberry::setHand(bool selectedHand)
 {
     this->hand.servos.setHand(selectedHand);
     this->hand.eeprom.SetHand(selectedHand);
 }
 
+
+/**
+ * Set the sensor type
+ * 
+ * @param sensorType type of the sensor used
+ */
 void Hackberry::setSensorType(int sensorType)
 {
     this->hand.sensor.setSensorType(sensorType);
     this->hand.eeprom.SetSensorType(sensorType);
 }
 
-/* 
-* =============================================================================================================================================
-*                                  EXTENSION BOARDS
-* =============================================================================================================================================
-*/
+/**
+ * Initialize specific drivers depending on mapping version or extension board
+ * 
+ */
 void Hackberry::initSpecificDrivers()
 {
-     // Mk3 Specific Drivers
-    #ifdef MAPPING_MK3
+    #ifdef BATTERY_MONITORING_ENABLED
         this->hand.battery.init(PIN_BATTERY);
     #endif
-}
 
-
-void Hackberry::initExtension()
-{
-    // Extension GPIO : Board with header pin to use GPIOs with wires and breadboard (for prototyping)
-    #if defined(EXTENSION_GPIO)
-
-    // Extension Bluetooth : Board with bluetooth module to communicate with other devices
-    #elif defined(EXTENSION_BLUETOOTH)
-    this->hand.bluetooth.init(PIN_RX,PIN_TX,PIN_POWER);
-
-    // Extension Leds : Board with leds to indicate status
-    #elif defined(EXTENSION_LEDS)
-
-    // undefined or unknown extension board
-    #else 
-        
-    
+    #ifdef BLUETOOTH_ENABLED
+        this->hand.bluetooth.init(PIN_RX_BT,PIN_TX_BT,PIN_POWER_BT);
     #endif
 }
 

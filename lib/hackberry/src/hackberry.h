@@ -39,9 +39,7 @@ class Hackberry
         RoutineHandler routine;
         
     private:      
-        // initialize specific components depending on mapping version or extension board
         void initSpecificDrivers();
-        void initExtension();
 };
 
 

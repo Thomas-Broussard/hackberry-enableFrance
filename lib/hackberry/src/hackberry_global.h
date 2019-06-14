@@ -16,7 +16,16 @@
 #define __HACKBERRY_GLOBAL_H__
 
 // DEBUG MODE
-#define DEBUG_ROUTINE_ENABLED
+//#define DEBUG_ENABLED
+
+#ifdef DEBUG_ENABLED
+    #define DebugPrint(x) Serial.print(x)
+    #define DebugPrintln(x) Serial.println(x)
+#else
+    #define DebugPrint(x) 
+    #define DebugPrintln(x) 
+#endif
+
 
 // Hand Selection
 #define RIGHT_HAND true

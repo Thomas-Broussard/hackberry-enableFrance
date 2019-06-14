@@ -14,8 +14,6 @@
 #ifndef __HACKBERRY_MAPPING_H__
 #define __HACKBERRY_MAPPING_H__
 
-#define UNDEFINED -1
-
 // Select the mapping that you want to use (default : Mk2)
 #define MAPPING_MK2
 //#define MAPPING_MK3
@@ -39,25 +37,18 @@
 
     // Sensor
     #define PIN_SENSOR_1        A1
-    #define PIN_SENSOR_2        UNDEFINED
+    //#define PIN_SENSOR_2        UNDEFINED
 
     // Buttons
     #define PIN_BUTTON_CALIB    A6
     #define PIN_BUTTON_EXTRA    A7
     #define PIN_BUTTON_THUMB    A0
     #define PIN_BUTTON_LOCK     10
-
-    // Battery
-    //#define PIN_BATTERY         UNDEFINED
-
-
-    // Bluetooth / Communication
-    //#define PIN_RX              UNDEFINED
-    //#define PIN_TX              UNDEFINED
-    //#define PIN_POWER           UNDEFINED
 #endif
 
+
 #ifdef MAPPING_MK3
+    
     // Servomotors
     #define PIN_THUMB           9
     #define PIN_INDEX           5
@@ -74,15 +65,25 @@
     #define PIN_BUTTON_LOCK     10
 
     // Battery
+    #define BATTERY_MONITORING_ENABLED
     #define PIN_BATTERY         A6
-
-
-    // Bluetooth / Communication
-    #define PIN_RX              3
-    #define PIN_TX              4
-    #define PIN_POWER           A3
+    
 #endif
 
+/* 
+* ====================================================================================
+*                                  EXTENSION BOARDS
+* ====================================================================================
+*/
+#ifdef EXTENSION_BLUETOOTH
+
+    #define BLUETOOTH_ENABLED
+
+    #define PIN_RX_BT           3
+    #define PIN_TX_BT           4
+    #define PIN_POWER_BT        A3
+
+#endif
 
 
 

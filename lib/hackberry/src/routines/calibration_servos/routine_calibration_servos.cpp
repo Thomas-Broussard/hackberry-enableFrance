@@ -50,9 +50,7 @@ void Routine_calibration_servos::execute()
         if (this->_currentStep != nextStep)
         {
             this->_currentStep = nextStep;
-            #ifdef DEBUG_ROUTINE_ENABLED
-                Serial.println(F("Next Calib Step"));
-            #endif
+            DebugPrintln(F("Next Calib Step"));
 
             this->SaveParamBeforeNextStep();
             
@@ -89,24 +87,22 @@ void Routine_calibration_servos::end()
     this->_currentStep = IDLE;
     this->EndCalibServos();
 
-    #ifdef DEBUG_ROUTINE_ENABLED
-        Serial.println(F("Servos Calib Finished"));
+    DebugPrintln(F("Servos Calib Finished"));
         
-        Serial.print(F("MinIndex = ")); 
-        Serial.println( this->hand->eeprom.GetMinServo(INDEX) );
-        Serial.print(F("MaxIndex = ")); 
-        Serial.println( this->hand->eeprom.GetMaxServo(INDEX) );
+    DebugPrint(F("MinIndex = ")); 
+    DebugPrintln( this->hand->eeprom.GetMinServo(INDEX) );
+    DebugPrint(F("MaxIndex = ")); 
+    DebugPrintln( this->hand->eeprom.GetMaxServo(INDEX) );
 
-        Serial.print(F("MinFingers = ")); 
-        Serial.println( this->hand->eeprom.GetMinServo(FINGERS) );
-        Serial.print(F("MaxFingers = ")); 
-        Serial.println( this->hand->eeprom.GetMaxServo(FINGERS) );
+    DebugPrint(F("MinFingers = ")); 
+    DebugPrintln( this->hand->eeprom.GetMinServo(FINGERS) );
+    DebugPrint(F("MaxFingers = ")); 
+    DebugPrintln( this->hand->eeprom.GetMaxServo(FINGERS) );
 
-        Serial.print(F("MinThumb = ")); 
-        Serial.println( this->hand->eeprom.GetMinServo(THUMB) );
-        Serial.print(F("MaxThumb = ")); 
-        Serial.println( this->hand->eeprom.GetMaxServo(THUMB) );
-    #endif
+    DebugPrint(F("MinThumb = ")); 
+    DebugPrintln( this->hand->eeprom.GetMinServo(THUMB) );
+    DebugPrint(F("MaxThumb = ")); 
+    DebugPrintln( this->hand->eeprom.GetMaxServo(THUMB) );
 
     this->hand->stopServosCalibration();
 }
