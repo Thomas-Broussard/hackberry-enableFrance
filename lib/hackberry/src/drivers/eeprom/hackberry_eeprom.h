@@ -34,6 +34,7 @@ class Hackberry_eeprom{
       // GENERAL
       void SetHand(bool hand);
       bool GetHand();
+      void ChangeHand();
 
       // SERVOMOTORS
       void SetMinServo(unsigned char member, unsigned char value);

@@ -267,10 +267,10 @@ void Routine_buttons::longActionLock()
     {
         case Standard:
             this->hand->servos.changeHand();
-            this->hand->eeprom.SetHand(this->hand->servos.getHand());
+            this->hand->eeprom.ChangeHand();
 
             DebugPrint(F("new Hand type = "));
-            DebugPrintln(this->hand->servos.getHand() == RIGHT_HAND ? "Right":"Left");
+            DebugPrintln(this->hand->eeprom.GetHand() == RIGHT_HAND ? "Right":"Left");
         default:break;
     }
 }

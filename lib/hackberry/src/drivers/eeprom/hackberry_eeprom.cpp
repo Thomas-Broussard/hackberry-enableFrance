@@ -30,10 +30,10 @@ Hackberry_eeprom::Hackberry_eeprom()
 void Hackberry_eeprom::SetHand(bool hand)
 {
     if (hand == RIGHT_HAND){
-        this->eepromUtils->writeChar(ADDR(selectedHand),'1');
+        this->eepromUtils->writeChar(ADDR(selectedHand),0x01);
     }
     else if (hand == LEFT_HAND){
-        this->eepromUtils->writeChar(ADDR(selectedHand),'0');
+        this->eepromUtils->writeChar(ADDR(selectedHand),0x02);
     }
 }
 
@@ -44,7 +44,13 @@ void Hackberry_eeprom::SetHand(bool hand)
  */
 bool Hackberry_eeprom::GetHand()
 {
-    return (this->eepromUtils->readChar(ADDR(selectedHand)) == '1') ? RIGHT_HAND : LEFT_HAND;
+    return (this->eepromUtils->readChar(ADDR(selectedHand)) == 0x01) ? RIGHT_HAND : LEFT_HAND;
+}
+
+void Hackberry_eeprom::ChangeHand()
+{
+    bool currentHand = this->GetHand();
+    this->SetHand( (currentHand == RIGHT_HAND) ? LEFT_HAND : RIGHT_HAND );
 }
 
 

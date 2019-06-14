@@ -67,7 +67,7 @@ void setup()
 {
   Serial.begin(9600);
   Serial.println(F("Start"));
-  hackberry.init(LEFT_HAND,TYPE_IR_SENSOR);
+  hackberry.init();
   hackberry.hand.eeprom.printMemoryContent();
   setPriorities();
 }
