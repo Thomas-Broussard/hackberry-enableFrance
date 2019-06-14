@@ -61,11 +61,11 @@ class Hackberry_servos{
     unsigned char getSpeed();
 
     // moving fingers
-    void move(unsigned char member, unsigned char position, bool waitEnabled);
+    void move(unsigned char member, int position, bool waitEnabled);
     
-    void relativeMove(unsigned char member, unsigned char degree, bool waitEnabled);
-    void relativeOpen(unsigned char member, unsigned char degree, bool waitEnabled);
-    void relativeClose(unsigned char member, unsigned char degree, bool waitEnabled);
+    void relativeMove(unsigned char member, int degree, bool waitEnabled);
+    void relativeOpen(unsigned char member, int degree, bool waitEnabled);
+    void relativeClose(unsigned char member, int degree, bool waitEnabled);
     
     void open(unsigned char member);
     void close(unsigned char member);
@@ -73,10 +73,10 @@ class Hackberry_servos{
     void closeAll();
 
     // moving fingers (forced)
-    void forceMove(unsigned char member,  unsigned char position);
-    void forceRelativeMove(unsigned char member, unsigned char position);
-    void forceRelativeOpen(unsigned char member, unsigned char degree);
-    void forceRelativeClose(unsigned char member, unsigned char degree);
+    void forceMove(unsigned char member,  int position);
+    void forceRelativeMove(unsigned char member, int position);
+    void forceRelativeOpen(unsigned char member, int degree);
+    void forceRelativeClose(unsigned char member, int degree);
 
     // Positions of fingers
     void setLimitPositions(unsigned char  member, unsigned char limit1, unsigned char limit2);

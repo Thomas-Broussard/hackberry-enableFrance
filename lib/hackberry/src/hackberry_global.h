@@ -16,7 +16,7 @@
 #define __HACKBERRY_GLOBAL_H__
 
 // DEBUG MODE
-//#define DEBUG_ENABLED
+#define DEBUG_ENABLED
 
 #ifdef DEBUG_ENABLED
     #define DebugPrint(x) Serial.print(x)

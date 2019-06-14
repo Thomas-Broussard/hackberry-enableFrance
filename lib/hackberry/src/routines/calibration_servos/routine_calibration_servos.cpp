@@ -117,10 +117,12 @@ void Routine_calibration_servos::calibration()
             if (this->hand->buttons.isCalibButtonPressed())
             {
                 this->hand->servos.forceRelativeClose(THUMB,STEP);
+                DebugPrintln(this->hand->servos.getPosition(THUMB));
             }
             else if (this->hand->buttons.isThumbButtonPressed())
             {
                 this->hand->servos.forceRelativeOpen(THUMB,STEP);
+                DebugPrintln(this->hand->servos.getPosition(THUMB));
             }
         break;
 

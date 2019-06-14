@@ -75,7 +75,7 @@ bool Hackberry_servos::getHand()
  */ 
 void Hackberry_servos::changeHand()
 {
-    this->_selectedHand = !this->_selectedHand; 
+    this->_selectedHand = (this->_selectedHand == RIGHT_HAND) ? LEFT_HAND:RIGHT_HAND; 
 }
 
 
@@ -105,7 +105,7 @@ unsigned char  Hackberry_servos::getSpeed(){
  * @param position Desired position for the member
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::move(unsigned char member, unsigned char position,bool waitEnabled) {
+void Hackberry_servos::move(unsigned char member, int position,bool waitEnabled) {
     unsigned char finalPosition = 0;
     switch (member) 
     {
@@ -139,9 +139,9 @@ void Hackberry_servos::move(unsigned char member, unsigned char position,bool wa
  * @param degree number of rotation degree (between -180 and 180°)
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::relativeMove(unsigned char member, unsigned char degree,bool waitEnabled) 
+void Hackberry_servos::relativeMove(unsigned char member, int degree,bool waitEnabled) 
 {
-    unsigned char position = this->getPosition(member) + degree;
+    int position = this->getPosition(member) + degree;
     this->move(member,position,waitEnabled);
 }
 
@@ -152,9 +152,9 @@ void Hackberry_servos::relativeMove(unsigned char member, unsigned char degree,b
  * @param degree number of rotation degree  (between 0 and 180°)
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::relativeOpen(unsigned char member, unsigned char degree,bool waitEnabled) 
+void Hackberry_servos::relativeOpen(unsigned char member, int degree,bool waitEnabled) 
 {
-    unsigned char openDegree =  (this->_selectedHand == RIGHT_HAND) ? degree:-degree;
+    signed char openDegree =  (this->_selectedHand == RIGHT_HAND) ? degree:-degree;
     this->relativeMove(member,openDegree,waitEnabled);
 }
 
@@ -165,9 +165,9 @@ void Hackberry_servos::relativeOpen(unsigned char member, unsigned char degree,b
  * @param degree number of rotation degree (between 0 and 180°)
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::relativeClose(unsigned char member, unsigned char degree,bool waitEnabled) 
+void Hackberry_servos::relativeClose(unsigned char member, int degree,bool waitEnabled) 
 {
-    unsigned char closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
+    signed char closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
     this->relativeMove(member,closeDegree,waitEnabled);
 }
 
@@ -485,7 +485,7 @@ unsigned char Hackberry_servos::framePosition(unsigned char value, unsigned char
  * @param position Desired position for the member
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::forceMove(unsigned char member, unsigned char position) {
+void Hackberry_servos::forceMove(unsigned char member, int position) {
     unsigned char finalPosition = constrain(position, 0, 180);
     this->moveServo(member, finalPosition,false);
 }
@@ -497,9 +497,9 @@ void Hackberry_servos::forceMove(unsigned char member, unsigned char position) {
  * @param degree number of rotation degree (between -180 and 180°)
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::forceRelativeMove(unsigned char member, unsigned char degree) 
+void Hackberry_servos::forceRelativeMove(unsigned char member, int degree) 
 {
-    unsigned char position = this->getPosition(member) + degree;
+    int position = this->getPosition(member) + degree;
     this->forceMove(member,position);
 }
 
@@ -510,9 +510,9 @@ void Hackberry_servos::forceRelativeMove(unsigned char member, unsigned char deg
  * @param degree number of rotation degree  (between 0 and 180°)
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::forceRelativeOpen(unsigned char member, unsigned char degree) 
+void Hackberry_servos::forceRelativeOpen(unsigned char member, int degree) 
 {
-    unsigned char openDegree =  (this->_selectedHand == RIGHT_HAND) ? degree:-degree;
+    int openDegree =  (this->_selectedHand == RIGHT_HAND) ? degree:-degree;
     this->forceRelativeMove(member,openDegree);
 }
 
@@ -523,8 +523,8 @@ void Hackberry_servos::forceRelativeOpen(unsigned char member, unsigned char deg
  * @param degree number of rotation degree (between 0 and 180°)
  * @param waitEnabled true : wait the end of the move to do another action
  */
-void Hackberry_servos::forceRelativeClose(unsigned char member, unsigned char degree) 
+void Hackberry_servos::forceRelativeClose(unsigned char member, int degree) 
 {
-    unsigned char closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
+    int closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
     this->forceRelativeMove(member,closeDegree);
 }
