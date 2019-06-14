@@ -46,12 +46,12 @@ void Routine_calibration_sensor::execute()
 
 /**
  * Stop the calibration after the delay programmed 
- * @param delayBeforeStop delay(in seconds) of activity time authorized
+ * @param delayBeforeStop_ms delay(in milliseconds) of activity time authorized
  */
-void Routine_calibration_sensor::checkCalibrationEnd(unsigned long delayBeforeStop)
+void Routine_calibration_sensor::checkCalibrationEnd(unsigned long delayBeforeStop_ms)
 {
     
-    if ((millis() - this->hand->getSensorCalibrationTime()) >= delayBeforeStop * 1000)
+    if ((millis() - this->hand->getSensorCalibrationTime()) >= delayBeforeStop_ms)
     {
         this->hand->stopSensorCalibration();
         this->endCalibration();

@@ -22,7 +22,6 @@
 #include "drivers/hackberry_hand.h"
 #include "routines/routineHandler.h"
 
-
 // class
 class Hackberry
 {
@@ -31,6 +30,8 @@ class Hackberry
 
         void init();
         void init(bool selectedHand, int sensorType);
+
+        // Hand general settings 
         void setHand(bool selectedHand);
         void setSensorType(int sensorType);
 
@@ -38,6 +39,9 @@ class Hackberry
         RoutineHandler routine;
         
     private:      
+        // initialize specific components depending on mapping version or extension board
+        void initSpecificDrivers();
+        void initExtension();
 };
 
 

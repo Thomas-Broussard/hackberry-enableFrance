@@ -31,8 +31,9 @@
 class Hackberry_bluetooth{
 
     public: 
-        Hackberry_bluetooth(unsigned char pinRx, unsigned char pinTx, unsigned char pinPower);
-        void init();
+        Hackberry_bluetooth();
+
+        void init(unsigned char pinRx = UNDEFINED, unsigned char pinTx = UNDEFINED, unsigned char pinPower = UNDEFINED);
 
         void start();
         void stop();

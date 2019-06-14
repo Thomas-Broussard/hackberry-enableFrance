@@ -30,6 +30,9 @@
 #define MIN_ADC 0
 #define MAX_ADC 1023
 
+// General 
+#define UNDEFINED -1
+
 // ---------------------------------------------------
 // Constants for servomotor
 // ---------------------------------------------------

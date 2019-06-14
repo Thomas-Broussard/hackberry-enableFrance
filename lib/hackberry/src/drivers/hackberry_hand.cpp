@@ -1,3 +1,4 @@
+
 /* 
  *  =============================================================================================================================================
  *  Project : Hackberry e-Nable France
@@ -17,12 +18,18 @@
  * Constructor : map all the IOs to drivers
  */
 Hackberry_hand::Hackberry_hand() : 
-    buttons(PIN_BUTTON_CALIB , PIN_BUTTON_EXTRA , PIN_BUTTON_THUMB , PIN_BUTTON_LOCK),
-    servos(PIN_INDEX , PIN_THUMB , PIN_FINGERS),
-    sensor(PIN_SENSOR_1 , PIN_SENSOR_2),
-    battery(PIN_BATTERY),
-    bluetooth(PIN_RX , PIN_TX , PIN_POWER),
-    eeprom()
+
+    // Main Drivers
+    buttons(),
+    servos(),
+    sensor(),
+    eeprom(),
+
+    // Specific Drivers
+    battery(),
+
+    // Extension board Drivers
+    bluetooth()
 {}
 
 /**
@@ -32,11 +39,10 @@ Hackberry_hand::Hackberry_hand() :
  */
 void Hackberry_hand::init()
 {
-    // Drivers
-    this->servos.init();
-    this->buttons.init();
-    this->sensor.init();
-    this->bluetooth.init();
+    // Initialize main drivers
+    this->servos.init(PIN_INDEX , PIN_THUMB , PIN_FINGERS);
+    this->buttons.init(PIN_BUTTON_CALIB , PIN_BUTTON_EXTRA , PIN_BUTTON_THUMB , PIN_BUTTON_LOCK);
+    this->sensor.init(PIN_SENSOR_1);
 }
 
 // Get Mode

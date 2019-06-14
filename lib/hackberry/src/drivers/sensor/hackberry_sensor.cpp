@@ -18,27 +18,19 @@
  * Constructor
  * 
  */
-Hackberry_sensor::Hackberry_sensor(unsigned char pin)
+
+Hackberry_sensor::Hackberry_sensor()
 {
-    this->pin1 = pin;
+
 }
 
-Hackberry_sensor::Hackberry_sensor(unsigned char pin1, unsigned char pin2)
-{
-    this->pin1 = pin1;
-    this->pin2 = pin2;
-}
 
-Hackberry_sensor::Hackberry_sensor(unsigned char pin1, unsigned char pin2, unsigned char pin3)
+void Hackberry_sensor::init(unsigned char pin1, unsigned char pin2, unsigned char pin3)
 {
     this->pin1 = pin1;
     this->pin2 = pin2;
     this->pin3 = pin3;
-}
 
-
-void Hackberry_sensor::init()
-{
     this->setSensorType(DEFAULT_SENSOR);
 }
 

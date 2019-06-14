@@ -350,11 +350,11 @@ void Routine_bluetooth::sensorInstruction(int command, String message)
  */
 String ParseString(String data, char separator, int index)
 {
-  int found = 0;
-  int strIndex[] = {0, -1};
-  int maxIndex = data.length()-1;
+  unsigned char found = 0;
+  signed char strIndex[] = {0, -1};
+  unsigned char maxIndex = data.length()-1;
 
-  for(int i=0; i<=maxIndex && found<=index; i++){
+  for(unsigned char i=0; i<=maxIndex && found<=index; i++){
     if(data.charAt(i)==separator || i==maxIndex){
         found++;
         strIndex[0] = strIndex[1]+1;
@@ -374,7 +374,7 @@ String ParseString(String data, char separator, int index)
  * 
  * @return parsed String required ( or "" if not found)
  */
-String getParam(String message, int index)
+String getParam(String message, unsigned char index)
 {
     return ParseString(message, PARSECHAR , index);
 }
@@ -388,7 +388,7 @@ String getParam(String message, int index)
  * 
  * @return true if the parameter exist ; false otherwise
  */
-bool paramExist(String message, int index)
+bool paramExist(String message, unsigned char index)
 {
     return (getParam(message,index) == "") ? false:true;  
 }

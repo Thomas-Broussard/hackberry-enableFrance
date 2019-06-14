@@ -16,22 +16,22 @@
 
 
 /**
- * Constructor of the Servomotor class
- * @param hackberry current Hackberry Hand object in use
+ * Constructor of the Servomotor Driver
  */
-Hackberry_servos::Hackberry_servos(unsigned char indexPin, unsigned char thumbPin, unsigned char fingersPin) {
-    _pinServoIndex  = indexPin;
-    _pinServoThumb  = thumbPin;
-    _pinServoFingers = fingersPin;
-}
+Hackberry_servos::Hackberry_servos()
+{}
+
 
 
 /**
- * Servomotor initialization
- * 
- * @param selectedHand Direction of the hand (RIGHT_HAND or LEFT_HAND)
+ * Initialize the Servomotor driver
  */
-void Hackberry_servos::init() {
+void Hackberry_servos::init(unsigned char indexPin, unsigned char thumbPin, unsigned char fingersPin)
+{
+    this->_pinServoIndex  = indexPin;
+    this->_pinServoThumb  = thumbPin;
+    this->_pinServoFingers = fingersPin;
+    
     // pins initialization
     pinMode(this->_pinServoIndex, OUTPUT);
     pinMode(this->_pinServoThumb, OUTPUT);

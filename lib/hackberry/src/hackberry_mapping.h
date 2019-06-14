@@ -48,13 +48,13 @@
     #define PIN_BUTTON_LOCK     10
 
     // Battery
-    #define PIN_BATTERY         UNDEFINED
+    //#define PIN_BATTERY         UNDEFINED
 
 
     // Bluetooth / Communication
-    #define PIN_RX              UNDEFINED
-    #define PIN_TX              UNDEFINED
-    #define PIN_POWER           UNDEFINED
+    //#define PIN_RX              UNDEFINED
+    //#define PIN_TX              UNDEFINED
+    //#define PIN_POWER           UNDEFINED
 #endif
 
 #ifdef MAPPING_MK3

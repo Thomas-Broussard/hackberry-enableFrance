@@ -16,24 +16,26 @@
 
 /**
  * Constructor of the Bluetooth module driver
+ */
+
+Hackberry_bluetooth::Hackberry_bluetooth()
+{
+}
+
+/**
+ * Initialize the Bluetooth module driver
  * 
  * @param pinRX digital input - hackberry RX pin (= bluetooth TX pin)
  * @param pinRX digital output - hackberry TX pin (= bluetooth RX pin)
  * @param pinPower digital output - used to power ON/OFF the bluetooth module
  */
-Hackberry_bluetooth::Hackberry_bluetooth(unsigned char pinRx, unsigned char pinTx, unsigned char pinPower)
+
+void Hackberry_bluetooth::init(unsigned char pinRx, unsigned char pinTx, unsigned char pinPower)
 {
     this->_pinRx = pinRx;
     this->_pinTx = pinTx;
     this->_pinPower = pinPower;
-}
-
-
-/**
- * Bluetooth initialization
- */
-void Hackberry_bluetooth::init() 
-{
+    
     // pins initialization
     pinMode(this->_pinPower, OUTPUT);
 
@@ -46,7 +48,6 @@ void Hackberry_bluetooth::init()
     
     this->stop(); // module power disabled by default
 }
-
 
 /* 
  * =============================================================================================================================================

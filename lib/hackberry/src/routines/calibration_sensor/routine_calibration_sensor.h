@@ -20,7 +20,7 @@
 #include "hackberry_global.h"
 #include "drivers/hackberry_hand.h"
 
-#define CALIBRATION_TIME 10 // seconds
+#define CALIBRATION_TIME 10  * 1000// milliseconds
 
 // class
 class Routine_calibration_sensor {
@@ -37,7 +37,7 @@ class Routine_calibration_sensor {
 
         void launchCalibration();
         void endCalibration();
-        void checkCalibrationEnd(unsigned long delayBeforeStop);
+        void checkCalibrationEnd(unsigned long delayBeforeStop_ms);
 };
 
 #endif

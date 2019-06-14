@@ -48,8 +48,8 @@
 class Hackberry_servos{
 
     public: 
-    Hackberry_servos(unsigned char indexPin, unsigned char thumbPin, unsigned char fingersPin);
-    void init();
+    Hackberry_servos();
+    void init(unsigned char indexPin = UNDEFINED, unsigned char thumbPin = UNDEFINED, unsigned char fingersPin = UNDEFINED);
 
     // Hand type
     void setHand(bool selectedHand);

@@ -21,6 +21,7 @@
 
 // dependencies
 #include <Arduino.h>
+#include "hackberry_global.h"
 
 /**
  * TODO : A6 and A7 are analog inputs. Can't use DigitalRead function on them --> replace them by GPIO ?
@@ -29,9 +30,9 @@ class Hackberry_buttons{
 
 
     public: 
-    Hackberry_buttons(unsigned char pinCalib, unsigned char pinExtra,unsigned char pinThumb,unsigned char pinLock);
+    Hackberry_buttons();
 
-    void init();
+    void init(unsigned char pinCalib = UNDEFINED, unsigned char pinExtra = UNDEFINED, unsigned char pinThumb = UNDEFINED, unsigned char pinLock = UNDEFINED);
 
      // Get button state
     bool isCalibButtonPressed();

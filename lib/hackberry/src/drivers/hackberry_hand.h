@@ -45,21 +45,23 @@ class Hackberry_hand
         Hackberry_buttons   buttons;
         Hackberry_servos    servos;
         Hackberry_sensor    sensor;
-        Hackberry_battery   battery;
-        Hackberry_bluetooth bluetooth;
         Hackberry_eeprom    eeprom;
+        
+        // Specific Drivers
+        Hackberry_battery   battery;
+
+        // Components on extension boards only
+        Hackberry_bluetooth bluetooth;
 
 
         // Modes
         Hackberry_Mode getMode();
         void setMode(Hackberry_Mode mode);
 
-        bool isSensorCalibrationEnabled();
-        
-
         // Sensor Calibration mode only
         void startSensorCalibration();
         void stopSensorCalibration();
+        bool isSensorCalibrationEnabled();    
         unsigned long getSensorCalibrationTime();
 
         // Servos Calibration mode only
@@ -74,7 +76,7 @@ class Hackberry_hand
 
         // Specifics variables
         unsigned long CalibrationSensor_Time; 
-        unsigned int CalibrationServos_Step = 0;
+        unsigned char CalibrationServos_Step = 0;
 };
 
 #endif

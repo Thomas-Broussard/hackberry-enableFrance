@@ -18,25 +18,26 @@
 
 /**
  * Constructor of the Buttons driver
+ */
+Hackberry_buttons::Hackberry_buttons()
+{
+}
+
+/**
+ * Initialize the Buttons Driver
  * 
  * @param pinCalib digital input - pin of the Calibration button (located at the top left of the hand)
  * @param pinExtra digital input - pin of the Extra button (located at the center left of the hand)
  * @param pinThumb digital input - pin of the Thumb button (located at the bottom left of the hand)
  * @param pinLock digital input - pin of the Lock button (located at the right of the hand)
  */
-Hackberry_buttons::Hackberry_buttons(unsigned char pinCalib, unsigned char pinExtra, unsigned char pinThumb, unsigned char pinLock)
+void Hackberry_buttons::init(unsigned char pinCalib, unsigned char pinExtra, unsigned char pinThumb, unsigned char pinLock)
 {
     this->_pinCalib       = pinCalib;
     this->_pinExtra       = pinExtra; 
     this->_pinThumb       = pinThumb;
     this->_pinLock        = pinLock;
-}
 
-/**
- * Initialize the pins of buttons
- */
-void Hackberry_buttons::init()
-{
     pinMode(_pinCalib, INPUT_PULLUP);
     pinMode(_pinExtra, INPUT_PULLUP);
     pinMode(_pinThumb, INPUT_PULLUP);

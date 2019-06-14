@@ -45,8 +45,8 @@
 class Hackberry_battery{
 
     public: 
-        Hackberry_battery(unsigned char pinBattery);
-        void init();
+        Hackberry_battery();
+        void init(unsigned char pinBattery = UNDEFINED);
         unsigned char read();
         unsigned char readAverage();
 

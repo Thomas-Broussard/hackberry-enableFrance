@@ -31,11 +31,8 @@
 class Hackberry_sensor{
 
     public: 
-        Hackberry_sensor(unsigned char pin);
-        Hackberry_sensor(unsigned char pin1, unsigned char pin2);
-        Hackberry_sensor(unsigned char pin1, unsigned char pin2, unsigned char pin3);
-
-        void init();
+        Hackberry_sensor();
+        void init(unsigned char pin1 = UNDEFINED, unsigned char pin2 = UNDEFINED, unsigned char pin3 = UNDEFINED);
 
         // reading sensor output
         int read();

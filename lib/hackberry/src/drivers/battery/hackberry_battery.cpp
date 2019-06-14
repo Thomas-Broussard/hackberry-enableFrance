@@ -16,16 +16,20 @@
 
 /**
  * Constructor of the Battery driver
+ */
+Hackberry_battery::Hackberry_battery()
+{
+    
+}
+
+/**
+ * Initialize the Battery driver
  * 
  * @param pinBattery analog input - pin of the battery monitoring system
  */
-Hackberry_battery::Hackberry_battery(unsigned char pinBattery)
-{
-    this->_pinBattery = pinBattery;
-}
-
-void Hackberry_battery::init()
+void Hackberry_battery::init(unsigned char pinBattery)
 { 
+    this->_pinBattery = pinBattery;
     pinMode(this->_pinBattery, INPUT);
 }
 
