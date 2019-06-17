@@ -19,7 +19,7 @@
     <br />
     <a href="https://github.com/Thomas-Broussard/hackberry-enableFrance/wiki"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="https://github.com/Thomas-Broussard/hackberry-enableFrance/releases"><strong>Get the latest release »</strong></a>
+    <a href="https://github.com/Thomas-Broussard/hackberry-enableFrance/releases/latest"><strong>Get the latest release »</strong></a>
     <br />
     <br />
     <a href="https://www.youtube.com/watch?v=6Jfwinhh8ZM">View Demo</a>
