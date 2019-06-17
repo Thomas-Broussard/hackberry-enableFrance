@@ -74,7 +74,7 @@ class HC06 : public IBluetoothAT
 
         bool setName(String name)
         {
-            if (name > 20) return false;
+            if (name.length() > 20) return false;
             this->BT->send("AT+NAME" + name);
             return true;
         }
@@ -82,10 +82,10 @@ class HC06 : public IBluetoothAT
         bool setPassword(String password)
         {
             // check if password is well-formed or not
-            int passLength = 4;
+            unsigned int passLength = 4;
             String correctPassword = "";
             if (password.length() != passLength) return false;
-            for (int i = 0; i < passLength; i++)
+            for (unsigned int i = 0; i < passLength; i++)
             {
                 if (password.charAt(i) < '1' || password.charAt(i) > '9') return false;
                 correctPassword += password.charAt(i);
@@ -141,10 +141,10 @@ class HM11 : public IBluetoothAT
         bool setPassword(String password)
         {
             // check if password is well-formed or not
-            int passLength = 6;
+            unsigned int passLength = 6;
             String correctPassword = "";
             if (password.length() != passLength) return false;
-            for (int i = 0; i < passLength; i++)
+            for (unsigned int i = 0; i < passLength; i++)
             {
                 if (password.charAt(i) < '1' || password.charAt(i) > '9') return false;
                 correctPassword += password.charAt(i);

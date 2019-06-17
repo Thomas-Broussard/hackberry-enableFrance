@@ -25,6 +25,9 @@ Hackberry_servos::Hackberry_servos()
 
 /**
  * Initialize the Servomotor driver
+ * @param indexPin Digital Output - Pin of Index servomotor
+ * @param thumbPin Digital Output - Pin of Thumb servomotor
+ * @param fingersPin Digital Output - Pin of Fingers servomotor
  */
 void Hackberry_servos::init(unsigned char indexPin, unsigned char thumbPin, unsigned char fingersPin)
 {

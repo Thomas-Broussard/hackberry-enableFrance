@@ -33,126 +33,54 @@ Hackberry_buttons::Hackberry_buttons()
  */
 void Hackberry_buttons::init(unsigned char pinCalib, unsigned char pinExtra, unsigned char pinThumb, unsigned char pinLock)
 {
-    this->_pinCalib       = pinCalib;
-    this->_pinExtra       = pinExtra; 
-    this->_pinThumb       = pinThumb;
-    this->_pinLock        = pinLock;
+    this->_pins[BUTTON_CALIB] = pinCalib;
+    this->_pins[BUTTON_EXTRA] = pinExtra; 
+    this->_pins[BUTTON_THUMB] = pinThumb;
+    this->_pins[BUTTON_LOCK]  = pinLock;
 
-    pinMode(_pinCalib, INPUT_PULLUP);
-    pinMode(_pinExtra, INPUT_PULLUP);
-    pinMode(_pinThumb, INPUT_PULLUP);
-    pinMode(_pinLock , INPUT_PULLUP);
+    for(int pin: _pins)
+    {
+        pinMode(pin, INPUT_PULLUP);
+    }
 }
 
+
 /**
- * Get the current state of the Calib button
+ * Get the current state of the button
  * 
  * @return true : button pressed / false : button released 
  */
-bool Hackberry_buttons::isCalibButtonPressed(){
-    bool isPressed = this->isButtonPressed(this->_pinCalib);
+bool Hackberry_buttons::isPressed(int index){
+    bool isPressed = this->isButtonPressed(this->_pins[index]);
 
-    if (this->_isCalibPressed != isPressed)
+    if (this->_isPressed[index] != isPressed)
     {
-        this->_CalibPressedTime = millis();
-        this->_isCalibPressed = isPressed;
+        this->_PressedTime[index] = millis();
+        this->_isPressed[index] = isPressed;
     }
     return isPressed;  
 }
 
 /**
- * Get the current state of the Extra button
+ * Check if the button is pressed since the programmed delay
+ * 
+ * @param delay_ms programmed delay (in milliseconds)
  * 
  * @return true : button pressed / false : button released 
  */
-bool Hackberry_buttons::isExtraButtonPressed(){
-    bool isPressed = this->isButtonPressed(this->_pinExtra);
-
-    if (this->_isExtraPressed != isPressed)
+bool Hackberry_buttons::isPressedFor(int index,unsigned long delay_ms)
+{
+    bool isPressed = this->isButtonPressed(this->_pins[index]);
+    // Check if button is pressed or not 
+    if (!isPressed)
     {
-        this->_ExtraPressedTime = millis();
-        this->_isExtraPressed = isPressed;
+        this->_PressedTime[index] = millis();
+        return false;
     }
-    return isPressed; 
-}
-
-/**
- * Get the current state of the Thumb button
- * 
- * @return true : button pressed / false : button released 
- */
-bool Hackberry_buttons::isThumbButtonPressed(){
-    bool isPressed = this->isButtonPressed(this->_pinThumb);
-    if (this->_isThumbPressed != isPressed)
+    else
     {
-        this->_ThumbPressedTime = millis();
-        this->_isThumbPressed = isPressed;
-    }
-    return isPressed; 
-}
-
-/**
- * Get the current state of the Lock button
- * 
- * @return true : button pressed / false : button released 
- */
-bool Hackberry_buttons::isLockButtonPressed(){
-    bool isPressed = this->isButtonPressed(this->_pinLock);
-
-    if (this->_isLockPressed != isPressed)
-    {
-        this->_LockPressedTime = millis();
-        this->_isLockPressed = isPressed;
-    }
-    return isPressed; 
-}
-
-/**
- * Check if the Calib button is pressed since the programmed delay
- * 
- * @param delay_ms programmed delay (in milliseconds)
- * 
- * @return true : button pressed / false : button released 
- */
-bool Hackberry_buttons::isCalibButtonPressedFor(unsigned long delay_ms)
-{
-    return this->isButtonPressedFor(this->_pinCalib,&this->_CalibPressedTime,delay_ms);  
-}
-
-/**
- * Check if the Extra button is pressed since the programmed delay
- * 
- * @param delay_ms programmed delay (in milliseconds)
- * 
- * @return true : button pressed / false : button released 
- */
-bool Hackberry_buttons::isExtraButtonPressedFor(unsigned long delay_ms)
-{
-    return this->isButtonPressedFor(this->_pinExtra,&this->_ExtraPressedTime,delay_ms);
-}
-
-/**
- * Check if the Thumb button is pressed since the programmed delay
- * 
- * @param delay_ms programmed delay (in milliseconds)
- * 
- * @return true : button pressed / false : button released 
- */
-bool Hackberry_buttons::isThumbButtonPressedFor(unsigned long delay_ms)
-{
-    return this->isButtonPressedFor(this->_pinThumb,&this->_ThumbPressedTime,delay_ms);
-}
-
-/**
- * Check if the Lock button is pressed since the programmed delay
- * 
- * @param delay_ms programmed delay (in milliseconds)
- * 
- * @return true : button pressed / false : button released 
- */
-bool Hackberry_buttons::isLockButtonPressedFor(unsigned long delay_ms)
-{
-    return this->isButtonPressedFor(this->_pinLock,&this->_LockPressedTime,delay_ms);
+        return ((millis() - this->_PressedTime[index] ) >= delay_ms);
+    }  
 }
 
 
@@ -173,19 +101,4 @@ bool Hackberry_buttons::isButtonPressed(unsigned char pin){
     {
         return digitalRead(pin) == DIGITALBUTTON_PRESSED ? true:false ;
     }
-}
-
-bool Hackberry_buttons::isButtonPressedFor(unsigned char pin, unsigned long *pressedTime, unsigned long delay_ms)
-{
-    bool isPressed = this->isButtonPressed(pin);
-    // Check if button is pressed or not 
-    if (!isPressed)
-    {
-        *pressedTime = millis();
-        return false;
-    }
-    else
-    {
-        return ((millis() - *pressedTime ) >= delay_ms);
-    }  
 }

@@ -113,11 +113,11 @@ void Routine_calibration_servos::calibration()
         // STEP 1 :THUMB CALIBRATION
         case THUMB_CLOSE :
         case THUMB_OPEN :
-            if (this->hand->buttons.isCalibButtonPressed())
+            if (this->hand->buttons.isPressed(BUTTON_CALIB))
             {
                 this->hand->servos.forceRelativeClose(THUMB,STEP);
             }
-            else if (this->hand->buttons.isThumbButtonPressed())
+            else if (this->hand->buttons.isPressed(BUTTON_THUMB))
             {
                 this->hand->servos.forceRelativeOpen(THUMB,STEP);
             }
@@ -126,11 +126,11 @@ void Routine_calibration_servos::calibration()
         // STEP 2 :INDEX CALIBRATION
         case INDEX_CLOSE :
         case INDEX_OPEN :
-            if (this->hand->buttons.isCalibButtonPressed())
+            if (this->hand->buttons.isPressed(BUTTON_CALIB))
             {
                 this->hand->servos.forceRelativeClose(INDEX,STEP);
             }
-            else if (this->hand->buttons.isThumbButtonPressed())
+            else if (this->hand->buttons.isPressed(BUTTON_THUMB))
             {
                 this->hand->servos.forceRelativeOpen(INDEX,STEP);
             }
@@ -139,11 +139,11 @@ void Routine_calibration_servos::calibration()
         // STEP 3 :FINGERS CALIBRATION
         case FINGERS_CLOSE :
         case FINGERS_OPEN :
-            if (this->hand->buttons.isCalibButtonPressed())
+            if (this->hand->buttons.isPressed(BUTTON_CALIB))
             {
                 this->hand->servos.forceRelativeClose(FINGERS,STEP);
             }
-            else if (this->hand->buttons.isThumbButtonPressed())
+            else if (this->hand->buttons.isPressed(BUTTON_THUMB))
             {
                 this->hand->servos.forceRelativeOpen(FINGERS,STEP);
             }

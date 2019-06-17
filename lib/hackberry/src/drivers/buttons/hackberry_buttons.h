@@ -23,6 +23,8 @@
 #include <Arduino.h>
 #include "hackberry_global.h"
 
+#define NB_BUTTONS 4 // Number of buttons on Hackberry hand
+
 /**
  * TODO : A6 and A7 are analog inputs. Can't use DigitalRead function on them --> replace them by GPIO ?
  */
@@ -34,37 +36,18 @@ class Hackberry_buttons{
 
     void init(unsigned char pinCalib = UNDEFINED, unsigned char pinExtra = UNDEFINED, unsigned char pinThumb = UNDEFINED, unsigned char pinLock = UNDEFINED);
 
-     // Get button state
-    bool isCalibButtonPressed();
-    bool isExtraButtonPressed();
-    bool isThumbButtonPressed();
-    bool isLockButtonPressed();
-
-    bool isCalibButtonPressedFor(unsigned long delay_ms);
-    bool isExtraButtonPressedFor(unsigned long delay_ms);
-    bool isThumbButtonPressedFor(unsigned long delay_ms);
-    bool isLockButtonPressedFor(unsigned long delay_ms);
+    bool isPressed(int index);
+    bool isPressedFor(int index, unsigned long delay_ms);
 
     private:
 
     // Wiring pins
-    unsigned char _pinCalib;       // Start hand calibration
-    unsigned char _pinExtra;       // Reverse the direction of rotation of the fingers
-    unsigned char _pinThumb;       // Thumb opening / closing
-    unsigned char _pinLock;        // lock / unlock the fingers
+    unsigned char _pins[NB_BUTTONS];        // button pins
+    bool _isPressed[NB_BUTTONS];            // states of the button
+    unsigned long _PressedTime[NB_BUTTONS]; // durations of the buttons press
 
-    bool _isCalibPressed = false;
-    bool _isExtraPressed = false;
-    bool _isThumbPressed = false;
-    bool _isLockPressed = false;
-
-    unsigned long _CalibPressedTime = 0;
-    unsigned long _ExtraPressedTime = 0;
-    unsigned long _ThumbPressedTime = 0;
-    unsigned long _LockPressedTime = 0;
 
     bool isButtonPressed(unsigned char pin); 
-    bool isButtonPressedFor(unsigned char pin, unsigned long *pressTime, unsigned long delay_ms);
 };
 
 

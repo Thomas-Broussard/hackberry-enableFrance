@@ -35,6 +35,13 @@
 #define TYPE_IR_SENSOR 0
 #define TYPE_EMG_SENSOR 1
 
+// Buttons
+#define BUTTON_CALIB 0
+#define BUTTON_EXTRA 1
+#define BUTTON_THUMB 2
+#define BUTTON_LOCK  3 
+
+
 // Range of the microcontroller's ADC 
 #define MIN_ADC 0
 #define MAX_ADC 1023

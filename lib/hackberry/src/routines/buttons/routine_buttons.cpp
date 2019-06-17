@@ -25,13 +25,13 @@ void Routine_buttons::init(Hackberry_hand *hand)
 
 void Routine_buttons::execute()
 {
-    if (this->hand->buttons.isCalibButtonPressed())
+    if (this->hand->buttons.isPressed(BUTTON_CALIB))
     {
         if (this->isDebounced(&this->lastCalibDebounce, DEBOUNCE_DELAY))
         {
             this->actionCalib();
         }
-        if(this->hand->buttons.isCalibButtonPressedFor(LONG_BUTTON_PRESS))
+        if(this->hand->buttons.isPressedFor(BUTTON_CALIB , LONG_BUTTON_PRESS))
         {
             if (this->isDebounced(&this->lastLongCalibDebounce, LONG_DEBOUNCE_DELAY))
             {
@@ -40,13 +40,13 @@ void Routine_buttons::execute()
         }
     }
 
-    else if (this->hand->buttons.isExtraButtonPressed())
+    else if (this->hand->buttons.isPressed(BUTTON_EXTRA))
     {
         if (this->isDebounced(&this->lastExtraDebounce, DEBOUNCE_DELAY))
         {
             this->actionExtra();
         }
-        if(this->hand->buttons.isExtraButtonPressedFor(LONG_BUTTON_PRESS))
+        if(this->hand->buttons.isPressedFor(BUTTON_EXTRA, LONG_BUTTON_PRESS))
         {
             if (this->isDebounced(&this->lastLongExtraDebounce, LONG_DEBOUNCE_DELAY))
             {
@@ -55,13 +55,13 @@ void Routine_buttons::execute()
         }
     }
 
-    else if (this->hand->buttons.isThumbButtonPressed())
+    else if (this->hand->buttons.isPressed(BUTTON_THUMB))
     {
         if (this->isDebounced(&this->lastThumbDebounce, DEBOUNCE_DELAY))
         {
             this->actionThumb();
         }
-        if(this->hand->buttons.isThumbButtonPressedFor(LONG_BUTTON_PRESS))
+        if(this->hand->buttons.isPressedFor(BUTTON_THUMB , LONG_BUTTON_PRESS))
         {
             if (this->isDebounced(&this->lastLongThumbDebounce, LONG_DEBOUNCE_DELAY))
             {
@@ -70,13 +70,13 @@ void Routine_buttons::execute()
         }
     }
 
-    else if (this->hand->buttons.isLockButtonPressed())
+    else if (this->hand->buttons.isPressed(BUTTON_LOCK))
     {
         if (this->isDebounced(&this->lastLockDebounce, DEBOUNCE_DELAY))
         {
             this->actionLock();
         }
-        if(this->hand->buttons.isLockButtonPressedFor(LONG_BUTTON_PRESS))
+        if(this->hand->buttons.isPressedFor(BUTTON_LOCK, LONG_BUTTON_PRESS))
         {
             if (this->isDebounced(&this->lastLongLockDebounce, LONG_DEBOUNCE_DELAY))
             {
