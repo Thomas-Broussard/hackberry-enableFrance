@@ -41,7 +41,7 @@ class IBluetoothAT
          * Set the bluetooth module name
          * @param name Name to apply
          */
-        virtual void setName(String name);
+        virtual bool setName(String name);
 
         /**
          * Set the password of the bluetooth module
@@ -55,7 +55,7 @@ class IBluetoothAT
          * 
          * @param baudrate speed to apply
          */
-        virtual void setBaud(unsigned long baudrate);
+        virtual bool setBaud(unsigned long baudrate);
 
     protected: 
         BluetoothData *BT;
@@ -72,16 +72,20 @@ class HC06 : public IBluetoothAT
     public:
         HC06(BluetoothData *BT) : IBluetoothAT(BT) { }
 
-        void setName(String name)
+        bool setName(String name)
         {
+            if (name > 20) return false;
             this->BT->send("AT+NAME" + name);
+            return true;
         }
 
         bool setPassword(String password)
         {
             // check if password is well-formed or not
+            int passLength = 4;
             String correctPassword = "";
-            for (int i = 0; i < 4; i++)
+            if (password.length() != passLength) return false;
+            for (int i = 0; i < passLength; i++)
             {
                 if (password.charAt(i) < '1' || password.charAt(i) > '9') return false;
                 correctPassword += password.charAt(i);
@@ -93,8 +97,9 @@ class HC06 : public IBluetoothAT
             return true;
         }
 
-        void setBaud(unsigned long baudrate)
+        bool setBaud(unsigned long baudrate)
         {
+            bool result = true;
             switch(baudrate)
             {
                 case 1200   : this->BT->send("AT+BAUD1"); break;
@@ -109,11 +114,67 @@ class HC06 : public IBluetoothAT
                 case 470800 : this->BT->send("AT+BAUDA"); break;
                 case 921600 : this->BT->send("AT+BAUDB"); break;
                 case 1382400: this->BT->send("AT+BAUDC"); break;
-                default : break;
+                default : result = false; break;
             }
+            return result;
         }
 };
 
+
+/* 
+ * =============================================================================================================================================
+ *                                                      HC06 / HC05
+ * =============================================================================================================================================
+ */
+class HM11 : public IBluetoothAT
+{
+    public:
+        HM11(BluetoothData *BT) : IBluetoothAT(BT) { }
+
+        bool setName(String name)
+        {
+            if(name.length() > 12) return false;
+            this->BT->send("AT+NAME" + name);
+            return true;
+        }
+
+        bool setPassword(String password)
+        {
+            // check if password is well-formed or not
+            int passLength = 6;
+            String correctPassword = "";
+            if (password.length() != passLength) return false;
+            for (int i = 0; i < passLength; i++)
+            {
+                if (password.charAt(i) < '1' || password.charAt(i) > '9') return false;
+                correctPassword += password.charAt(i);
+            }
+
+            // set new password
+            this->BT->send("AT+PIN" + correctPassword);
+            
+            return true;
+        }
+
+        bool setBaud(unsigned long baudrate)
+        {
+            bool result = true;
+            switch(baudrate)
+            {
+                case 1200   : this->BT->send("AT+BAUD7"); break;
+                case 2400   : this->BT->send("AT+BAUD6"); break;
+                case 4800   : this->BT->send("AT+BAUD5"); break;
+                case 9600   : this->BT->send("AT+BAUD0"); break;
+                case 19200  : this->BT->send("AT+BAUD1"); break;
+                case 38400  : this->BT->send("AT+BAUD2"); break;
+                case 57600  : this->BT->send("AT+BAUD3"); break;
+                case 115200 : this->BT->send("AT+BAUD4"); break;
+                case 230400 : this->BT->send("AT+BAUD8"); break;
+                default : result = false; break;
+            }
+            return result;
+        }
+};
 
 /* 
  * =============================================================================================================================================
