@@ -12,7 +12,7 @@
  *  https://github.com/mission-arm/HACKberry
  * =============================================================================================================================================
  */
-#include "Hackberry_bluetooth.h"
+#include "hackberry_bluetooth.h"
 
 /**
  * Constructor of the Bluetooth module driver
