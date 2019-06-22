@@ -193,6 +193,7 @@ See [Hackberry Original Project License](https://github.com/mission-arm/HACKberr
 * [e-Nable France](https://e-nable.fr/)
 * [Genta Kondo (Author of Hackberry Project)](https://github.com/mission-arm/HACKberry)
 * [Exiii](https://exiii.jp/)
+* Joël Liénard (author of the ServoCC library)
 
 ### Open Source License Acknowledgements
 * [Best README Template by othneildrew](https://github.com/othneildrew/Best-README-Template)
