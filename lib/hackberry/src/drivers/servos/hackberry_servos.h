@@ -19,7 +19,9 @@
 // Dependencies
 #include <Arduino.h>
 #include "hackberry_global.h"
-#include "dependencies/VarSpeedServo.h"
+
+//#include "dependencies/VarSpeedServo.h"
+#include "dependencies/ServoCC.h"
 
 // Members
 #ifndef THUMB
@@ -61,11 +63,11 @@ class Hackberry_servos{
     unsigned char getSpeed();
 
     // moving fingers
-    void move(unsigned char member, int position, bool waitEnabled);
+    void move(unsigned char member, int position);
     
-    void relativeMove(unsigned char member, int degree, bool waitEnabled);
-    void relativeOpen(unsigned char member, int degree, bool waitEnabled);
-    void relativeClose(unsigned char member, int degree, bool waitEnabled);
+    void relativeMove(unsigned char member, int degree);
+    void relativeOpen(unsigned char member, int degree);
+    void relativeClose(unsigned char member, int degree);
     
     void open(unsigned char member);
     void close(unsigned char member);
@@ -95,9 +97,14 @@ class Hackberry_servos{
     unsigned char _pinServoFingers;
 
     // Servomotors
+    /*
     VarSpeedServo  servoIndex;  
     VarSpeedServo  servoThumb;  
     VarSpeedServo  servoFingers; 
+     */
+    ServoCC servoIndex;  
+    ServoCC servoThumb;  
+    ServoCC servoFingers; 
 
     // Selected hand (right or left)
     bool _selectedHand = RIGHT_HAND;
@@ -115,7 +122,6 @@ class Hackberry_servos{
 
     // servomotor move
     void moveServo(unsigned char member, unsigned char wantedPosition);
-    void moveServo(unsigned char member, unsigned char wantedPosition, bool waitEnabled);
     
     // utils
     unsigned char framePosition(unsigned char value, unsigned char lim1, unsigned char lim2);

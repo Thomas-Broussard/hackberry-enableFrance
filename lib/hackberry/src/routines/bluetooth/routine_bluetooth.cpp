@@ -186,7 +186,7 @@ void Routine_bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 degree += getParam(message,2).toInt();
-                this->hand->servos.relativeMove(targetMember,degree, true);
+                this->hand->servos.relativeMove(targetMember,degree);
             }
         break;
 
@@ -196,7 +196,7 @@ void Routine_bluetooth::servoInstruction(int command, String message)
                 targetMember = getParam(message,1).toInt();
                 degree -= getParam(message,2).toInt();
 
-                this->hand->servos.relativeMove(targetMember,degree, true);
+                this->hand->servos.relativeMove(targetMember,degree);
             }
         break;
 

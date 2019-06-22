@@ -115,8 +115,8 @@ void Routine_buttons::longActionCalib()
     {
         case Standard :
             DebugPrintln(F("Start Sensor Calib"));
-            this->hand->servos.move(INDEX,0,true);
-            this->hand->servos.move(INDEX,180,true);
+            this->hand->servos.move(INDEX,0);
+            this->hand->servos.move(INDEX,180);
             this->hand->startSensorCalibration();
         break;
 
@@ -156,15 +156,15 @@ void Routine_buttons::longActionExtra()
     {
         case Standard :
             DebugPrintln(F("Start Servos Calib"));
-            this->hand->servos.move(FINGERS,0,true);
-            this->hand->servos.move(FINGERS,180,true);
+            this->hand->servos.move(FINGERS,0);
+            this->hand->servos.move(FINGERS,180);
             this->hand->startServosCalibration();
         break;
 
         default:break;
     }
 }
-
+ 
 
 /**
  * Action executed when Thumb button is pressed

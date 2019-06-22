@@ -33,14 +33,14 @@ void Routine_moves::execute()
     // Open hand
     if (sensorValue < OPEN_THRESHOLD)
     {
-        this->hand->servos.relativeOpen(FINGERS,STEP_MOVE_DEGREE,false);
-        this->hand->servos.relativeOpen(INDEX,STEP_MOVE_DEGREE,false);
+        this->hand->servos.relativeOpen(FINGERS,STEP_MOVE_DEGREE);
+        this->hand->servos.relativeOpen(INDEX,STEP_MOVE_DEGREE);
     }
     // Close Hand
     else if (sensorValue > CLOSE_THRESHOLD)
     {
-        this->hand->servos.relativeClose(FINGERS,STEP_MOVE_DEGREE,false);
-        this->hand->servos.relativeClose(INDEX,STEP_MOVE_DEGREE,false);
+        this->hand->servos.relativeClose(FINGERS,STEP_MOVE_DEGREE);
+        this->hand->servos.relativeClose(INDEX,STEP_MOVE_DEGREE);
     }
 
     
