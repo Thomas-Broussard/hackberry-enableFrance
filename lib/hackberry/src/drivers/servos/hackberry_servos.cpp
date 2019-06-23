@@ -34,6 +34,9 @@ void Hackberry_servos::init(unsigned char indexPin, unsigned char thumbPin, unsi
     this->_pinServoIndex  = indexPin;
     this->_pinServoThumb  = thumbPin;
     this->_pinServoFingers = fingersPin;
+
+    this->_pinMeasureIndex = UNDEFINED;
+    this->_pinMeasureFingers = UNDEFINED;
     
     // pins initialization
     pinMode(this->_pinServoIndex, OUTPUT);
@@ -49,7 +52,34 @@ void Hackberry_servos::init(unsigned char indexPin, unsigned char thumbPin, unsi
     this->servoFingers.attach(_pinServoFingers);
     
     // Limit positions of servomotors according to the selected hand
-    /** TODO: load parameters from the EEPROM */
+    this->setLimitPositions(THUMB,THUMB_MIN,THUMB_MAX);
+    this->setLimitPositions(INDEX,INDEX_MIN,INDEX_MAX);
+    this->setLimitPositions(FINGERS,FINGERS_MIN,FINGERS_MAX);
+}
+
+void Hackberry_servos::init(unsigned char indexPin, unsigned char thumbPin, unsigned char fingersPin, unsigned char indexMeasurePin, unsigned char fingersMeasurePin)
+{
+    this->_pinServoIndex  = indexPin;
+    this->_pinServoThumb  = thumbPin;
+    this->_pinServoFingers = fingersPin;
+
+    this->_pinMeasureIndex = indexMeasurePin;
+    this->_pinMeasureFingers = fingersMeasurePin;
+    
+    // pins initialization
+    pinMode(this->_pinServoIndex, OUTPUT);
+    pinMode(this->_pinServoThumb, OUTPUT);
+    pinMode(this->_pinServoFingers, OUTPUT);
+
+    // set default parameters
+    this->setSpeed(DEFAULT_SPEED);
+
+    // Link pins with servomotors    
+    this->servoIndex.attach(_pinServoIndex,_pinMeasureIndex);
+    this->servoThumb.attach(_pinServoThumb);
+    this->servoFingers.attach(_pinServoFingers,_pinMeasureIndex);
+    
+    // Limit positions of servomotors according to the selected hand
     this->setLimitPositions(THUMB,THUMB_MIN,THUMB_MAX);
     this->setLimitPositions(INDEX,INDEX_MIN,INDEX_MAX);
     this->setLimitPositions(FINGERS,FINGERS_MIN,FINGERS_MAX);
@@ -80,7 +110,6 @@ void Hackberry_servos::changeHand()
 {
     this->_selectedHand = (this->_selectedHand == RIGHT_HAND) ? LEFT_HAND:RIGHT_HAND; 
 }
-
 
 
 /**
@@ -434,6 +463,28 @@ void Hackberry_servos::unlockMember(unsigned char member)
 
 
 /**
+ * Get the last measure of current on the selected member
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @return current value
+ */
+int Hackberry_servos::readMeasure(unsigned char member)
+{
+    switch(member)
+    {
+        case INDEX:
+            return servoIndex.readMeasure();
+            break;
+        case FINGERS:
+            return servoFingers.readMeasure();
+            break;
+        default:break;
+    }
+    return 0;
+}
+
+
+
+/**
  * Frames an integer between a min value and a max value
  * 
  * @param value Value to frame
@@ -494,3 +545,5 @@ void Hackberry_servos::forceRelativeClose(unsigned char member, int degree)
     int closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
     this->forceRelativeMove(member,closeDegree);
 }
+
+

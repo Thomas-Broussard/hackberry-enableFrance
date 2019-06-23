@@ -50,82 +50,93 @@
 class Hackberry_servos{
 
     public: 
-    Hackberry_servos();
-    void init(unsigned char indexPin = UNDEFINED, unsigned char thumbPin = UNDEFINED, unsigned char fingersPin = UNDEFINED);
 
-    // Hand type
-    void setHand(bool selectedHand);
-    bool getHand();
-    void changeHand();
+        Hackberry_servos();
 
-    // speed
-    void setSpeed(unsigned char  speed);
-    unsigned char getSpeed();
+        void init(unsigned char indexPin, unsigned char thumbPin, unsigned char fingersPin);
+        void init(unsigned char indexPin, unsigned char thumbPin, unsigned char fingersPin, unsigned char indexMeasurePin, unsigned char fingersMeasurePin);
+        
+        // Hand type
+        void setHand(bool selectedHand);
+        bool getHand();
+        void changeHand();
 
-    // moving fingers
-    void move(unsigned char member, int position);
+        // speed
+        void setSpeed(unsigned char  speed);
+        unsigned char getSpeed();
+
+        // moving fingers
+        void move(unsigned char member, int position);
+        
+        void relativeMove(unsigned char member, int degree);
+        void relativeOpen(unsigned char member, int degree);
+        void relativeClose(unsigned char member, int degree);
+        
+        void open(unsigned char member);
+        void close(unsigned char member);
+        void openAll();
+        void closeAll();
+
+        // moving fingers (forced)
+        void forceMove(unsigned char member,  int position);
+        void forceRelativeMove(unsigned char member, int position);
+        void forceRelativeOpen(unsigned char member, int degree);
+        void forceRelativeClose(unsigned char member, int degree);
+
+        // Positions of fingers
+        void setLimitPositions(unsigned char  member, unsigned char limit1, unsigned char limit2);
+
+        unsigned char  getPosition(unsigned char member);
+        unsigned char  getOpenPosition(unsigned char  member);
+        unsigned char  getClosePosition(unsigned char  member);
+
+        void lockMember(unsigned char  member);
+        void unlockMember(unsigned char member);
+
+        // Current Sensor (Mk3 only)
+        int readMeasure(unsigned char member);
     
-    void relativeMove(unsigned char member, int degree);
-    void relativeOpen(unsigned char member, int degree);
-    void relativeClose(unsigned char member, int degree);
-    
-    void open(unsigned char member);
-    void close(unsigned char member);
-    void openAll();
-    void closeAll();
 
-    // moving fingers (forced)
-    void forceMove(unsigned char member,  int position);
-    void forceRelativeMove(unsigned char member, int position);
-    void forceRelativeOpen(unsigned char member, int degree);
-    void forceRelativeClose(unsigned char member, int degree);
 
-    // Positions of fingers
-    void setLimitPositions(unsigned char  member, unsigned char limit1, unsigned char limit2);
-
-    unsigned char  getPosition(unsigned char member);
-    unsigned char  getOpenPosition(unsigned char  member);
-    unsigned char  getClosePosition(unsigned char  member);
-
-    void lockMember(unsigned char  member);
-    void unlockMember(unsigned char member);
-    
     private:
-    // wiring pins
-    unsigned char _pinServoIndex;
-    unsigned char _pinServoThumb;
-    unsigned char _pinServoFingers;
+        // wiring pins
+        unsigned char _pinServoIndex;
+        unsigned char _pinServoThumb;
+        unsigned char _pinServoFingers;
 
-    // Servomotors
-    /*
-    VarSpeedServo  servoIndex;  
-    VarSpeedServo  servoThumb;  
-    VarSpeedServo  servoFingers; 
-     */
-    ServoCC servoIndex;  
-    ServoCC servoThumb;  
-    ServoCC servoFingers; 
+        unsigned char _pinMeasureIndex;
+        unsigned char _pinMeasureFingers;
+        //unsigned char _pinMeasureThumb; // not used
 
-    // Selected hand (right or left)
-    bool _selectedHand = RIGHT_HAND;
-    
-    bool _lockThumb = false;
-    bool _lockIndex = false;
-    bool _lockFingers = false;
+        // Servomotors
+        /*
+        VarSpeedServo  servoIndex;  
+        VarSpeedServo  servoThumb;  
+        VarSpeedServo  servoFingers; 
+        */
+        ServoCC servoIndex;  
+        ServoCC servoThumb;  
+        ServoCC servoFingers; 
 
-    unsigned char _speed = DEFAULT_SPEED;
+        // Selected hand (right or left)
+        bool _selectedHand = RIGHT_HAND;
+        
+        bool _lockThumb = false;
+        bool _lockIndex = false;
+        bool _lockFingers = false;
 
-    // limit of movements
-    unsigned char _openThumb , _closedThumb;
-    unsigned char _openIndex , _closedIndex;
-    unsigned char _openFingers , _closedFingers;
+        unsigned char _speed = DEFAULT_SPEED;
 
-    // servomotor move
-    void moveServo(unsigned char member, unsigned char wantedPosition);
-    
-    // utils
-    unsigned char framePosition(unsigned char value, unsigned char lim1, unsigned char lim2);
-    
+        // limit of movements
+        unsigned char _openThumb , _closedThumb;
+        unsigned char _openIndex , _closedIndex;
+        unsigned char _openFingers , _closedFingers;
+
+        // servomotor move
+        void moveServo(unsigned char member, unsigned char wantedPosition);
+        
+        // utils
+        unsigned char framePosition(unsigned char value, unsigned char lim1, unsigned char lim2);
 };
 
 
