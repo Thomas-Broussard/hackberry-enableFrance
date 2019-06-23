@@ -62,7 +62,7 @@ class Hackberry_servos{
         void changeHand();
 
         // speed
-        void setSpeed(unsigned char  speed);
+        void setSpeed(unsigned char speed);
         unsigned char getSpeed();
 
         // moving fingers
@@ -94,7 +94,7 @@ class Hackberry_servos{
         void unlockMember(unsigned char member);
 
         // Current Sensor (Mk3 only)
-        int readMeasure(unsigned char member);
+        unsigned int readMeasure(unsigned char member);
     
 
 
@@ -109,11 +109,6 @@ class Hackberry_servos{
         //unsigned char _pinMeasureThumb; // not used
 
         // Servomotors
-        /*
-        VarSpeedServo  servoIndex;  
-        VarSpeedServo  servoThumb;  
-        VarSpeedServo  servoFingers; 
-        */
         ServoCC servoIndex;  
         ServoCC servoThumb;  
         ServoCC servoFingers; 

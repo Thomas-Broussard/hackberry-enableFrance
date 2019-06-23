@@ -117,6 +117,7 @@ void Hackberry_servos::changeHand()
  * 
  * @param speed speed required (from 1 to 255)
  */ 
+
 void Hackberry_servos::setSpeed(unsigned char  speed){
     this->_speed = constrain(speed,0,100);
 }
@@ -467,18 +468,21 @@ void Hackberry_servos::unlockMember(unsigned char member)
  * @param membre Member to move  (THUMB, INDEX or FINGERS)
  * @return current value
  */
-int Hackberry_servos::readMeasure(unsigned char member)
+unsigned int Hackberry_servos::readMeasure(unsigned char member)
 {
-    switch(member)
-    {
-        case INDEX:
-            return servoIndex.readMeasure();
-            break;
-        case FINGERS:
-            return servoFingers.readMeasure();
-            break;
-        default:break;
-    }
+    // Specific function from ServoCC library
+    #ifdef __SERVO_CC_H__
+        switch(member)
+        {
+            case INDEX:
+                return servoIndex.readMeasure();
+                break;
+            case FINGERS:
+                return servoFingers.readMeasure();
+                break;
+            default:break;
+        }
+    #endif
     return 0;
 }
 

@@ -50,8 +50,8 @@
 	readMeasure() 
  */
 
-#ifndef ServoCC_h
-#define ServoCC_h
+#ifndef __SERVO_CC_H__
+#define __SERVO_CC_H__
 
 #include <inttypes.h>
 

@@ -54,15 +54,19 @@
     #define PIN_INDEX           5
     #define PIN_FINGERS         6
 
+    #define PIN_MEASURE_INDEX   A0
+    #define PIN_MEASURE_FINGERS A1
+
     // Sensor
     #define PIN_SENSOR_1        A7
     #define PIN_SENSOR_2        A2
 
     // Buttons
-    #define PIN_BUTTON_CALIB    A0
-    #define PIN_BUTTON_EXTRA    A1
+    #define PIN_BUTTON_CALIB    8
+    #define PIN_BUTTON_EXTRA    7
     #define PIN_BUTTON_THUMB    2
     #define PIN_BUTTON_LOCK     10
+
 
     // Battery
     #define BATTERY_MONITORING_ENABLED
