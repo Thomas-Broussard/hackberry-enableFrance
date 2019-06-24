@@ -15,6 +15,12 @@
 #ifndef __HACKBERRY_GLOBAL_H__
 #define __HACKBERRY_GLOBAL_H__
 
+// Version Number
+#define MAJOR_VERSION 1
+#define MINOR_VERSION 1
+#define PATCH_VERSION 1
+
+
 // DEBUG MODE
 #define DEBUG_ENABLED
 
@@ -27,19 +33,15 @@
 #endif
 
 
+
 // Hand Selection
 #define RIGHT_HAND true
 #define LEFT_HAND false
 
+
 // LIST OF EXISTING SENSORS
 #define TYPE_IR_SENSOR 0
 #define TYPE_EMG_SENSOR 1
-
-// Buttons
-#define BUTTON_CALIB 0
-#define BUTTON_EXTRA 1
-#define BUTTON_THUMB 2
-#define BUTTON_LOCK  3 
 
 
 // Range of the microcontroller's ADC 
@@ -55,26 +57,6 @@
 #define THUMB   1
 #define INDEX   2
 #define FINGERS  3
-
-// POSITIONS OF MEMBERS
-#define ANGLE               30
-#define THUMB_INIT_POS      45 
-#define INDEX_INIT_POS      45
-#define FINGERS_INIT_POS    45 
-
-//right:open, left:close (temp)
-#define THUMB_MAX           (THUMB_INIT_POS + ANGLE)
-#define INDEX_MAX           (INDEX_INIT_POS + ANGLE)    
-#define FINGERS_MAX         (FINGERS_INIT_POS + ANGLE)
-
-//right:close, left:open (temp)
-#define THUMB_MIN           (THUMB_INIT_POS - ANGLE) 
-#define INDEX_MIN           (INDEX_INIT_POS - ANGLE)
-#define FINGERS_MIN         (FINGERS_INIT_POS - ANGLE)
-
-
-// INITIAL SPEED OF SERVOMOTOR
-#define DEFAULT_SPEED 50
 
 /**
  * List of operating modes for the hackberry hand

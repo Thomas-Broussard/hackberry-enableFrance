@@ -30,6 +30,7 @@ void Hackberry::init()
     this->hand.init();
     this->initSpecificDrivers();
     this->routine.init(&this->hand);
+    this->printSignature();
 }
 
 /**
@@ -83,3 +84,11 @@ void Hackberry::initSpecificDrivers()
     #endif
 }
 
+
+void Hackberry::printSignature()
+{
+    DebugPrintln(F("-------------------------------------"));
+    DebugPrintln((String)"Hackberry Library - Version " + MAJOR_VERSION + "." + MINOR_VERSION + "." + PATCH_VERSION);
+    DebugPrintln(F("Author : Thomas Broussard "));
+    DebugPrintln(F("-------------------------------------"));
+}

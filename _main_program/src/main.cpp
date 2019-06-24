@@ -68,7 +68,6 @@ void setup()
   Serial.begin(9600);
   Serial.println(F("Start"));
   hackberry.init();
-  hackberry.hand.eeprom.printMemoryContent();
   setPriorities();
 }
 

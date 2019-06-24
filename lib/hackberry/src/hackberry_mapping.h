@@ -100,4 +100,8 @@
     #error "Please, select a mapping in hackberry_mapping.h"
 #endif
 
+#if defined (MAPPING_MK2) && defined (MAPPING_MK3)
+    #error "Please, select only one mapping in hackberry_mapping.h"
+#endif
+
 #endif

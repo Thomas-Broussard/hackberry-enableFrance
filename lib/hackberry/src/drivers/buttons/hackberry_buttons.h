@@ -25,6 +25,12 @@
 
 #define NB_BUTTONS 4 // Number of buttons on Hackberry hand
 
+// Buttons
+#define BUTTON_CALIB 0
+#define BUTTON_EXTRA 1
+#define BUTTON_THUMB 2
+#define BUTTON_LOCK  3 
+
 /**
  * TODO : A6 and A7 are analog inputs. Can't use DigitalRead function on them --> replace them by GPIO ?
  */

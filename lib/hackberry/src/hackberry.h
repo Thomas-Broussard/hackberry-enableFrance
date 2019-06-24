@@ -35,6 +35,8 @@ class Hackberry
         void setHand(bool selectedHand);
         void setSensorType(int sensorType);
 
+        void printSignature();
+
         Hackberry_hand hand;
         RoutineHandler routine;
         

@@ -23,6 +23,27 @@
 //#include "dependencies/VarSpeedServo.h"
 #include "dependencies/ServoCC.h"
 
+
+// POSITIONS OF MEMBERS
+#define ANGLE               30
+#define THUMB_INIT_POS      45 
+#define INDEX_INIT_POS      45
+#define FINGERS_INIT_POS    45 
+
+//right:open, left:close (temp)
+#define THUMB_MAX           (THUMB_INIT_POS + ANGLE)
+#define INDEX_MAX           (INDEX_INIT_POS + ANGLE)    
+#define FINGERS_MAX         (FINGERS_INIT_POS + ANGLE)
+
+//right:close, left:open (temp)
+#define THUMB_MIN           (THUMB_INIT_POS - ANGLE) 
+#define INDEX_MIN           (INDEX_INIT_POS - ANGLE)
+#define FINGERS_MIN         (FINGERS_INIT_POS - ANGLE)
+
+
+// INITIAL SPEED OF SERVOMOTOR
+#define DEFAULT_SPEED 50
+
 // Members
 #ifndef THUMB
 #define THUMB 1
