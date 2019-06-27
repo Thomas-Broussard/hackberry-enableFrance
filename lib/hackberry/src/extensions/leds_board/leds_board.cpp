@@ -2,24 +2,34 @@
 
 Extension_Leds::Extension_Leds()
 {
+    this->init();
+    //this->write(0,true);
+    this->write(1,true);
+    //this->write(2,true);
 
+    this->write(3,true);
+    //this->write(4,true);
+    this->write(5,true);
+
+    //this->write(6,true);
+    this->write(7,true);
+    //this->write(8,true);
 }
 
 void Extension_Leds::init(Hackberry_hand *hand)
 {
     this->hand = hand;
 
-    // Initialize X pins
-    for (int i = 0; i < NB_X_PINS; i++)
-    {
-        pinMode(this->_pinX[i],OUTPUT);
-    }
+    // initialize pins as GPIO
+    X0_INIT(); X1_INIT(); X2_INIT();
+    Y0_INIT(); Y1_INIT(); Y2_INIT();
+}
 
-    // Initialize Y pins
-    for (int i = 0; i < NB_Y_PINS; i++)
-    {
-        pinMode(this->_pinY[i],OUTPUT);
-    }
+void Extension_Leds::init()
+{
+    // initialize pins as GPIO
+    X0_INIT(); X1_INIT(); X2_INIT();
+    Y0_INIT(); Y1_INIT(); Y2_INIT();
 }
 
 void Extension_Leds::write(unsigned char ledNumber, bool state)
@@ -36,21 +46,23 @@ void Extension_Leds::write(unsigned char ledNumber, bool state)
         case 7 : this->_pattern[1][2] = state; break;
         case 8 : this->_pattern[2][2] = state; break;
     }
+    
 }
 
 void Extension_Leds::clear()
 {
-    CLR_X0(); CLR_X1(); CLR_X2();
-    CLR_Y0(); CLR_Y1(); CLR_Y2();
+    X0_OFF(); X1_OFF(); X2_OFF();
+    Y0_OFF(); Y1_OFF(); Y2_OFF();
 }
 
 void Extension_Leds::writeX(unsigned char index, bool state)
 {
     switch(index)
     {
-        case 0 : state ? X0_ON():X0_OFF(); break;
-        case 1 : state ? X1_ON():X1_OFF(); break;
-        case 3 : state ? X2_ON():X2_OFF(); break;
+        case 0 : if(state) X0_ON(); else X0_OFF(); break;
+        case 1 : if(state) X1_ON(); else X1_OFF(); break;
+        case 2 : if(state) X2_ON(); else X2_OFF(); break;
+        default:break;
     }
 }
 
@@ -58,9 +70,10 @@ void Extension_Leds::writeY(unsigned char index, bool state)
 {
     switch(index)
     {
-        case 0 : state ? Y0_ON():Y0_OFF(); break;
-        case 1 : state ? Y1_ON():Y1_OFF(); break;
-        case 3 : state ? Y2_ON():Y2_OFF(); break;
+        case 0 : if(state) Y0_ON(); else Y0_OFF(); break;
+        case 1 : if(state) Y1_ON(); else Y1_OFF(); break;
+        case 2 : if(state) Y2_ON(); else Y2_OFF(); break;
+        default:break;
     }
 }
 
@@ -71,10 +84,10 @@ void Extension_Leds::display()
         writeY(y,true);
         for(int x = 0 ; x < 3; x++)
         {
-            if (pattern[x][y])
+            if (_pattern[x][y])
             {
                 writeX(x,true);
-                delayMicroseconds(100); // TODO : try to remove this
+                delayMicroseconds(200); // TODO : try to remove this
                 writeX(x,false);
             }
         }

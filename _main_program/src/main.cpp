@@ -15,9 +15,22 @@
  * =============================================================================================================================================
  */
 
+// -----------------------------------------------
+// Select your extension board here (optional)
+// -----------------------------------------------
+
+//#define EXTENSION_GPIO
+//#define EXTENSION_BLUETOOTH
+#define EXTENSION_LEDS
+
+// -----------------------------------------------
+
+
 // Task Scheduler configuration (must be define before include)
 #define _TASK_SLEEP_ON_IDLE_RUN // Enable sleep mode when tasks aren't running, to save power
 #define _TASK_PRIORITY          // Enable the task priority system
+
+
 
 // libraries dependencies
 #include <Arduino.h>
@@ -30,39 +43,16 @@ Hackberry hackberry;
 // function call
 void setPriorities();
 
-// Scheduler
+// Scheduler (Priority order : critical > high > runner)
 Scheduler runner;
-
-// Priority order : critical > high > runner
 Scheduler highPriority;
 Scheduler criticalPriority;
 
-// Tasks callbacks
-void Task_Buttonhandler();
-void Task_BluetoothHandler();
-void Task_Moves();
-void Task_BatteryMonitoring();
-void Task_Calibration();
-void Task_Template();
-
-// Tasks with main drivers
-Task T1(100  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler, &runner, true); 
-Task T2(10 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves, &runner, true); 
-Task T3(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration, &criticalPriority, true); 
-
-// Task enabled only with specific drivers
-#ifdef BATTERY_MONITORING_ENABLED
-  Task T5(10  * TASK_SECOND     , TASK_FOREVER, &Task_BatteryMonitoring, &highPriority, true);  
-#endif
-
-#ifdef BLUETOOTH_ENABLED
-  Task T4(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_BluetoothHandler, &criticalPriority, true); 
-#endif
-
-// Task template
-//Task T_template(500 * TASK_MILLISECOND, TASK_FOREVER, &Task_Template          , &runner, true); // executed every 500ms
-
-
+/* 
+ * =============================================================================================
+ *                                  MAIN PROGRAM
+ * =============================================================================================
+ */
 void setup() 
 {
   Serial.begin(9600);
@@ -79,9 +69,11 @@ void loop()
 
 /* 
  * =============================================================================================
- *                                        SCHEDULER CONFIGURATION
+ *                                  FUNCTIONS
  * =============================================================================================
  */
+
+
 void setPriorities()
 {
   runner.setHighPriorityScheduler(&highPriority);
@@ -89,31 +81,37 @@ void setPriorities()
   runner.enableAll(true);
 }
 
+
+
 /* 
  * =============================================================================================
- *                                        TASKS EXECUTION
+ *                                   MAIN DRIVERS ROUTINES
  * =============================================================================================
  */
+
+// --------------------------------
+//            BUTTONS
+// --------------------------------
 void Task_Buttonhandler()
 {
   hackberry.routine.buttons.execute();
 }
+Task TaskButton(100  * TASK_MILLISECOND, TASK_FOREVER, &Task_Buttonhandler, &runner, true); 
 
-void Task_BluetoothHandler()
-{
-  hackberry.routine.bluetooth.execute();
-}
 
+// --------------------------------
+//            MOVES
+// --------------------------------
 void Task_Moves()
 {
   hackberry.routine.moves.execute();
 }
+Task T2(10 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves, &runner, true); 
 
-void Task_BatteryMonitoring()
-{
-  hackberry.routine.batteryMonitoring.execute();
-}
 
+// --------------------------------
+//            CALIBRATIONS
+// --------------------------------
 void Task_Calibration()
 {
   switch(hackberry.hand.getMode())
@@ -129,8 +127,57 @@ void Task_Calibration()
     default:break;
   }
 }
+Task TaskCalibration(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration, &criticalPriority, true); 
 
-void Task_Template()
-{
-  // create your own task here
-}  
+
+
+/* 
+ * =============================================================================================
+ *                                 SPECIFIC DRIVERS ROUTINES
+ * =============================================================================================
+ */
+
+// --------------------------------
+//  BATTERY MONITORING (MK3 only)
+// --------------------------------
+#ifdef BATTERY_MONITORING_ENABLED
+  void Task_BatteryMonitoring()
+  {
+    hackberry.routine.batteryMonitoring.execute();
+  }
+
+  Task TaskBattery(10*TASK_SECOND, TASK_FOREVER, &Task_BatteryMonitoring, &highPriority, true);  
+#endif
+
+
+
+/* 
+ * =============================================================================================
+ *                                    EXTENSIONS ROUTINES
+ * =============================================================================================
+ */
+
+// --------------------------------
+//       BLUETOOTH MODULE
+// --------------------------------
+#ifdef EXTENSION_BLUETOOTH
+  void Task_ExtensionBluetooth()
+  {
+    hackberry.routine.bluetooth.execute();
+  }
+  Task TaskBluetooth(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_ExtensionBluetooth, &criticalPriority, true); 
+#endif
+
+// --------------------------------
+//        LEDS STRIP
+// --------------------------------
+#ifdef EXTENSION_LEDS
+  #include "extensions/leds_board/leds_board.h"
+  Extension_Leds leds;
+
+  void Task_ExtensionLeds()
+  {
+      leds.display();
+  }
+  Task TaskLeds(20 * TASK_MILLISECOND, TASK_FOREVER, &Task_ExtensionLeds, &runner, true); 
+#endif

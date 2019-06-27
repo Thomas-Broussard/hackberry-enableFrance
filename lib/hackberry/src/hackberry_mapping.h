@@ -80,13 +80,9 @@
 * ====================================================================================
 */
 #ifdef EXTENSION_BLUETOOTH
-
-    #define BLUETOOTH_ENABLED
-
     #define PIN_RX_BT           3
     #define PIN_TX_BT           4
     #define PIN_POWER_BT        A3
-
 #endif
 
 

@@ -19,7 +19,7 @@
 #include <Arduino.h>
 #include "hackberry_global.h"
 #include "drivers/hackberry_hand.h"
-#include "leds_register.h"
+#include "leds_registers.h"
 
 
 // class
@@ -28,6 +28,7 @@ class Extension_Leds{
     public: 
         Extension_Leds();
         void init(Hackberry_hand *hand);
+        void init();
         void display();
         void write(unsigned char index, bool state);
         void clear();
