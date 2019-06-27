@@ -55,8 +55,8 @@ Scheduler criticalPriority;
  */
 void setup() 
 {
-  Serial.begin(9600);
-  Serial.println(F("Start"));
+  
+  DebugBegin(9600);
   hackberry.init();
   setPriorities();
 }

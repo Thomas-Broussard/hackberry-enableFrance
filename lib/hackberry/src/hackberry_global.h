@@ -27,9 +27,11 @@
 #ifdef DEBUG_ENABLED
     #define DebugPrint(x) Serial.print(x)
     #define DebugPrintln(x) Serial.println(x)
+    #define DebugBegin(x) Serial.begin(x)
 #else
     #define DebugPrint(x) 
     #define DebugPrintln(x) 
+    #define DebugBegin(x) 
 #endif
 
 
