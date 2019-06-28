@@ -18,10 +18,10 @@
 // -----------------------------------------------
 // Select your extension board here (optional)
 // -----------------------------------------------
+// Available extensions : 
+// NO_EXTENSION ; GPIO_BOARD ; LEDS_BOARD ; BLUETOOTH_BOARD
 
-//#define EXTENSION_GPIO
-//#define EXTENSION_BLUETOOTH
-#define EXTENSION_LEDS
+#define EXTENSION_BOARD BLUETOOTH_BOARD
 
 // -----------------------------------------------
 
@@ -160,18 +160,22 @@ Task TaskCalibration(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration, &c
 // --------------------------------
 //       BLUETOOTH MODULE
 // --------------------------------
-#ifdef EXTENSION_BLUETOOTH
+#if EXTENSION_BOARD == BLUETOOTH_BOARD
+  #include "extensions/bluetooth_board/bluetooth_board.h"
+  Extension_Bluetooth bluetooth;
+  
   void Task_ExtensionBluetooth()
   {
-    hackberry.routine.bluetooth.execute();
+    bluetooth.execute();
   }
   Task TaskBluetooth(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_ExtensionBluetooth, &criticalPriority, true); 
-#endif
+
+  #pragma message "Bluetooth Extension Board selected"
 
 // --------------------------------
 //        LEDS STRIP
 // --------------------------------
-#ifdef EXTENSION_LEDS
+#elif EXTENSION_BOARD == LEDS_BOARD
   #include "extensions/leds_board/leds_board.h"
   Extension_Leds leds;
 
@@ -180,4 +184,9 @@ Task TaskCalibration(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration, &c
       leds.display();
   }
   Task TaskLeds(20 * TASK_MILLISECOND, TASK_FOREVER, &Task_ExtensionLeds, &runner, true); 
+
+   #pragma message "Leds Extension Board selected"
+
+
+// end of Extension choice
 #endif

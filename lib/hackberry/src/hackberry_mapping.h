@@ -78,13 +78,10 @@
 *                                  EXTENSION BOARDS
 * ====================================================================================
 */
-#ifdef EXTENSION_BLUETOOTH
-    #define PIN_RX_BT           3
-    #define PIN_TX_BT           4
-    #define PIN_POWER_BT        A3
-#endif
-
-
+#define NO_EXTENSION        0
+#define GPIO_BOARD          1
+#define LEDS_BOARD          2
+#define BLUETOOTH_BOARD     3
 
 /* 
 * ====================================================================================
@@ -97,6 +94,10 @@
 
 #if defined (MAPPING_MK2) && defined (MAPPING_MK3)
     #error "Please, select only one mapping in hackberry_mapping.h"
+#endif
+
+#ifndef __AVR_ATmega328P__  // Arduino nano
+    #error Wrong chip defined - Please check that your platformio.ini file contains "board = nanoatmega328new" or "board = nanoatmega328"
 #endif
 
 #endif
