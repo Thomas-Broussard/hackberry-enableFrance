@@ -28,7 +28,6 @@ Hackberry::Hackberry() :
 void Hackberry::init()
 {
     this->hand.init();
-    this->initSpecificDrivers();
     this->routine.init(&this->hand);
     this->printSignature();
 }
@@ -69,20 +68,6 @@ void Hackberry::setSensorType(int sensorType)
     this->hand.eeprom.SetSensorType(sensorType);
 }
 
-/**
- * Initialize specific drivers depending on mapping version or extension board
- * 
- */
-void Hackberry::initSpecificDrivers()
-{
-    #ifdef BATTERY_MONITORING_ENABLED
-        this->hand.battery.init(PIN_BATTERY);
-    #endif
-
-    #ifdef BLUETOOTH_ENABLED
-        this->hand.bluetooth.init(PIN_RX_BT,PIN_TX_BT,PIN_POWER_BT);
-    #endif
-}
 
 
 void Hackberry::printSignature()

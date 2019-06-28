@@ -39,9 +39,6 @@ class Hackberry
 
         Hackberry_hand hand;
         RoutineHandler routine;
-        
-    private:      
-        void initSpecificDrivers();
 };
 
 

@@ -46,6 +46,11 @@ void Hackberry_hand::init()
     
     this->buttons.init(PIN_BUTTON_CALIB , PIN_BUTTON_EXTRA , PIN_BUTTON_THUMB , PIN_BUTTON_LOCK);
     this->sensor.init(PIN_SENSOR_1);
+
+    // init specific drivers
+    #ifdef BATTERY_MONITORING_ENABLED
+        this->hand.battery.init(PIN_BATTERY);
+    #endif
 }
 
 // Get Mode
