@@ -15,17 +15,6 @@
  * =============================================================================================================================================
  */
 
-// -----------------------------------------------
-// Select your extension board here (optional)
-// -----------------------------------------------
-// Available extensions : 
-// NO_EXTENSION ; GPIO_BOARD ; LEDS_BOARD ; BLUETOOTH_BOARD
-
-#define EXTENSION_BOARD BLUETOOTH_BOARD
-
-// -----------------------------------------------
-
-
 // Task Scheduler configuration (must be define before include)
 #define _TASK_SLEEP_ON_IDLE_RUN // Enable sleep mode when tasks aren't running, to save power
 #define _TASK_PRIORITY          // Enable the task priority system
@@ -35,8 +24,10 @@
 // libraries dependencies
 #include <Arduino.h>
 #include "TaskScheduler.h"
-#include "hackberry.h"
+#include "config.h"
 #include "hackberry_mapping.h"
+#include "hackberry.h"
+
 
 Hackberry hackberry;
 

@@ -37,10 +37,10 @@ Hackberry_hand::Hackberry_hand() :
 void Hackberry_hand::init()
 {
     // Initialize main drivers
-    #ifdef MAPPING_MK2
+    
+    #if HACKBERRY_BOARD <= MK2
         this->servos.init(PIN_INDEX , PIN_THUMB , PIN_FINGERS);
-    #endif
-    #ifdef MAPPING_MK3
+    #elif HACKBERRY_BOARD >= MK3
         this->servos.init(PIN_INDEX , PIN_THUMB , PIN_FINGERS, PIN_MEASURE_INDEX , PIN_MEASURE_FINGERS);
     #endif
     

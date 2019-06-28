@@ -14,22 +14,48 @@
 #ifndef __HACKBERRY_MAPPING_H__
 #define __HACKBERRY_MAPPING_H__
 
-// Select the mapping that you want to use (default : Mk2)
-#define MAPPING_MK2
-//#define MAPPING_MK3
+/* 
+* ====================================================================================
+*                                  HACKBERRY_BOARD
+* ====================================================================================
+*/
 
+// -----------------------------------------------
+// Select your Hackberry board here (required)
+// -----------------------------------------------
+#define HACKBERRY_BOARD MK2
 
-// Select the extension card that you want to use (default : none)
-//#define EXTENSION_BLUETOOTH
-//#define EXTENSION_LEDS
-//#define EXTENSION_FORCE_CONTROL
+// Available boards :
+#define MK1     1 // not used now
+#define MK2     2
+#define MK3     3
+
+/* 
+* ====================================================================================
+*                                  EXTENSION_BOARD
+* ====================================================================================
+*/
+
+// -----------------------------------------------
+// Select your extension board here (optional)
+// -----------------------------------------------
+#define EXTENSION_BOARD NO_EXTENSION
+
+// Available extensions :
+#define NO_EXTENSION        0
+#define GPIO_BOARD          1
+#define LEDS_BOARD          2
+#define BLUETOOTH_BOARD     3
 
 /* 
 * ====================================================================================
 *                                  MAPPINGS
 * ====================================================================================
 */
-#ifdef MAPPING_MK2
+#if HACKBERRY_BOARD == MK2
+
+    #define MAPPING_MK2
+
     // Servomotors
     #define PIN_THUMB           9
     #define PIN_INDEX           5
@@ -43,11 +69,12 @@
     #define PIN_BUTTON_EXTRA    A7
     #define PIN_BUTTON_THUMB    A0
     #define PIN_BUTTON_LOCK     10
-#endif
 
 
-#ifdef MAPPING_MK3
-    
+#elif HACKBERRY_BOARD == MK3
+
+    #define MAPPING_MK3
+
     // Servomotors
     #define PIN_THUMB           9
     #define PIN_INDEX           5
@@ -73,27 +100,19 @@
     
 #endif
 
-/* 
-* ====================================================================================
-*                                  EXTENSION BOARDS
-* ====================================================================================
-*/
-#define NO_EXTENSION        0
-#define GPIO_BOARD          1
-#define LEDS_BOARD          2
-#define BLUETOOTH_BOARD     3
+
 
 /* 
 * ====================================================================================
 *                                  ERROR HANDLER
 * ====================================================================================
 */
-#if !defined (MAPPING_MK2) && !defined (MAPPING_MK3)
-    #error "Please, select a mapping in hackberry_mapping.h"
+#ifndef HACKBERRY_BOARD
+    #error No Board defined - Please select the Hackberry Board version (example : "#define HACKBERRY_BOARD MK2")
 #endif
 
-#if defined (MAPPING_MK2) && defined (MAPPING_MK3)
-    #error "Please, select only one mapping in hackberry_mapping.h"
+#if HACKBERRY_BOARD == MK1
+    #error MK1 unavailable - Please select a The Mk1 version is not yet implemented. Please choose another version
 #endif
 
 #ifndef __AVR_ATmega328P__  // Arduino nano
