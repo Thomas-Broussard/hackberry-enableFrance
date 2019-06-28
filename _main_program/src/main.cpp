@@ -24,7 +24,6 @@
 // libraries dependencies
 #include <Arduino.h>
 #include "TaskScheduler.h"
-#include "config.h"
 #include "hackberry_mapping.h"
 #include "hackberry.h"
 
@@ -56,7 +55,6 @@ void loop()
 {  
   runner.execute();
 }
-
 
 /* 
  * =============================================================================================
