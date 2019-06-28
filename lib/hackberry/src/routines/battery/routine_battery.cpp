@@ -30,7 +30,7 @@ void Routine_battery::execute()
 
     if (batteryLevel < LOW_BATTERY_LEVEL)
     {
-        this->hand->bluetooth.send("LOW_BATTERY");
+        // TODO : complete here
     }
 }
 

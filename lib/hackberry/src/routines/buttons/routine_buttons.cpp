@@ -200,7 +200,6 @@ void Routine_buttons::actionThumb()
 /**
  * Action executed when Thumb button is pressed for a long time
  * 
- * enable/disable bluetooth
  */
 void Routine_buttons::longActionThumb()
 {
@@ -209,18 +208,7 @@ void Routine_buttons::longActionThumb()
     switch (this->hand->getMode())
     {
         case Standard:
-            #ifdef BLUETOOTH_ENABLED
-                if (this->hand->bluetooth.isStarted())
-                {
-                    DebugPrintln(F("stop BT"));
-                    this->hand->bluetooth.stop();
-                }
-                else
-                {
-                    DebugPrintln(F("start BT"));
-                    this->hand->bluetooth.start();
-                }
-            #endif
+            // TODO : enable/disable extension board ??? 
         default:break;
     }
 }

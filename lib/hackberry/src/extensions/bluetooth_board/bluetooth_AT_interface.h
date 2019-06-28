@@ -21,7 +21,7 @@
 
 // Dependencies
 #include <Arduino.h>
-#include "bluetooth_data.h"
+#include "bluetooth_serial.h"
 
 /* 
  * =============================================================================================================================================
@@ -31,7 +31,7 @@
 class IBluetoothAT
 {
     public:
-        IBluetoothAT(BluetoothData *BT)
+        IBluetoothAT(BluetoothSerial *BT)
         {
             this->BT = BT;
         }
@@ -58,7 +58,7 @@ class IBluetoothAT
         virtual bool setBaud(unsigned long baudrate);
 
     protected: 
-        BluetoothData *BT;
+        BluetoothSerial *BT;
 };
 
 
@@ -70,7 +70,7 @@ class IBluetoothAT
 class HC06 : public IBluetoothAT
 {
     public:
-        HC06(BluetoothData *BT) : IBluetoothAT(BT) { }
+        HC06(BluetoothSerial *BT) : IBluetoothAT(BT) { }
 
         bool setName(String name)
         {
@@ -123,13 +123,13 @@ class HC06 : public IBluetoothAT
 
 /* 
  * =============================================================================================================================================
- *                                                      HC06 / HC05
+ *                                                      HM-11
  * =============================================================================================================================================
  */
 class HM11 : public IBluetoothAT
 {
     public:
-        HM11(BluetoothData *BT) : IBluetoothAT(BT) { }
+        HM11(BluetoothSerial *BT) : IBluetoothAT(BT) { }
 
         bool setName(String name)
         {
@@ -188,7 +188,7 @@ class BluetoothModuleName : public IBluetoothAT
 {
     public:
 
-        BluetoothModuleName(BluetoothData *BT) : IBluetoothAT(BT) { }
+        BluetoothModuleName(BluetoothSerial *BT) : IBluetoothAT(BT) { }
 
         void setName(String name)
         {

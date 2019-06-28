@@ -13,58 +13,77 @@
  * =============================================================================================================================================
  */
 
-#ifndef __HACKBERRY_BLUETOOTH_H__
-#define __HACKBERRY_BLUETOOTH_H__
+#ifndef __EXTENSION_BLUETOOTH_H__
+#define __EXTENSION_BLUETOOTH_H__
 
 // Dependencies
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
 #include "hackberry_global.h"
+#include "drivers/hackberry_hand.h"
+
+#include "bluetooth_serial.h"
 #include "bluetooth_AT_interface.h"
-#include "bluetooth_data.h"
+#include "bluetooth_instructions.h"
+
+#define PARSECHAR  ';'
+#define ACTIVITY_TIME 600 // seconds
 
 #define DATA_MODE true
 #define AT_MODE false
 
+#define PIN_BLUETOOTH_RX 3
+#define PIN_BLUETOOTH_TX 4
+#define PIN_BLUETOOTH_POWER 7
+
+#define BLUETOOTH_BAUDRATE 38400
+
 // class
-class Hackberry_bluetooth{
+class Extension_Bluetooth{
 
     public: 
-        Hackberry_bluetooth();
+        Extension_Bluetooth();
 
-        void init(unsigned char pinRx = UNDEFINED, unsigned char pinTx = UNDEFINED, unsigned char pinPower = UNDEFINED);
+        // General functions
+        void init(Hackberry_hand *hand);
+        void execute();
 
         void start();
         void stop();
         bool isStarted();
-        unsigned long getLastActivityTime();
 
-        // Data functions
+        // Rx/Tx functions
         void send(char c);
         void send(String message);
         void send(int message);
-
         String receive();
         
         // AT commands
-        void setName(String name);
+        bool setName(String name);
         bool setPassword(String password);
-        void setBaud(unsigned long baudrate);
+        bool setBaud(unsigned long baudrate);
     
     private:        
-        // wiring pins
-        unsigned char _pinRx;
-        unsigned char _pinTx; 
-        unsigned char _pinPower; 
+        Hackberry_hand *hand;
 
         // bluetooth objects
-        SoftwareSerial *_BTSerial;
+        BluetoothSerial *BT;
         IBluetoothAT  *AT;
-        BluetoothData *BT;
         
-        unsigned long _lastActivity = 0;
-        bool _started = false;
+        unsigned long _lastActivityTime = 0;
+        bool _isStarted = false;
+
+        void checkActivity(unsigned long delayBeforeStop);
+        void decodeInstruction(int command, String message);
+        void generalInstruction(int command, String message);
+        void servoInstruction(int command, String message);
+        void sensorInstruction(int command, String message);
 };
+
+// External functions
+String ParseString(String data, char separator, int index);
+String getParam(String message, unsigned char index);
+bool paramExist(String message, unsigned char index);
 
 #endif

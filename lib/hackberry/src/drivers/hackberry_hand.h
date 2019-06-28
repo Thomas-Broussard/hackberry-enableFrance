@@ -26,7 +26,6 @@
 #include "buttons/hackberry_buttons.h"
 #include "servos/hackberry_servos.h"
 #include "sensor/hackberry_sensor.h"
-#include "bluetooth/hackberry_bluetooth.h"
 #include "eeprom/hackberry_eeprom.h"
 #include "battery/hackberry_battery.h"
 
@@ -48,11 +47,7 @@ class Hackberry_hand
         Hackberry_eeprom    eeprom;
         
         // Specific Drivers
-        Hackberry_battery   battery;
-
-        // Components on extension boards only
-        Hackberry_bluetooth bluetooth;
-
+        Hackberry_battery   battery; // Available for Mk3
 
         // Modes
         Hackberry_Mode getMode();

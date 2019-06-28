@@ -5,70 +5,101 @@
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
  *  Description :
- *  Routine for Hackberry bluetooth communication
+ *  Library for controlling Hackberry bluetooth communication
  * 
  *  Credits : 
  *  Program inspired by the HACKberry project, created by exiii Inc.
  *  https://github.com/mission-arm/HACKberry
  * =============================================================================================================================================
  */
-#include "routine_bluetooth.h"
-
-
-Routine_bluetooth::Routine_bluetooth()
-{
-
-}
-
+#include "bluetooth_board.h"
 
 /**
- * Initialize the bluetooth routine
- * 
- * @param hand Hackberry_hand object that contains all the hackberry drivers to use
+ * Constructor of the Bluetooth module driver
  */
-void Routine_bluetooth::init(Hackberry_hand *hand)
+
+Extension_Bluetooth::Extension_Bluetooth()
+{
+}
+
+/**
+ * Initialize the Bluetooth module driver
+ * 
+ * @param pinRX digital input - hackberry RX pin (= bluetooth TX pin)
+ * @param pinRX digital output - hackberry TX pin (= bluetooth RX pin)
+ * @param pinPower digital output - used to power ON/OFF the bluetooth module
+ */
+
+void Extension_Bluetooth::init(Hackberry_hand *hand)
 {
     this->hand = hand;
-}
 
+    // pins initialization
+    #ifdef PIN_BLUETOOTH_POWER
+        pinMode(PIN_BLUETOOTH_POWER, OUTPUT);
+    #endif
 
-/**
- * Start the bluetooth module
- */
-void Routine_bluetooth::start()
-{
-    DebugPrintln(F("Bluetooth started"));
-    this->hand->bluetooth.start();
-}
+    // bluetooth initialization
+    this->BT = new BluetoothSerial(new SoftwareSerial(PIN_BLUETOOTH_TX,PIN_BLUETOOTH_RX));
+    this->BT->begin(38400);
 
-
-/**
- * Stop the bluetooth module
- */
-void Routine_bluetooth::stop()
-{
-    DebugPrintln(F("Bluetooth stopped"));
-    this->hand->bluetooth.stop();
+    this->AT = new HC06(this->BT);
+    
+    this->stop(); // module power disabled by default
 }
 
 
 /**
  * Execute the Bluetooth Routine main code
  */
-void Routine_bluetooth::execute()
+void Extension_Bluetooth::execute()
 {
-    if(this->hand->bluetooth.isStarted())
-    {
-        String messageReceived = this->hand->bluetooth.receive();
-        this->checkActivity(ACTIVITY_TIME);
-        if (messageReceived.length() <= 1) return;
+    if (!this->_isStarted) return;
 
-        DebugPrint(F("[BT] Receive : "));
-        DebugPrintln(messageReceived);
+    String messageReceived = this->receive();
+    this->checkActivity(ACTIVITY_TIME);
+    if (messageReceived.length() <= 1) return;
+
+    DebugPrint(F("[BT] Receive : "));
+    DebugPrintln(messageReceived);
     
-        int command = ParseString(messageReceived,PARSECHAR, 0).toInt();
-        this->decodeInstruction(command,messageReceived);
-    }
+    int command = ParseString(messageReceived,PARSECHAR, 0).toInt();
+    this->decodeInstruction(command,messageReceived);
+}
+
+
+/* 
+ * =============================================================================================================================================
+ *                                  GENERAL FUNCTIONS
+ * =============================================================================================================================================
+ */
+
+/**
+ * start Bluetooth module
+ */
+void Extension_Bluetooth::start() 
+{
+    #ifdef PIN_BLUETOOTH_POWER
+        digitalWrite(PIN_BLUETOOTH_POWER, HIGH);
+    #endif
+
+    this->_lastActivityTime = millis();
+    this->AT->setBaud(38400);
+    this->_isStarted = true;
+}
+
+/**
+ * stop Bluetooth module
+ */
+void Extension_Bluetooth::stop() 
+{
+    this->_lastActivityTime = 0;
+
+    #ifdef PIN_BLUETOOTH_POWER
+        digitalWrite(PIN_BLUETOOTH_POWER, LOW);
+    #endif
+
+    this->_isStarted = false;
 }
 
 /**
@@ -76,13 +107,138 @@ void Routine_bluetooth::execute()
  * 
  * @param delayBeforeStop delay(in seconds) of activity time authorized
  */
-void Routine_bluetooth::checkActivity(unsigned long delayBeforeStop)
+void Extension_Bluetooth::checkActivity(unsigned long delayBeforeStop)
 {
-    if ((millis() - this->hand->bluetooth.getLastActivityTime() ) >= delayBeforeStop * 1000)
+    if ((millis() - this->_lastActivityTime ) >= delayBeforeStop * 1000)
     {
         this->stop();
     }
 }
+
+
+/* 
+ * =============================================================================================================================================
+ *                                  BLUETOOTH DATA
+ * =============================================================================================================================================
+ */
+
+/**
+ *  send character through bluetooth emitter
+ *  
+ * @param c character to send
+ */
+void Extension_Bluetooth::send(char c) 
+{
+    if (!this->_isStarted) return;
+
+    this->BT->send(c);
+    this->_lastActivityTime = millis();
+}
+
+/**
+ * send String through bluetooth emitter
+ *  
+ * @param message String to send
+ */
+void Extension_Bluetooth::send(String message) 
+{
+    if (!this->_isStarted) return;
+    
+    for (unsigned int i = 0; i < message.length(); i++)
+    {
+        this->BT->send(message.charAt(i));
+    }
+    this->_lastActivityTime = millis();
+}
+
+/**
+ * send Integer through bluetooth emitter
+ *  
+ * @param message Integer to send
+ */
+void Extension_Bluetooth::send(int message) 
+{
+    if (!this->_isStarted) return;
+    this->send(String(message));
+    //this->_lastActivityTime = millis(); // useless
+}
+
+/**
+ * check if data are available in buffer of bluetooth receiver
+ *  
+ * @return data received as String
+ */
+String Extension_Bluetooth::receive() 
+{
+    if (!this->_isStarted) return "";
+
+    // Get Rx Buffer
+    String messageReceived = this->BT->receive();
+
+    // Return content
+    if (messageReceived.length() <= 1)
+    {
+        return "";
+    }
+    else
+    {
+        this->_lastActivityTime = millis();
+        return  messageReceived;
+    }
+    
+}
+
+/* 
+ * =============================================================================================================================================
+ *                                  BLUETOOTH AT COMMANDS
+ * =============================================================================================================================================
+ */
+
+/**
+ * Set the bluetooth module name
+ * 
+ * @param name Name to apply
+ */
+bool Extension_Bluetooth::setName(String name)
+{
+    if (!this->_isStarted) return false;
+    this->_lastActivityTime = millis();
+    return this->AT->setName(name);
+}
+
+/**
+ * Set the password of the bluetooth module
+ * 
+ * @param password to apply
+ * @return true if password is correctly set, false otherwise
+ */
+bool Extension_Bluetooth::setPassword(String password)
+{
+    if (!this->_isStarted) return false;
+    this->_lastActivityTime = millis();
+    return this->AT->setPassword(password);
+}
+
+/**
+ * Set the bluetooth speed communication
+ * 
+ * @param baudrate speed to apply (in baud per seconds)
+ */
+bool Extension_Bluetooth::setBaud(unsigned long baudrate)
+{
+    if (!this->_isStarted) return false;
+    this->_lastActivityTime = millis();
+    return this->AT->setBaud(baudrate);
+}
+
+
+
+/* 
+ * =============================================================================================================================================
+ *                                  INSTRUCTIONS FUNCTIONS
+ * =============================================================================================================================================
+ */
+
 
 /**
  * Check if the bluetooth instruction received is a valid hackberry bluetooth instruction.
@@ -95,8 +251,9 @@ void Routine_bluetooth::checkActivity(unsigned long delayBeforeStop)
  * @see Routine_bluetooth#servoInstruction
  * @see Routine_bluetooth#sensorInstruction
  */
-void Routine_bluetooth::decodeInstruction(int command, String message)
+void Extension_Bluetooth::decodeInstruction(int command, String message)
 {
+    if (!this->_isStarted) return;
     this->generalInstruction(command,message);
     this->servoInstruction(command,message);
     this->sensorInstruction(command,message);
@@ -110,7 +267,7 @@ void Routine_bluetooth::decodeInstruction(int command, String message)
  * @param command command to check and execute (if possible)
  * @param message whole message received, which can contain the command parameters
  */
-void Routine_bluetooth::generalInstruction(int command, String message)
+void Extension_Bluetooth::generalInstruction(int command, String message)
 {
     bool isPasswordSet = false;
     switch(command)
@@ -128,7 +285,7 @@ void Routine_bluetooth::generalInstruction(int command, String message)
         * ----------------------------------------------------------------
         */
         case CMD_GEN_TEST:
-            this->hand->bluetooth.send("OK");
+            this->send("OK");
         break;
 
         /*
@@ -145,12 +302,12 @@ void Routine_bluetooth::generalInstruction(int command, String message)
         * ----------------------------------------------------------------
         */
         case  CMD_GEN_SET_PASS: 
-            isPasswordSet =  this->hand->bluetooth.setPassword(message);
-            this->hand->bluetooth.send(isPasswordSet ? '1':'0');
+            isPasswordSet =  this->setPassword(message);
+            this->send(isPasswordSet ? '1':'0');
         break;
 
         case  CMD_GEN_SET_NAME:
-            this->hand->bluetooth.setName(message); 
+            this->setName(message); 
         break;
 
         case  CMD_GEN_STOP: 
@@ -173,7 +330,7 @@ void Routine_bluetooth::generalInstruction(int command, String message)
  * @param command command to check and execute (if possible)
  * @param message whole message received, which can contain the command parameters
  */
-void Routine_bluetooth::servoInstruction(int command, String message)
+void Extension_Bluetooth::servoInstruction(int command, String message)
 {
     int targetMember = 0;
     int degree = 0;
@@ -230,7 +387,7 @@ void Routine_bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = this->hand->eeprom.GetMaxServo(targetMember);
-                this->hand->bluetooth.send(value);
+                this->send(value);
             }
         }
          break;
@@ -241,7 +398,7 @@ void Routine_bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = this->hand->eeprom.GetMinServo(targetMember);
-                this->hand->bluetooth.send(value);
+                this->send(value);
             }
         }
          break;
@@ -259,7 +416,7 @@ void Routine_bluetooth::servoInstruction(int command, String message)
         case  CMD_SRV_GET_HAND:
         {
             int value = (this->hand->eeprom.GetHand() == RIGHT_HAND) ? 1:0;
-            this->hand->bluetooth.send(value);
+            this->send(value);
         }
          break;
 
@@ -273,7 +430,7 @@ void Routine_bluetooth::servoInstruction(int command, String message)
 
         case  CMD_SRV_GET_SPEED:
                 speed = this->hand->servos.getSpeed();
-                this->hand->bluetooth.send(speed);
+                this->send(speed);
          break;
 
         case  CMD_SRV_TEST:
@@ -291,14 +448,14 @@ void Routine_bluetooth::servoInstruction(int command, String message)
  * @param command command to check and execute (if possible)
  * @param message whole message received, which can contain the command parameters
  */
-void Routine_bluetooth::sensorInstruction(int command, String message)
+void Extension_Bluetooth::sensorInstruction(int command, String message)
 {
     switch(command)
     {
         case  CMD_SENS_GET_VALUE:
         {
             int value = this->hand->sensor.readAverage();
-            this->hand->bluetooth.send(value);
+            this->send(value);
         } 
          break;
 
@@ -313,7 +470,7 @@ void Routine_bluetooth::sensorInstruction(int command, String message)
         case  CMD_SENS_GET_TYPE:
         {
             int value = this->hand->eeprom.GetSensorType();
-            this->hand->bluetooth.send(value);
+            this->send(value);
         }
          break;
 

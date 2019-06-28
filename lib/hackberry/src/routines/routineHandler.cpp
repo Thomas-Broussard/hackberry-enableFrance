@@ -20,7 +20,6 @@
  * Constructor : instantiate all routines
  */
 RoutineHandler::RoutineHandler() : 
-    bluetooth(),
     buttons(),
     moves(),
     batteryMonitoring(),
@@ -39,12 +38,9 @@ void RoutineHandler::init(Hackberry_hand *hand)
     this->calibration_sensor.init(hand);
     this->calibration_servos.init(hand);
 
-    // routine with specific drivers only
+    // routine for specific drivers only
     #ifdef BATTERY_MONITORING_ENABLED
         this->batteryMonitoring.init(hand);
     #endif
 
-    #ifdef BLUETOOTH_ENABLED
-        this->bluetooth.init(hand);
-    #endif
 }

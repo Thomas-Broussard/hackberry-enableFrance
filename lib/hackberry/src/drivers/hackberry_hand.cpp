@@ -26,10 +26,7 @@ Hackberry_hand::Hackberry_hand() :
     eeprom(),
 
     // Specific Drivers
-    battery(),
-
-    // Extension board Drivers
-    bluetooth()
+    battery()
 {}
 
 /**

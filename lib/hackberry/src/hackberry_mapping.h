@@ -37,7 +37,6 @@
 
     // Sensor
     #define PIN_SENSOR_1        A1
-    //#define PIN_SENSOR_2        UNDEFINED
 
     // Buttons
     #define PIN_BUTTON_CALIB    A6

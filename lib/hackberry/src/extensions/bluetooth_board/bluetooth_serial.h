@@ -22,45 +22,15 @@
 #include <SoftwareSerial.h>
 
 
-class BluetoothData
+class BluetoothSerial
 {
     private: 
-        SoftwareSerial *_BTSerial;
-        bool _enable = false;
+        SoftwareSerial *Serial;
 
     public:
-        BluetoothData(SoftwareSerial *BTSerial)
+        BluetoothSerial(SoftwareSerial *BTSerial)
         {
-            this->_BTSerial = BTSerial;
-        }
-
-        /* 
-        * =============================================================================================================================================
-        *                                  START / STOP  FUNCTIONS
-        * =============================================================================================================================================
-        */
-
-       /**
-        * enable the bluetooth module
-        */
-        void start() {
-            this->_enable = true;
-        }
-
-        /**
-        * disable the bluetooth module
-        */
-        void stop() {
-            this->_enable = false;
-        }
-
-        /**
-        * check if bluetooth module is enabled
-        * 
-        * @return true if enabled, false otherwise
-        */
-        bool isEnabled() {
-            return this->_enable ;
+            this->Serial = BTSerial;
         }
 
         /* 
@@ -68,6 +38,15 @@ class BluetoothData
         *                                  SEND FUNCTIONS
         * =============================================================================================================================================
         */
+        /**
+        * start serial communication with bluetooth module
+        *  
+        * @param c character to send
+        */
+        void begin(unsigned int baudrate)
+        {
+            this->Serial->begin(baudrate);
+        }
 
         /**
         *  send character through bluetooth emitter
@@ -76,8 +55,7 @@ class BluetoothData
         */
         void send(char c)
         {
-            if (!this->_enable) return;
-            this->_BTSerial->write(c);
+            this->Serial->write(c);
         }
 
         /**
@@ -87,10 +65,9 @@ class BluetoothData
         */
         void send(String message)
         {
-            if (!this->_enable) return;
             for (unsigned int i = 0; i < message.length(); i++)
             {
-                this->_BTSerial->write(message.charAt(i));
+                this->Serial->write(message.charAt(i));
             }
         }
 
@@ -101,11 +78,9 @@ class BluetoothData
         */
         void send(int message)
         {
-            if (!this->_enable) return;
             this->send(String(message));
         }
 
-        
         /* 
         * =============================================================================================================================================
         *                                  RECEIVE FUNCTIONS
@@ -119,14 +94,12 @@ class BluetoothData
         */
         String receive()
         {
-            if (!this->_enable) return "";
-            
             String message = "";
-            while (this->_BTSerial->available() > 0) 
+            while (this->Serial->available() > 0) 
             {
                 delay(10);
-                if (this->_BTSerial->available() > 0) {
-                    char c = this->_BTSerial->read();  //gets one byte from serial buffer
+                if (this->Serial->available() > 0) {
+                    char c = this->Serial->read();  //gets one byte from serial buffer
                     message += c; //makes the string readString
                 }
             }
