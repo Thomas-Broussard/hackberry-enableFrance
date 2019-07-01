@@ -67,8 +67,11 @@ enum Hackberry_Mode
 {
     Standard,
     SensorCalibration, 
-    ServosCalibration
+    ServosCalibration,
+    Sleep
 };
+
+
 
 
 

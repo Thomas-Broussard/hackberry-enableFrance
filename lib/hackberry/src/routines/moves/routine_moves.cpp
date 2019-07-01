@@ -25,6 +25,8 @@ void Routine_moves::init(Hackberry_hand *hand)
     this->lastMoveTime = millis();
 }
 
+
+// TODO : replace relative moves by absolute moves
 void Routine_moves::execute()
 {
     if(this->hand->getMode() != Standard) return;

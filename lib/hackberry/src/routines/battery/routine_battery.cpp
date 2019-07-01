@@ -31,6 +31,7 @@ void Routine_battery::execute()
     if (batteryLevel < LOW_BATTERY_LEVEL)
     {
         // TODO : complete here
+        this->hand->setMode(Sleep); // If battery is low , put it in sleep mode
     }
 }
 
