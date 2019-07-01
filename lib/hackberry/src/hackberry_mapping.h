@@ -30,7 +30,6 @@
 #define HACKBERRY_BOARD MK2
 
 // Available boards :
-#define MK1     1 // not used now
 #define MK2     2
 #define MK3     3
 
@@ -77,13 +76,7 @@
 *                                  MAPPINGS
 * ====================================================================================
 */
-#if   HACKBERRY_BOARD == MK1
-
-    // not implemented yet 
-    // resources for later : 
-    // https://github.com/mission-arm/HACKberry/blob/v0.0/HACKberry-software/HACKberry_v1/HACKBerry_v1/HACKBerry_v1.ino
-
-#elif HACKBERRY_BOARD == MK2
+#if HACKBERRY_BOARD == MK2
 
     // Servomotors
     #define PIN_THUMB           9
