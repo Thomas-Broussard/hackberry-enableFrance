@@ -39,7 +39,7 @@
 // -----------------------------------------------
 // Select your extension board here (optional)
 // -----------------------------------------------
-#define EXTENSION_BOARD NO_EXTENSION
+#define EXTENSION_BOARD BLUETOOTH_BOARD
 
 // Available extensions :
 #define NO_EXTENSION        0

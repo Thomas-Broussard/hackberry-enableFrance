@@ -40,6 +40,10 @@
 #define RIGHT_HAND true
 #define LEFT_HAND false
 
+// Servomotors selection
+#define THUMB   1
+#define INDEX   2
+#define FINGERS  3
 
 // LIST OF EXISTING SENSORS
 #define TYPE_IR_SENSOR 0
@@ -52,13 +56,6 @@
 
 // General 
 #define UNDEFINED -1
-
-// ---------------------------------------------------
-// Constants for servomotor
-// ---------------------------------------------------
-#define THUMB   1
-#define INDEX   2
-#define FINGERS  3
 
 /**
  * List of operating modes for the hackberry hand

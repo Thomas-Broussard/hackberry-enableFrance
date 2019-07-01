@@ -21,6 +21,7 @@
 #include <SoftwareSerial.h>
 
 #include "hackberry_global.h"
+#include "hackberry_mapping.h"
 #include "drivers/hackberry_hand.h"
 
 #include "bluetooth_serial.h"
@@ -30,14 +31,20 @@
 #define PARSECHAR  ';'
 #define ACTIVITY_TIME 600 // seconds
 
-#define DATA_MODE true
-#define AT_MODE false
-
-#define PIN_BLUETOOTH_RX 3
-#define PIN_BLUETOOTH_TX 4
-#define PIN_BLUETOOTH_POWER A3
-
 #define BLUETOOTH_BAUDRATE 38400
+
+// WARNING : Bluetooth can't be used with Debug print on MK2 !  
+#if HACKBERRY_BOARD == MK2
+    #define PIN_BLUETOOTH_RX 1
+    #define PIN_BLUETOOTH_TX 0
+    #define PIN_BLUETOOTH_POWER A3
+
+#elif HACKBERRY_BOARD == MK3
+    #define PIN_BLUETOOTH_RX 3
+    #define PIN_BLUETOOTH_TX 4
+    #define PIN_BLUETOOTH_POWER A3
+
+#endif
 
 // class
 class Extension_Bluetooth{
