@@ -55,7 +55,7 @@ class ISensor
 class AnalogSensor : public ISensor
 {
     public:
-        IRSensor(unsigned char pin)
+        AnalogSensor(unsigned char pin)
         {
             this->_pinSensor = pin;  
             pinMode(_pinSensor, INPUT);
