@@ -26,6 +26,11 @@ typedef struct {
     unsigned long magicWord;
 
     char        selectedHand;  // Selected hand (RIGHT or LEFT)
+    
+    unsigned char majorVersion;
+    unsigned char minorVersion;
+    unsigned char patchVersion;
+
     unsigned char servoSpeed;    // Speed of servomotor (between 0 and 255)
 
     unsigned char thumbMin;      // between 0 and 180°

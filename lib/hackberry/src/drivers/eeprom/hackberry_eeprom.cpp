@@ -54,6 +54,21 @@ void Hackberry_eeprom::ChangeHand()
 }
 
 
+void Hackberry_eeprom::SetVersion(unsigned char major, unsigned char minor, unsigned char patch)
+{
+    this->eepromUtils->writeChar(ADDR(majorVersion),major);
+    this->eepromUtils->writeChar(ADDR(minorVersion),major);
+    this->eepromUtils->writeChar(ADDR(patchVersion),major);
+}
+
+
+void Hackberry_eeprom::GetVersion(unsigned char *major, unsigned char *minor, unsigned char *patch)
+{
+    *major = this->eepromUtils->readChar(ADDR(majorVersion));
+    *minor = this->eepromUtils->readChar(ADDR(minorVersion));
+    *patch = this->eepromUtils->readChar(ADDR(patchVersion));
+}
+
 /**
  * Save the minimum position of a servomotor in the eeprom 
  * @param member THUMB, INDEX or FINGERS 

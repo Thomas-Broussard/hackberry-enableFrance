@@ -32,6 +32,9 @@ void Routine_eeprom_init::init(Hackberry_hand *hand)
         this->loadDefaultParameters();
     }
 
+    // Software Version
+    this->hand->eeprom.SetVersion(MAJOR_VERSION,MINOR_VERSION,PATCH_VERSION);
+
     // Servomotors
     this->initHand();
     this->initServos(THUMB);
