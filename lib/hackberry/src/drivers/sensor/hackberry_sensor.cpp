@@ -82,11 +82,8 @@ void Hackberry_sensor::setSensorType(unsigned char sensorType)
     switch(sensorType)
     {
         case TYPE_IR_SENSOR:
-            this->_sensor = new IRSensor(pin1);
-        break;
-
         case TYPE_EMG_SENSOR:
-            //this->_sensor = new IRSensor(pin1);
+            this->_sensor = new AnalogSensor(pin1);
         break;
 
         default:
