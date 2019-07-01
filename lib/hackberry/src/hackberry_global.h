@@ -20,22 +20,6 @@
 #define MINOR_VERSION 1
 #define PATCH_VERSION 1
 
-
-// DEBUG MODE
-#define DEBUG_ENABLED
-
-#ifdef DEBUG_ENABLED
-    #define DebugPrint(x) Serial.print(x)
-    #define DebugPrintln(x) Serial.println(x)
-    #define DebugBegin(x) Serial.begin(x)
-#else
-    #define DebugPrint(x) 
-    #define DebugPrintln(x) 
-    #define DebugBegin(x) 
-#endif
-
-
-
 // Hand Selection
 #define RIGHT_HAND true
 #define LEFT_HAND false

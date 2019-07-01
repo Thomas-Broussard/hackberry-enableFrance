@@ -47,6 +47,27 @@
 #define LEDS_BOARD          2
 #define BLUETOOTH_BOARD     3
 
+
+/* 
+* ====================================================================================
+*                                  DEBUG MODE
+* ====================================================================================
+*/
+// DEBUG MODE
+#define DEBUG_ENABLED
+
+// debug mode can't be enabled for Mk2 board if bluetooth extension is already active
+#if defined(DEBUG_ENABLED) && ( (EXTENSION_BOARD != BLUETOOTH_BOARD) || (HACKBERRY_BOARD != MK2) )
+    #define DebugPrint(x) Serial.print(x)
+    #define DebugPrintln(x) Serial.println(x)
+    #define DebugBegin(x) Serial.begin(x)
+#else
+    #define DebugPrint(x) 
+    #define DebugPrintln(x) 
+    #define DebugBegin(x) 
+#endif
+
+
 /* 
 * ====================================================================================
 *                                  MAPPINGS
@@ -101,7 +122,6 @@
     #define PIN_BATTERY         A6
     
 #endif
-
 
 
 /* 
