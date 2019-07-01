@@ -18,7 +18,7 @@
 
 // Dependencies
 #include <Arduino.h>
-#include "hackberry_global.h"
+#include "hackberry_mapping.h"
 
 //#include "dependencies/VarSpeedServo.h"
 #include "dependencies/ServoCC.h"

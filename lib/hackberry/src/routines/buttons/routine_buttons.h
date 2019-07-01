@@ -17,7 +17,7 @@
 
 // dependencies
 #include <Arduino.h>
-#include "hackberry_global.h"
+#include "hackberry_mapping.h"
 #include "drivers/hackberry_hand.h"
 
 #define DEBOUNCE_DELAY 1000 // delay (ms) between two action on the same button, to avoid mechanical and physical button issues during transition

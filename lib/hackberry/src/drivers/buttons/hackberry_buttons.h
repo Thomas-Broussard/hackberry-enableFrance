@@ -21,7 +21,7 @@
 
 // dependencies
 #include <Arduino.h>
-#include "hackberry_global.h"
+#include "hackberry_mapping.h"
 
 #define NB_BUTTONS 4 // Number of buttons on Hackberry hand
 

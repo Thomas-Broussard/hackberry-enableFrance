@@ -22,7 +22,7 @@
 
 #include "eeprom_utils.h"
 #include "eeprom_map.h"
-#include "hackberry_global.h"
+#include "hackberry_mapping.h"
  
 
 // class

@@ -18,7 +18,7 @@
 
 // dependencies
 #include <Arduino.h>
-#include "hackberry_global.h"
+#include "hackberry_mapping.h"
 #include "drivers/hackberry_hand.h"
 
 #define STEP 5
