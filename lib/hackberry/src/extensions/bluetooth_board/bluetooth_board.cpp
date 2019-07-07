@@ -54,6 +54,13 @@ void Extension_Bluetooth::init(Hackberry_hand *hand)
  */
 void Extension_Bluetooth::execute()
 {
+    if (this->hand->getMode() == Bluetooth && !this->_isStarted){
+        this->start();
+    }
+    else if (this->hand->getMode() != Bluetooth && this->_isStarted){
+        this->stop();
+    }
+    
     if (!this->_isStarted) return;
 
     String messageReceived = this->receive();
@@ -86,6 +93,7 @@ void Extension_Bluetooth::start()
     this->_lastActivityTime = millis();
     this->AT->setBaud(38400);
     this->_isStarted = true;
+    this->hand->setMode(Bluetooth);
 }
 
 /**
@@ -100,6 +108,7 @@ void Extension_Bluetooth::stop()
     #endif
 
     this->_isStarted = false;
+    this->hand->setMode(Standard);
 }
 
 /**
@@ -182,6 +191,7 @@ String Extension_Bluetooth::receive()
     }
     else
     {
+        this->BT->send(messageReceived);
         this->_lastActivityTime = millis();
         return  messageReceived;
     }
@@ -434,6 +444,15 @@ void Extension_Bluetooth::servoInstruction(int command, String message)
          break;
 
         case  CMD_SRV_TEST:
+         break;
+
+         case  CMD_SRV_MOVE:
+            if (paramExist(message,1) && paramExist(message,2))
+                {
+                    targetMember = getParam(message,1).toInt();
+                    degree += getParam(message,2).toInt();
+                    this->hand->servos.move(targetMember,degree);
+                }
          break;
 
         default:break;

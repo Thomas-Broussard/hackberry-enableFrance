@@ -14,7 +14,7 @@
  */
 
 // in case of evolution, please modify the MAGIC_WORD value
-#define MAGIC_WORD 0xABCD // this word is present at the beginning of the memory
+#define MAGIC_WORD 0xABCE // this word is present at the beginning of the memory
 
 /**
  * Structure representing the EEPROM memory of the Hackberry board. 

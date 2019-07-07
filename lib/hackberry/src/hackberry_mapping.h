@@ -173,7 +173,8 @@ enum Hackberry_Mode
     Standard,
     SensorCalibration, 
     ServosCalibration,
-    Sleep
+    Sleep,
+    Bluetooth
 };
 
 

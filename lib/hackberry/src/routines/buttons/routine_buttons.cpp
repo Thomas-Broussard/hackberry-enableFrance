@@ -199,7 +199,7 @@ void Routine_buttons::actionThumb()
 
 /**
  * Action executed when Thumb button is pressed for a long time
- * 
+ * button for extension boards
  */
 void Routine_buttons::longActionThumb()
 {
@@ -207,8 +207,20 @@ void Routine_buttons::longActionThumb()
 
     switch (this->hand->getMode())
     {
+        
         case Standard:
-            // TODO : enable/disable extension board ??? 
+            #if EXTENSION_BOARD == BLUETOOTH_BOARD
+                this->hand->setMode(Bluetooth);
+            #endif
+            break;
+
+        case Bluetooth:
+            #if EXTENSION_BOARD == BLUETOOTH_BOARD
+                this->hand->setMode(Standard);
+            #endif
+            break;
+             
+
         default:break;
     }
 }

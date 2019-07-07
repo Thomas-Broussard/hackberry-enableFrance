@@ -49,7 +49,7 @@ void Hackberry_hand::init()
 
     // init specific drivers
     #ifdef BATTERY_MONITORING_ENABLED
-        this->hand.battery.init(PIN_BATTERY);
+        this->battery.init(PIN_BATTERY);
     #endif
 }
 

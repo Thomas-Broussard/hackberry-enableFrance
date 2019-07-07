@@ -30,31 +30,10 @@
 
 Hackberry hackberry;
 
-// function call
-void setPriorities();
-
 // Scheduler (Priority order : critical > high > runner)
 Scheduler runner;
 Scheduler highPriority;
 Scheduler criticalPriority;
-
-/* 
- * =============================================================================================
- *                                  MAIN PROGRAM
- * =============================================================================================
- */
-void setup() 
-{
-  
-  DebugBegin(9600);
-  hackberry.init();
-  setPriorities();
-}
-
-void loop() 
-{  
-  runner.execute();
-}
 
 /* 
  * =============================================================================================
@@ -179,3 +158,27 @@ Task TaskCalibration(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration, &c
 
 // end of Extension choice
 #endif
+
+
+/* 
+ * =============================================================================================
+ *                                  MAIN PROGRAM
+ * =============================================================================================
+ */
+void setup() 
+{
+  DebugBegin(38400);
+  hackberry.init();
+  hackberry.hand.eeprom.printMemoryContent();
+
+  #if EXTENSION_BOARD == BLUETOOTH_BOARD
+  bluetooth.init(&hackberry.hand);
+  //bluetooth.start();
+  #endif
+  setPriorities();
+}
+
+void loop() 
+{  
+  runner.execute();
+}
