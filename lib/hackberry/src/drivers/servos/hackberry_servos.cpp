@@ -138,6 +138,7 @@ unsigned char  Hackberry_servos::getSpeed(){
  * @param position Desired position for the member
  */
 void Hackberry_servos::move(unsigned char member, int position) {
+    
     unsigned char finalPosition = 0;
     switch (member) 
     {
@@ -496,7 +497,7 @@ unsigned int Hackberry_servos::readMeasure(unsigned char member)
  * @param lim2 second limit value
  * @return value framed between min and max
  */
-unsigned char Hackberry_servos::framePosition(unsigned char value, unsigned char lim1, unsigned char lim2) {
+unsigned char Hackberry_servos::framePosition(int value, unsigned char lim1, unsigned char lim2) {
     unsigned char min = (lim1 < lim2) ? lim1 : lim2;
     unsigned char max = (lim1 > lim2) ? lim1 : lim2;
     return constrain(value,min,max);

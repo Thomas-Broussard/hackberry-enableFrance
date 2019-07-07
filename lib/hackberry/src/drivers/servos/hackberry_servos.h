@@ -152,7 +152,7 @@ class Hackberry_servos{
         void moveServo(unsigned char member, unsigned char wantedPosition);
         
         // utils
-        unsigned char framePosition(unsigned char value, unsigned char lim1, unsigned char lim2);
+        unsigned char framePosition(int value, unsigned char lim1, unsigned char lim2);
 };
 
 
