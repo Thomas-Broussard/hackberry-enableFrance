@@ -63,6 +63,7 @@ class Extension_Bluetooth{
         void send(char c);
         void send(String message);
         void send(int message);
+
         String receive();
         
         // AT commands
@@ -85,6 +86,10 @@ class Extension_Bluetooth{
         void generalInstruction(int command, String message);
         void servoInstruction(int command, String message);
         void sensorInstruction(int command, String message);
+
+        void resp(int cmd, String message);
+        void resp(int cmd, int message);
+        void resp(int cmd, char message);
 };
 
 // External functions
