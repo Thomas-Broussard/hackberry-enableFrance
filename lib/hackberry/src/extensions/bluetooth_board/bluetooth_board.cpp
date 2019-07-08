@@ -67,9 +67,6 @@ void Extension_Bluetooth::execute()
     this->checkActivity(ACTIVITY_TIME);
     if (messageReceived.length() <= 1) return;
 
-    DebugPrint(F("[BT] Receive : "));
-    DebugPrintln(messageReceived);
-    
     int command = ParseString(messageReceived,PARSECHAR, 0).toInt();
     this->decodeInstruction(command,messageReceived);
 }
