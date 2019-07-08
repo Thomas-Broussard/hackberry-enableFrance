@@ -83,9 +83,9 @@ class Extension_Bluetooth{
 
         void checkActivity(unsigned long delayBeforeStop);
         void decodeInstruction(int command, String message);
-        void generalInstruction(int command, String message);
-        void servoInstruction(int command, String message);
-        void sensorInstruction(int command, String message);
+        bool generalInstruction(int command, String message);
+        bool servoInstruction(int command, String message);
+        bool sensorInstruction(int command, String message);
 
         void resp(int cmd, String message);
         void resp(int cmd, int message);

@@ -174,17 +174,17 @@ void Extension_Bluetooth::send(int message)
 
 void Extension_Bluetooth::resp(int cmd, int message)
 {
-    this->send((String) cmd + PARSECHAR + message);
+    this->send((String) cmd + PARSECHAR + message + "\r\n");
 }
 
 void Extension_Bluetooth::resp(int cmd, String message)
 {
-    this->send((String) cmd + PARSECHAR + message);
+    this->send((String) cmd + PARSECHAR + message + "\r\n");
 }
 
 void Extension_Bluetooth::resp(int cmd, char message)
 {
-    this->send((String) cmd + PARSECHAR + message);
+    this->send((String) cmd + PARSECHAR + message + "\r\n");
 }
 
 /**
@@ -206,7 +206,6 @@ String Extension_Bluetooth::receive()
     }
     else
     {
-        this->BT->send(messageReceived);
         this->_lastActivityTime = millis();
         return  messageReceived;
     }
@@ -279,9 +278,9 @@ bool Extension_Bluetooth::setBaud(unsigned long baudrate)
 void Extension_Bluetooth::decodeInstruction(int command, String message)
 {
     if (!this->_isStarted) return;
-    this->generalInstruction(command,message);
-    this->servoInstruction(command,message);
-    this->sensorInstruction(command,message);
+    if(!this->generalInstruction(command,message))
+    if(!this->servoInstruction(command,message))
+        this->sensorInstruction(command,message);
 }
 
 
@@ -292,7 +291,7 @@ void Extension_Bluetooth::decodeInstruction(int command, String message)
  * @param command command to check and execute (if possible)
  * @param message whole message received, which can contain the command parameters
  */
-void Extension_Bluetooth::generalInstruction(int command, String message)
+bool Extension_Bluetooth::generalInstruction(int command, String message)
 {
     bool isPasswordSet = false;
     switch(command)
@@ -344,8 +343,10 @@ void Extension_Bluetooth::generalInstruction(int command, String message)
             this->start();
         break;
 
-        default:break;
+        default: return false;
+        break;
     }
+    return true;
 }
 
 /**
@@ -355,7 +356,7 @@ void Extension_Bluetooth::generalInstruction(int command, String message)
  * @param command command to check and execute (if possible)
  * @param message whole message received, which can contain the command parameters
  */
-void Extension_Bluetooth::servoInstruction(int command, String message)
+bool Extension_Bluetooth::servoInstruction(int command, String message)
 {
     int targetMember = 0;
     int degree = 0;
@@ -363,6 +364,16 @@ void Extension_Bluetooth::servoInstruction(int command, String message)
 
     switch(command)
     {
+
+        case  CMD_SRV_MOVE:
+            if (paramExist(message,1) && paramExist(message,2))
+                {
+                    targetMember = getParam(message,1).toInt();
+                    degree = getParam(message,2).toInt();
+                    this->hand->servos.move(targetMember,degree);
+                }
+         break;
+
         case  CMD_SRV_MOVE_UP: 
             if (paramExist(message,1) && paramExist(message,2))
             {
@@ -460,17 +471,12 @@ void Extension_Bluetooth::servoInstruction(int command, String message)
         case  CMD_SRV_TEST:
          break;
 
-         case  CMD_SRV_MOVE:
-            if (paramExist(message,1) && paramExist(message,2))
-                {
-                    targetMember = getParam(message,1).toInt();
-                    degree += getParam(message,2).toInt();
-                    this->hand->servos.move(targetMember,degree);
-                }
-         break;
+         
 
-        default:break;
+        default: return false;
+        break;
     }
+    return true;
 }
 
 
@@ -481,7 +487,7 @@ void Extension_Bluetooth::servoInstruction(int command, String message)
  * @param command command to check and execute (if possible)
  * @param message whole message received, which can contain the command parameters
  */
-void Extension_Bluetooth::sensorInstruction(int command, String message)
+bool Extension_Bluetooth::sensorInstruction(int command, String message)
 {
     switch(command)
     {
@@ -512,8 +518,10 @@ void Extension_Bluetooth::sensorInstruction(int command, String message)
             //this->hand->sensor.calibrate();
          break;
 
-        default:break;
+        default: return false;
+        break;
     }
+    return true;
 }
 
 
