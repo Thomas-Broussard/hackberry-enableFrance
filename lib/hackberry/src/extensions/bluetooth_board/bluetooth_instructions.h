@@ -49,6 +49,10 @@
 	#define CMD_SRV_CALIB_UP 	16 	// move up the servomotor (calibration only).
 	#define CMD_SRV_CALIB_DOWN 	17 	// move down the servomotor (calibration only).
 	#define CMD_SRV_CALIB_OK 	18 	// validate the position of servomotor (calibration only).
+    #define CMD_SRV_SET_SPEED   19
+    #define CMD_SRV_GET_SPEED   20
+    #define CMD_SRV_TEST        21
+    #define CMD_SRV_MOVE        22
 
 //-----------------------------------
 //COMMAND LIST SENS
