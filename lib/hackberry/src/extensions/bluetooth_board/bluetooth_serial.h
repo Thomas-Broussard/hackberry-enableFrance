@@ -19,18 +19,15 @@
 
 // Dependencies
 #include <Arduino.h>
-#include <SoftwareSerial.h>
 
 
 class BluetoothSerial
 {
     private: 
-        SoftwareSerial *Serial;
 
     public:
-        BluetoothSerial(SoftwareSerial *BTSerial)
+        BluetoothSerial()
         {
-            this->Serial = BTSerial;
         }
 
         /* 
@@ -45,7 +42,7 @@ class BluetoothSerial
         */
         void begin(unsigned int baudrate)
         {
-            this->Serial->begin(baudrate);
+            Serial.begin(baudrate);
         }
 
         /**
@@ -55,7 +52,7 @@ class BluetoothSerial
         */
         void send(char c)
         {
-            this->Serial->write(c);
+            Serial.print(c);
         }
 
         /**
@@ -65,10 +62,7 @@ class BluetoothSerial
         */
         void send(String message)
         {
-            for (unsigned int i = 0; i < message.length(); i++)
-            {
-                this->Serial->write(message.charAt(i));
-            }
+            Serial.print(message);
         }
 
         /**
@@ -95,11 +89,11 @@ class BluetoothSerial
         String receive()
         {
             String message = "";
-            while (this->Serial->available() > 0) 
+            while (Serial.available() > 0) 
             {
                 delay(10);
-                if (this->Serial->available() > 0) {
-                    char c = this->Serial->read();  //gets one byte from serial buffer
+                if (Serial.available() > 0) {
+                    char c = Serial.read();  //gets one byte from serial buffer
                     message += c; //makes the string readString
                 }
             }

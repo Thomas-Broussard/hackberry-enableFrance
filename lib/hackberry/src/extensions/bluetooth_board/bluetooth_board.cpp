@@ -40,7 +40,7 @@ void Extension_Bluetooth::init(Hackberry_hand *hand)
     #endif
 
     // bluetooth initialization
-    this->BT = new BluetoothSerial(new SoftwareSerial(PIN_BLUETOOTH_TX,PIN_BLUETOOTH_RX));
+    //this->BT = new BluetoothSerial();
     this->BT->begin(38400);
 
     this->AT = new HC06(this->BT);

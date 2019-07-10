@@ -18,7 +18,6 @@
 
 // Dependencies
 #include <Arduino.h>
-#include <SoftwareSerial.h>
 
 #include "hackberry_mapping.h"
 #include "drivers/hackberry_hand.h"
