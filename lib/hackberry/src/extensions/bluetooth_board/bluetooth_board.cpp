@@ -57,7 +57,7 @@ void Extension_Bluetooth::execute()
     if (this->hand->getMode() == Bluetooth && !this->_isStarted){
         this->start();
     }
-    else if (this->hand->getMode() != Bluetooth && this->_isStarted){
+    else if (this->hand->getMode() == Standard && this->_isStarted){
         this->stop();
     }
     
