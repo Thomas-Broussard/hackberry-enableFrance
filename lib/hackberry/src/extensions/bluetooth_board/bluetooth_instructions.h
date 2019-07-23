@@ -34,33 +34,34 @@
 	#define CMD_GEN_RESET 		4 	// reset parameters.
 	#define CMD_GEN_VERSION 	5 	// get version of the current software.
 	#define CMD_GEN_BATTERY 	6 	// get the current level of battery (or -1 if battery can't be read).
+	#define CMD_GEN_BOARD 		7 	// get the name of the main hackberry board.
 
 //-----------------------------------
 //COMMAND LIST SRV
 //-----------------------------------
-	#define CMD_SRV_MOVE 		7 	// move motor to the given position.
-	#define CMD_SRV_MOVE_UP 	8 	// rotation of servomotors clockwise.
-	#define CMD_SRV_MOVE_DOWN 	9 	// rotation of servomotors reverse clockwise.
-	#define CMD_SRV_SAVE_MAX 	10 	// save current position as max limit.
-	#define CMD_SRV_SAVE_MIN 	11 	// save current position as min limit.
-	#define CMD_SRV_LOAD_MAX 	12 	// load max limit value.
-	#define CMD_SRV_LOAD_MIN 	13 	// load min limit value.
-	#define CMD_SRV_SET_HAND 	14 	// set type of hand.
-	#define CMD_SRV_GET_HAND 	15 	// get current type of hand.
-	#define CMD_SRV_CALIB 		16 	// launch servomotor calibration.
-	#define CMD_SRV_CALIB_UP 	17 	// move up the servomotor (calibration only).
-	#define CMD_SRV_CALIB_DOWN 	18 	// move down the servomotor (calibration only).
-	#define CMD_SRV_CALIB_OK 	19 	// validate the position of servomotor (calibration only).
-	#define CMD_SRV_SET_SPEED 	20 	// Set the motors speed.
-	#define CMD_SRV_GET_SPEED 	21 	// Get the motors speed.
-	#define CMD_SRV_TEST 		22 	// Launch the test procedure for motors.
+	#define CMD_SRV_MOVE 		8 	// move motor to the given position.
+	#define CMD_SRV_MOVE_UP 	9 	// rotation of servomotors clockwise.
+	#define CMD_SRV_MOVE_DOWN 	10 	// rotation of servomotors reverse clockwise.
+	#define CMD_SRV_SAVE_MAX 	11 	// save current position as max limit.
+	#define CMD_SRV_SAVE_MIN 	12 	// save current position as min limit.
+	#define CMD_SRV_LOAD_MAX 	13 	// load max limit value.
+	#define CMD_SRV_LOAD_MIN 	14 	// load min limit value.
+	#define CMD_SRV_SET_HAND 	15 	// set type of hand.
+	#define CMD_SRV_GET_HAND 	16 	// get current type of hand.
+	#define CMD_SRV_CALIB 		17 	// launch servomotor calibration.
+	#define CMD_SRV_CALIB_UP 	18 	// move up the servomotor (calibration only).
+	#define CMD_SRV_CALIB_DOWN 	19 	// move down the servomotor (calibration only).
+	#define CMD_SRV_CALIB_OK 	20 	// validate the position of servomotor (calibration only).
+	#define CMD_SRV_SET_SPEED 	21 	// Set the motors speed.
+	#define CMD_SRV_GET_SPEED 	22 	// Get the motors speed.
+	#define CMD_SRV_TEST 		23 	// Launch the test procedure for motors.
 
 //-----------------------------------
 //COMMAND LIST SENS
 //-----------------------------------
-	#define CMD_SENS_GET_VALUE 	23 	// get current sensor value.
-	#define CMD_SENS_SET_TYPE 	24 	// set type of sensor used (IR,EMG,etc…).
-	#define CMD_SENS_GET_TYPE 	25 	// get type of sensor used (IR,EMG,etc…).
-	#define CMD_SENS_CALIB 		26 	// launch sensor calibration.
+	#define CMD_SENS_GET_VALUE 	24 	// get current sensor value.
+	#define CMD_SENS_SET_TYPE 	25 	// set type of sensor used (IR,EMG,etc…).
+	#define CMD_SENS_GET_TYPE 	26 	// get type of sensor used (IR,EMG,etc…).
+	#define CMD_SENS_CALIB 		27 	// launch sensor calibration.
 
 #endif
