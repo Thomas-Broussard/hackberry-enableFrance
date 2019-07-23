@@ -57,8 +57,8 @@ void Hackberry_eeprom::ChangeHand()
 void Hackberry_eeprom::SetVersion(unsigned char major, unsigned char minor, unsigned char patch)
 {
     this->eepromUtils->writeChar(ADDR(majorVersion),major);
-    this->eepromUtils->writeChar(ADDR(minorVersion),major);
-    this->eepromUtils->writeChar(ADDR(patchVersion),major);
+    this->eepromUtils->writeChar(ADDR(minorVersion),minor);
+    this->eepromUtils->writeChar(ADDR(patchVersion),patch);
 }
 
 
