@@ -78,6 +78,7 @@
 */
 #if HACKBERRY_BOARD == MK2
 
+    #define BOARD_NAME          "MK2"
     // Servomotors
     #define PIN_THUMB           9
     #define PIN_INDEX           5
@@ -95,6 +96,7 @@
 
 #elif HACKBERRY_BOARD == MK3
 
+    #define BOARD_NAME          "MK3"
     // Servomotors
     #define PIN_THUMB           9
     #define PIN_INDEX           5
