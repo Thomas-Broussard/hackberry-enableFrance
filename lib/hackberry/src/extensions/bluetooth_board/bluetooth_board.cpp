@@ -340,6 +340,14 @@ bool Extension_Bluetooth::generalInstruction(int command, String message)
             this->start();
         break;
 
+        case CMD_GEN_VERSION:
+            this->resp(CMD_GEN_VERSION, (String) MAJOR_VERSION + "." + MINOR_VERSION + "." + PATCH_VERSION);
+        break;
+
+        case CMD_GEN_BOARD:
+            this->resp(CMD_GEN_BOARD, BOARD_NAME);
+        break;
+
         default: return false;
         break;
     }
