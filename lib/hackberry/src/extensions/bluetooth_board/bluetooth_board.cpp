@@ -348,6 +348,14 @@ bool Extension_Bluetooth::generalInstruction(int command, String message)
             this->resp(CMD_GEN_BOARD, BOARD_NAME);
         break;
 
+        case CMD_GEN_BATTERY:
+            #ifndef BATTERY_MONITORING_ENABLED
+                this->resp(CMD_GEN_BATTERY, "-1");
+            #else
+                this->resp(CMD_GEN_BATTERY, this->hand->battery.read());
+            #endif
+        break;
+
         default: return false;
         break;
     }
