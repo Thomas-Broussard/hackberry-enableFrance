@@ -24,6 +24,7 @@
 #ifndef __BLUETOOTH_INSTRUCTIONS_H__
 #define __BLUETOOTH_INSTRUCTIONS_H__
 
+	#define CMD_ERROR			-1
 //-----------------------------------
 //COMMAND LIST GEN
 //-----------------------------------

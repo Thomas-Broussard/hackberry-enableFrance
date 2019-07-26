@@ -306,7 +306,7 @@ bool Extension_Bluetooth::generalInstruction(int command, String message)
         * ----------------------------------------------------------------
         */
         case CMD_GEN_TEST:
-            this->resp(CMD_GEN_TEST,"OK");
+            this->resp(command,"OK");
         break;
 
         /*
@@ -324,24 +324,27 @@ bool Extension_Bluetooth::generalInstruction(int command, String message)
         */
         case  CMD_GEN_SET_PASS: 
             isPasswordSet =  this->setPassword(message);
-            this->resp(CMD_GEN_SET_PASS, isPasswordSet ?'1':'0');
+            this->resp(command, isPasswordSet ?'1':'0');
         break;
 
         case  CMD_GEN_SET_NAME:
             this->setName(message); 
+            this->resp(command);
         break;
 
         case  CMD_GEN_STOP: 
             this->stop();
+            this->resp(command);
         break;
 
         case  CMD_GEN_RESET: 
             this->stop();
             this->start();
+            this->resp(command);
         break;
 
         case CMD_GEN_VERSION:
-            this->resp(CMD_GEN_VERSION, (String) MAJOR_VERSION + "." + MINOR_VERSION + "." + PATCH_VERSION);
+            this->resp(command, (String) MAJOR_VERSION + "." + MINOR_VERSION + "." + PATCH_VERSION);
         break;
 
         case CMD_GEN_BOARD:
@@ -350,9 +353,9 @@ bool Extension_Bluetooth::generalInstruction(int command, String message)
 
         case CMD_GEN_BATTERY:
             #ifndef BATTERY_MONITORING_ENABLED
-                this->resp(CMD_GEN_BATTERY, "-1");
+                this->resp(command, "-1");
             #else
-                this->resp(CMD_GEN_BATTERY, this->hand->battery.read());
+                this->resp(command, this->hand->battery.read());
             #endif
         break;
 
@@ -377,14 +380,15 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
 
     switch(command)
     {
-
         case  CMD_SRV_MOVE:
             if (paramExist(message,1) && paramExist(message,2))
-                {
-                    targetMember = getParam(message,1).toInt();
-                    degree = getParam(message,2).toInt();
-                    this->hand->servos.move(targetMember,degree);
-                }
+            {
+                targetMember = getParam(message,1).toInt();
+                degree = getParam(message,2).toInt();
+                this->hand->servos.move(targetMember,degree);
+                this->resp(command);
+            }
+            else{this->resp(CMD_ERROR);}
          break;
 
         case  CMD_SRV_MOVE_UP: 
@@ -393,7 +397,9 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
                 targetMember = getParam(message,1).toInt();
                 degree += getParam(message,2).toInt();
                 this->hand->servos.relativeMove(targetMember,degree);
+                this->resp(command);
             }
+            else{this->resp(CMD_ERROR);}
         break;
 
         case  CMD_SRV_MOVE_DOWN: 
@@ -402,7 +408,10 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
                 targetMember = getParam(message,1).toInt();
                 degree -= getParam(message,2).toInt();
                 this->hand->servos.relativeMove(targetMember,degree);
+                this->resp(command);
             }
+            else{this->resp(CMD_ERROR);}
+
         break;
 
         case  CMD_SRV_SAVE_MAX: 
@@ -413,7 +422,9 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
                 int value = getParam(message,2).toInt();
 
                 this->hand->eeprom.SetMaxServo(targetMember,value);
+                this->resp(command);
             }
+            else{this->resp(CMD_ERROR);}
         }
         break;
 
@@ -423,9 +434,10 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = getParam(message,2).toInt();
-
                 this->hand->eeprom.SetMinServo(targetMember,value);
+                this->resp(command);
             }
+            else{this->resp(CMD_ERROR);}
         }
         break;
 
@@ -435,8 +447,9 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = this->hand->eeprom.GetMaxServo(targetMember);
-                this->resp(CMD_SRV_LOAD_MAX,(String)(targetMember + PARSECHAR + value));
+                this->resp(command,(String)(targetMember + PARSECHAR + value));
             }
+            else{this->resp(CMD_ERROR);}
         }
          break;
 
@@ -446,8 +459,9 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = this->hand->eeprom.GetMinServo(targetMember);
-                this->resp(CMD_SRV_LOAD_MIN,(String)(targetMember + PARSECHAR + value));
+                this->resp(command,(String)(targetMember + PARSECHAR + value));
             }
+            else{this->resp(CMD_ERROR);}
         }
          break;
 
@@ -457,14 +471,16 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 int hand = getParam(message,1).toInt();
                 this->hand->eeprom.SetHand((hand == RIGHT_HAND) ? RIGHT_HAND:LEFT_HAND);
+                this->resp(command);
             }
+            else{this->resp(CMD_ERROR);}
         }
          break;
 
         case  CMD_SRV_GET_HAND:
         {
             int value = (this->hand->eeprom.GetHand() == RIGHT_HAND) ? 1:0;
-            this->resp(CMD_SRV_GET_HAND,value);
+            this->resp(command,value);
         }
          break;
 
@@ -473,18 +489,19 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 speed = getParam(message,1).toInt();
                 this->hand->servos.setSpeed(speed);
+                this->resp(command);
             }
+            else{this->resp(CMD_ERROR);}
          break;
 
         case  CMD_SRV_GET_SPEED:
                 speed = this->hand->servos.getSpeed();
-                this->resp(CMD_SRV_GET_SPEED,speed);
+                this->resp(command,speed);
          break;
 
         case  CMD_SRV_TEST:
+            this->resp(command);
          break;
-
-         
 
         default: return false;
         break;
@@ -507,7 +524,7 @@ bool Extension_Bluetooth::sensorInstruction(int command, String message)
         case  CMD_SENS_GET_VALUE:
         {
             int value = this->hand->sensor.readAverage();
-            this->resp(CMD_SENS_GET_VALUE,value);
+            this->resp(command,value);
         } 
          break;
 
@@ -516,19 +533,22 @@ bool Extension_Bluetooth::sensorInstruction(int command, String message)
             {
                 int type = getParam(message,1).toInt();
                 this->hand->eeprom.SetSensorType(type);
+                this->resp(command);
             }
+            else{this->resp(CMD_ERROR);}
          break;
 
         case  CMD_SENS_GET_TYPE:
         {
             int value = this->hand->eeprom.GetSensorType();
-            this->resp(CMD_SENS_GET_TYPE,value);
+            this->resp(command,value);
         }
          break;
 
         case  CMD_SENS_CALIB:
             //this->sensor->calibrate();
             //this->hand->sensor.calibrate();
+            this->resp(command);
          break;
 
         default: return false;
