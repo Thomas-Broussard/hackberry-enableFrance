@@ -53,6 +53,10 @@ class Hackberry_hand
         Hackberry_Mode getMode();
         void setMode(Hackberry_Mode mode);
 
+        // enable/disable Moves
+        void enableMoves(bool enable);
+        bool isMovesEnabled();
+
         // Sensor Calibration mode only
         void startSensorCalibration(Hackberry_Mode modeAfterCalib);
         void stopSensorCalibration();
@@ -69,6 +73,8 @@ class Hackberry_hand
     private:      
         Hackberry_Mode _mode;
         Hackberry_Mode _nextMode = Standard;
+
+        bool _movesEnabled = false;
 
         // Specifics variables
         unsigned long CalibrationSensor_Time; 

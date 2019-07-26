@@ -25,6 +25,7 @@
 #define __BLUETOOTH_INSTRUCTIONS_H__
 
 	#define CMD_ERROR			-1
+	
 //-----------------------------------
 //COMMAND LIST GEN
 //-----------------------------------
@@ -56,13 +57,15 @@
 	#define CMD_SRV_SET_SPEED 	21 	// Set the motors speed.
 	#define CMD_SRV_GET_SPEED 	22 	// Get the motors speed.
 	#define CMD_SRV_TEST 		23 	// Launch the test procedure for motors.
+	#define CMD_SRV_ENABLE 		24 	// enable move drived by sensor.
+	#define CMD_SRV_DISABLE 	25 	// disable move drived by sensor.
 
 //-----------------------------------
 //COMMAND LIST SENS
 //-----------------------------------
-	#define CMD_SENS_GET_VALUE 	24 	// get current sensor value.
-	#define CMD_SENS_SET_TYPE 	25 	// set type of sensor used (IR,EMG,etc…).
-	#define CMD_SENS_GET_TYPE 	26 	// get type of sensor used (IR,EMG,etc…).
-	#define CMD_SENS_CALIB 		27 	// launch sensor calibration.
+	#define CMD_SENS_GET_VALUE 	26 	// get current sensor value.
+	#define CMD_SENS_SET_TYPE 	27 	// set type of sensor used (IR,EMG,etc…).
+	#define CMD_SENS_GET_TYPE 	28 	// get type of sensor used (IR,EMG,etc…).
+	#define CMD_SENS_CALIB 		29 	// launch sensor calibration.
 
 #endif

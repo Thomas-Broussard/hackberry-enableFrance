@@ -29,9 +29,12 @@ void Routine_moves::init(Hackberry_hand *hand)
 // TODO : replace relative moves by absolute moves
 void Routine_moves::execute()
 {
-    if(this->hand->getMode() != Standard) return;
-    if (!this->isMoveExecutable()) return;
+    // conditions to make a move
+    if(this->hand->getMode() != Standard && this->hand->getMode() != Bluetooth) return; // Moves can be done in Standard or Bluetooth mode only
+    if(this->hand->getMode() == Bluetooth && !this->hand->isMovesEnabled()) return; // in Bluetooth mode, Moves need to be enabled
+    if (!this->isMoveExecutable()) return; // Time limit between two moves
     
+    // arrived here, a move will be made
     int sensorValue = this->hand->sensor.readAverage();
     // int degree = STEP_MOVE_DEGREE;
     int degree = this->speedOfMove(sensorValue);

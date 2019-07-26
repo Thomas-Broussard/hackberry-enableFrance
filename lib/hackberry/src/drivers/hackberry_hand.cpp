@@ -64,6 +64,16 @@ void Hackberry_hand::setMode(Hackberry_Mode mode)
     this->_mode = mode;
 }
 
+void Hackberry_hand::enableMoves(bool enable)
+{
+    this->_movesEnabled = enable;
+}
+
+bool Hackberry_hand::isMovesEnabled()
+{
+    return this->_movesEnabled;
+}
+
 
 /* 
 * =============================================================================================================================================

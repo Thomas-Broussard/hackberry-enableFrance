@@ -510,6 +510,16 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             this->resp(command);
          break;
 
+        case CMD_SRV_ENABLE:
+            this->hand->enableMoves(true);
+            this->resp(command);
+        break;
+
+        case CMD_SRV_DISABLE:
+            this->hand->enableMoves(false);
+            this->resp(command);
+        break;
+
         default: return false;
         break;
     }
