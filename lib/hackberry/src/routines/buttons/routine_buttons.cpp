@@ -116,6 +116,7 @@ void Routine_buttons::longActionCalib()
         case Standard :
             DebugPrintln(F("Start Sensor Calib"));
             this->hand->servos.move(INDEX,0);
+            delay(100);
             this->hand->servos.move(INDEX,180);
             this->hand->startSensorCalibration();
         break;

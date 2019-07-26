@@ -355,7 +355,7 @@ bool Extension_Bluetooth::generalInstruction(int command, String message)
         break;
 
         case CMD_GEN_BOARD:
-            this->resp(CMD_GEN_BOARD, BOARD_NAME);
+            this->resp(command, BOARD_NAME);
         break;
 
         case CMD_GEN_BATTERY:
@@ -553,8 +553,11 @@ bool Extension_Bluetooth::sensorInstruction(int command, String message)
          break;
 
         case  CMD_SENS_CALIB:
-            //this->sensor->calibrate();
-            //this->hand->sensor.calibrate();
+            DebugPrintln(F("Start Sensor Calib"));
+            this->hand->servos.move(INDEX,0);
+            delay(100);
+            this->hand->servos.move(INDEX,180);
+            this->hand->startSensorCalibration();
             this->resp(command);
          break;
 
