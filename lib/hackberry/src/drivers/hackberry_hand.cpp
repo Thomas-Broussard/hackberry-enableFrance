@@ -75,8 +75,9 @@ unsigned long Hackberry_hand::getSensorCalibrationTime()
     return this->CalibrationSensor_Time;
 }
 
-void Hackberry_hand::startSensorCalibration()
+void Hackberry_hand::startSensorCalibration(Hackberry_Mode modeAfterCalib)
 {
+    this->_nextMode = modeAfterCalib;
     this->CalibrationSensor_Time = millis();
     this->setMode(SensorCalibration);
 }
@@ -84,8 +85,10 @@ void Hackberry_hand::startSensorCalibration()
 void Hackberry_hand::stopSensorCalibration()
 {
     this->CalibrationSensor_Time = 0;
-    this->setMode(Standard);
+    this->setMode(this->_nextMode);
 }
+
+
 
 
 /* 
@@ -98,8 +101,9 @@ unsigned int Hackberry_hand::getServosCalibrationStep()
     return this->CalibrationServos_Step;
 }
 
-void Hackberry_hand::startServosCalibration()
+void Hackberry_hand::startServosCalibration(Hackberry_Mode modeAfterCalib)
 {
+    this->_nextMode = modeAfterCalib;
     this->CalibrationServos_Step = 1;
     this->setMode(ServosCalibration);
 }
@@ -112,5 +116,5 @@ void Hackberry_hand::nextServosCalibration()
 void Hackberry_hand::stopServosCalibration()
 {
     this->CalibrationServos_Step = 0;
-    this->setMode(Standard);
+    this->setMode(this->_nextMode);
 }

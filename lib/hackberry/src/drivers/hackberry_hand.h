@@ -54,20 +54,21 @@ class Hackberry_hand
         void setMode(Hackberry_Mode mode);
 
         // Sensor Calibration mode only
-        void startSensorCalibration();
+        void startSensorCalibration(Hackberry_Mode modeAfterCalib);
         void stopSensorCalibration();
         bool isSensorCalibrationEnabled();    
         unsigned long getSensorCalibrationTime();
 
         // Servos Calibration mode only
         unsigned int getServosCalibrationStep();
-        void startServosCalibration();
+        void startServosCalibration(Hackberry_Mode modeAfterCalib);
         void nextServosCalibration();
         void stopServosCalibration();
 
 
     private:      
         Hackberry_Mode _mode;
+        Hackberry_Mode _nextMode = Standard;
 
         // Specifics variables
         unsigned long CalibrationSensor_Time; 

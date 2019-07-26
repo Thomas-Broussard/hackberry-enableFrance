@@ -118,7 +118,7 @@ void Routine_buttons::longActionCalib()
             this->hand->servos.move(INDEX,0);
             delay(100);
             this->hand->servos.move(INDEX,180);
-            this->hand->startSensorCalibration();
+            this->hand->startSensorCalibration(Standard);
         break;
 
         default:break;
@@ -158,8 +158,9 @@ void Routine_buttons::longActionExtra()
         case Standard :
             DebugPrintln(F("Start Servos Calib"));
             this->hand->servos.move(FINGERS,0);
+            delay(100);
             this->hand->servos.move(FINGERS,180);
-            this->hand->startServosCalibration();
+            this->hand->startServosCalibration(Standard);
         break;
 
         default:break;

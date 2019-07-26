@@ -50,7 +50,6 @@ void Routine_calibration_sensor::execute()
  */
 void Routine_calibration_sensor::checkCalibrationEnd(unsigned long delayBeforeStop_ms)
 {
-    
     if ((millis() - this->hand->getSensorCalibrationTime()) >= delayBeforeStop_ms)
     {
         this->hand->stopSensorCalibration();

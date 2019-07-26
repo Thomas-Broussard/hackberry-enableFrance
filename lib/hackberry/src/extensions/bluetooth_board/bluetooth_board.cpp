@@ -557,7 +557,7 @@ bool Extension_Bluetooth::sensorInstruction(int command, String message)
             this->hand->servos.move(INDEX,0);
             delay(100);
             this->hand->servos.move(INDEX,180);
-            this->hand->startSensorCalibration();
+            this->hand->startSensorCalibration(Bluetooth);
             this->resp(command);
          break;
 
