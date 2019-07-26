@@ -86,6 +86,7 @@ class Extension_Bluetooth{
         bool servoInstruction(int command, String message);
         bool sensorInstruction(int command, String message);
 
+        void resp(int cmd);
         void resp(int cmd, String message);
         void resp(int cmd, int message);
         void resp(int cmd, char message);

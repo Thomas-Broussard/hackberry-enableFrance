@@ -169,6 +169,11 @@ void Extension_Bluetooth::send(int message)
     //this->_lastActivityTime = millis(); // useless
 }
 
+void Extension_Bluetooth::resp(int cmd)
+{
+    this->send((String) cmd + "\r\n");
+}
+
 void Extension_Bluetooth::resp(int cmd, int message)
 {
     this->send((String) cmd + PARSECHAR + message + "\r\n");
@@ -183,6 +188,8 @@ void Extension_Bluetooth::resp(int cmd, char message)
 {
     this->send((String) cmd + PARSECHAR + message + "\r\n");
 }
+
+
 
 /**
  * check if data are available in buffer of bluetooth receiver
