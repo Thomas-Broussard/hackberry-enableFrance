@@ -136,7 +136,7 @@ Task TaskCalibration(50  * TASK_MILLISECOND, TASK_FOREVER, &Task_Calibration, &c
   {
     bluetooth.execute();
   }
-  Task TaskBluetooth(100 * TASK_MILLISECOND, TASK_FOREVER, &Task_ExtensionBluetooth, &criticalPriority, true); 
+  Task TaskBluetooth(70 * TASK_MILLISECOND, TASK_FOREVER, &Task_ExtensionBluetooth, &criticalPriority, true); 
 
   #pragma message "Bluetooth Extension Board selected"
 
