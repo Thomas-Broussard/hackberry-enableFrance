@@ -22,7 +22,7 @@
 // Version Number
 #define MAJOR_VERSION 1
 #define MINOR_VERSION 2
-#define PATCH_VERSION 0
+#define PATCH_VERSION 1
 
 // -----------------------------------------------
 // Select your Hackberry board here (required)
@@ -42,7 +42,7 @@
 // -----------------------------------------------
 // Select your extension board here (optional)
 // -----------------------------------------------
-#define EXTENSION_BOARD NO_EXTENSION
+#define EXTENSION_BOARD BLUETOOTH_BOARD
 
 // Available extensions :
 #define NO_EXTENSION        0
