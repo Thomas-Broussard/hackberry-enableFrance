@@ -398,29 +398,6 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             else{this->resp(CMD_ERROR);}
          break;
 
-        case  CMD_SRV_MOVE_UP: 
-            if (paramExist(message,1) && paramExist(message,2))
-            {
-                targetMember = getParam(message,1).toInt();
-                degree += getParam(message,2).toInt();
-                this->hand->servos.relativeMove(targetMember,degree);
-                this->resp(command);
-            }
-            else{this->resp(CMD_ERROR);}
-        break;
-
-        case  CMD_SRV_MOVE_DOWN: 
-            if (paramExist(message,1) && paramExist(message,2))
-            {
-                targetMember = getParam(message,1).toInt();
-                degree -= getParam(message,2).toInt();
-                this->hand->servos.relativeMove(targetMember,degree);
-                this->resp(command);
-            }
-            else{this->resp(CMD_ERROR);}
-
-        break;
-
         case  CMD_SRV_SAVE_MAX: 
         {
             if (paramExist(message,1) && paramExist(message,2))
@@ -501,7 +478,7 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             else{this->resp(CMD_ERROR);}
          break;
 
-        case  CMD_SRV_GET_SPEED:
+         case CMD_SRV_GET_SPEED:
                 speed = this->hand->servos.getSpeed();
                 this->resp(command,speed);
          break;
@@ -563,7 +540,7 @@ bool Extension_Bluetooth::sensorInstruction(int command, String message)
          break;
 
         case  CMD_SENS_CALIB:
-            DebugPrintln(F("Start Sensor Calib"));
+            //DebugPrintln(F("Start Sensor Calib"));
             this->hand->servos.move(INDEX,0);
             delay(100);
             this->hand->servos.move(INDEX,180);
