@@ -129,7 +129,7 @@
 * ====================================================================================
 */
 #ifndef HACKBERRY_BOARD
-    #error No Board defined - Please select the Hackberry Board version (example : "#define HACKBERRY_BOARD MK2")
+    #error No Board defined - Please select the Hackberry Board version (example : "HACKBERRY_BOARD MK2")
 #endif
 
 #if HACKBERRY_BOARD == MK1
