@@ -105,7 +105,7 @@ class Hackberry_servos{
         void forceRelativeClose(unsigned char member, int degree);
 
         // Positions of fingers
-        void setLimitPositions(unsigned char  member, unsigned char limit1, unsigned char limit2);
+        void setLimitPositions(unsigned char  member, int limit1, int limit2);
 
         unsigned char  getPosition(unsigned char member);
         unsigned char  getOpenPosition(unsigned char  member);
@@ -151,15 +151,15 @@ class Hackberry_servos{
         unsigned char _speed = DEFAULT_SPEED;
 
         // limit of movements
-        unsigned char _openThumb , _closedThumb;
-        unsigned char _openIndex , _closedIndex;
-        unsigned char _openFingers , _closedFingers;
+        int _openThumb , _closedThumb;
+        int _openIndex , _closedIndex;
+        int _openFingers , _closedFingers;
 
         // servomotor move
-        void moveServo(unsigned char member, unsigned char wantedPosition);
+        void moveServo(unsigned char member, int wantedPosition);
         
         // utils
-        unsigned char framePosition(int value, unsigned char lim1, unsigned char lim2);
+        int framePosition(int value, int lim1, int lim2);
 };
 
 

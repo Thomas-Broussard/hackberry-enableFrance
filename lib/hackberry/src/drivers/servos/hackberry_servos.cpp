@@ -145,7 +145,7 @@ unsigned char  Hackberry_servos::getSpeed(){
  */
 void Hackberry_servos::move(unsigned char member, int position) {
     
-    unsigned char finalPosition = 0;
+    int finalPosition = 0;
     switch (member) 
     {
         case INDEX:
@@ -192,7 +192,7 @@ void Hackberry_servos::relativeMove(unsigned char member, int degree)
  */
 void Hackberry_servos::relativeOpen(unsigned char member, int degree) 
 {
-    signed char openDegree =  (this->_selectedHand == RIGHT_HAND) ? degree:-degree;
+    int openDegree =  (this->_selectedHand == RIGHT_HAND) ? degree:-degree;
     this->relativeMove(member,openDegree);
 }
 
@@ -204,7 +204,7 @@ void Hackberry_servos::relativeOpen(unsigned char member, int degree)
  */
 void Hackberry_servos::relativeClose(unsigned char member, int degree) 
 {
-    signed char closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
+    int closeDegree = (this->_selectedHand == RIGHT_HAND) ? -degree:degree;
     this->relativeMove(member,closeDegree);
 }
 
@@ -276,7 +276,7 @@ void Hackberry_servos::closeAll() {
  * @param member Member to move (THUMB, INDEX or FINGERS)
  * @param wantedPosition Position that the servomotor must reach
  */
-void Hackberry_servos::moveServo(unsigned char member, unsigned char wantedPosition) {
+void Hackberry_servos::moveServo(unsigned char member, int wantedPosition) {
     switch (member) 
     {
         case THUMB:
@@ -383,17 +383,17 @@ unsigned char  Hackberry_servos::getClosePosition(unsigned char member){
  * @param member Member required (THUMB, INDEX or FINGERS)
  * @return close position of the member
  */
-void Hackberry_servos::setLimitPositions(unsigned char member, unsigned char limit1, unsigned char limit2)
+void Hackberry_servos::setLimitPositions(unsigned char member, int limit1, int limit2)
 {
     // 1 - define the min and max limit
-    unsigned char frame1 = this->framePosition(limit1,0,180);
-    unsigned char frame2 = this->framePosition(limit2,0,180);
-    unsigned char min = (frame1 < frame2) ? frame1:frame2;
-    unsigned char max = (frame1 > frame2) ? frame1:frame2;
+    int frame1 = this->framePosition(limit1,0,180);
+    int frame2 = this->framePosition(limit2,0,180);
+    int min = (frame1 < frame2) ? frame1:frame2;
+    int max = (frame1 > frame2) ? frame1:frame2;
 
     // 2 - set min and max as open and close position (depending on selected hand)
-    unsigned char open =  (this->_selectedHand == RIGHT_HAND) ? max:min;
-    unsigned char close = (this->_selectedHand == RIGHT_HAND) ? min:max;
+    int open =  (this->_selectedHand == RIGHT_HAND) ? max:min;
+    int close = (this->_selectedHand == RIGHT_HAND) ? min:max;
 
     // 3 - set open and close position to the member
     switch (member) 
@@ -504,9 +504,9 @@ unsigned int Hackberry_servos::readMeasure(unsigned char member)
  * @param lim2 second limit value
  * @return value framed between min and max
  */
-unsigned char Hackberry_servos::framePosition(int value, unsigned char lim1, unsigned char lim2) {
-    unsigned char min = (lim1 < lim2) ? lim1 : lim2;
-    unsigned char max = (lim1 > lim2) ? lim1 : lim2;
+int Hackberry_servos::framePosition(int value, int lim1, int lim2) {
+    int min = (lim1 < lim2) ? lim1 : lim2;
+    int max = (lim1 > lim2) ? lim1 : lim2;
     return constrain(value,min,max);
 }
 
@@ -518,7 +518,7 @@ unsigned char Hackberry_servos::framePosition(int value, unsigned char lim1, uns
  * @param position Desired position for the member
  */
 void Hackberry_servos::forceMove(unsigned char member, int position) {
-    unsigned char finalPosition = constrain(position, 0, 180);
+    int finalPosition = constrain(position, 0, 180);
     this->moveServo(member, finalPosition);
 }
 
