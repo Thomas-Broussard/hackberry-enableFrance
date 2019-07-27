@@ -130,9 +130,16 @@ class Hackberry_servos{
         //unsigned char _pinMeasureThumb; // not used
 
         // Servomotors
-        ServoCC servoIndex;  
-        ServoCC servoThumb;  
-        ServoCC servoFingers; 
+        #ifdef __SERVO_CC_H__
+            ServoCC servoIndex;  
+            ServoCC servoThumb;  
+            ServoCC servoFingers; 
+        #else
+            VarSpeedServo servoIndex;  
+            VarSpeedServo servoThumb;  
+            VarSpeedServo servoFingers; 
+        #endif
+        
 
         // Selected hand (right or left)
         bool _selectedHand = RIGHT_HAND;

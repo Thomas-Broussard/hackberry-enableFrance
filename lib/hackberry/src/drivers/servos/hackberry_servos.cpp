@@ -75,9 +75,15 @@ void Hackberry_servos::init(unsigned char indexPin, unsigned char thumbPin, unsi
     this->setSpeed(DEFAULT_SPEED);
 
     // Link pins with servomotors    
-    this->servoIndex.attach(_pinServoIndex,_pinMeasureIndex);
-    this->servoThumb.attach(_pinServoThumb);
-    this->servoFingers.attach(_pinServoFingers,_pinMeasureIndex);
+    #ifdef __SERVO_CC_H__
+        this->servoIndex.attach(_pinServoIndex,_pinMeasureIndex);
+        this->servoThumb.attach(_pinServoThumb);
+        this->servoFingers.attach(_pinServoFingers,_pinMeasureIndex);
+    #else
+        this->servoIndex.attach(_pinServoIndex);
+        this->servoThumb.attach(_pinServoThumb);
+        this->servoFingers.attach(_pinServoFingers);
+    #endif
     
     // Limit positions of servomotors according to the selected hand
     this->setLimitPositions(THUMB,THUMB_MIN,THUMB_MAX);
@@ -157,6 +163,7 @@ void Hackberry_servos::move(unsigned char member, int position) {
         case FINGERS:
             if (this->_lockFingers) return;
             finalPosition = this->framePosition(position, this->_openFingers, this->_closedFingers);
+            //DebugPrintln((String) "[Fingers] =" + finalPosition + "°");
             this->moveServo(FINGERS, finalPosition);
             break;
 
@@ -524,6 +531,7 @@ void Hackberry_servos::forceMove(unsigned char member, int position) {
 void Hackberry_servos::forceRelativeMove(unsigned char member, int degree) 
 {
     int position = this->getPosition(member) + degree;
+    
     this->forceMove(member,position);
 }
 
