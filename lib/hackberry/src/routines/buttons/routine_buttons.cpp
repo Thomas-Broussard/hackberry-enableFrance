@@ -267,6 +267,7 @@ void Routine_buttons::longActionLock()
     
     switch (this->hand->getMode())
     {
+        case Bluetooth:
         case Standard:
             this->hand->servos.changeHand();
             this->hand->eeprom.ChangeHand();
