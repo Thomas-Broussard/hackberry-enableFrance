@@ -454,7 +454,7 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = this->hand->eeprom.GetMinServo(targetMember);
-                this->resp(command,(String)(targetMember + PARSECHAR + value));
+                this->resp(command,(String) targetMember + PARSECHAR + value);
             }
             else{this->resp(CMD_ERROR);}
         }
@@ -465,7 +465,7 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = this->hand->servos.getPosition(targetMember);//eeprom.GetMinServo(targetMember);
-                this->resp(command,(String)(targetMember + PARSECHAR + value));
+                this->resp(command,(String) targetMember + PARSECHAR + value);
             }
             else{this->resp(CMD_ERROR);}
         break;
