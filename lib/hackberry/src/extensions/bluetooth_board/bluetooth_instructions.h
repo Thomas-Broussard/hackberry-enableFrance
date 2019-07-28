@@ -62,4 +62,9 @@
 	#define CMD_SENS_GET_TYPE 	22 	// get type of sensor used (IR,EMG,etc…).
 	#define CMD_SENS_CALIB 		23 	// launch sensor calibration.
 
+//-----------------------------------
+//COMMAND LIST SRV
+//-----------------------------------
+	#define CMD_SRV_GET_POS 	24 	// get the current position of a servomotor.
+
 #endif

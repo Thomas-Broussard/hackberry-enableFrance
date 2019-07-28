@@ -449,6 +449,16 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
         }
          break;
 
+        case CMD_SRV_GET_POS:
+            if (paramExist(message,1))
+            {
+                targetMember = getParam(message,1).toInt();
+                int value = this->hand->servos.getPosition(targetMember);//eeprom.GetMinServo(targetMember);
+                this->resp(command,(String)(targetMember + PARSECHAR + value));
+            }
+            else{this->resp(CMD_ERROR);}
+        break;
+
         case  CMD_SRV_SET_HAND:
         {
             if (paramExist(message,1))
@@ -496,6 +506,8 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             this->hand->enableMoves(false);
             this->resp(command);
         break;
+
+        
 
         default: return false;
         break;
