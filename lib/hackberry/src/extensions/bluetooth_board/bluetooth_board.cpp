@@ -397,6 +397,17 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             }
             else{this->resp(CMD_ERROR);}
          break;
+        
+        case  CMD_SRV_FORCE_MOVE:
+            if (paramExist(message,1) && paramExist(message,2))
+            {
+                targetMember = getParam(message,1).toInt();
+                degree = getParam(message,2).toInt();
+                this->hand->servos.forceMove(targetMember,degree);
+                this->resp(command);
+            }
+            else{this->resp(CMD_ERROR);}
+         break;
 
         case  CMD_SRV_SAVE_MAX: 
         {

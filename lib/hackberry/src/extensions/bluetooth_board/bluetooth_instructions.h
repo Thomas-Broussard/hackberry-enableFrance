@@ -66,5 +66,6 @@
 //COMMAND LIST SRV
 //-----------------------------------
 	#define CMD_SRV_GET_POS 	24 	// get the current position of a servomotor.
+	#define CMD_SRV_FORCE_MOVE 	25 	// forced move motor to the given position.
 
 #endif
