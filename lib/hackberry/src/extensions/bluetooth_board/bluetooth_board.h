@@ -41,7 +41,6 @@
     #define PIN_BLUETOOTH_RX 3
     #define PIN_BLUETOOTH_TX 4
     #define PIN_BLUETOOTH_POWER A3
-
 #endif
 
 // class

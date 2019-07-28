@@ -415,8 +415,11 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = getParam(message,2).toInt();
-
                 this->hand->eeprom.SetMaxServo(targetMember,value);
+                // set the current limit positions
+                int minServo = this->hand->eeprom.GetMinServo(targetMember);
+                this->hand->servos.setLimitPositions(targetMember,minServo,value);
+                
                 this->resp(command);
             }
             else{this->resp(CMD_ERROR);}
@@ -430,6 +433,10 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
                 targetMember = getParam(message,1).toInt();
                 int value = getParam(message,2).toInt();
                 this->hand->eeprom.SetMinServo(targetMember,value);
+
+                // set the current limit positions
+                int maxServo = this->hand->eeprom.GetMaxServo(targetMember);
+                this->hand->servos.setLimitPositions(targetMember,maxServo,value);
                 this->resp(command);
             }
             else{this->resp(CMD_ERROR);}
@@ -442,7 +449,7 @@ bool Extension_Bluetooth::servoInstruction(int command, String message)
             {
                 targetMember = getParam(message,1).toInt();
                 int value = this->hand->eeprom.GetMaxServo(targetMember);
-                this->resp(command,(String)(targetMember + PARSECHAR + value));
+                this->resp(command,(String)targetMember + PARSECHAR + value);
             }
             else{this->resp(CMD_ERROR);}
         }
