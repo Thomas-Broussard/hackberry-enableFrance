@@ -42,7 +42,7 @@
 // -----------------------------------------------
 // Select your extension board here (optional)
 // -----------------------------------------------
-#define EXTENSION_BOARD BLUETOOTH_BOARD
+#define EXTENSION_BOARD NO_EXTENSION
 
 // Available extensions :
 #define NO_EXTENSION        0
@@ -84,6 +84,9 @@
     #define PIN_INDEX           5
     #define PIN_FINGERS         6
 
+    #define PIN_MEASURE_INDEX   A2
+    #define PIN_MEASURE_FINGERS A3
+
     // Sensor
     #define PIN_SENSOR_1        A1
 
@@ -92,6 +95,9 @@
     #define PIN_BUTTON_EXTRA    A7
     #define PIN_BUTTON_THUMB    A0
     #define PIN_BUTTON_LOCK     10
+
+   // Feedback
+    #define PIN_FEEDBACK         11
 
 
 #elif HACKBERRY_BOARD == MK3
@@ -114,7 +120,6 @@
     #define PIN_BUTTON_EXTRA    7
     #define PIN_BUTTON_THUMB    2
     #define PIN_BUTTON_LOCK     10
-
 
     // Battery
     #define BATTERY_MONITORING_ENABLED
@@ -148,8 +153,8 @@
 */
 
 // Hand Selection
-#define RIGHT_HAND true
-#define LEFT_HAND false
+#define RIGHT_HAND false
+#define LEFT_HAND true
 
 // Servomotors selection
 #define THUMB   1
