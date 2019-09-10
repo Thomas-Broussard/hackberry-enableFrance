@@ -66,7 +66,7 @@ unsigned char Hackberry_battery::readAverage()
  */
 int Hackberry_battery::readRawValue()
 {
-    return analogRead(_pinBattery);
+    return ADC_interruptible::read(_pinBattery);
 }
 
 /**

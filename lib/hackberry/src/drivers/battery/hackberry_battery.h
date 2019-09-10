@@ -18,6 +18,7 @@
 // dependencies
 #include <Arduino.h>
 #include "hackberry_mapping.h"
+#include "../adc/ADC_interruptible.h"
 
 
 // resistors of the voltage divider (see hardware schematics : https://easyeda.com/editor#id=e390bae9b279417c9c5e9cd86d05d3c4)

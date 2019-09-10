@@ -88,7 +88,9 @@ class Hackberry_servos{
 
         // moving fingers
         void move(unsigned char member, int position);
+        void microsMove(unsigned char member, int position);
         
+        void perdixmileRelativeMove(unsigned char member, int perdixmile);
         void relativeMove(unsigned char member, int degree);
         void relativeOpen(unsigned char member, int degree);
         void relativeClose(unsigned char member, int degree);
@@ -154,9 +156,13 @@ class Hackberry_servos{
         int _openThumb , _closedThumb;
         int _openIndex , _closedIndex;
         int _openFingers , _closedFingers;
+        int _openThumbMu , _closedThumbMu;
+        int _openIndexMu , _closedIndexMu;
+        int _openFingersMu , _closedFingersMu;
 
         // servomotor move
         void moveServo(unsigned char member, int wantedPosition);
+        int getMicrosPosition(unsigned char  member);
         
         // utils
         int framePosition(int value, int lim1, int lim2);

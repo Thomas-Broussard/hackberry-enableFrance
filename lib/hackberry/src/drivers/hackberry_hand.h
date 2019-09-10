@@ -28,7 +28,7 @@
 #include "sensor/hackberry_sensor.h"
 #include "eeprom/hackberry_eeprom.h"
 #include "battery/hackberry_battery.h"
-
+#include "adc/ADC_interruptible.h"
 
 
 // class

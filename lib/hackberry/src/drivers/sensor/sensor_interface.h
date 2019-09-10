@@ -21,6 +21,7 @@
 
 // Dependencies
 #include <Arduino.h>
+#include "../adc/ADC_interruptible.h"
 
 /* 
  * =============================================================================================================================================
@@ -63,7 +64,7 @@ class AnalogSensor : public ISensor
 
         int read()
         {
-            return analogRead(_pinSensor);
+            return ADC_interruptible::read(_pinSensor);
         }
 
     private:

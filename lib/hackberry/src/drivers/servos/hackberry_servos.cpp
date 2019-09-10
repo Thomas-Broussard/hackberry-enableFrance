@@ -78,7 +78,7 @@ void Hackberry_servos::init(unsigned char indexPin, unsigned char thumbPin, unsi
     #ifdef __SERVO_CC_H__
         this->servoIndex.attach(_pinServoIndex,_pinMeasureIndex);
         this->servoThumb.attach(_pinServoThumb);
-        this->servoFingers.attach(_pinServoFingers,_pinMeasureIndex);
+        this->servoFingers.attach(_pinServoFingers,_pinMeasureFingers);
     #else
         this->servoIndex.attach(_pinServoIndex);
         this->servoThumb.attach(_pinServoThumb);
@@ -171,7 +171,66 @@ void Hackberry_servos::move(unsigned char member, int position) {
             break;
     }
 }
+/**
+ * Move one of the members of the hand
+ * (Absolute move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param position Desired position for the member on microseconde
+ */
+void Hackberry_servos::microsMove(unsigned char member, int position) {
+    
+    int finalPosition = 0;
+    switch (member) 
+    {
+        case INDEX:
+            if (this->_lockIndex) return;
+            finalPosition = this->framePosition(position, this->_openIndexMu, this->_closedIndexMu);
+            servoIndex.writeMicroseconds(finalPosition);
+            break;
 
+        case THUMB:
+            if (this->_lockThumb) return;
+            finalPosition =this->framePosition(position, this->_openThumbMu, this->_closedThumbMu);
+            servoThumb.writeMicroseconds(finalPosition);
+            break;
+
+        case FINGERS:
+            if (this->_lockFingers) return;
+            finalPosition = this->framePosition(position, this->_openFingersMu, this->_closedFingersMu);
+            servoFingers.writeMicroseconds(finalPosition);
+            break;
+
+        default:
+            break;
+    }
+}
+
+/**
+ * Move one of the members of the hand
+ * (Relative move)
+ * @param membre Member to move  (THUMB, INDEX or FINGERS)
+ * @param perdixmile quantitie of rotation relative to total travel
+ *                  (between -10000 and +10000)
+ */
+void Hackberry_servos::perdixmileRelativeMove(unsigned char member, int perdixmile) 
+{
+    int micros;
+    switch (member) {
+        case THUMB:
+            micros = (long)perdixmile*(long)(_openThumbMu-_closedThumbMu)/10000L;
+            break;
+
+        case INDEX:
+            micros = (long)perdixmile*(long)(_openIndexMu-_closedIndexMu)/10000L;
+            break;
+
+        case FINGERS:
+            micros = (long)perdixmile*(long)(_openFingersMu-_closedFingersMu)/10000L;
+            break;
+    }
+    int position = this->getMicrosPosition(member) + micros; 
+    this->microsMove(member,position);
+}
 /**
  * Move one of the members of the hand
  * (Relative move)
@@ -320,6 +379,32 @@ unsigned char Hackberry_servos::getPosition(unsigned char  member){
             break;
     }
 }
+/**
+ * Get the last pulse width of a servomotor on Microseconde
+ *
+ * @param member Member required (THUMB, INDEX or FINGERS)
+ * @return last pulse width of the member
+ */
+int Hackberry_servos::getMicrosPosition(unsigned char  member){
+    switch (member) 
+    {
+        case INDEX:
+            return servoIndex.readMicroseconds();
+            break;
+
+        case THUMB:
+            return servoThumb.readMicroseconds();
+            break;
+
+        case FINGERS:
+            return servoFingers.readMicroseconds();
+            break;
+
+        default: 
+            return -1; // error code 
+            break;
+    }
+}
 
 /**
  * Get the open position of a servomotor
@@ -401,16 +486,26 @@ void Hackberry_servos::setLimitPositions(unsigned char member, int limit1, int l
         case INDEX:
                 this->_openIndex = open;
                 this->_closedIndex = close;
-            break;
+                this->_openIndexMu = map(open, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+                this->_closedIndexMu = map(close, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+                this->_openIndexMu = map(open, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+                //Println((String) "Index " + this->_openIndex +" ' "+this->_closedIndex+ this->_openIndexMu +" ' "+this->_closedIndexMu );
+           break;
 
         case THUMB:
                 this->_openThumb = open;
                 this->_closedThumb = close;
+                this->_openThumbMu = map(open, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+                this->_closedThumbMu = map(close, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
             break;
 
         case FINGERS:
                 this->_openFingers = open;
                 this->_closedFingers = close;
+                this->_openFingersMu = map(open, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+                this->_closedFingersMu = map(close, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+                //Println((String) "Fingers " + this->_openIndex +" ' "+this->_closedIndex+ this->_openIndexMu +" ' "+this->_closedIndexMu );
+
             break;
 
         default: 

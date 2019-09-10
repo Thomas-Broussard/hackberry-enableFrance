@@ -54,6 +54,8 @@
 #define __SERVO_CC_H__
 
 #include <inttypes.h>
+#include "../../adc/ADC_interruptible.h"
+
 
 /* 
  * Defines for 16 bit timers used with  Servo library 
@@ -95,7 +97,7 @@ typedef struct {
   ServoPin_t Pin;
   volatile unsigned int ticks;
   uint8_t pin_m; //a pin number from 0 to 63
-  uint16_t value;//value read at pin_m
+  volatile uint16_t value;//value read at pin_m
 } servo_t;
 
 class ServoCC

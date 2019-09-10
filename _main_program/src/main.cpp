@@ -16,7 +16,8 @@
  */
 
 // Task Scheduler configuration (must be define before include)
-#define _TASK_SLEEP_ON_IDLE_RUN // Enable sleep mode when tasks aren't running, to save power
+//#define _TASK_SLEEP_ON_IDLE_RUN // Enable sleep mode when tasks aren't running, to save power
+//do not define _TASK_SLEEP_ON_IDLE_RUN () for adc_Interruptible  vork
 #define _TASK_PRIORITY          // Enable the task priority system
 
 
@@ -74,7 +75,7 @@ void Task_Moves()
 {
   hackberry.routine.moves.execute();
 }
-Task T2(10 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves, &runner, true); 
+Task T2(20 * TASK_MILLISECOND, TASK_FOREVER, &Task_Moves, &runner, true); 
 
 
 // --------------------------------

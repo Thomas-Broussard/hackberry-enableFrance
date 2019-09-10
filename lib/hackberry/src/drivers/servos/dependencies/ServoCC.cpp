@@ -34,7 +34,7 @@
 
 //#define NBR_TIMERS        (MAX_SERVOS / SERVOS_PER_TIMER)
 
-static servo_t servos[MAX_SERVOS];                          // static array of servo structures
+static volatile servo_t servos[MAX_SERVOS];                          // static array of servo structures
 static volatile int8_t Channel[_Nbr_16timers ];             // counter for the servo being pulsed for each timer (or -1 if refresh interval)
 
 uint8_t ServoCount = 0;                                     // the total number of attached servos
@@ -77,12 +77,15 @@ static inline void handle_interrupts(timer16_Sequence_t timer, volatile uint16_t
       digitalWrite( SERVO(timer,Channel[timer]).Pin.nbr,HIGH); // its an active channel so pulse it high
       
       // Read measure pin
-      if(SERVO(timer,Channel[timer]).pin_m != UNDEFINED_PIN)//ajout CC
+      int pin_measure = SERVO(timer,Channel[timer]).pin_m;
+      if(pin_measure != UNDEFINED_PIN)//ajout CC
         {
-        SERVO(timer,Channel[timer]).value = analogRead(SERVO(timer,Channel[timer]).pin_m);//ajout CC
-        pinMode(SERVO(timer,Channel[timer]).pin_m, OUTPUT);//ajout CC
-        digitalWrite(SERVO(timer,Channel[timer]).pin_m,LOW);//ajout CC
+        //delayMicroseconds(100);
+        SERVO(timer,Channel[timer]).value = ADC_interruptible::readFromIT(pin_measure);//ajout CC
+        pinMode(pin_measure, OUTPUT);//ajout CC
+        digitalWrite(pin_measure,LOW);//ajout CC
         }
+      else SERVO(timer,Channel[timer]).value = 0;
      }
   }
   else {
