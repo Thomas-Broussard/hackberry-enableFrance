@@ -1,7 +1,7 @@
 /* 
  *  =============================================================================================================================================
  *  Project : Hackberry e-Nable France
- *  Author  : Thomas Broussard
+ *  Authors  : Thomas Broussard, Joël Liénard
  * 
  *  ---------------------------------------------------------------------------------------------------------------------------------------------
  *  Description : Manages the movements of the servomotors according to the muscular activity detected by the sensor
@@ -16,7 +16,7 @@
 
 Routine_moves::Routine_moves()
 {
-
+   
 }
 
 void Routine_moves::init(Hackberry_hand *hand)
@@ -26,34 +26,54 @@ void Routine_moves::init(Hackberry_hand *hand)
 }
 
 
-// TODO : replace relative moves by absolute moves
+
 void Routine_moves::execute()
 {
     // conditions to make a move
     if(this->hand->getMode() != Standard && this->hand->getMode() != Bluetooth) return; // Moves can be done in Standard or Bluetooth mode only
     if(this->hand->getMode() == Bluetooth && !this->hand->isMovesEnabled()) return; // in Bluetooth mode, Moves need to be enabled
-    if (!this->isMoveExecutable()) return; // Time limit between two moves
-    
+    //if (!this->isMoveExecutable()) return; // Time limit between two moves
+    const int pinTEST = LED_BUILTIN;
+    digitalWrite(pinTEST, HIGH);
     // arrived here, a move will be made
     int sensorValue = this->hand->sensor.readAverage();
-    // int degree = STEP_MOVE_DEGREE;
-    int degree = this->speedOfMove(sensorValue);
-
+    int valCurrentI=0;
+    int valCurrentF=0;
+    valCurrentI= this->hand->servos.readMeasure(INDEX);
+    valCurrentF= this->hand->servos.readMeasure(FINGERS);
+    
     // Open hand
-    if (sensorValue < OPEN_THRESHOLD)
-    {
-        this->hand->servos.relativeOpen(FINGERS,degree);
-        this->hand->servos.relativeOpen(INDEX,degree);
-        
+    if (sensorValue < OPEN_THRESHOLD){
+        //this->hand->servos.relativeOpen(FINGERS, 2);
+        //this->hand->servos.relativeOpen(INDEX,2);
+        int speed =  map(sensorValue,OPEN_THRESHOLD,MAX_ADC, 0, STEP_MOVE_MICROS);
+        this->hand->servos.perdixmileRelativeMove(INDEX,  speed);
+        this->hand->servos.perdixmileRelativeMove(FINGERS,  speed);
     }
     // Close Hand
-    else if (sensorValue > CLOSE_THRESHOLD)
-    {
-        this->hand->servos.relativeClose(FINGERS,degree);
-        this->hand->servos.relativeClose(INDEX,degree);
+    else if (sensorValue > CLOSE_THRESHOLD){
+        //this->hand->servos.relativeClose(FINGERS,20);
+        //this->hand->servos.relativeClose(INDEX,20);
+        int speed =  map(sensorValue,CLOSE_THRESHOLD,MAX_ADC, 0, STEP_MOVE_MICROS);
+        int force = map(valCurrentI, 0, 1023, 0, 200);
+        this->hand->servos.perdixmileRelativeMove(INDEX,  speed - force);
+        force = map(valCurrentF, 0, 1023, 0, 200);
+        this->hand->servos.perdixmileRelativeMove(FINGERS,  speed - force);
     }
+    // Feedback
+    {
+      int tmpVal = map(valCurrentI+valCurrentF, 0, 1023, 0, 255);
+      if(tmpVal>255)tmpVal=255;
+      analogWrite(PIN_FEEDBACK,tmpVal);//retour d'effort
+    }
+    {//pour mise au point
+    //Serial.print(valCurrentI);Serial.print(" ,");Serial.println(valCurrentF);
+    int tmpVal = map(valCurrentF+valCurrentI, 0, 2000, 45, 150);
+    this->hand->servos.forceMove(THUMB,tmpVal);//servo Thumb utilisé pour visualiser l'effort
+    }
+    digitalWrite(pinTEST, LOW);
 }
-
+#if(0)
 int Routine_moves::speedOfMove(int sensorValue)
 {
     int result = 0;
@@ -69,11 +89,11 @@ int Routine_moves::speedOfMove(int sensorValue)
 bool Routine_moves::isMoveExecutable()
 {
      // test : one move per X ms
-    if (millis() - this->lastMoveTime > 15)
+    if (millis() - this->lastMoveTime > 20)
     {
         this->lastMoveTime = millis();
         return true;
     }
     return false;
 }
-
+#endif
