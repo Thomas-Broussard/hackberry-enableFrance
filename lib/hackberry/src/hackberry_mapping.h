@@ -87,6 +87,9 @@
     #define PIN_MEASURE_INDEX   A2
     #define PIN_MEASURE_FINGERS A3
 
+    // Servomotor Feedback
+    #define PIN_FEEDBACK         11
+
     // Sensor
     #define PIN_SENSOR_1        A1
 
@@ -96,10 +99,7 @@
     #define PIN_BUTTON_THUMB    A0
     #define PIN_BUTTON_LOCK     10
 
-   // Feedback
-    #define PIN_FEEDBACK         11
-
-
+   
 #elif HACKBERRY_BOARD == MK3
 
     #define BOARD_NAME          "MK3"
@@ -110,6 +110,9 @@
 
     #define PIN_MEASURE_INDEX   A0
     #define PIN_MEASURE_FINGERS A1
+
+    // Servomotor Feedback
+    #define PIN_FEEDBACK         11
 
     // Sensor
     #define PIN_SENSOR_1        A7
@@ -124,6 +127,8 @@
     // Battery
     #define BATTERY_MONITORING_ENABLED
     #define PIN_BATTERY         A6
+
+    
     
 #endif
 
@@ -148,13 +153,13 @@
 
 /* 
 * ====================================================================================
-*                                  GLOBAL CONSTANTS
+*                                  GLOBAL CONSTANTS (do not modify them)
 * ====================================================================================
 */
 
-// Hand Selection
-#define RIGHT_HAND false
-#define LEFT_HAND true
+// Hand type 
+#define RIGHT_HAND true
+#define LEFT_HAND false
 
 // Servomotors selection
 #define THUMB   1
