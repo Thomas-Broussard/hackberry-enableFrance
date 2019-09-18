@@ -32,8 +32,7 @@ void Routine_moves::execute()
     // conditions to make a move
     if(this->hand->getMode() != Standard && this->hand->getMode() != Bluetooth) return; // Moves can be done in Standard or Bluetooth mode only
     if(this->hand->getMode() == Bluetooth && !this->hand->isMovesEnabled()) return; // in Bluetooth mode, Moves need to be enabled
-    //if (!this->isMoveExecutable()) return; // Time limit between two moves
-    const int pinTEST = LED_BUILTIN;
+     const int pinTEST = LED_BUILTIN;
     digitalWrite(pinTEST, HIGH);
     // arrived here, a move will be made
     int sensorValue = this->hand->sensor.readAverage();
@@ -44,21 +43,25 @@ void Routine_moves::execute()
     
     // Open hand
     if (sensorValue < OPEN_THRESHOLD){
-        //this->hand->servos.relativeOpen(FINGERS, 2);
-        //this->hand->servos.relativeOpen(INDEX,2);
-        int speed =  map(sensorValue,OPEN_THRESHOLD,MAX_ADC, 0, STEP_MOVE_MICROS);
-        this->hand->servos.perdixmileRelativeMove(INDEX,  speed);
-        this->hand->servos.perdixmileRelativeMove(FINGERS,  speed);
+        //this->hand->servos.relativeOpen(FINGERS, 20);
+        //this->hand->servos.relativeOpen(INDEX,20);
+        
+        int speed =  map(sensorValue,OPEN_THRESHOLD,MAX_ADC, 0, MAX_STEP_MOVE_MICROS);
+        this->hand->servos.perdixmileRelativeMove(INDEX,  -speed);
+        this->hand->servos.perdixmileRelativeMove(FINGERS,  -speed);
+        
     }
     // Close Hand
     else if (sensorValue > CLOSE_THRESHOLD){
-        //this->hand->servos.relativeClose(FINGERS,20);
-        //this->hand->servos.relativeClose(INDEX,20);
-        int speed =  map(sensorValue,CLOSE_THRESHOLD,MAX_ADC, 0, STEP_MOVE_MICROS);
-        int force = map(valCurrentI, 0, 1023, 0, 200);
-        this->hand->servos.perdixmileRelativeMove(INDEX,  speed - force);
-        force = map(valCurrentF, 0, 1023, 0, 200);
-        this->hand->servos.perdixmileRelativeMove(FINGERS,  speed - force);
+        //this->hand->servos.relativeClose(FINGERS,2);
+        //this->hand->servos.relativeClose(INDEX,2);
+        
+        int speed =  map(sensorValue,CLOSE_THRESHOLD,MAX_ADC, 0, MAX_STEP_MOVE_MICROS);
+        int force = map(valCurrentI, 0, 1023, 0, GAIN_FORCE_INDEX);
+        this->hand->servos.perdixmileRelativeMove(INDEX,  -speed + force);
+        force = map(valCurrentF, 0, 1023, 0, GAIN_FORCE_FINGERS);
+        this->hand->servos.perdixmileRelativeMove(FINGERS,  -speed + force);
+        
     }
     // Feedback
     {
@@ -66,11 +69,13 @@ void Routine_moves::execute()
       if(tmpVal>255)tmpVal=255;
       analogWrite(PIN_FEEDBACK,tmpVal);//retour d'effort
     }
+    #if (0)
     {//pour mise au point
     //Serial.print(valCurrentI);Serial.print(" ,");Serial.println(valCurrentF);
     int tmpVal = map(valCurrentF+valCurrentI, 0, 2000, 45, 150);
     this->hand->servos.forceMove(THUMB,tmpVal);//servo Thumb utilisé pour visualiser l'effort
     }
+    #endif
     digitalWrite(pinTEST, LOW);
 }
 #if(0)
@@ -86,14 +91,4 @@ int Routine_moves::speedOfMove(int sensorValue)
     return constrain(result,MIN_STEP_DEGREE ,MAX_STEP_DEGREE);
 }
 
-bool Routine_moves::isMoveExecutable()
-{
-     // test : one move per X ms
-    if (millis() - this->lastMoveTime > 20)
-    {
-        this->lastMoveTime = millis();
-        return true;
-    }
-    return false;
-}
 #endif

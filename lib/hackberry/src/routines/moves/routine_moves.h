@@ -20,7 +20,11 @@
 #include "hackberry_mapping.h"
 #include "drivers/hackberry_hand.h"
 
-#define STEP_MOVE_MICROS 500 // number of microseconds traveled each time the routine is executed
+#define MAX_STEP_MOVE_MICROS 500 // number of microseconds traveled each time the routine
+                                // is executed when sensor max
+#define GAIN_FORCE_INDEX   400
+#define GAIN_FORCE_FINGERS 400
+
 
 /*
 #define STEP_MOVE_DEGREE 5 // number of degrees traveled each time the routine is executed

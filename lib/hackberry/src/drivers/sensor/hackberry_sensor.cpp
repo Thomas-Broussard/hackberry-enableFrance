@@ -43,8 +43,9 @@ void Hackberry_sensor::init(unsigned char pin1, unsigned char pin2, unsigned cha
 int Hackberry_sensor::read()
 {
     int rawValue = this->_sensor->read();
-    int value = map(rawValue, this->_sensorMin, this->_sensorMax, MIN_ADC , MAX_ADC);
-    return constrain(value,MIN_ADC,MAX_ADC);
+    int value = map(rawValue, this->_sensorMin, this->_sensorMax, MAX_ADC , MIN_ADC);
+             //MAX_ADC and MIN_ADC are swapped so that the value is maximum when the sensor is pressed 
+   return constrain(value,MIN_ADC,MAX_ADC);
 }
 
 int Hackberry_sensor::readRaw()
@@ -60,7 +61,8 @@ int Hackberry_sensor::readRaw()
 int Hackberry_sensor::readAverage()
 {
     int rawValue = this->_sensor->readAverage();
-    int value = map(rawValue, this->_sensorMin, this->_sensorMax, MIN_ADC , MAX_ADC);
+    int value = map(rawValue, this->_sensorMin, this->_sensorMax, MAX_ADC , MIN_ADC);
+            //MAX_ADC and MIN_ADC are swapped so that the value is maximum when the sensor is pressed 
     return constrain(value,MIN_ADC,MAX_ADC);
 }
 

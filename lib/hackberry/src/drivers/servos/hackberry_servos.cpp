@@ -114,7 +114,7 @@ bool Hackberry_servos::getHand()
  */ 
 void Hackberry_servos::changeHand()
 {
-    this->_selectedHand = (this->_selectedHand == RIGHT_HAND) ? LEFT_HAND:RIGHT_HAND; 
+    setHand( (this->_selectedHand == RIGHT_HAND) ? LEFT_HAND:RIGHT_HAND);
 }
 
 
@@ -240,7 +240,7 @@ void Hackberry_servos::perdixmileRelativeMove(unsigned char member, int perdixmi
 void Hackberry_servos::relativeMove(unsigned char member, int degree) 
 {
     int position = this->getPosition(member) + degree;
-    this->move(member,position);
+     this->move(member,position);
 }
 
 /**

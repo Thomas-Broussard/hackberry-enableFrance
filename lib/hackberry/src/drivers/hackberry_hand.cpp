@@ -39,6 +39,7 @@ void Hackberry_hand::init()
     // Initialize main drivers
     
     #if HACKBERRY_BOARD <= MK2
+        //TODO paramètrer présence extension controle courant ?
         this->servos.init(PIN_INDEX , PIN_THUMB , PIN_FINGERS, PIN_MEASURE_INDEX , PIN_MEASURE_FINGERS);
        //this->servos.init(PIN_INDEX , PIN_THUMB , PIN_FINGERS);
     #elif HACKBERRY_BOARD >= MK3
