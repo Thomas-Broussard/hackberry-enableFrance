@@ -38,20 +38,29 @@ void Routine_calibration_servos::execute()
     // code executed when calibration is enabled
     if (this->hand->getMode() == ServosCalibration && this->_currentStep == IDLE)
     {
+        this->hand->servos.unlockMember(FINGERS);
         this->start();
     }
 
     // code executed when calibration is in progress
     else if(this->hand->getMode() == ServosCalibration)
     {
+        /* TOTO revoir le but serait de rendre le balyage des positions circulaire
+         donc il faut pour interompre
+        if(this->hand->buttons.isPressed(BUTTON_LOCK))
+        {
+            this->end();
+            return;
+        }
+        */
         int nextStep = this->hand->getServosCalibrationStep();
 
         // next step enabled
         if (this->_currentStep != nextStep)
         {
             this->SaveParamBeforeNextStep();
-
             this->_currentStep = nextStep;
+            this->MoveInitialPosition();
             DebugPrintln(F("Next Calib Step"));
         }
 
@@ -68,13 +77,66 @@ void Routine_calibration_servos::execute()
     }
 
 }
+/***
+* Sets servo to the position that will be adjusted
+*/
 
+void Routine_calibration_servos::MoveInitialPosition()
+{
+    this->hand->servos.openAll();
+    //deactivates all to avoid overload if a position exceeds stop
+    this->hand->servos.activTempo(THUMB,DELAY_TO_DESACTIV);
+    this->hand->servos.activTempo(INDEX,DELAY_TO_DESACTIV);
+    this->hand->servos.activTempo(FINGERS,DELAY_TO_DESACTIV);
+    
+
+    switch(this->_currentStep)
+    {
+        case THUMB_CLOSE :
+            this->hand->servos.close(THUMB);
+            break;
+        case THUMB_OPEN :
+            this->opencloseopen(THUMB);
+            break;
+        case INDEX_CLOSE :
+            this->hand->servos.close(INDEX);
+            break;
+        case INDEX_OPEN :
+            this->opencloseopen(INDEX);
+            break;
+        case FINGERS_CLOSE:     
+            this->hand->servos.close(FINGERS);
+            break;
+        case FINGERS_OPEN :
+            this->opencloseopen(FINGERS);
+            break;
+        default:break;
+    }
+}
+/*
+* pour faire un tramblement du doigt en cours de règlage A REVOIR TODO
+*/
+void Routine_calibration_servos::opencloseopen(int member)
+{
+    this->hand->servos.open(member);
+    delay(100);
+    this->hand->servos.close(member);
+    delay(100);
+    this->hand->servos.open(member);
+    /*
+    delay(50);
+    this->hand->servos.close(member);
+    delay(50);
+    this->hand->servos.open(member);
+    */
+}
 /**
  * Start the calibration sequence
  */
 void Routine_calibration_servos::start()
 {
     this->_currentStep = 1;
+    this->MoveInitialPosition();
 }
 
 
@@ -84,6 +146,9 @@ void Routine_calibration_servos::start()
 void Routine_calibration_servos::end()
 {
     this->_currentStep = IDLE;
+    this->hand->servos.activTempo(THUMB,0);
+    this->hand->servos.activTempo(INDEX,0);
+    this->hand->servos.activTempo(FINGERS,0);
     this->EndCalibServos();
 
     DebugPrintln(F("Servos Calib Finished"));
@@ -107,7 +172,11 @@ void Routine_calibration_servos::end()
 }
 
 void Routine_calibration_servos::calibration()
-{   
+{  
+    this->hand->servos.deactivIfPeriodExp(THUMB);
+    this->hand->servos.deactivIfPeriodExp(INDEX);
+    this->hand->servos.deactivIfPeriodExp(FINGERS);
+ 
     switch(this->_currentStep)
     {
         // STEP 1 :THUMB CALIBRATION
@@ -115,10 +184,12 @@ void Routine_calibration_servos::calibration()
         case THUMB_OPEN :
             if (this->hand->buttons.isPressed(BUTTON_CALIB))
             {
+                this->hand->servos.activTempo(THUMB, DELAY_TO_DESACTIV);
                 this->hand->servos.forceRelativeClose(THUMB,STEP);
             }
             else if (this->hand->buttons.isPressed(BUTTON_THUMB))
             {
+                this->hand->servos.activTempo(THUMB, DELAY_TO_DESACTIV);
                 this->hand->servos.forceRelativeOpen(THUMB,STEP);
             }
         break;
@@ -128,10 +199,12 @@ void Routine_calibration_servos::calibration()
         case INDEX_OPEN :
             if (this->hand->buttons.isPressed(BUTTON_CALIB))
             {
+                this->hand->servos.activTempo(INDEX, DELAY_TO_DESACTIV);
                 this->hand->servos.forceRelativeClose(INDEX,STEP);
             }
             else if (this->hand->buttons.isPressed(BUTTON_THUMB))
             {
+                this->hand->servos.activTempo(INDEX, DELAY_TO_DESACTIV);
                 this->hand->servos.forceRelativeOpen(INDEX,STEP);
             }
         break;
@@ -141,10 +214,12 @@ void Routine_calibration_servos::calibration()
         case FINGERS_OPEN :
             if (this->hand->buttons.isPressed(BUTTON_CALIB))
             {
+                this->hand->servos.activTempo(FINGERS, DELAY_TO_DESACTIV);
                 this->hand->servos.forceRelativeClose(FINGERS,STEP);
             }
             else if (this->hand->buttons.isPressed(BUTTON_THUMB))
             {
+                this->hand->servos.activTempo(FINGERS, DELAY_TO_DESACTIV);
                 this->hand->servos.forceRelativeOpen(FINGERS,STEP);
             }
         break;

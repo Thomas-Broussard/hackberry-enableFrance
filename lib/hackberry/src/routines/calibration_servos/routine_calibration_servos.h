@@ -21,7 +21,7 @@
 #include "hackberry_mapping.h"
 #include "drivers/hackberry_hand.h"
 
-#define STEP 5
+#define STEP 1
 
 enum servosCalibSteps{
     IDLE,
@@ -58,7 +58,8 @@ class Routine_calibration_servos {
         void SaveParamBeforeNextStep();
         void SaveServoParam(int member, unsigned char lim1, unsigned char lim2);
         void EndCalibServos();
-
+        void MoveInitialPosition();
+        void opencloseopen(int member);
 };
 
 #endif

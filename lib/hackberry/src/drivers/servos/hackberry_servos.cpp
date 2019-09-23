@@ -90,6 +90,74 @@ void Hackberry_servos::init(unsigned char indexPin, unsigned char thumbPin, unsi
     this->setLimitPositions(INDEX,INDEX_MIN,INDEX_MAX);
     this->setLimitPositions(FINGERS,FINGERS_MIN,FINGERS_MAX);
 }
+/**
+ * Deactivate servo of "member" if period expired
+ *  period is numer of call this function. It is defined by activTempo()
+ * 
+ * ***/
+    void Hackberry_servos::deactivIfPeriodExp(int member)
+    {
+        switch (member)
+        {
+        case THUMB:
+            if(toDesactivThumb){
+                toDesactivThumb--;
+                if(toDesactivThumb==0){ 
+                    this->servoThumb.detach();
+                }
+            }
+            break;
+         case INDEX:
+             if(toDesactivIndex){
+                toDesactivIndex--;
+                if(toDesactivIndex==0){ 
+                    this->servoIndex.detach();
+                }
+            }
+            break;
+         case FINGERS:
+              if(toDesactivFingers){
+                toDesactivFingers--;
+                if(toDesactivFingers==0){ 
+                    this->servoFingers.detach();
+                }
+            }
+            break;
+        
+        default:
+            break;
+        }
+    }
+
+ /****
+ * temporarily activate servo of "member" for an periode
+ *  periode is numer of call of deactivIfDelay()
+ *  if periode == 0,  permanent activation
+ *****/   
+    void Hackberry_servos::activTempo(int member,int periode)
+    {
+        switch (member)
+        {
+        case THUMB:
+            if(! this->servoThumb.attached() ) this->servoThumb.attach(_pinServoThumb);
+            this->toDesactivThumb = periode;
+            break;
+         case INDEX:
+            if(! this->servoIndex.attached() )this->servoIndex.attach(_pinServoIndex,_pinMeasureIndex);
+            this->toDesactivIndex = periode;
+            break;
+         case FINGERS:
+            if(! this->servoFingers.attached() )this->servoFingers.attach(_pinServoFingers,_pinMeasureFingers);
+            this->toDesactivFingers = periode;
+            break;
+        
+        default:
+            break;
+        }    
+    }
+
+
+
 
 /**
  * Set the hand used
@@ -626,7 +694,7 @@ void Hackberry_servos::forceMove(unsigned char member, int position) {
 void Hackberry_servos::forceRelativeMove(unsigned char member, int degree) 
 {
     int position = this->getPosition(member) + degree;
-    
+ 
     this->forceMove(member,position);
 }
 

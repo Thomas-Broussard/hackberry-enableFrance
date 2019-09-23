@@ -64,10 +64,13 @@ void Routine_moves::execute()
         
     }
     // Feedback
-    {
-      int tmpVal = map(valCurrentI+valCurrentF, 0, 1023, 0, 255);
-      if(tmpVal>255)tmpVal=255;
-      analogWrite(PIN_FEEDBACK,tmpVal);//retour d'effort
+    if (sensorValue > CLOSE_THRESHOLD){
+        int tmpVal = map(valCurrentI+valCurrentF, 0, 1023, 0, 255);
+        if(tmpVal>255)tmpVal=255;
+        analogWrite(PIN_FEEDBACK,tmpVal);//retour d'effort
+    }
+    else{
+        analogWrite(PIN_FEEDBACK,0);
     }
     #if (0)
     {//pour mise au point

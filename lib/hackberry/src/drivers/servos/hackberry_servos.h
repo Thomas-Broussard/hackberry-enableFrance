@@ -25,10 +25,10 @@
 
 
 // POSITIONS OF MEMBERS
-#define ANGLE               30
-#define THUMB_INIT_POS      45 
-#define INDEX_INIT_POS      45
-#define FINGERS_INIT_POS    45 
+#define ANGLE               20
+#define THUMB_INIT_POS      90 
+#define INDEX_INIT_POS      90
+#define FINGERS_INIT_POS    90 
 
 //right:open, left:close (temp)
 #define THUMB_MAX           (THUMB_INIT_POS + ANGLE)
@@ -115,12 +115,14 @@ class Hackberry_servos{
 
         void lockMember(unsigned char  member);
         void unlockMember(unsigned char member);
+        void deactivIfPeriodExp(int member);
+        void activTempo(int member,int periode);
 
         // Current Sensor (Mk3 only)
         unsigned int readMeasure(unsigned char member);
+
+
     
-
-
     private:
         // wiring pins
         unsigned char _pinServoIndex;
@@ -160,6 +162,13 @@ class Hackberry_servos{
         int _openIndexMu , _closedIndexMu;
         int _openFingersMu , _closedFingersMu;
 
+        //gestion deactivation
+        int toDesactivThumb=0;
+        int toDesactivIndex=0;
+        int toDesactivFingers=0;
+        
+    #define DELAY_TO_DESACTIV 10
+  
         // servomotor move
         void moveServo(unsigned char member, int wantedPosition);
         int getMicrosPosition(unsigned char  member);
