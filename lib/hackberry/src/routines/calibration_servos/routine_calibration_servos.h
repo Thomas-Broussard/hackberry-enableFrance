@@ -45,11 +45,13 @@ class Routine_calibration_servos {
         void start();
         void end();
         void calibration();
+        void CalibHand(bool hand);
 
     private:
         Hackberry_hand *hand;
         bool calibrationFinished = false;
         int _currentStep = IDLE;
+        bool handCalibActiv = false;
 
         unsigned char limThumb[2];
         unsigned char limIndex[2];

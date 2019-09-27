@@ -123,10 +123,20 @@ void Hackberry_hand::startServosCalibration(Hackberry_Mode modeAfterCalib)
 void Hackberry_hand::nextServosCalibration()
 {
     this->CalibrationServos_Step++;
+    if(this->CalibrationServos_Step == 7)
+    { //circular progression
+        this->CalibrationServos_Step=1;
+    }
 }
 
 void Hackberry_hand::stopServosCalibration()
 {
     this->CalibrationServos_Step = 0;
     this->setMode(this->_nextMode);
+}
+
+void Hackberry_hand::endServosCalibration()
+{
+this->CalibrationServos_Step=7;//servosCalibSteps::END;
+DebugPrintln("endServosCalibration");
 }

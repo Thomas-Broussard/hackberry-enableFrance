@@ -25,20 +25,22 @@
 
 
 // POSITIONS OF MEMBERS
+/*
 #define ANGLE               20
 #define THUMB_INIT_POS      90 
 #define INDEX_INIT_POS      90
 #define FINGERS_INIT_POS    90 
-
+*/
+    /* initialisation of limits close to those of the old software */
 //right:open, left:close (temp)
-#define THUMB_MAX           (THUMB_INIT_POS + ANGLE)
-#define INDEX_MAX           (INDEX_INIT_POS + ANGLE)    
-#define FINGERS_MAX         (FINGERS_INIT_POS + ANGLE)
+#define THUMB_MAX    105       //(THUMB_INIT_POS + ANGLE)
+#define INDEX_MAX    120       //(INDEX_INIT_POS + ANGLE)    
+#define FINGERS_MAX   75      //(FINGERS_INIT_POS + ANGLE)
 
 //right:close, left:open (temp)
-#define THUMB_MIN           (THUMB_INIT_POS - ANGLE) 
-#define INDEX_MIN           (INDEX_INIT_POS - ANGLE)
-#define FINGERS_MIN         (FINGERS_INIT_POS - ANGLE)
+#define THUMB_MIN     20      //(THUMB_INIT_POS - ANGLE) 
+#define INDEX_MIN      20     //(INDEX_INIT_POS - ANGLE)
+#define FINGERS_MIN    20     //(FINGERS_INIT_POS - ANGLE)
 
 
 // INITIAL SPEED OF SERVOMOTOR

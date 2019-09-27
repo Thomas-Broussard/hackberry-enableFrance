@@ -25,7 +25,38 @@ void Routine_buttons::init(Hackberry_hand *hand)
 
 void Routine_buttons::execute()
 {
-    if (this->hand->buttons.isPressed(BUTTON_CALIB))
+    // special function of the buttons at start-up
+    if(this->hand->getMode() == PowerOn)
+    {
+        if (this->hand->buttons.isPressed(BUTTON_EXTRA))
+        {
+            if(millis()>1000){
+                DebugPrintln(F("Start Init&HandChoice"));
+                // TODO this->hand->eeprom.loadDefaultParameters();
+                this->hand->setMode(HandCalibration);
+            }
+            
+        }
+        else if (this->hand->buttons.isPressed(BUTTON_CALIB)
+                && this->hand->buttons.isPressed(BUTTON_THUMB) )
+        {
+            if(millis()>1000)
+            {
+                DebugPrintln(F("Start Servos Calib"));
+                this->hand->servos.move(FINGERS,0);
+                delay(100);
+                this->hand->servos.move(FINGERS,180);
+                this->hand->startServosCalibration(Standard);
+            }
+        }       
+        else
+        {
+            DebugPrintln(F("EndPowerOn"));
+            this->hand->setMode(Standard);
+        }
+    }
+    // standard function of the buttons
+    else if (this->hand->buttons.isPressed(BUTTON_CALIB))
     {
         if (this->isDebounced(&this->lastCalibDebounce, DEBOUNCE_DELAY))
         {
@@ -251,6 +282,9 @@ void Routine_buttons::actionLock()
                 this->hand->servos.lockMember(FINGERS);
                 this->isLockEnabled = true;
             }
+        break;
+        case ServosCalibration : 
+            this->hand->endServosCalibration();       //nextServosCalibration();
         break;
         default:break;
     }

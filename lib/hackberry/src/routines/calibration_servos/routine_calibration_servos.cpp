@@ -17,7 +17,6 @@
 
 Routine_calibration_servos::Routine_calibration_servos()
 {
-
 }
 
 /**
@@ -35,6 +34,29 @@ void Routine_calibration_servos::init(Hackberry_hand *hand)
  */
 void Routine_calibration_servos::execute()
 {
+    if (this->hand->getMode() == HandCalibration)
+    {
+        if(!handCalibActiv)
+        {
+            handCalibActiv=true;
+            this->hand->servos.activTempo(THUMB,DELAY_TO_DESACTIV);
+            this->hand->servos.activTempo(INDEX,DELAY_TO_DESACTIV);
+            this->hand->servos.activTempo(FINGERS,DELAY_TO_DESACTIV);
+        }
+         //deactivates all to avoid overload if a position exceeds stop
+        this->hand->servos.deactivIfPeriodExp(THUMB);
+        this->hand->servos.deactivIfPeriodExp(INDEX);
+        this->hand->servos.deactivIfPeriodExp(FINGERS);
+
+    if (this->hand->buttons.isPressed(BUTTON_CALIB))
+        {
+        CalibHand(RIGHT_HAND);
+        }
+        else if (this->hand->buttons.isPressed(BUTTON_THUMB))
+        {
+        CalibHand(LEFT_HAND);
+        }
+    }
     // code executed when calibration is enabled
     if (this->hand->getMode() == ServosCalibration && this->_currentStep == IDLE)
     {
@@ -136,6 +158,14 @@ void Routine_calibration_servos::opencloseopen(int member)
 void Routine_calibration_servos::start()
 {
     this->_currentStep = 1;
+    //init of temp variables : for OK if end before incompete calibration 
+    this->limFingers[1] = this->hand->servos.getOpenPosition(FINGERS);
+    this->limFingers[0] = this->hand->servos.getClosePosition(FINGERS);
+    this->limThumb[1] = this->hand->servos.getOpenPosition(THUMB);
+    this->limThumb[0] = this->hand->servos.getClosePosition(THUMB);
+    this->limIndex[1] = this->hand->servos.getOpenPosition(INDEX);
+    this->limIndex[0] = this->hand->servos.getClosePosition(INDEX);
+
     this->MoveInitialPosition();
 }
 
@@ -291,4 +321,21 @@ void Routine_calibration_servos::EndCalibServos()
     this->SaveServoParam(THUMB,this->limThumb[0],this->limThumb[1]);
     this->SaveServoParam(INDEX,this->limIndex[0],this->limIndex[1]);
     this->SaveServoParam(FINGERS,this->limFingers[0],this->limFingers[1]);
+}
+void Routine_calibration_servos::CalibHand(bool hand){
+    if(hand != this->hand->servos.getHand())
+    {
+        this->hand->servos.setHand(hand);
+        this->hand->eeprom.SetHand(hand);
+        this->hand->servos.openAll();
+        this->hand->servos.activTempo(THUMB,DELAY_TO_DESACTIV);
+        this->hand->servos.activTempo(INDEX,DELAY_TO_DESACTIV);
+        this->hand->servos.activTempo(FINGERS,DELAY_TO_DESACTIV);
+
+        DebugPrint("change hand:");
+        DebugPrintln(hand);
+    }
+    unsigned char state=(hand==RIGHT_HAND?HIGH:LOW);
+    digitalWrite(LED_BUILTIN, state);
+
 }

@@ -88,7 +88,7 @@ void Task_Calibration()
     case SensorCalibration :
       hackberry.routine.calibration_sensor.execute();  
     break;
-
+    case HandCalibration :
     case ServosCalibration :
       hackberry.routine.calibration_servos.execute(); 
     break;
