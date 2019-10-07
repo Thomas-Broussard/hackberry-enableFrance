@@ -68,8 +68,7 @@ class Hackberry_hand
         void startServosCalibration(Hackberry_Mode modeAfterCalib);
         void nextServosCalibration();
         void stopServosCalibration();
-        void endServosCalibration();
-
+    
     private:      
         Hackberry_Mode _mode = PowerOn;
         Hackberry_Mode _nextMode = Standard;

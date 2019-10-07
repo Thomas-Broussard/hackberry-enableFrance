@@ -177,6 +177,7 @@ void setup()
   //bluetooth.start();
   #endif
   setPriorities();
+  hackberry.hand.servos.openAll();
 }
 
 void loop() 

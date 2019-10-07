@@ -29,7 +29,7 @@ void Routine_eeprom_init::init(Hackberry_hand *hand)
     // Magic Word
     if (!this->hand->eeprom.IsMagicWordCorrect())
     {
-        this->loadDefaultParameters();
+        this->hand->eeprom. loadDefaultParameters();
     }
 
     // Software Version
@@ -78,26 +78,3 @@ void Routine_eeprom_init::initServos(unsigned char member)
 }
 
 
-/**
- * Save the default parameters in the eeprom 
- * Remark : This function is mainly called when the magic word is incorrect, to reformat the eeprom memory.
- */
-void Routine_eeprom_init::loadDefaultParameters()
-{
-    this->hand->eeprom.SetHand(RIGHT_HAND);
-
-    this->hand->eeprom.SetMinServo(THUMB,THUMB_MIN);  
-    this->hand->eeprom.SetMaxServo(THUMB,THUMB_MAX);
-
-    this->hand->eeprom.SetMinServo(INDEX,INDEX_MIN);  
-    this->hand->eeprom.SetMaxServo(INDEX,INDEX_MAX);
-
-    this->hand->eeprom.SetMinServo(FINGERS,FINGERS_MIN);
-    this->hand->eeprom.SetMaxServo(FINGERS,FINGERS_MAX);
-
-    this->hand->eeprom.SetSensorType(TYPE_IR_SENSOR);
-    this->hand->eeprom.SetSensorMin(MIN_ADC);
-    this->hand->eeprom.SetSensorMax(MAX_ADC);
-
-    this->hand->eeprom.SetMagicWord();
-}

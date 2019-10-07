@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 5.1.6.2 (Linux)"/>
+	<meta name="created" content="2019-10-04T17:55:44.801582392"/>
+	<meta name="changed" content="2019-10-07T11:20:46.503916724"/>
+	<style type="text/css">
+		@page { margin: 2cm }
+		p { margin-bottom: 0.25cm; line-height: 120% }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt }
+		h3.cjk { font-family: "Noto Sans CJK SC Regular"; font-size: 14pt }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt }
+		a:link { so-language: zxx }
+	</style>
+</head>
+<body lang="fr-FR" dir="ltr">
+<p align="center" style="margin-top: 0.42cm; margin-bottom: 0.21cm; line-height: 100%; page-break-after: avoid">
+<font face="Liberation Sans, sans-serif"><font size="6" style="font-size: 28pt"><b>Mise
+en route du nouveau logiciel</b></font></font></p>
+<p>Ce logiciel  est utilisable sur Hackberry équipée d’une carte
+MK2 et de l’extension «&nbsp;contrôle du courant&nbsp;» ou d’une
+carte MK3</p>
+<p><i>Note: les numéros des boutons sont à voir sur la <a href="https://raw.githubusercontent.com/Thomas-Broussard/hackberry-enableFrance/master/documentation/Hackberry_Hand_Buttons.png">figure
+</a>(f</i><i><span style="background: #ffff00">aire aussi la figure
+symétrique pour main gauche </span></i><i><span style="background: #ffff00">et
+envisager de faire des figure spécifiques aux modes de réglage</span></i><i>)</i></p>
+<p><br/>
+<br/>
+
+</p>
+<h3 class="western">Transfert du logiciel sur la carte</h3>
+<p>Connecter la carte à l’ordinateur à l’aide d’un câble USB
+équipé d’un connecteur micro-USB.  Ce câble peut être un câble
+utilisé pour la charge de beaucoup de Smartphones. Attention, le
+câble de charge des batteries fourni avec le kit d’assemblage
+Hackberry ne fonctionne pas pour cet usage.</p>
+<p>Ne pas brancher le câble d’alimentation. 
+</p>
+<p>Utiliser le logiciel Xloader ou une ligne commande avrdude <font color="#000000"><b><span style="background: #ffff00">A
+développer</span></b></font></p>
+<h3 class="western">Pré-positionnement des servomoteurs d'une main
+en cours de construction</h3>
+<p><i>Les servomoteurs ne sont pas encore installés. Pour une main
+déjà construite, passer au paragraphe suivant.</i></p>
+<p>Débrancher le câble usb qui à servi au transfert.</p>
+<p>Connecter provisoirement les trois servomoteurs à la carte.</p>
+<p>Brancher le câble d'alimentation par la batterie.</p>
+<p>Maintenir enfoncés les deux boutons 2 (&quot;Extra&quot;) et 
+4(&quot;Lock&quot;) et mettre la carte sous tension en poussant
+l'interrupteur à glissière en direction des doigts. Maintenir les
+deux boutons pendant au moins deux secondes. <font size="2" style="font-size: 10pt">(Note
+: Il n'est pas très facile de faire cette manipulation : c'est
+volontaire, pour éviter de la faire par erreur, ce qui entraînerait
+une réinitialisation </font><font size="2" style="font-size: 10pt">intempestive
+</font><font size="2" style="font-size: 10pt">du logiciel)</font>.
+Vérifier que la LED (<span style="background: #ffff00">vérifier la
+position du carte MK3</span>) verte placée entre du bouton &quot;Extra&quot;
+et l'interrupteur clignote. Sinon mettre la carte hors tension et
+recommencer. (Cette LED est du coté de la carte où sont soudés les
+composants. Dans le cas d'une main gauche, ce sera au dos des
+boutons). Utiliser le bouton 1 (&quot;Calib&quot;) pour configurer
+une main droite ou le bouton 3 (&quot;Thumb&quot;) pour une main
+gauche. La LED verte à coté du bouton central reflète ce
+changement : clignotement rapide pour droit et lent pour gauche.. On
+peut vérifier que les servomoteurs bougent lors du changement main
+gauche/main droite.</p>
+<p>Couper l'alimentation de la carte, débrancher les servomoteurs.
+Sans modifier la position des servos, installer le palonnier du
+servomoteur du pouce et celui des autres doigts (les deux petits
+servos) selon la notice d’assemblage Installer le servo Index (le
+gros) <span style="text-decoration: none">sans le faire tourner en
+plaçant l'index en position </span><span style="text-decoration: none">ouvert.
+</span><span style="text-decoration: none">Terminer la construction
+et rebrancher définitivement les servomoteurs sur la carte.</span></p>
+<p><i><span style="text-decoration: none">I</span><span style="text-decoration: none">l
+n’est pas recommandé de remettre la carte sous tension avant
+d’avoir </span><span style="text-decoration: none">suivi </span><span style="text-decoration: none">la
+procédure de réglage </span><span style="text-decoration: none">des
+postions ext</span><span style="text-decoration: none">r</span><span style="text-decoration: none">êmes
+des doigts.</span><span style="text-decoration: none">.</span></i></p>
+<p><br/>
+<br/>
+
+</p>
+<h3 class="western"><span style="text-decoration: none">Initialisation
+</span><span style="text-decoration: none">et r</span><span style="text-decoration: none">églage
+des position</span><span style="text-decoration: none">s</span><span style="text-decoration: none">
+extrêmes des doigts</span></h3>
+<p><i>Les servomoteurs sont en place, prépositionnés avec l’ancien
+logiciel ou par la procédure du paragraphe précédent. Le câble
+USB n’est pas connecté.</i></p>
+<p>Brancher le câble d'alimentation par la batterie.</p>
+<p style="margin-top: 0.42cm; margin-bottom: 0.21cm; line-height: 100%; page-break-after: avoid">
+<font face="Liberation Sans, sans-serif"><font size="4" style="font-size: 14pt">Initialisation</font></font></p>
+<p>Maintenir enfoncés les deux boutons 2 (&quot;Extra&quot;) et 
+4(&quot;Lock&quot;) et mettre la carte sous tension en poussant
+l'interrupteur à glissière en direction des doigts. Maintenir les
+deux boutons pendant au moins deux secondes. <font size="2" style="font-size: 10pt">(Note
+: Il n'est pas très facile de faire cette manipulation : c'est
+volontaire, pour éviter de la faire par erreur, ce qui entraînerait
+une réinitialisation intempestive du logiciel).</font> Les doigts
+vont bouger. Maintenir les deux boutons pendant au moins deux
+secondes, jusqu'à l'arrêt des mouvements. La LED verte placée
+entre du bouton &quot;Extra&quot; et l'interrupteur doit clignoter
+mais, dans le cas d'une main gauche, elle est au dos et donc sera
+peut visible si la carte est en place. Utiliser le bouton 1 (&quot;Calib&quot;)
+pour configurer une main droite ou le bouton 3 (&quot;Thumb&quot;)
+pour configurer une main gauche. Un changement provoque l'ouverture
+ou la fermeture de tous les doigts. Normalement, si la sélection
+gauche/droite est correcte, les doigts sont ouverts. La LED&nbsp;verte
+reflète ce changement : clignotement rapide pour droit et lent pour
+gauche.</p>
+<p>Passer au réglage des positions extrêmes des doigts par appui du
+bouton 4&nbsp;«&nbsp;&nbsp;Lock&quot;). 
+</p>
+<p style="margin-top: 0.42cm; margin-bottom: 0.21cm; line-height: 100%; page-break-after: avoid">
+<font face="Liberation Sans, sans-serif"><font size="4" style="font-size: 14pt">Réglage
+des positions extrêmes des doigts</font></font></p>
+<p>Tous les doigts sont en position «&nbsp;ouvert&nbsp;».</p>
+<p>Le pouce effectue un léger mouvement pour indiquer que c’est sa
+position qui va être réglée.</p>
+<p>Le bouton 1 ferme déplace le pouce vers la fermeture. Le bouton 3
+le déplace vers l’ouverture.</p>
+<p>Le bouton 2 valide la position obtenue. 
+</p>
+<p>Le pouce se ferme. C’est sa position «&nbsp;fermé&nbsp;»  qui
+va être réglée. Le bouton 1, ferme déplace le pouce vers la
+fermeture. Le bouton 3 vers l’ouverture.</p>
+<p>Le bouton 2 valide la position obtenue. Le pouce s’ouvre. 
+</p>
+<p>L’index effectue un léger mouvement pour indiquer que c’est
+sa position qui va être réglée.</p>
+<p>Et ainsi de suite… 
+</p>
+<p>On règle ainsi successivement les positions «&nbsp;ouvert&nbsp;»
+puis «&nbsp;fermé&nbsp;» du pouce, de l’index, et des autres
+doigts. Puis en revient au pouce. Il est ainsi possible de refaire un
+tour pour vérifier que tout est bien réglé. Prendre garde à ne
+pas régler trop près des butées mécaniques, surtout pour les
+position &quot;ouvert&quot;. Une façon de faire est de déplacer
+jusqu'à buter, puis de revenir légèrement en arrière.</p>
+<p>Quand tout est OK,  couper l'alimentation ou appuyer sur le bouton
+4 pour passer au fonctionnement normal.</p>
+<p>Pendant le fonctionnement normal de la main, il est possible de
+revenir dans cette procédure de réglage des positions extrêmes des
+doigts par un appui long (5 secondes) sur le bouton 3 (&quot;Extra&quot;)</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+</body>
+</html>

@@ -134,9 +134,3 @@ void Hackberry_hand::stopServosCalibration()
     this->CalibrationServos_Step = 0;
     this->setMode(this->_nextMode);
 }
-
-void Hackberry_hand::endServosCalibration()
-{
-this->CalibrationServos_Step=7;//servosCalibSteps::END;
-DebugPrintln("endServosCalibration");
-}

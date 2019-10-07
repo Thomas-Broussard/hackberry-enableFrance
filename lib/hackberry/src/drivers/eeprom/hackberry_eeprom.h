@@ -23,6 +23,8 @@
 #include "eeprom_utils.h"
 #include "eeprom_map.h"
 #include "hackberry_mapping.h"
+#include "../servos/hackberry_servos.h"
+
  
 
 // class
@@ -38,6 +40,8 @@ class Hackberry_eeprom{
 
       void SetVersion(unsigned char major, unsigned char minor, unsigned char patch);
       void GetVersion(unsigned char *major, unsigned char *minor, unsigned char *patch);
+
+      void loadDefaultParameters();
 
       // SERVOMOTORS
       void SetMinServo(unsigned char member, unsigned char value);

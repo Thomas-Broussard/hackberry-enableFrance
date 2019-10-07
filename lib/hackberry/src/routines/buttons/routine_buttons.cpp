@@ -28,17 +28,22 @@ void Routine_buttons::execute()
     // special function of the buttons at start-up
     if(this->hand->getMode() == PowerOn)
     {
-        if (this->hand->buttons.isPressed(BUTTON_EXTRA))
+        if (this->hand->buttons.isPressed(BUTTON_EXTRA)
+            && this->hand->buttons.isPressed(BUTTON_LOCK)
+            && !this->hand->buttons.isPressed(BUTTON_CALIB)
+            && !this->hand->buttons.isPressed(BUTTON_THUMB) )
         {
-            if(millis()>1000){
+            if(millis()>2000){
                 DebugPrintln(F("Start Init&HandChoice"));
-                // TODO this->hand->eeprom.loadDefaultParameters();
+                this->hand->eeprom.loadDefaultParameters();
                 this->hand->setMode(HandCalibration);
             }
-            
         }
+    #if (0)
         else if (this->hand->buttons.isPressed(BUTTON_CALIB)
-                && this->hand->buttons.isPressed(BUTTON_THUMB) )
+                && this->hand->buttons.isPressed(BUTTON_THUMB)
+                && !this->hand->buttons.isPressed(BUTTON_EXTRA)
+                && !this->hand->buttons.isPressed(BUTTON_LOCK ) )
         {
             if(millis()>1000)
             {
@@ -48,7 +53,8 @@ void Routine_buttons::execute()
                 this->hand->servos.move(FINGERS,180);
                 this->hand->startServosCalibration(Standard);
             }
-        }       
+        }
+    #endif       
         else
         {
             DebugPrintln(F("EndPowerOn"));
@@ -283,8 +289,10 @@ void Routine_buttons::actionLock()
                 this->isLockEnabled = true;
             }
         break;
-        case ServosCalibration : 
-            this->hand->endServosCalibration();       //nextServosCalibration();
+        case HandCalibration:
+        {
+            this->hand->startServosCalibration(Standard);
+        }
         break;
         default:break;
     }

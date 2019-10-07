@@ -36,8 +36,6 @@ class Routine_eeprom_init
         void initSensor();
         void initHand();
         void initServos(unsigned char member);
-
-        void loadDefaultParameters();
    
 };
 

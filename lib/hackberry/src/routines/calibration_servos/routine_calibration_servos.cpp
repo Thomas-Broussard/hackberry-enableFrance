@@ -39,10 +39,9 @@ void Routine_calibration_servos::execute()
         if(!handCalibActiv)
         {
             handCalibActiv=true;
-            this->hand->servos.activTempo(THUMB,DELAY_TO_DESACTIV);
-            this->hand->servos.activTempo(INDEX,DELAY_TO_DESACTIV);
-            this->hand->servos.activTempo(FINGERS,DELAY_TO_DESACTIV);
+            CalibHand(RIGHT_HAND);
         }
+        blinking();
          //deactivates all to avoid overload if a position exceeds stop
         this->hand->servos.deactivIfPeriodExp(THUMB);
         this->hand->servos.deactivIfPeriodExp(INDEX);
@@ -57,24 +56,22 @@ void Routine_calibration_servos::execute()
         CalibHand(LEFT_HAND);
         }
     }
-    // code executed when calibration is enabled
+    // code executed when calibration servos is enabled
     if (this->hand->getMode() == ServosCalibration && this->_currentStep == IDLE)
     {
         this->hand->servos.unlockMember(FINGERS);
         this->start();
     }
 
-    // code executed when calibration is in progress
+    // code executed when calibration servos is in progress
     else if(this->hand->getMode() == ServosCalibration)
     {
-        /* TOTO revoir le but serait de rendre le balyage des positions circulaire
-         donc il faut pour interompre
         if(this->hand->buttons.isPressed(BUTTON_LOCK))
         {
             this->end();
             return;
         }
-        */
+        
         int nextStep = this->hand->getServosCalibrationStep();
 
         // next step enabled
@@ -212,12 +209,14 @@ void Routine_calibration_servos::calibration()
         // STEP 1 :THUMB CALIBRATION
         case THUMB_CLOSE :
         case THUMB_OPEN :
-            if (this->hand->buttons.isPressed(BUTTON_CALIB))
+            if (this->hand->buttons.isPressed(BUTTON_CALIB) &&
+                ! this->hand->buttons.isPressed(BUTTON_THUMB) )
             {
                 this->hand->servos.activTempo(THUMB, DELAY_TO_DESACTIV);
                 this->hand->servos.forceRelativeClose(THUMB,STEP);
             }
-            else if (this->hand->buttons.isPressed(BUTTON_THUMB))
+            else if (this->hand->buttons.isPressed(BUTTON_THUMB) &&
+                ! this->hand->buttons.isPressed(BUTTON_CALIB) )
             {
                 this->hand->servos.activTempo(THUMB, DELAY_TO_DESACTIV);
                 this->hand->servos.forceRelativeOpen(THUMB,STEP);
@@ -327,7 +326,13 @@ void Routine_calibration_servos::CalibHand(bool hand){
     {
         this->hand->servos.setHand(hand);
         this->hand->eeprom.SetHand(hand);
+#ifdef _OLD_POSITIONS_
         this->hand->servos.openAll();
+#else
+        this->hand->servos.move(THUMB,THUMB_INIT_POS);
+        this->hand->servos.move(INDEX,INDEX_INIT_POS);
+        this->hand->servos.move(FINGERS,FINGERS_INIT_POS);
+#endif
         this->hand->servos.activTempo(THUMB,DELAY_TO_DESACTIV);
         this->hand->servos.activTempo(INDEX,DELAY_TO_DESACTIV);
         this->hand->servos.activTempo(FINGERS,DELAY_TO_DESACTIV);
@@ -335,7 +340,24 @@ void Routine_calibration_servos::CalibHand(bool hand){
         DebugPrint("change hand:");
         DebugPrintln(hand);
     }
-    unsigned char state=(hand==RIGHT_HAND?HIGH:LOW);
+    /*unsigned char state=(hand==RIGHT_HAND?HIGH:LOW);
     digitalWrite(LED_BUILTIN, state);
+    */
 
+}
+void Routine_calibration_servos::blinking()
+{
+    bool hand = this->hand->servos.getHand();
+    const int RIGHT_HAND_PERIODE = 2;//fast
+    const int LEFT_HAND_PERIODE = 10;//slow
+    //effective preriode(in mS)= 2 * periode * Task_activation_time
+    // if Task_activation_time=50 slow = 50*2*10 = 1000mS -> 1 hertz
+    //                            fast = 50*2*2= 200mS    -> 5 hertz
+    int periode=(hand==RIGHT_HAND? RIGHT_HAND_PERIODE :LEFT_HAND_PERIODE);//task activation * 
+    if( count_blinking++ >= periode)
+    {
+        count_blinking = 0;
+        state_blinking = !state_blinking;
+        digitalWrite(LED_BUILTIN, state_blinking);
+    }
 }
