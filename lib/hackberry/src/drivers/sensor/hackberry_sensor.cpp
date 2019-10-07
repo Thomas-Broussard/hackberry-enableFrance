@@ -62,7 +62,7 @@ int Hackberry_sensor::readAverage()
 {
     int rawValue = this->_sensor->readAverage();
     int value = map(rawValue, this->_sensorMin, this->_sensorMax, MAX_ADC , MIN_ADC);
-            //MAX_ADC and MIN_ADC are swapped so that the value is maximum when the sensor is pressed 
+            //MAX_ADC and MIN_ADC are swapped so that the value is maximum when the sensor is pressed   
     return constrain(value,MIN_ADC,MAX_ADC);
 }
 

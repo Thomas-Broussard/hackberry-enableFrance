@@ -46,7 +46,7 @@ class Routine_calibration_servos {
         void end();
         void calibration();
         void CalibHand(bool hand);
-
+        
     private:
         Hackberry_hand *hand;
         bool calibrationFinished = false;
@@ -56,7 +56,9 @@ class Routine_calibration_servos {
         unsigned char limThumb[2];
         unsigned char limIndex[2];
         unsigned char limFingers[2];
-
+        int count_blinking;
+        bool state_blinking;
+        void blinking();
         void SaveParamBeforeNextStep();
         void SaveServoParam(int member, unsigned char lim1, unsigned char lim2);
         void EndCalibServos();
